@@ -31,6 +31,10 @@ module SpecHelpers
     expect(response.status).to eq(200)
   end
 
+  def expect_404
+    expect(response.status).to eq(404)
+  end
+
   def expect_input_error(input)
     expect(json_body['error']).to_not(
       be_nil,

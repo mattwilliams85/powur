@@ -20,6 +20,9 @@ describe '/invite' do
         last_name:             invite.last_name,
         email:                 invite.email,
         phone:                 '8585551212',
+        address:               '69 Cherry Hill',
+        city:                  'Pleasantville',
+        state:                 'NV',
         zip:                   '92127',
         password:              'password',
         password_confirmation: 'password',
@@ -35,18 +38,11 @@ describe '/invite' do
     it 'requires certain fields' do
       patch invite_path(invite.id)
 
-      expect(json_body['error']).to eq(
-        'type'    => 'input',
-        'message' => 'Please input an email address, Encrypted password is required, First name is required, Last name is required, Password is required, Password must be at least 8 characters.',
-        'input'   => 'email')
+      expect_input_error(:first_name)
     end
 
     context 'when successfully creates user' do
-      let(:mailchimp_response) do
-        {
-          'id': 'abc123'
-        }
-      end
+      let(:mailchimp_response) {{ 'id': 'abc123' }}
 
       before do
         expect(mailchimp_members_api).to receive(:create).with(
@@ -64,9 +60,7 @@ describe '/invite' do
 
       it 'registers a user and associates any outstanding invites' do
         VCR.use_cassette('invite_promoter_association') do
-          patch invite_path(id: invite.id, format: :json),
-                JSON.dump(user_params),
-                'CONTENT_TYPE' => 'application/json'
+          patch invite_path(id: invite.id, format: :json), user_params
         end
 
         expect_200
@@ -91,28 +85,24 @@ describe '/invite/validate' do
     let(:user) { create(:user) }
     let(:invite) { create(:invite, user: user, sponsor: sponsor) }
 
-    it 'returns an invite without an accept action if previously redeemed' do
+    it 'returns not found if previously redeemed' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
       invite.update_attribute(:user_id,  user.id)
 
       get invite_path(invite.id), format: :json
 
-      expect_200
-      expect_props status: 'redeemed'
-      expect(json_body['actions']).to be_nil
+      expect_404
     end
 
-    it 'returns an invite without an accept action if expired' do
+    it 'returns not found if expired' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
       invite.update_attribute(:expires,  (invite.expires -= 2.days))
 
       get invite_path(invite.id), format: :json
 
-      expect_200
-      expect_props status: 'expired'
-      expect(json_body['actions']).to be_nil
+      expect_404
     end
 
     it 'returns an invite when the user has inputted a code' do
