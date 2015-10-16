@@ -30,7 +30,7 @@ md-checkbox .md-container {
 md-tooltip.md-show {
   -webkit-transform: translate3d(0,0,0);
 }
-g
+
 md-tooltip .md-background.md-show {
   -webkit-transform: translate(-50%, -50%) scale(1);
 }
@@ -58,3 +58,44 @@ md-tooltip .md-background.md-show {
   -webkit-flex: 0 0 25%;
   -webkit-box-sizing: border-box;
 }
+
+// toolbar
+ md-toolbar {
+   display: -webkit-flex;
+   -webkit-flex-direction: column;
+ }
+
+ .md-toolbar-tools {
+   display: -webkit-flex;
+   -webkit-flex-direction: row;
+   -webkit-align-items: center;
+ }
+ 
+ .md-sidenav-left.md-closed {
+   -webkit-transform: translate3d(-100%, 0 0);
+ }
+
+// dialog
+md-input-container {
+  display:-webkit-flex;
+  -webkit-flex-direction: column;
+  
+  label {
+    top: -10px;
+  }
+  
+//   label:not(.md-no-float) {
+//     -webkit-order: 1;
+//     -webkit-transform: translate3d(0, 28px, 0) scale(1);
+//     -webkit-transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+//     -webkit-transform: left top;
+//   }
+  
+//   .md-input {
+//     -webkit-order: 2;
+//   }
+}
+
+// md-input-container.md-input-focused:not(.md-no-float) {
+//     -webkit-transform: translate3d(0, 6px, 0) scale(0.75);
+// }
