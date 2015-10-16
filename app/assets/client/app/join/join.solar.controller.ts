@@ -15,7 +15,6 @@ module powur {
       super();
       this.log.debug(JoinSolarController.ControllerId + ':ctor');
 
-      this.validate.field('code').value = this.params.inviteCode;
       if (this.$stateParams['leadData']) {
         this.solarLead = new SirenModel(this.$stateParams['leadData']);
       }
@@ -33,7 +32,7 @@ module powur {
     }
 
     get validate(): Action {
-      return this.session.instance.action('validate_zip');
+      return this.customer.action('validate_zip');
     }
 
     get solarInvite(): Action {
