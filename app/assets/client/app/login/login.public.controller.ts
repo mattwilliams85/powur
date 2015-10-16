@@ -2,6 +2,30 @@
 
 module powur {
   'use strict';
+  class ResetDialogController extends BaseController {
+    static ControllerId: string = 'ResetDialogController';
+    static $inject = ['$mdDialog'];
+    constructor(private $mdDialog: ng.material.IDialogService) {
+      super();
+    }
+
+    cancel() {
+      this.$mdDialog.cancel();
+    }
+
+    get reset(): Action {
+      return this.session.instance.action('reset_password');
+    }
+
+    resetSubmit(): void {
+      this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.cancel();
+      });
+    }
+    
+  }
+
+  controllerModule.controller(ResetDialogController.ControllerId, ResetDialogController);
 
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
@@ -60,9 +84,10 @@ module powur {
     showNewPassword(): ng.IPromise<any> {
       return this.$mdDialog.show({
         templateUrl: 'app/login/reset-password.html',
-        controller: 'LoginPublicController as login',
+        controller: 'ResetDialogController as login',
         parent: angular.element(document.body),
         clickOutsideToClose: true,
+        bindToController: true
       })
     }
     
@@ -72,7 +97,8 @@ module powur {
         controller: 'LoginPublicController as login',
         parent: angular.element(document.body),
         targetEvent: e,
-        clickOutsideToClose: true
+        clickOutsideToClose: true,
+        bindToController: true
       })
     }
 
