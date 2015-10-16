@@ -37,7 +37,7 @@ module powur {
     openTerms(ev: ng.IAngularEvent): void {
       this.$mdDialog.show(<any>{
         controller: 'TermsDialogController as terms',
-        templateUrl: 'app/join/terms.html',
+        templateUrl: 'app/join/trailer.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true

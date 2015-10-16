@@ -23,12 +23,26 @@ $buttonColor: #07b7d1;
     color: $textColor;
     font-family: 'Open Sans';
 
+    md-dialog {
+        width: 90%;
+        max-width: 700px;
+        height: auto;
+        overflow: hidden;
+        background: #000;
+    }
+
     .box {
         width: 90% !important;
         max-width: 650px;
         margin: 7vh;
         position: relative;
         padding-top: 15px;
+        &.pop-up {
+            width: 100% !important;
+            max-width: 100%;
+            margin: 0;
+            padding-top: 0;
+        }
     }
 
     .controls, .sidedock {
@@ -60,7 +74,6 @@ $buttonColor: #07b7d1;
 
         .key-box {
             width: 100%;
-            min-width: 450px;
             margin-bottom: 50px;
             display: block;
         }
@@ -300,14 +313,6 @@ $buttonColor: #07b7d1;
             .trailer .info {
                 font-size: x-small
             }
-            .key-box {
-                min-width: 0;
-                .who {
-                    .detail {
-                        display: none;
-                    }
-                }
-            }
         }
 
         .bg2 {
@@ -324,13 +329,5 @@ $buttonColor: #07b7d1;
             }
         }
 
-    }
-}
-
-@media only screen and (max-height: 47em) {
-    .key-box .who {
-        .detail {
-            display: none;
-        }
     }
 }
