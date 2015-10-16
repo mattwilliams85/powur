@@ -34,7 +34,7 @@ module Anon
     end
 
     def fetch_invite
-      @invite = Invite.find(id: params[:code])
+      @invite = Invite.find(params[:code])
     end
 
     def invite_input
