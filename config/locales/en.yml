@@ -7,6 +7,8 @@ en:
     welcome-new-user: "Welcome to the new #PowurGrid"
     team-leader-downline-certification-purchase: One of your team members is about to upgrade their skills by going Certified
     certification-purchase-processed: Your Powur Certification
+    solar-invite: New technology reduces your electricity bill
+    grid-invite: "Wow, check out the new #PowurGrid"
   valid_email:
     validations:
       email:
