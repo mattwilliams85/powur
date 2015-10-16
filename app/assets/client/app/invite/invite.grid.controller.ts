@@ -29,10 +29,21 @@ module powur {
     static ControllerId = 'InviteGridController';
     static $inject = ['invites', '$mdDialog'];
 
-    available: number;
-    pending: number;
-    accepted: number;
-    expired: number;
+    get available(): number {
+      return this.invites.properties.available_count;
+    }
+
+    get pending(): number {
+      return this.invites.properties.pending_count;
+    }
+
+    get accepted(): number {
+      return this.invites.properties.accepted_count;
+    }
+
+    get expired(): number {
+      return this.invites.properties.expired_count;
+    }
 
     timerColor: string;
 
@@ -41,23 +52,6 @@ module powur {
       super();
 
       this.timerColor = '#2583a8';
-
-      var pending = _.select(this.invites.entities, function(invite) {
-        return invite['properties'].status === 'valid';
-      });
-
-      var accepted = _.select(this.invites.entities, function(invite) {
-        return invite['properties'].status === 'redeemed';
-      });
-
-      var expired = _.select(this.invites.entities, function(invite) {
-        return invite['properties'].status == 'expired';
-      });
-
-      this.available = this.invites.properties.available_count;
-      this.pending = pending.length;
-      this.accepted = accepted.length;
-      this.expired = this.invites.properties.expired_count;
     }
 
     addInvite(e: MouseEvent) {
