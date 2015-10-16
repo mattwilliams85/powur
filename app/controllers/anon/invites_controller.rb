@@ -3,6 +3,8 @@ module Anon
     before_action :fetch_invite, only: [ :update, :validate, :show ]
 
     def update
+      require_input :first_name, :last_name, :password, :address, :city, :state
+
       input = invite_input
 
       # for ToS, we store the version number the user last agreed to
