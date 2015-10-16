@@ -4,11 +4,12 @@
 
     .control-tab{
         background-image:image-url("img/hud-expand-tab.png");
-        top:0px;
+        background-repeat:no-repeat;
+        top:265px;
         position:absolute;
-        right:-14px;
-        width:14px;
-        height:73px;
+        right:0px;
+        width:40px;
+        height:40px;
         outline:none;
     }    
     .heading{
@@ -95,12 +96,14 @@
     overflow:visible;
     
     .control-tab{
-        background-image:image-url("img/hud-collapsed-tab.png");
-        top:0px;
+        background-image:image-url("img/hud-collapse-tab.png");
+        width: 40px;
+        height: 40px;
+        background-position:top center;
+        background-repeat:no-repeat;
+        top:265px;
         position:absolute;
-        right:1px;
-        width:14px;
-        height:73px;
+        right:0px;
         outline:none;
     }    
 
