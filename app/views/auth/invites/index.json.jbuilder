@@ -15,6 +15,6 @@ actions action(:create, :post, request.path)
   .field(:email, :email)
   .field(:first_name, :text)
   .field(:last_name, :text)
-  .field(:phone, :text, required: false) # should we require this?
+  .field(:phone, :text)
 
 self_link request.path
