@@ -17,7 +17,7 @@ md-sidenav.collapsed{
     overflow:visible;
 }
 
-md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar2{
+.hud .stat4 .stat md-progress-linear .md-bar.md-bar2{
     background: #62babf !important; /* Old browsers */
     background: -moz-linear-gradient(left,  #62babf 0%, #29a8dd 100%) !important; /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62babf), color-stop(100%,#29a8dd)) !important; /* Chrome,Safari4+ */
@@ -28,6 +28,18 @@ md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar2{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#62babf', endColorstr='#29a8dd',GradientType=1 ) !important; /* IE6-9 */
 }  
 
-md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar1{
+
+.hud .stat4 .stat:nth-child(2) md-progress-linear .md-bar.md-bar2{
+    background: #f28a30 !important; /* Old browsers */
+    background: -moz-linear-gradient(left,  #f28a30 0%, #f2aa24 100%) !important; /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#f28a30), color-stop(100%,#f2aa24)) !important; /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #f28a30 0%,#f2aa24 100%) !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #f28a30 0%,#f2aa24 100%) !important; /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #f28a30 0%,#f2aa24 100%) !important; /* IE10+ */
+    background: linear-gradient(to right,  #f28a30 0%,#f2aa24 100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f28a30', endColorstr='#f2aa24',GradientType=1 ) !important; /* IE6-9 */
+}  
+
+.hud md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar1{
     background-color:#fff !important;
 }  
