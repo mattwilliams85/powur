@@ -84,4 +84,10 @@
 /// <reference path='app/login/login.private.controller.ts' />
 
 /// <reference path='app/join/terms.controller.ts' />
-/// <reference path='app/join/join.controller.ts' />
+/// <reference path='app/join/join.solar.controller.ts' />
+/// <reference path='app/join/join.grid.controller.ts' />
+
+
+// must be last
+/// <reference path='app/client.config.ts' />
+/// <reference path='app/client.run.ts' />

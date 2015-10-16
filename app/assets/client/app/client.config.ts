@@ -44,14 +44,21 @@ module powur {
         }).state('join.grid', {
           url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid.html',
-          controller: 'JoinController as join',
+          controller: 'JoinGridController as join',
           resolve: {
-            customer: () => {}
+            invite: function($stateParams, $q) {
+              var root = RootController.get();
+              var fail = function(response) {
+                var reason: any = (response.status === 404) ? 'invalid_code' : response;
+                return $q.reject(reason);
+              }
+              return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
+            }
           }
         }).state('join.grid2', {
           url: '/grid',
           templateUrl: 'app/join/join-grid2.html',
-          controller: 'JoinController as join',
+          controller: 'JoinGridController as join',
           params: {
             inviteData: null
           },
@@ -61,7 +68,7 @@ module powur {
         }).state('join.solar', {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar.html',
-          controller: 'JoinController as join',
+          controller: 'JoinSolarController as join',
           resolve: {
             customer: function($stateParams, $q) {
               var root = RootController.get();
@@ -75,7 +82,7 @@ module powur {
         }).state('join.solar2', {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar2.html',
-          controller: 'JoinController as join',
+          controller: 'JoinSolarController as join',
           params: {
             leadData: null
           },
