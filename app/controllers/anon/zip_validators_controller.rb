@@ -3,17 +3,17 @@ module Anon
     before_action :fetch_customer, only: [ :create ]
 
     def create
-      @is_valid = Lead.valid_zip?(params[:zip])
+      require_input :zip
 
-      unless @is_valid
-        @customer.update_attribute(
-          :status,
-          Customer.statuses[:ineligible_location])
+      if Lead.valid_zip?(params[:zip])
+        @is_valid = true
+      else
+        status_value = Customer.statuses[:ineligible_location]
+        @customer.update_attribute(:status, status_value)
+        error!(:invalid_zip, :zip)
       end
-
     rescue RestClient::RequestTimeout => e
       Airbrake.notify(e)
-      # default to true
       @is_valid = true
     end
 

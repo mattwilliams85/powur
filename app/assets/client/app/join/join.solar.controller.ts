@@ -1,55 +1,47 @@
 /// <reference path='../_references.ts' />
 
-//TODO: split solar & grid into seperate controllers
 module powur {
   class JoinSolarController extends BaseController {
     static ControllerId = 'JoinSolarController';
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
-    solarLead: ISirenModel;
+    get params(): any {
+      return this.$stateParams;
+    }
 
+    get validateZipAction(): Action {
+      return this.customer.action('validate_zip');
+    }
+
+    get zip(): Field {
+      return this.validateZipAction.field('zip');
+    }
+
+    get leadAction(): Action {
+      return this.customer.action('submit_lead');
+    }
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
                 private customer: ISirenModel) {
       super();
-      this.log.debug(JoinSolarController.ControllerId + ':ctor');
 
-      if (this.$stateParams['leadData']) {
-        this.solarLead = new SirenModel(this.$stateParams['leadData']);
-      }
+      console.log('customer', customer);
     }
 
     validateZip(): void {
-      this.validate.submit().then((response) => {
-        var is_valid = response['data']['properties']['is_valid'];
-        if (is_valid) {
-          this.state.go('join.solar2', { leadData: response.data, inviteCode: this.params.inviteCode });
-        } else {
-          this.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
-        }
+      this.validateZipAction.submit().then((response) => {
+        this.state.go('join.solar2', { inviteCode: this.params.inviteCode });
       })
-    }
-
-    get validate(): Action {
-      return this.customer.action('validate_zip');
     }
 
     get solarInvite(): Action {
       return this.session.instance.action('solar_invite');
     }
 
-    get submitLead(): Action {
-      return this.solarLead.action('solar_invite');
-    }
-
-    get params(): any {
-      return this.$stateParams;
-    }
-
-    createLead(): any {
-      this.submitLead.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.state.go('join.solar3');
+    submitLead(): any {
+      this.leadAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.state.go('join.solar3');
       });
     }
 

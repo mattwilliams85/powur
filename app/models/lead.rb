@@ -122,6 +122,7 @@ class Lead < ActiveRecord::Base
 
   class << self
     def valid_zip?(zip)
+      return false unless zip && zip.size >= 5
       path = "solarbid/api/warehouses/zip/#{zip[0, 5]}"
       url = URI.join('http://api.solarcity.com', path).to_s
 
