@@ -60,6 +60,7 @@ $buttonColor: #07b7d1;
 
         .key-box {
             width: 100%;
+            min-width: 450px;
             margin-bottom: 50px;
             display: block;
         }
@@ -95,7 +96,7 @@ $buttonColor: #07b7d1;
             }
             .detail {
                 padding: 15px 0 0px 0;
-                font-size: medium;
+                font-size: 11pt;
             }
         }
 
@@ -106,7 +107,7 @@ $buttonColor: #07b7d1;
             label {
                 padding: 30px 0 5px 0;
                 display: block;
-                font-size: medium;
+                font-size: 11pt;
             }
 
             input[type="text"] {
@@ -115,7 +116,7 @@ $buttonColor: #07b7d1;
                 background: rgba(0,0,0,.2);
                 border: rgba(0,0,0,0.15) 1px solid;
                 padding: 5px;
-                width: 70%;
+                width: 100%;
                 max-width: 356px;
                 height: 40px;
             }
@@ -299,6 +300,14 @@ $buttonColor: #07b7d1;
             .trailer .info {
                 font-size: x-small
             }
+            .key-box {
+                min-width: 0;
+                .who {
+                    .detail {
+                        display: none;
+                    }
+                }
+            }
         }
 
         .bg2 {
@@ -315,11 +324,6 @@ $buttonColor: #07b7d1;
             }
         }
 
-        .key-box .who {
-            .detail {
-                display: none;
-            }
-        }
     }
 }
 
@@ -327,9 +331,6 @@ $buttonColor: #07b7d1;
     .key-box .who {
         .detail {
             display: none;
-        }
-        .join .bg .key input[type="text"] {
-            width: 100%;
         }
     }
 }
