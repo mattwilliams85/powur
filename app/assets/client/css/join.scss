@@ -61,7 +61,6 @@ $buttonColor: #07b7d1;
         .key-box {
             width: 100%;
             margin-bottom: 50px;
-            min-width: 500px;
             display: block;
         }
 
@@ -315,13 +314,22 @@ $buttonColor: #07b7d1;
                 }
             }
         }
+
+        .key-box .who {
+            .detail {
+                display: none;
+            }
+        }
     }
 }
 
-@media only screen and (max-width: 50em) {
+@media only screen and (max-height: 47em) {
     .key-box .who {
         .detail {
             display: none;
+        }
+        .key input[type="text"] {
+            width: 100%;
         }
     }
 }
