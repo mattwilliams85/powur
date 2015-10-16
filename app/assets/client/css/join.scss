@@ -24,10 +24,11 @@ $buttonColor: #07b7d1;
     font-family: 'Open Sans';
 
     .box {
-        width: 70% !important;
-        max-width: 1000px;
+        width: 90% !important;
+        max-width: 650px;
         margin: 7vh;
         position: relative;
+        padding-top: 15px;
     }
 
     .controls, .sidedock {
@@ -60,6 +61,7 @@ $buttonColor: #07b7d1;
         .key-box {
             width: 100%;
             margin-bottom: 50px;
+            min-width: 500px;
             display: block;
         }
 
@@ -89,11 +91,12 @@ $buttonColor: #07b7d1;
             }
 
             .full-name {
-                font-size: xx-large;
+                font-size: x-large;
                 font-weight: 600;
             }
             .detail {
-                padding: 15px 0 20px 0;
+                padding: 15px 0 0px 0;
+                font-size: medium;
             }
         }
 
@@ -149,7 +152,7 @@ $buttonColor: #07b7d1;
 
             .info {
                 color: $textColor;
-                font-size: large;
+                font-size: small;
                 text-transform: uppercase;
                 line-height: $videoIconHeight;
                 padding-left: 10px;
@@ -180,7 +183,7 @@ $buttonColor: #07b7d1;
             label, span {
                 color: $textColor;
                 text-transform: uppercase;
-                padding-left: 5px;
+                padding: 0 10px 0 5px;
             }
 
             input {
@@ -290,6 +293,7 @@ $buttonColor: #07b7d1;
 
         .box {
             width: 100% !important;
+            max-width: 100%;
         }
 
         .bg {
@@ -310,6 +314,14 @@ $buttonColor: #07b7d1;
                     width: 100%;
                 }
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 50em) {
+    .key-box .who {
+        .detail {
+            display: none;
         }
     }
 }
