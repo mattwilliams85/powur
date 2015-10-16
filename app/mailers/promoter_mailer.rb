@@ -5,7 +5,7 @@ class PromoterMailer < ActionMailer::Base
     merge_vars = {
       gridkey:       invite.id,
       invite_url:    url,
-      repname:       User.find(invite.sponsor_id).full_name,
+      repname:       invite.sponsor.full_name,
       invitee_fname: invite.first_name }
 
     mail_chimp to, 'grid-invite', merge_vars
