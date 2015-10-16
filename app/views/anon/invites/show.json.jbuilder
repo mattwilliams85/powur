@@ -13,6 +13,11 @@ json.properties do
 end
 
 if @invite.status == 'valid'
+  tos_version = if ApplicationAgreement.current
+                  ApplicationAgreement.current.version
+                else
+                  0
+                end
   actions \
     action(:accept_invite, :patch, invite_path)
     .field(:code, :hidden, value: @invite.id)
@@ -26,5 +31,5 @@ if @invite.status == 'valid'
     .field(:zip, :text)
     .field(:password, :password)
     .field(:tos, :checkbox, value: true)
-    .field(:tos_version, :hidden, value: ApplicationAgreement.current.version)
+    .field(:tos_version, :hidden, value: tos_version)
 end
