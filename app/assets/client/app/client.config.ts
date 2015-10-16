@@ -1,8 +1,9 @@
 /// <reference path='../typings/tsd.d.ts' />
-declare var appModule: ng.IModule;
 
 module powur {
-  class RouteConfigs {
+  'use strict';
+
+  export class RouteConfigs {
     static $inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
     constructor($locationProvider: ng.ILocationProvider,
@@ -44,12 +45,18 @@ module powur {
           url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid.html',
           controller: 'JoinController as join',
+          resolve: {
+            customer: () => {}
+          }
         }).state('join.grid2', {
           url: '/grid',
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinController as join',
           params: {
             inviteData: null
+          },
+          resolve: {
+            customer: () => {}
           }
         }).state('join.solar', {
           url: '/solar/{inviteCode}',
@@ -136,6 +143,4 @@ module powur {
         });
     }
   }
-
-  appModule.config(RouteConfigs);
 }

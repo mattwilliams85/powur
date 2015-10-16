@@ -1,30 +1,12 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-  export class InviteItem {
-    id: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-    expiresAt: Date;
-    status: string;
-
-    percentage: number;
-  }
-
   export class NewInviteDialogController {
     static ControllerId = 'NewInviteDialogController';
     static $inject = ['$log', '$mdDialog'];
 
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-
-    constructor(private $log: ng.ILogService, private $mdDialog: ng.material.IDialogService) {
+    constructor(private $log: ng.ILogService, public $mdDialog: ng.material.IDialogService) {
       // default
-      // this.invitationType = InvitationType.Advocate;
     }
 
     cancel() {
@@ -32,12 +14,7 @@ module powur {
     }
 
     send() {
-      this.$mdDialog.hide({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phone: this.phone,
-        email: this.email,
-      });
+      this.$mdDialog.hide();
     }
   }
 

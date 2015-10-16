@@ -3,10 +3,23 @@
 module powur {
   class NewInviteSolarDialogController extends NewInviteDialogController {
     static ControllerId = 'NewInviteSolarDialogController';
-    static $inject = ['$log', '$mdDialog'];
+    static $inject = ['$log', '$mdDialog', 'invites'];
 
-    constructor($log: ng.ILogService, $mdDialog: ng.material.IDialogService) {
+    constructor($log: ng.ILogService,
+                $mdDialog: ng.material.IDialogService,
+                private invites: ISirenModel) {
       super($log, $mdDialog);
+    }
+
+    send() {
+      this.create.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+        this.create.clearValues();
+      });
+    }
+
+    get create(): Action {
+      return this.invites.action('create');
     }
   }
 
@@ -28,22 +41,24 @@ module powur {
 
     constructor(private invites: ISirenModel, public $mdDialog: ng.material.IDialogService) {
       super();
-      var isCustomer = false;
-      this.timerColor = isCustomer ? '#2583a8' : '#39ABA1';
+      this.timerColor = '#39ABA1';
     }
 
-
-    addInvite(item: InviteItem, e: MouseEvent) {
+    addInvite(e: MouseEvent) {
       this.$mdDialog.show({
         controller: 'NewInviteSolarDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.solar.html',
         parent: angular.element(document.body),
         targetEvent: e,
-        clickOutsideToClose: true
+        clickOutsideToClose: true,
+        locals: {
+          invites: this.invites
+        }
       })
         .then((data: any) => {
           // ok
-          this.root.$log.debug(data);
+          this.invites.entities.unshift(data);
+          this.invites.properties.sent += 1;
         }, () => {
           // cancel
           this.root.$log.debug('cancel');
