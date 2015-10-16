@@ -53,7 +53,7 @@ describe 'POST /u/product_invites' do
     it 'returns error' do
       post product_invites_path, payload, format: :json
 
-      expect_alert_error
+      expect_input_error(:email)
     end
   end
 end

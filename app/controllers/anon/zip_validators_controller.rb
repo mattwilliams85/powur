@@ -4,13 +4,17 @@ module Anon
 
     def create
       require_input :zip
+      error!(:invalid_zip, :zip) unless Lead.valid_zip?(params[:zip])
 
-      if Lead.valid_zip?(params[:zip])
+      if Lead.eligible_zip?(params[:zip])
         @is_valid = true
+        @customer.zip = params[:zip]
+        @customer.status = :initiated
+        @customer.save!
       else
-        status_value = Customer.statuses[:ineligible_location]
-        @customer.update_attribute(:status, status_value)
-        error!(:invalid_zip, :zip)
+        status = Customer.statuses[:ineligible_location]
+        @customer.update_attributes(status: status, zip: nil)
+        error!(:unqualified_zip, :zip)
       end
     rescue RestClient::RequestTimeout => e
       Airbrake.notify(e)
