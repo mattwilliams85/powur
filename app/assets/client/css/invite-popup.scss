@@ -12,7 +12,6 @@
     }        
 
     .banner{
-        background-image:image-url("img/solar-invite-popup-banner.jpg");
         background-repeat:no-repeat;
         width:100%;
         height:300px;
@@ -26,6 +25,13 @@
             margin-left:150px;
             font-size:2.3em;
         }
+    }
+    .banner.solar{
+        background-image:image-url("img/solar-invite-popup-banner.jpg");
+    }
+    .banner.grid{
+        background-image:image-url("img/grid-invite-popup-banner.jpg");
+
     }
 
         
