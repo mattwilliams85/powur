@@ -21,14 +21,9 @@ module powur {
     }
 
     validateZip(): void {
-        this.validateZipAction.submit().then((response) => {
-        var is_valid = response['data']['properties']['is_valid'];
-
-        if (is_valid) {
-          this.state.go('join.solar2', { leadData: response.data, inviteCode: this.params.inviteCode });
-        } else {
-          this.zip.$error = 'Your zipcode is outside the servicable area'
-        }
+      console.log('action', this.validateZipAction);
+      this.validateZipAction.submit().then((response) => {
+        this.state.go('join.solar2', { inviteCode: this.params.inviteCode });
       })
     }
 
