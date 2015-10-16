@@ -314,7 +314,29 @@
             height: 23px;
             background-position: -39px -5px;
         }
-        
+
+        .sprite-sent {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-sent-icon.png");
+        }
+        .sprite-initiated {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-initiated-icon.png");
+        }
+        .sprite-ineligible {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-ineligible-icon.png");
+        }
+        .sprite-accepted {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-accepted-as-lead-icon.png");
+        }
+                        
+
         .sprite-expired {
             width: 24px;
             height: 24px;

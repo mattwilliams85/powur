@@ -1,19 +1,19 @@
 <div class="counter">
     <ul layout="row" layout-align="center center">
         <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-available"></i><span class="count">{{ invite.listProps.sent }}</span></div>
+            <div layout="row" layout-align="center center"><i class="sprite sprite-sent"></i><span class="count">{{ invite.listProps.sent }}</span></div>
             <div class="label kpi">sent</div>
         </li>
         <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-pending"></i><span class="count">{{ invite.listProps.initiated }}</span></div>
+            <div layout="row" layout-align="center center"><i class="sprite sprite-initiated"></i><span class="count">{{ invite.listProps.initiated }}</span></div>
             <div class="label kpi">initiated</div>
         </li>
         <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-accepted"></i><span class="count">{{ invite.listProps.ineligible_location }}</span></div>
+            <div layout="row" layout-align="center center"><i class="sprite sprite-ineligible"></i><span class="count">{{ invite.listProps.ineligible_location }}</span></div>
             <div class="label kpi">ineligible location</div>
         </li>
         <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-expired"></i><span class="count">{{ invite.listProps.accepted }}</span></div>
+            <div layout="row" layout-align="center center"><i class="sprite sprite-accepted"></i><span class="count">{{ invite.listProps.accepted }}</span></div>
             <div class="label kpi">accepted</div>
         </li>
     </ul>
