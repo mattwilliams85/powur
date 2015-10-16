@@ -1,6 +1,6 @@
 module Anon
   class InvitesController < AnonController
-    before_action :fetch_invite, only: [ :update, :validate ]
+    before_action :fetch_invite, only: [ :update, :validate, :show ]
 
     def update
       input = invite_input
