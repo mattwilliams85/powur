@@ -3,7 +3,7 @@ siren json
 klass :invite
 
 json.properties do
-  json.call(@invite, :id, :first_name, :last_name, :email, :status)
+  json.call(@invite, :id, :first_name, :last_name, :email, :status, :full_name)
 
   json.sponsor_first_name @invite.sponsor.first_name
   json.sponsor_last_name @invite.sponsor.last_name
