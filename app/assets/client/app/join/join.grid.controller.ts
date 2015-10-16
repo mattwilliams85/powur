@@ -6,7 +6,8 @@ module powur {
     static $inject = ['$mdDialog', '$stateParams', 'invite'];
 
     gridInvite: ISirenModel;
-    firstName: string;
+    gridKey: string;
+    gridKeyInvalid: boolean;
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
@@ -18,23 +19,16 @@ module powur {
       }
     }
 
-    get validateGridInvite(): Action {
-      return this.session.instance.action('validate_grid_invite');
-    }
-
     get acceptGridInvite(): Action {
-      return this.gridInvite.action('accept_invite');
+      return this.session.instance.action('accept_invite');
     }
 
     validateGridInviteSubmit(): void {
-      this.validateGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.gridInvite = new SirenModel(response.data);
-        if (this.gridInvite.action('accept_invite')) {
-          this.state.go('join.grid2', { inviteData: response.data });
-        } else {
-          this.state.go('login');
-        }
-      });
+      if (this.gridKey === this.invite.properties.id) {
+        this.state.go('join.grid2', {});
+      } else {
+        this.gridKeyInvalid = true;
+      }
     }
 
     acceptGridInviteSubmit(): void {

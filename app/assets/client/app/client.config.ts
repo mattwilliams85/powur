@@ -53,18 +53,22 @@ module powur {
                 var reason: any = (response.status === 404) ? 'invalid_code' : response;
                 return $q.reject(reason);
               }
-              // return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
+              return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
             }
           }
         }).state('join.grid2', {
           url: '/grid',
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinGridController as join',
-          params: {
-            inviteData: null
-          },
           resolve: {
-            customer: () => {}
+            invite: function($stateParams, $q) {
+              var root = RootController.get();
+              var fail = function(response) {
+                var reason: any = (response.status === 404) ? 'invalid_code' : response;
+                return $q.reject(reason);
+              }
+              return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
+            }
           }
         }).state('join.solar', {
           url: '/solar/{inviteCode}',

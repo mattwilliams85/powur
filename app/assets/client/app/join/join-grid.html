@@ -4,16 +4,16 @@
       <div class="key-box">
         <div class="who">
           <div class="greeting">Hello,</div>
-          <div class="full-name">{{join.fullName}}</div>
+          <div class="full-name">{{join.invite.properties.first_name}}</div>
         </div>
         <div class="key">
           <label>Enter your <b>grid key</b></label>
           <form ng-submit="join.validateGridInviteSubmit()" name="validateGridInviteForm" novalidate>
             <div layout="row">
-              <input name="code" type="text" ng-model="join.validateGridInvite.field('code').value">
+              <input name="code" type="text" ng-model="join.gridKey">
               <button ng-disabled="join.validateGridInvite.submitting">Continue</button>
             </div>
-            <div ng-show="join.validateGridInvite.field('code').$error" class="messages">
+            <div ng-show="join.gridKeyInvalid" class="messages">
               Invalid invite code
             </div>
           </form>

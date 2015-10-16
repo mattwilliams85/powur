@@ -7,7 +7,7 @@ module powur {
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
     solarLead: ISirenModel;
-    firstName: string;
+
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
