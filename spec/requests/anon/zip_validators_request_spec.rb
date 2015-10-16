@@ -9,8 +9,8 @@ describe '/zip_validator' do
     context 'when valid zip' do
       before do
         allow(Lead).to receive(:valid_zip?).with(zip).and_return(true)
+        allow(Lead).to receive(:eligible_zip?).with(zip).and_return(true)
       end
-
 
       it 'returns actions data' do
         post zip_validator_path, zip: zip, code: code
@@ -35,7 +35,7 @@ describe '/zip_validator' do
 
     context 'when solar api timeout' do
       before do
-        allow(Lead).to receive(:valid_zip?)
+        allow(Lead).to receive(:eligible_zip?)
           .and_raise(RestClient::RequestTimeout)
       end
 

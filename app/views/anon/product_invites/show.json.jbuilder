@@ -20,7 +20,7 @@ actions_list = [
     .field(:address, :text)
     .field(:city, :text)
     .field(:state, :text)
-    .field(:zip, :text, value: params['zip'])
+    .field(:zip, :text, value: @customer.zip)
     .field(:average_bill, :text) ]
 
 actions(*actions_list)
