@@ -29,12 +29,8 @@ module Anon
 
     private
 
-    def invalid_code!
-      error!(:invalid_code, :code)
-    end
-
     def fetch_invite
-      @invite = Invite.find(params[:code])
+      @invite = Invite.find(params[:id])
     end
 
     def invite_input
