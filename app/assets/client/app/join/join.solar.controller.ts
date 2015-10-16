@@ -6,52 +6,49 @@ module powur {
     static ControllerId = 'JoinSolarController';
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
-    solarLead: ISirenModel;
+    get validateZipAction(): Action {
+      return this.customer.action('validate_zip');
+    }
 
+    get zip(): Field {
+      return this.validateZipAction.field('zip');
+    }
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
                 private customer: ISirenModel) {
       super();
-      this.log.debug(JoinSolarController.ControllerId + ':ctor');
-
-      if (this.$stateParams['leadData']) {
-        this.solarLead = new SirenModel(this.$stateParams['leadData']);
-      }
     }
 
     validateZip(): void {
-      this.validate.submit().then((response) => {
+        this.validateZipAction.submit().then((response) => {
         var is_valid = response['data']['properties']['is_valid'];
+
         if (is_valid) {
           this.state.go('join.solar2', { leadData: response.data, inviteCode: this.params.inviteCode });
         } else {
-          this.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
+          this.zip.$error = 'Your zipcode is outside the servicable area'
         }
       })
-    }
-
-    get validate(): Action {
-      return this.customer.action('validate_zip');
     }
 
     get solarInvite(): Action {
       return this.session.instance.action('solar_invite');
     }
 
-    get submitLead(): Action {
-      return this.solarLead.action('solar_invite');
-    }
+    // get submitLead(): Action {
+    //   return this.solarLead.action('solar_invite');
+    // }
 
     get params(): any {
       return this.$stateParams;
     }
 
-    createLead(): any {
-      this.submitLead.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.state.go('join.solar3');
-      });
-    }
+    // createLead(): any {
+    //   this.submitLead.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+    //       this.state.go('join.solar3');
+    //   });
+    // }
 
     enterSolar(): void {
       this.log.debug(JoinSolarController.ControllerId + ':enterGrid');
