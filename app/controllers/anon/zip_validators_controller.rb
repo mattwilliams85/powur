@@ -6,7 +6,8 @@ module Anon
       require_input :zip
       error!(:invalid_zip, :zip) unless Lead.valid_zip?(params[:zip])
 
-      if Lead.eligible_zip?(params[:zip])
+      # if Lead.eligible_zip?(params[:zip])
+      if true
         @is_valid = true
         @customer.zip = params[:zip]
         @customer.status = :initiated
