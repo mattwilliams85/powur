@@ -1,3 +1,4 @@
+// login
 
 .flex {
   -webkit-flex: 1;
@@ -23,4 +24,31 @@
 
 md-checkbox .md-container {
   -webkit-transform: translateY(-50%);
+}
+
+// nav
+md-tooltip.md-show {
+  -webkit-transform: translate3d(0,0,0);
+}
+
+md-tooltip .md-background.md-show {
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+// hud
+.layout-align-center-start {
+  -webkit-justify-content: center;
+}
+
+.layout-align-end-start {
+  -webkit-justify-content: flex-end;
+}
+
+// div.stat1.layout-align-center-start.layout-row {
+//   -webkit-flex-direction: none;
+// }
+
+.layout-row > .flex-50 {
+  -webkit-flex: 0 0 50%;
+  -webkit-box-sizing: border-box;
 }

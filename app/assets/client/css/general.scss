@@ -69,29 +69,3 @@ html,body {
 .uppercase {
     text-transform: uppercase;
 }
-
-.flex {
-  -webkit-flex: 1;
-  -webkit-box-sizing: border-box;
-}
-
-.layout-column > .flex-10 {
-  -webkit-flex: 0 0 10%;
-}
-
-.layout-align-center-center {
-  -webkit-align-items: center;
-  -webkit-justify-content: center;
-}
-
-.layout-align-space-around-center {
-  -webkit-align-items: center;
-}
-
-.layout-align-space-between-center {
-  -webkit-justify-content: space-between;
-}
-
-md-checkbox .md-container {
-  -webkit-transform: translateY(-50%);
-}
