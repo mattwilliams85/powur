@@ -10,7 +10,7 @@ module Anon
       else
         status_value = Customer.statuses[:ineligible_location]
         @customer.update_attribute(:status, status_value)
-        error!(:invalid, :zip)
+        error!(:invalid_zip, :zip)
       end
     rescue RestClient::RequestTimeout => e
       Airbrake.notify(e)

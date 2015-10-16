@@ -22,6 +22,7 @@
                         </div>
                     </form>
                 </div>
+                <pre>{{ join.zip | json }}</pre>
                 <div ng-show="join.zip.$error" class="messages">
                     <div>You're zipcode is outside the servicable area.</div>
                 </div>

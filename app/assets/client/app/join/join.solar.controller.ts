@@ -6,6 +6,10 @@ module powur {
     static ControllerId = 'JoinSolarController';
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
+    get params(): any {
+      return this.$stateParams;
+    }
+
     get validateZipAction(): Action {
       return this.customer.action('validate_zip');
     }
@@ -14,14 +18,19 @@ module powur {
       return this.validateZipAction.field('zip');
     }
 
+    get leadAction(): Action {
+      return this.customer.action('submit_lead');
+    }
+
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
                 private customer: ISirenModel) {
       super();
+
+      console.log('customer', customer);
     }
 
     validateZip(): void {
-      console.log('action', this.validateZipAction);
       this.validateZipAction.submit().then((response) => {
         this.state.go('join.solar2', { inviteCode: this.params.inviteCode });
       })
@@ -31,19 +40,11 @@ module powur {
       return this.session.instance.action('solar_invite');
     }
 
-    // get submitLead(): Action {
-    //   return this.solarLead.action('solar_invite');
-    // }
-
-    get params(): any {
-      return this.$stateParams;
+    submitLead(): any {
+      this.leadAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.state.go('join.solar3');
+      });
     }
-
-    // createLead(): any {
-    //   this.submitLead.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-    //       this.state.go('join.solar3');
-    //   });
-    // }
 
     enterSolar(): void {
       this.log.debug(JoinSolarController.ControllerId + ':enterGrid');
