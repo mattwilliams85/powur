@@ -9,7 +9,7 @@
           <md-content layout-padding layout="row">
             <md-input-container>
               <label>first name</label>
-              <input ng-model="dialog.create.field('first_name').value">
+              <input ng-model="dialog.create.field('first_name').value" md-autofocus>
               <div ng-messages="dialog.create.field('first_name').$error" ng-if="dialog.create.field('first_name').$error" class="messages">
                 <div>First Name is required</div>
               </div>

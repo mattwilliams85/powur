@@ -14,6 +14,7 @@ module powur {
     send() {
       this.create.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.$mdDialog.hide(response.data);
+        this.create.clearValues();
       });
     }
 

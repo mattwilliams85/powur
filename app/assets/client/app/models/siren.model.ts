@@ -43,11 +43,11 @@ module powur {
     static fromJson(value: any) {
       return new Action(value);
     }
-    
+
     private _http: ng.IHttpService;
     private _q: ng.IQService;
     private _defer: ng.IDeferred<ng.IHttpPromiseCallbackArg<any>>;
-    
+
     success: (r: ng.IHttpPromiseCallbackArg<any>) => void;
     fail: (r: ng.IHttpPromiseCallbackArg<any>) => void;
 
@@ -133,12 +133,18 @@ module powur {
       this.clearErrors();
       var defaults = this.defaultHttpConfig();
       var requestConfig = angular.extend({}, defaults, config);
-      
+
       this._defer = this.q.defer<ng.IHttpPromiseCallbackArg<any>>();
-      
+
       this.http(requestConfig).then(this.successCallback, this.failCallback);
 
       return this._defer.promise;
+    }
+
+    clearValues() : void {
+      this.fields.forEach(f => {
+        delete f.value;
+      });
     }
   }
 
