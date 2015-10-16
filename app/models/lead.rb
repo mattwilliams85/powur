@@ -122,7 +122,10 @@ class Lead < ActiveRecord::Base
 
   class << self
     def valid_zip?(zip)
-      return false unless zip && zip.size >= 5
+      !!(/^\d{5}(-\d{4})?$/ =~ zip)
+    end
+
+    def eligible_zip?(zip)
       path = "solarbid/api/warehouses/zip/#{zip[0, 5]}"
       url = URI.join('http://api.solarcity.com', path).to_s
 
@@ -164,15 +167,10 @@ class Lead < ActiveRecord::Base
     submitted("simulated:#{SecureRandom.hex(2)}", DateTime.current)
   end
 
-  def valid_zip?
-    return false unless customer.zip?
-    self.class.valid_zip?(customer.zip)
-  end
-
   def calculate_data_status
     return :submitted if submitted_at?
     return :incomplete unless customer.complete?
-    return :ineligible_location unless valid_zip?
+    return :ineligible_location unless Lead.eligible_zip?(customer.zip)
     :ready_to_submit
   end
 
