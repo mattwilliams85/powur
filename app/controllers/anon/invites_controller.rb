@@ -34,7 +34,7 @@ module Anon
     end
 
     def fetch_invite
-      @invite = Invite.find_by(id: params[:code]) || invalid_code!
+      @invite = Invite.find(id: params[:code])
     end
 
     def invite_input
