@@ -10,6 +10,24 @@
         background: linear-gradient(to bottom, #197394 0%,#2d6f75 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#197394', endColorstr='#2d6f75',GradientType=0 ); /* IE6-9 */
     }        
+
+    .banner{
+        background-image:image-url("img/solar-invite-popup-banner.jpg");
+        background-repeat:no-repeat;
+        width:100%;
+        height:300px;
+        background-position:bottom center;
+        border:1px;
+        text-transform: uppercase;
+        color:#fff;
+        .title{
+            display:block;
+            margin-top:60px;
+            margin-left:150px;
+            font-size:2.3em;
+        }
+    }
+
         
     .dialog {
         max-width: 800px;
@@ -25,6 +43,9 @@
     .close {
         background-color: #4d4c4d;
         padding: 15px;
+        position:absolute;
+        top:0;
+        right:0;
     }
     
     .heading {
