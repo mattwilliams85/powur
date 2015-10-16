@@ -1,6 +1,5 @@
 /// <reference path='../_references.ts' />
 
-//TODO: split solar & grid into seperate controllers
 module powur {
   class JoinSolarController extends BaseController {
     static ControllerId = 'JoinSolarController';
