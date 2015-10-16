@@ -29,9 +29,7 @@ describe '/zip_validator' do
       it 'returns actions data' do
         post zip_validator_path, zip: zip, code: code
 
-        expect_200
-        expect_props is_valid: false
-        expect(json_body['actions']).to eq([])
+        expect_input_error(:zip)
       end
     end
 
