@@ -2,6 +2,12 @@ siren json
 
 klass :session, :anonymous
 
+tos_version = if ApplicationAgreement.current
+                ApplicationAgreement.current.version
+              else
+                0
+              end
+
 actions_list = [
   action(:create, :post, login_path)
     .field(:email, :email)
@@ -10,31 +16,29 @@ actions_list = [
   action(:reset_password, :post, password_path)
     .field(:email, :email),
   action(:validate_zip, :post, zip_validator_path)
-      .field(:zip, :text)
-      .field(:code, :text),
+    .field(:zip, :text)
+    .field(:code, :text),
   action(:accept_invite, :patch, invite_path('{code}'))
-  .field(:code, :hidden)
-  .field(:first_name, :text)
-  .field(:last_name, :text)
-  .field(:email, :email)
-  .field(:phone, :text)
-  .field(:address, :text)
-  .field(:city, :text)
-  .field(:state, :text)
-  .field(:zip, :text)
-  .field(:password, :password)
-  .field(:tos, :checkbox, value: true)
-  .field(:tos_version, :hidden, value: ApplicationAgreement.current.version)
-]
-
+    .field(:code, :hidden)
+    .field(:first_name, :text)
+    .field(:last_name, :text)
+    .field(:email, :email)
+    .field(:phone, :text)
+    .field(:address, :text)
+    .field(:city, :text)
+    .field(:state, :text)
+    .field(:zip, :text)
+    .field(:password, :password)
+    .field(:tos, :checkbox, value: true)
+    .field(:tos_version, :hidden, value: tos_version) ]
 
 actions(*actions_list)
 
 entity_list = [ entity(%w(solar_invite),
                        'customer-solar_invite',
-                        product_invite_path('{code}')),
+                       product_invite_path('{code}')),
                 entity(%w(grid_invite),
-                      'user-solar_invite',
+                       'user-solar_invite',
                        invite_path('{code}'))]
 entities(*entity_list)
 
