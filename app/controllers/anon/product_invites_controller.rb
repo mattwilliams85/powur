@@ -25,6 +25,7 @@ module Anon
       if @lead.ready_to_submit?
         @lead.submit!
         @lead.email_customer if @lead.can_email?
+        @customer.accepted!
       end
 
       render 'auth/leads/show'
@@ -34,7 +35,7 @@ module Anon
 
     def fetch_customer
       @customer = Customer.find_by(code: params[:id])
-      not_found!(:product_invite) unless @customer
+      not_found!(:product_invite) if @customer.nil? || @customer.lead_submitted?
     end
 
     def customer_input
