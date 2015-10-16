@@ -11,7 +11,7 @@
                 <form ng-submit="join.submitLead()" name="submitForm" novalidate>
                     <md-content layout="column" layout-padding flex="1">
                         <div layout="row" layout-sm="column">
-                            <md-input-container flex-gt-sm="25" flex>
+                            <md-input-container flex-gt-sm="20" flex>
                                 <div class="border"></div>
                                 <label id="first-name">First Name</label>
                                 <input name="first_name" ng-model="join.leadAction.field('first_name').value" type="text" required="">
@@ -19,7 +19,7 @@
                                     <div class="capitalize">{{join.leadAction.field('first_name').$error.message}}</div>
                                 </div>
                             </md-input-container>
-                            <md-input-container flex-gt-sm="25" flex>
+                            <md-input-container flex-gt-sm="20" flex>
                                 <div class="border"></div>
                                 <label>Last Name</label>
                                 <input name="last_name" ng-model="join.leadAction.field('last_name').value" type="text" required="">
@@ -27,7 +27,7 @@
                                     <div class="capitalize">{{join.leadAction.field('last_name').$error.message}}</div>
                                 </div>
                             </md-input-container>
-                            <md-input-container flex-gt-sm="25">
+                            <md-input-container flex-gt-sm="35">
                                 <div class="border"></div>
                                 <label>Email</label>
                                 <input name="email" ng-model="join.leadAction.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
