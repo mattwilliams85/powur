@@ -6,7 +6,8 @@ class PromoterMailer < ActionMailer::Base
       gridkey:       invite.id,
       invite_url:    url,
       repname:       invite.sponsor.full_name,
-      invitee_fname: invite.first_name }
+      invitee_fname: invite.first_name,
+      rep_photo:     invite.sponsor.avatar(:thumb) }
 
     mail_chimp to, 'grid-invite', merge_vars
   end
@@ -74,9 +75,11 @@ class PromoterMailer < ActionMailer::Base
   def product_invitation(customer)
     to = customer.name_and_email
     url = root_url + 'next/join/solar/' + customer.code
+    sponsor = User.find(customer.user_id)
     merge_vars = { invite_url:   url,
-                   repname:      User.find(customer.user_id).full_name,
-                   prospectname: customer.first_name }
+                   repname:      sponsor.full_name,
+                   prospectname: customer.first_name,
+                   rep_photo:    sponsor.avatar(:thumb) }
 
     mail_chimp to, 'solar-invite', merge_vars
   end
