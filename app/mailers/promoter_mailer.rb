@@ -1,11 +1,14 @@
 class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = invite.name_and_email
-    # url = root_url(code: invite.id)
-    url = root_url + "sign-up/" + invite.id
-    merge_vars = { code: invite.id, invite_url: url, sponsor: User.find(invite.sponsor_id).full_name }
+    url = root_url + 'next/join/grid/' + customer.code
+    merge_vars = {
+      gridkey:       invite.id,
+      invite_url:    url,
+      repname:       User.find(invite.sponsor_id).full_name,
+      invitee_fname: invite.first_name }
 
-    mail_chimp to, :invite, merge_vars
+    mail_chimp to, 'grid-invite', merge_vars
   end
 
   def reset_password(user)
@@ -71,10 +74,11 @@ class PromoterMailer < ActionMailer::Base
   def product_invitation(customer)
     to = customer.name_and_email
     url = root_url + 'next/join/solar/' + customer.code
-    merge_vars = { invite_url: url,
-                   sponsor:    User.find(customer.user_id).full_name }
+    merge_vars = { invite_url:   url,
+                   repname:      User.find(customer.user_id).full_name,
+                   prospectname: customer.first_name }
 
-    mail_chimp to, :product_invitation, merge_vars
+    mail_chimp to, 'solar-invite', merge_vars
   end
 
   private
