@@ -2,35 +2,13 @@ siren json
 
 klass :session, :anonymous
 
-tos_version = if ApplicationAgreement.current
-                ApplicationAgreement.current.version
-              else
-                0
-              end
-
 actions_list = [
   action(:create, :post, login_path)
     .field(:email, :email)
     .field(:password, :password)
     .field(:remember_me, :boolean),
   action(:reset_password, :post, password_path)
-    .field(:email, :email),
-  action(:validate_zip, :post, zip_validator_path)
-    .field(:zip, :text)
-    .field(:code, :text),
-  action(:accept_invite, :patch, invite_path('{code}'))
-    .field(:code, :hidden)
-    .field(:first_name, :text)
-    .field(:last_name, :text)
-    .field(:email, :email)
-    .field(:phone, :text)
-    .field(:address, :text)
-    .field(:city, :text)
-    .field(:state, :text)
-    .field(:zip, :text)
-    .field(:password, :password)
-    .field(:tos, :checkbox, value: true)
-    .field(:tos_version, :hidden, value: tos_version) ]
+    .field(:email, :email) ]
 
 actions(*actions_list)
 
