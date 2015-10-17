@@ -164,7 +164,15 @@
 
         .label.kpi{
             color:#666;
-            font-size:small;   
+
+            @media (max-width: 600px) {
+              font-size:x-small;
+            }
+            
+            @media (min-width: 600px) {
+              font-size:small;
+            }
+
         }
         .invite{
             padding-top:10px;
