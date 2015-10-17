@@ -13,6 +13,7 @@ module powur {
       this.create.field('last_name').value = null;
       this.create.field('email').value = null;
       this.create.field('phone').value = null;
+
     }
 
     send() {

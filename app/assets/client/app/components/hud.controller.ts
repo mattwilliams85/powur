@@ -36,7 +36,7 @@ module powur {
 
     get headshot(): string {
       var avatar = this.userData.avatar;
-      var image = avatar ? avatar.large : '/assets/img/default-profile.png';
+      var image = avatar ? avatar.large : this.home.assets.defaultProfileImg;
       return `url(${image})`;
     }
 

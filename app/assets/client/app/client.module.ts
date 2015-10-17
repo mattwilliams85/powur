@@ -17,7 +17,8 @@ var appModule = angular.module('powur', [
   'powur.services', 
   'powur.directives',
   'powur.filters',
-  'powur.controllers' 
+  'powur.controllers',
+  'powur.constants'
 ]).config(powur.RouteConfigs)
   .run(powur.RunConfigs);
 
