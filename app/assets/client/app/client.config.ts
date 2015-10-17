@@ -46,6 +46,9 @@ module powur {
           url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid.html',
           controller: 'JoinGridController as join',
+          data: {
+            logout: true
+          },
           resolve: {
             invite: function($stateParams, $q) {
               var root = RootController.get();
@@ -60,6 +63,9 @@ module powur {
           url: '/grid',
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinGridController as join',
+          data: {
+            logout: true
+          },
           resolve: {
             invite: function($stateParams, $q) {
               var root = RootController.get();

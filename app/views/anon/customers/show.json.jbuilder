@@ -12,7 +12,7 @@ actions_list = [
   action(:validate_zip, :post, zip_validator_path)
     .field(:zip, :text)
     .field(:code, :text, value: @customer.code),
-  action(:submit_lead, :put, product_invite_path(@customer.code))
+  action(:submit_lead, :put, customer_path(@customer.code))
     .field(:first_name, :text, value: @customer.first_name)
     .field(:last_name, :text, value: @customer.last_name)
     .field(:email, :email, value: @customer.email)

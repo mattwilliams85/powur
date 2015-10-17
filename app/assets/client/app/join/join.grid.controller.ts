@@ -17,6 +17,8 @@ module powur {
                 private $stateParams: ng.ui.IStateParamsService,
                 private invite: ISirenModel) {
       super();
+
+      this.gridKey = invite.properties.id;
     }
 
     validateGridInviteSubmit(): void {

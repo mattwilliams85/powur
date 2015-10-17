@@ -1,5 +1,5 @@
 module Anon
-  class ProductInvitesController < AnonController
+  class CustomersController < AnonController
     before_action :fetch_customer, only: [ :show, :update ]
 
     def update
@@ -15,14 +15,14 @@ module Anon
         @customer.accepted!
       end
 
-      render 'auth/leads/show'
+      render 'show'
     end
 
     private
 
     def fetch_customer
       @customer = Customer.find_by(code: params[:id])
-      not_found!(:product_invite) if @customer.nil? || @customer.lead_submitted?
+      not_found!(:customer) if @customer.nil? || @customer.lead_submitted?
     end
 
     def customer_input
