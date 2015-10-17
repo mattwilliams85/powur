@@ -1,7 +1,7 @@
 class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = invite.name_and_email
-    url = URI.join(root_url, '/next/join/grid/', invite.id)
+    url = URI.join(root_url, '/next/join/grid/', invite.id).to_s
     merge_vars = {
       gridkey:       invite.id,
       invite_url:    url,
