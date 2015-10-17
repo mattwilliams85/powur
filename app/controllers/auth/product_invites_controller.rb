@@ -27,7 +27,9 @@ module Auth
 
       @customer = Customer.create!(
         customer_input.merge(user_id: current_user.id))
-      PromoterMailer.product_invitation(@customer).deliver_later
+      if @customer.email?
+        PromoterMailer.product_invitation(@customer).deliver_later
+      end
 
       show
     end
