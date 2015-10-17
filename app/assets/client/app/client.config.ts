@@ -75,6 +75,18 @@ module powur {
           templateUrl: 'app/join/join-solar.html',
           controller: 'JoinSolarController as join',
           resolve: {
+            anon: function($q): any {
+              var defer = $q.defer();
+              var root = RootController.get();
+              if (root.$session.instance.loggedIn()) {
+                return root.$session.logout().then(function() {
+                  defer.resolve();
+                })
+              } else {
+                return defer.resolve();
+              }
+              return defer.promise;
+            },
             customer: function($stateParams, $q) {
               var root = RootController.get();
               var fail = function(response) {

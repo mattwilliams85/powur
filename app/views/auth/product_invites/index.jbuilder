@@ -13,7 +13,7 @@ end
 actions action(:create, :post, request.path)
   .field(:first_name, :text)
   .field(:last_name, :text)
-  .field(:email, :email)
+  .field(:email, :email, required: false)
   .field(:phone, :text, required: false)
   .field(:address, :text, required: false)
   .field(:city, :text, required: false)

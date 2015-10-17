@@ -4,7 +4,7 @@
       <div class="key-box">
         <div class="who">
           <div class="greeting">Hello,</div>
-          <div class="full-name">{{ join.invite.properties.full_name }}</div>
+          <div class="full-name">{{ join.invite.properties.first_name }} <b>{{join.invite.properties.last_name}}</b></div>
         </div>
         <div class="key">
           <label>Enter your <b>grid key</b></label>
@@ -13,19 +13,22 @@
               <input name="code" type="text" ng-model="join.gridKey" autofocus>
               <button ng-disabled="join.validateGridInvite.submitting">Continue</button>
             </div>
+            <div ng-show="join.gridKeyMissing" class="messages">
+              Please input your Grid Key
+            </div>
             <div ng-show="join.gridKeyInvalid" class="messages">
-              Invalid invite code
+              Invalid Grid Key
             </div>
           </form>
         </div>
-      </div>
-      <div class="trailer" layout="row">
-        <a href="https://youtube.com/"><img class="video" src="/assets/img/join/video.png" alt="Video"/></a>
-        <div class="info">want to know more? <a href="https://youtube.com/"><b>watch our trailer</b></a>.</div>
+        <div class="trailer" layout="row">
+          <a href="https://youtube.com/"><img class="video" src="/assets/img/join/video.png" alt="Video"/></a>
+          <div class="info">want to know more? <a href="https://youtube.com/"><b>watch our trailer</b></a>.</div>
+        </div>
       </div>
     </div>
     <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
-      <div class="logo"></div>
+      <a href="/" class="home-link"><div class="logo"></div></a>
     </div>
   </div>
 </div>

@@ -4,11 +4,11 @@
       <div class="side-bg"></div>
       <div layout="column" flex>
         <div class="banner grid">
-          <span class="title">Send a<br>new Grid<b>Invite</b></span>
+          <span class="title">Send a<br>new Grid<b> Invite</b></span>
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
         <md-dialog-content layout="column">
-          <div class="heading"><div class="title">contact<b>name</b></div></div>
+          <div class="heading"><div class="title">contact<b> name</b></div></div>
           <md-content layout-padding layout="row">
             <md-input-container>
               <label>first name</label>
@@ -26,15 +26,18 @@
             </md-input-container>
           </md-content>
 
-          <div class="heading"><div class="title">contact<b>method</b></div></div>
+          <div class="heading"><div class="title">contact<b> method</b></div></div>
           <md-content layout-padding layout="column">
+            <div ng-messages="dialog.create.$error" class="messages">
+              <div ng-message="message">{{ dialog.create.$error.message }}</div>
+            </div>
             <md-input-container>
               <label>phone number</label>
               <input ng-model="dialog.create.field('phone').value" type="tel">
             </md-input-container>
             <md-input-container>
               <label>email</label>
-              <input ng-model="dialog.create.field('email').value" type="email">
+              <input ng-model="dialog.create.field('email').value" type="text" novalidate>
               <div ng-messages="dialog.create.field('email').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('email').$error.message }}</div>
               </div>

@@ -23,8 +23,11 @@
 <div layout="row" layout-wrap class="invite-list bg">
   <div ng-repeat="item in invite.list">
     <div ng-if="item.properties.status == 'valid'" class="invite-item" style="color: {{ invite.timerColor }} !important">
-      <div class="full-name">{{ item.properties.first_name | truncateName}} <b>{{ item.properties.last_name | truncateName}}.</b></div>
-      <div class="time">{{ item.properties.expires | date : 'H:mm' }}<span class="superscript">{{ item.properties.expires | date : 'ss' }}</span></div>
+      <div class="full-name" >
+        {{ item.properties.first_name | truncateName}} <b>{{ item.properties.last_name | truncateName}}</b>
+        <md-tooltip>{{item.properties.first_name}} {{item.properties.last_name}}</md-tooltip>
+      </div>
+      <div class="time">{{ item.properties.time_left | date : 'H:mm' }}<span class="superscript">{{ item.properties.time_left | date : 'ss' }}</span></div>
       <div pw-invite-progress data-progress-model="item.properties" data-circle-foreground-color="{{ invite.timerColor }}"></div>
     </div>
     <!-- <div ng-if="item.status == 0" class="invite-item">

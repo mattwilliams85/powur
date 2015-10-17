@@ -8,16 +8,19 @@ class Invite < ActiveRecord::Base
   belongs_to :sponsor, class_name: 'User'
 
   # Validates with https://github.com/hallelujah/valid_email
-  validates :email,
-            uniqueness: true,
-            presence:   true,
-            email:      {
-              message: "This isn't a valid email address"
-            }
+  validates :email, presence:   true,
+                    email:      true,
+                    uniqueness: true, if: :email_present?
+  def email_present?
+    email?
+  end
+
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
-  # validates_with ::Phone::Validator, fields: [:phone]
+  validates_with ::Phone::Validator, fields: [:phone],
+                                     if:     'phone.present?',
+                                     on:     :create
 
   after_create :subtract_from_available_invites
 
@@ -79,6 +82,19 @@ class Invite < ActiveRecord::Base
     return 0 unless expires
     time_start = expires - SystemSettings.invite_valid_days.days
     ((Time.zone.now - time_start) / (expires - time_start)).round(2)
+  end
+
+  def send_sms
+    return if phone.nil? || !valid_phone?(phone)
+    twilio_client = TwilioClient.new
+    join_url = 'https://www.powur.com/next/join/grid/' + id
+    message = 'Hey! Jonathan Budd is working on a Game-Changing technology ' \
+              'disrupting the $6 trillion energy industry. ' \
+              'He thinks you should be involved. Check this out... ' + join_url
+    twilio_client.send_message(
+      to:   phone,
+      from: twilio_client.purchased_numbers.sample,
+      body: message)
   end
 
   class << self

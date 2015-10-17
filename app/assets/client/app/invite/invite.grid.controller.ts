@@ -63,17 +63,17 @@ module powur {
       }, 100)
     }
 
+    // TODO: Serious refactor needed
     startTimers(): void {
       for (var i = 0; i < this.list.length; i++) {
         var item = this.list[i].properties;
-        var time = item.expires; 
+        var time = new Date(this.list[i].properties.expires).getTime() - new Date().getTime();
         if (time <= 0) {
           time = 0;
           continue;
-         }
-        this.list[i].properties.expires -= 100
+        }
+        this.list[i].properties.time_left = time 
         this.list[i].properties.expiration_progress = this.calculateExp(item);
-        // debugger
       }
     }
 
@@ -89,7 +89,7 @@ module powur {
       this.$mdDialog.show({
         controller: 'NewInviteGridDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.grid.html',
-        parent: angular.element(document.body),
+        parent: angular.element('.invite.main'),
         targetEvent: e,
         clickOutsideToClose: true,
         locals: {
