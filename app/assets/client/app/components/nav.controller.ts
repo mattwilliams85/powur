@@ -22,7 +22,11 @@ module powur {
 
     // TODO: Add animation to side, prevent mobile toggle and desktop toggle combo
     openMenu() {
-      console.log('fuck')
+      $("md-sidenav").css("margin-left","-280px");
+      $("md-sidenav").css("display","block");
+      $("md-sidenav").css("margin-left","0px");
+
+      //console.log(this.$mdSidenav)
       this.$mdSidenav('left').toggle();
     }
 
