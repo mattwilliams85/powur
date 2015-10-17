@@ -24,7 +24,10 @@
 <div layout="row" layout-wrap class="invite-list bg">
     <div ng-repeat="item in invite.invites.entities">
         <div ng-if="item.properties.status == 'sent'" class="invite-item" style="color: {{invite.timerColor}} !important">
-            <div class="full-name">{{item.properties.first_name}} <b>{{item.properties.last_name.charAt(0)}}.</b></div>
+            <div class="full-name">
+                {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+                <md-tooltip>{{item.properties.first_name}} {{item.properties.last_name}}</md-tooltip>
+            </div>
             <div class="status-icons" flex layout="row">
                 <!-- TODO: Add tooltips for icons -->
                 <div class="icon contact" ng-class="{ 'provided': item.properties.email }"></div>

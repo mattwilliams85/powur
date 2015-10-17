@@ -435,7 +435,27 @@
         font-size: 14px;
         padding-top: 0px;
         line-height: 40px;
-    }        
+    }
+    .invite .ellipse.border-fill {
+        width: 135px;
+        height: 135px;
+        border: 5px solid;
+        display: block;
+        border-radius: 50%;
+    }     
+    .invite .invite-item .date {
+        display: none;
+    }
+    .invite .invite-item .status-icons {
+        height: 0;
+        position: absolute;
+        bottom: 64px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        width: 95px;
+    }
 }
 
 
