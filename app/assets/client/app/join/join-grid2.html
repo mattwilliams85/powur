@@ -37,10 +37,9 @@
               <md-input-container flex-gt-sm="50">
                 <div class="border long"></div>
                 <label>Email</label>
-                <input ng-model="join.acceptAction.field('Email').value"  type="text" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+                <input ng-model="join.acceptAction.field('email').value"  type="text" autocomplete="off" autocapitalize="off">
                 <div ng-messages="join.acceptAction.field('email').$error">
-                    <div class="capitalize">{{ join.leadAction.field('email').$error.message }}</div>
-                    <div ng-message="pattern">Must be a valid email address</div>
+                  <div ng-message="message">{{ join.acceptAction.field('email').$error.message }}</div>
                 </div>
               </md-input-container>
                <md-input-container flex-gt-sm="50">

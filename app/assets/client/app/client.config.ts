@@ -60,12 +60,9 @@ module powur {
             }
           }
         }).state('join.grid2', {
-          url: '/grid',
+          url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinGridController as join',
-          data: {
-            logout: true
-          },
           resolve: {
             invite: function($stateParams, $q) {
               var root = RootController.get();
@@ -80,6 +77,9 @@ module powur {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar.html',
           controller: 'JoinSolarController as join',
+          data: {
+            logout: true
+          },
           resolve: {
             anon: function($q): any {
               var defer = $q.defer();

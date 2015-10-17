@@ -23,7 +23,7 @@ module powur {
 
     validateGridInviteSubmit(): void {
       if (this.gridKey === this.invite.properties.id) {
-        this.state.go('join.grid2', {});
+        this.state.go('join.grid2', { inviteCode: this.gridKey });
       } else {
         console.log('key', this.gridKey);
         if (this.gridKey) {
