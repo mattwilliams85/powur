@@ -12,7 +12,7 @@ module powur {
     }
 
     get childState(): string {
-      return this.loggedIn ? 'login.private' : 'login.public';
+      return this.loggedIn ? 'invite.grid' : 'login.public';
     }
 
     constructor() {

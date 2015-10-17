@@ -2,7 +2,7 @@ class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = invite.name_and_email
     # url = root_url(code: invite.id)
-    url = root_url + "sign-up/" + invite.id
+    url = URI.join(root_url, 'sign-up/', invite.id)
     merge_vars = {
       code:       invite.id,
       invite_url: url,
@@ -22,6 +22,17 @@ class PromoterMailer < ActionMailer::Base
       sponsee_first_name: invite.first_name }
 
     mail_chimp to, 'grid-invite', merge_vars
+  end
+
+  def product_invitation(customer)
+    to = customer.name_and_email
+    url = root_url + 'next/join/solar/' + customer.code
+    sponsor = User.find(customer.user_id)
+    merge_vars = { invite_url:          url,
+                   sponsor_full_name:   sponsor.full_name,
+                   customer_first_name: customer.first_name }
+
+    mail_chimp to, 'solar-invite', merge_vars
   end
 
   def reset_password(user)
@@ -82,17 +93,6 @@ class PromoterMailer < ActionMailer::Base
     merge_vars = { team_leader: team_leader.full_name, downline_name: user.full_name }
 
     mail_chimp to, 'team-leader-downline-certification-purchase', merge_vars
-  end
-
-  def product_invitation(customer)
-    to = customer.name_and_email
-    url = root_url + 'next/join/solar/' + customer.code
-    sponsor = User.find(customer.user_id)
-    merge_vars = { invite_url:          url,
-                   sponsor_full_name:   sponsor.full_name,
-                   customer_first_name: customer.first_name }
-
-    mail_chimp to, 'solar-invite', merge_vars
   end
 
   private
