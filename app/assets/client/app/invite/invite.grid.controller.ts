@@ -76,7 +76,7 @@ module powur {
         var x = new Date();
         var jan = new Date(x.getFullYear(), 0, 1);
         var jul = new Date(x.getFullYear(), 6, 1);
-        var stdTimezoneOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset())
+        var stdTimezoneOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
         var currentTimeZoneOffsetInHours = x.getTimezoneOffset() / 60;
         var time = new Date(this.list[i].properties.expires).getTime() - new Date().getTime();
         if(stdTimezoneOffset > x.getTimezoneOffset()) currentTimeZoneOffsetInHours=currentTimeZoneOffsetInHours+1;
