@@ -46,6 +46,9 @@
 
 // client / order according to any dependencies
 // -----------------------------------------------------
+
+//= require app/services/assets.constant
+
 // must be first
 /// <reference path='app/client.config.ts' />
 /// <reference path='app/client.run.ts' />
@@ -60,6 +63,7 @@
 /// <reference path='app/services/auth-interceptor.service.ts' />
 /// <reference path='app/services/data.service.ts' />
 /// <reference path='app/services/session.service.ts' />
+
 
 /// <reference path='app/filters/whole-number.filter.ts' />
 /// <reference path='app/filters/decimal-part.filter.ts' />

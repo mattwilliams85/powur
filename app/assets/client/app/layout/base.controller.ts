@@ -22,6 +22,10 @@ module powur {
       return this.root.$state;
     }
 
+    get assets(): any {
+      return this.root.assets;
+    }
+
     constructor() {
       this.root = RootController.get();
     }
