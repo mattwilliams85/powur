@@ -25,18 +25,5 @@ describe ProductReceipt, type: :model do
         transaction_id: 123)
       expect(product_receipt.errors.messages.length).to eq(0)
     end
-
-    it 'increases the user\'s available invites by 10 if purchasing certification' do
-      expect(user.available_invites).to eq(0)
-
-      ProductReceipt.create(
-        user_id:        user.id,
-        product_id:     certification.id,
-        purchased_at:   Time.zone.now,
-        amount:         299,
-        transaction_id: 123)
-
-      expect(user.reload.available_invites).to eq(10)
-    end
   end
 end
