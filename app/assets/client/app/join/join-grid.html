@@ -10,8 +10,8 @@
           <label>Enter your <b>grid key</b></label>
           <form ng-submit="join.validateGridInviteSubmit()" name="validateGridInviteForm" novalidate>
             <div layout="row">
-              <input name="code" type="text" ng-model="join.gridKey" autofocus>
-              <button ng-disabled="join.validateGridInvite.submitting">Continue</button>
+              <input name="code" type="text" ng-model="join.gridKey">
+              <button ng-disabled="join.validateGridInvite.submitting" autofocus>Continue</button>
             </div>
             <div ng-show="join.gridKeyMissing" class="messages">
               Please input your Grid Key

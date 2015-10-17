@@ -1,4 +1,5 @@
 /// <reference path='../_references.ts' />
+/// <reference path='../models/siren.model.ts' />
 
 module powur {
   class JoinGridController extends BaseController {
