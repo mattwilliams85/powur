@@ -23,7 +23,7 @@
 
 <div layout="row" layout-wrap class="invite-list bg">
     <div ng-repeat="item in invite.invites.entities">
-        <div ng-if="item.properties.status == 'sent'" class="invite-item" style="color: {{invite.timerColor}} !important">
+        <div ng-if="item.properties.status == 'sent'" class="invite-item solar" style="color: {{invite.timerColor}} !important">
             <div class="full-name">
                 {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
                 <md-tooltip>{{item.properties.first_name}} {{item.properties.last_name}}</md-tooltip>

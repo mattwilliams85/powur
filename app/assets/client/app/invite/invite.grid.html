@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
+  <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" ng-show="{{invite.available}}">
     <div class="invite-item">
       <span class="add counter">
         <i class="sprite sprite-invite"></i>

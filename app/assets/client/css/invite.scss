@@ -1,11 +1,4 @@
 @mixin tab-bg($img) {
-  // width: 100%;
-  // height: 100%;
-  // position: fixed;
-  // top: 0;
-  // left: 0;
-  // min-width: 100%;
-  // min-height: 100%;
   width: 450px;
   height: 200px;
   background-image: image-url($img); 
@@ -30,13 +23,14 @@
       li {
         display: inline-block;
         margin: 1px;
-        padding: 0;
+        padding: 0 10px;
         box-sizing: border-box;
         -webkit-filter: grayscale(100%);
         filter: grayscale(100%);
         filter: gray;
         transition: filter .2s linear;
         -webkit-transition: -webkit-filter .2s linear;
+
         &.active {
             -webkit-filter: grayscale(0%);
             filter: grayscale(0%);
@@ -325,7 +319,6 @@
             width: 165px;
             height: 165px;
             background-position: -180px -5px;
-            margin-top:-9px;
         }
         
         .sprite-ellipse-locked {
@@ -412,22 +405,43 @@
     }
     .invite .invite-item{
         padding:0px;
+        &.solar {
+            width: 130px;
+            margin-right: 15px;
+
+            .full-name {
+                top: 60px;
+            }
+            .status-icons {
+                bottom: 74px;
+            }
+            .date {
+                top: 84px;
+            }
+        }
     }
     .invite .invite-item .full-name {
         top:80px;
     }
-    .invite .invite-item .time{
+    .invite .invite-item .time {
         top:75px;
     }
     .invite .counter > ul{
         height:115px;
     }
-    .invite .ellipse .sprite-ellipse-invite {
-        width: 140px;
-        height: 140px;
-        background-position: -140px -5px;
-        margin-top: 36px;
-        background-size: 420px 140px;
+    .invite .ellipse {
+        .sprite-ellipse-invite {
+            width: 140px;
+            height: 140px;
+            background-position: -140px -5px;
+            margin-top: 36px;
+            background-size: 420px 140px;
+        }
+        &.border-fill {
+            width: 130px;
+            height: 130px;
+            margin-right: 15px;
+        }
     }
     .invite .invite-item .add .label {
         height: 0px;
