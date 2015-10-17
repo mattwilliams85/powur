@@ -8,6 +8,12 @@ class Customer < ActiveRecord::Base
                         allow_nil: true
   validates_length_of :first_name, maximum: 40
   validates_length_of :last_name, maximum: 40
+  validates :email, presence:   true,
+                    email:      true,
+                    uniqueness: true, if: :email_present?
+  def email_present?
+    email?
+  end
 
   before_validation do
     self.code ||= Invite.generate_code
