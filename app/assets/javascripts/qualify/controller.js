@@ -87,7 +87,7 @@
       $rootScope.redirectAfterSignIn = {};
       $rootScope.redirectAfterSignIn.destination = '/qualify';
       $rootScope.redirectAfterSignIn.properties = {zip: $scope.zip.code};
-      $location.path('/sign-in');
+      $location.path('/');
     };
 
     $scope.saveProposal = function() {

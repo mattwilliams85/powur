@@ -6,9 +6,6 @@
     path: '/',
     component: 'home'
   }, {
-    path: '/signin',
-    component: 'signin'
-  }, {
     path: '/:notfound',
     component: 'notfound'
   }];

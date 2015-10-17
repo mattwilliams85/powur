@@ -45,7 +45,7 @@
           if (data.error) {
             $scope.showModal(data.error.message);
           } else {
-            $location.path('/sign-in');
+            $location.path('/');
             $scope.showModal('We received your request. You\'ll get an email if we have an account associated with it.');
           }
         }).error(function() {
@@ -69,7 +69,7 @@
           if (data.error) {
             $scope.showModal(data.error.message);
           } else {
-            $location.path('/sign-in');
+            $location.path('/');
             $scope.showModal(data.properties._message.confirm);
           }
         }).
@@ -89,7 +89,6 @@
     // Setting mode based on the url
     $scope.mode = '';
     if (/\/home$/.test($location.path())) return $scope.mode = 'home';
-    if (/\/sign-in$/.test($location.path())) return $scope.mode = 'sign-in';
     if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
     if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
     if (/\/reset-password/.test($location.path())) return $scope.mode = 'reset-password';
@@ -97,9 +96,7 @@
 
 
   LandingCtrl.prototype.fetch = function($scope, $rootScope, $http, $location, $interval, $routeParams, $timeout) {
-    if ($scope.mode === 'sign-in') {
-      $scope.signInPage = true;
-    } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
+    if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
       $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
         'Powur Customer FAQ' :
         'Powur Advocate FAQ';
@@ -112,7 +109,7 @@
         $scope.validResetToken = true;
       }).
       error(function(data){
-        $location.path('/sign-in');
+        $location.path('/');
         $scope.showModal("Your Password Reset Link is invalid or has already been used.")
       });
     }
