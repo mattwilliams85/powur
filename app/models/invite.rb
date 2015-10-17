@@ -82,6 +82,19 @@ class Invite < ActiveRecord::Base
     ((Time.zone.now - time_start) / (expires - time_start)).round(2)
   end
 
+  def send_sms
+    return if phone.nil? || !valid_phone?(phone)
+    twilio_client = TwilioClient.new
+    join_url = 'https://www.powur.com/next/join/grid/' + id
+    message = 'Hey! Jonathan Budd is working on a Game-Changing technology ' \
+              'disrupting the $6 trillion energy industry. ' \
+              'He thinks you should be involved. Check this out... ' + join_url
+    twilio_client.send_message(
+      to:   phone,
+      from: twilio_client.purchased_numbers.sample,
+      body: message)
+  end
+
   class << self
     def generate_code(size = 3)
       SecureRandom.hex(size).upcase

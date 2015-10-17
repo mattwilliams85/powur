@@ -30,6 +30,7 @@ module Auth
       if @customer.email?
         PromoterMailer.product_invitation(@customer).deliver_later
       end
+      @customer.delay.send_sms
 
       show
     end
