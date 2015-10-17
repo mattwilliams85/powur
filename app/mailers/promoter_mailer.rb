@@ -103,7 +103,7 @@ class PromoterMailer < ActionMailer::Base
     headers['X-MC-MergeVars'] = merge_vars.to_json
 
     mail to:      to,
-         subject: t("email_subjects.#{template}"),
+         subject: '',
          body:    ''
   end
 end
