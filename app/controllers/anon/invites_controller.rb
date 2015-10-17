@@ -3,8 +3,8 @@ module Anon
     before_action :fetch_invite, only: [ :update, :validate, :show ]
 
     def update
-      require_input :first_name, :last_name, :password,
-                    :email, :phone, :state, :zip
+      require_input :first_name, :last_name, :email, :phone,
+                    :state, :zip, :password
 
       input = invite_input
 

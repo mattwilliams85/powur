@@ -19,7 +19,8 @@ class PromoterMailer < ActionMailer::Base
       invite_url:         url,
       sponsor_first_name: invite.sponsor.first_name,
       sponsor_full_name:  invite.sponsor.full_name,
-      sponsee_first_name: invite.first_name }
+      sponsee_first_name: invite.first_name,
+      sponsee_full_name:  invite.full_name }
 
     mail_chimp to, 'grid-invite', merge_vars
   end
@@ -30,7 +31,8 @@ class PromoterMailer < ActionMailer::Base
     sponsor = User.find(customer.user_id)
     merge_vars = { invite_url:          url,
                    sponsor_full_name:   sponsor.full_name,
-                   customer_first_name: customer.first_name }
+                   customer_first_name: customer.first_name,
+                   customer_full_name:  customer.full_name }
 
     mail_chimp to, 'solar-invite', merge_vars
   end
