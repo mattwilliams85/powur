@@ -197,6 +197,16 @@ $buttonColor: #07b7d1;
             }
         }
 
+        &.grid {
+            form {
+                opacity: 0;
+                transition: opacity 1s;
+                &.opaque {
+                    opacity: 1;
+                } 
+            }
+        }
+
 
         md-content {
             background: transparent;
