@@ -71,10 +71,9 @@ class PromoterMailer < ActionMailer::Base
     # used when a new user redeems his/her invite (on invites_controller)
     to = user.name_and_email
     merge_vars = {
-      powur_path_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-path.pdf",
-      sponsor:        user.sponsor.full_name,
-      sponsor_phone:  user.sponsor.phone
-    }
+      powur_path_url:    "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-path.pdf",
+      sponsor_full_name: user.sponsor.full_name,
+      sponsor_phone:     user.sponsor.phone }
 
     mail_chimp to, 'welcome-new-user', merge_vars
   end
