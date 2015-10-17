@@ -10,3 +10,4 @@ Rails.application.config.assets.precompile += [
 
 Rails.application.config.assets.precompile += %w( client.css )
 Rails.application.config.assets.precompile += %w( client.js )
+Rails.application.config.assets.precompile += %w( assets/img/default-profile.png )
