@@ -3,8 +3,8 @@
         <div layout="column" layout-align="space-around center" layout-padding>
             <div class="key-box">
                 <div class="who">
-                    <div class="greeting">Hello,</div>
-                    <div class="full-name">{{ join.customer.properties.first_name }}</div>
+                    <div class="greeting">Hello, </div>
+                    <div class="full-name" >{{ join.customer.properties.first_name }} <b>{{ join.customer.properties.last_name }}</b></div>
                     <div class="detail">Jonathan Budd invited you here because there is a smarter way to get electricity.</div>
                 </div>
                 <div class="key">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
-          <div class="logo"></div>
+          <a href="/" class="home-link"><div class="logo"></div></a>
         </div>
     </div>
 </div>

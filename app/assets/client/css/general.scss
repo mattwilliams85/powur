@@ -59,6 +59,18 @@ html,body {
     background-image: image-url('img/join/powur-logo.png');
     width: 100px;
     height: 28px;
+    position: relative;
+    display: block;
+    margin-left: -50px;
+    margin-top:-80px;
+  }
+
+  a.home-link{
+    display:block;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
   }
 }
 

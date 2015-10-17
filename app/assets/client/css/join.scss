@@ -61,7 +61,7 @@ $buttonColor: #07b7d1;
     .bg {
         @include bg("img/join/join-bg.jpg");
         &.solar { @include bg("img/join/join-bg2.jpg") }
-        &.solar-2 { @include bg("img/join/join-bg5.jpg") }
+        &.solar-2 { @include bg("img/join/join-bg4.jpg") }
 
         .messages {
             color: #fff;
@@ -99,13 +99,14 @@ $buttonColor: #07b7d1;
             }
 
             .greeting {
-                font-size: medium;
+                font-size: small;
                 text-transform: uppercase;
             }
 
             .full-name {
                 font-size: x-large;
-                font-weight: 600;
+                text-transform: uppercase;
+                font-weight: 100;
             }
             .detail {
                 padding: 15px 0 0px 0;
@@ -182,7 +183,7 @@ $buttonColor: #07b7d1;
             @include bg("img/join/join-bg3.jpg");
             position: fixed;
             &.solar {
-                @include bg("img/join/join-bg4.jpg");
+                @include bg("img/join/join-bg5-mod.jpg");
             }
         }
 
