@@ -3,7 +3,7 @@
 module powur {
   class NavController {
     static ControllerId: string = 'NavController';
-    static $inject: Array<string> = ['$scope'];
+    static $inject: Array<string> = ['$scope', '$mdSidenav'];
 
     get home(): any {
       return this.$scope.home;
@@ -13,11 +13,16 @@ module powur {
       return this.home.state;
     }
     
-    constructor(private $scope: any) {
+    constructor(private $scope: any, private $mdSidenav: ng.material.ISidenavService) {
     }
     
     isCurrent(state: string): boolean {
       return !!this.state.current.name.match(`${state}`);
+    }
+
+    openMenu() {
+      console.log('fuck')
+      this.$mdSidenav('left').toggle();
     }
 
     logout() {

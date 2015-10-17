@@ -1,6 +1,7 @@
 <div class="nav fill-height">
     <div class="bg fill-height">
         <ul class="list fill-height" layout="column" layout-align="start center">
+            <div ng-click="nav.openMenu()" class="mobile-menu" hide-gt-md></div>
             <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }"><i class="sprite sprite-invite"></i>
             <md-tooltip>Invite</md-tooltip>
             </li>

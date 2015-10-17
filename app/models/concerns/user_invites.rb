@@ -32,6 +32,6 @@ module UserInvites
   end
 
   def send_invite(invite)
-    PromoterMailer.invitation(invite).deliver_later
+    PromoterMailer.grid_invite(invite).deliver_later
   end
 end

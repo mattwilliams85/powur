@@ -33,7 +33,7 @@ class Invite < ActiveRecord::Base
   scope :pending, -> { where(user_id: nil).where('expires > ?', Time.zone.now) }
   scope :redeemed, -> { where.not(user_id: nil) }
   scope :expired, lambda {
-    where('expires < ?', Time.zone.now).where('user_id IS NOT NULL')
+    where('expires < ?', Time.zone.now).where('user_id IS NULL')
   }
 
   def full_name

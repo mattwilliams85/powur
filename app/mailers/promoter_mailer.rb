@@ -1,6 +1,18 @@
 class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = invite.name_and_email
+    # url = root_url(code: invite.id)
+    url = root_url + "sign-up/" + invite.id
+    merge_vars = {
+      code:       invite.id,
+      invite_url: url,
+      sponsor:    User.find(invite.sponsor_id).full_name }
+
+    mail_chimp to, :invite, merge_vars
+  end
+
+  def grid_invite(invite)
+    to = invite.name_and_email
     url = URI.join(root_url, '/next/join/grid/', invite.id).to_s
     merge_vars = {
       gridkey:       invite.id,

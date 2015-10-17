@@ -17,6 +17,11 @@ md-sidenav.collapsed{
     overflow:visible;
 }
 
+.md-sidenav-left{
+   transition: all .3s;
+   position:relative !important
+}
+
 .hud .stat4 .stat md-progress-linear {
     .md-container {
         height: 7px !important;

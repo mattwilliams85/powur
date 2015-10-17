@@ -15,9 +15,6 @@ module powur {
       super();
     }
     
-    openMenu() {
-      this.$mdSidenav('left').toggle();
-    }
   }
   
   controllerModule.controller(HomeController.ControllerId, HomeController);
