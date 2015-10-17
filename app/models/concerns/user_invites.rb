@@ -26,7 +26,7 @@ module UserInvites
   # Create/Send Methods
   def create_invite(params)
     invite = invites.create!(params)
-    send_invite(invite)
+    send_invite(invite) if invite.email?
 
     invite
   end

@@ -1,6 +1,6 @@
-<div class="invite-popup fill-height">
+<div class="invite-popup">
   <md-dialog aria-label="Invite" class="dialog">
-    <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate>
+    <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate autocomplete="off">
       <div class="side-bg"></div>
       <div layout="column" flex>
         <div class="banner solar">
@@ -12,14 +12,14 @@
           <md-content layout-padding layout="row">
             <md-input-container>
               <label>first name</label>
-              <input ng-model="dialog.create.field('first_name').value" md-autofocus>
+              <input ng-model="dialog.create.field('first_name').value" autocomplete="off" md-autofocus>
               <div ng-messages="dialog.create.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
             <md-input-container>
               <label>last name</label>
-              <input ng-model="dialog.create.field('last_name').value">
+              <input ng-model="dialog.create.field('last_name').value" autocomplete="off">
               <div ng-messages="dialog.create.field('last_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('last_name').$error.message }}</div>
               </div>
@@ -34,7 +34,7 @@
             </md-input-container>
             <md-input-container>
               <label>email</label>
-              <input ng-model="dialog.create.field('email').value" type="email">
+              <input ng-model="dialog.create.field('email').value" type="email" autocomplete="off">
               <div ng-messages="dialog.create.field('email').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('email').$error.message }}</div>
               </div>

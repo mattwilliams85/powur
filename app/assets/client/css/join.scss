@@ -43,6 +43,9 @@ $buttonColor: #07b7d1;
             margin: 0;
             padding-top: 0;
         }
+        &.smaller {
+            margin: 5vh;
+        }
     }
 
     .controls, .sidedock {
@@ -157,7 +160,7 @@ $buttonColor: #07b7d1;
         }
 
         .trailer {
-            //padding-top: 400px;
+            padding-top: 75px;
 
             .video {
                 width: 29px;
@@ -186,7 +189,6 @@ $buttonColor: #07b7d1;
                 @include bg("img/join/join-bg5-mod.jpg");
             }
         }
-
 
 
         md-content {
@@ -267,6 +269,9 @@ $buttonColor: #07b7d1;
                 margin-top: 40px;
                 height: 10px;
                 pointer-events: none;
+                &.long {
+                    width: 97.5%
+                }
             }
         }
 
