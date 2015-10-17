@@ -20,6 +20,7 @@ module Auth
       validate_max_invites
 
       @invite = current_user.create_invite(input)
+      @invite.delay.send_sms
 
       render 'show'
     end

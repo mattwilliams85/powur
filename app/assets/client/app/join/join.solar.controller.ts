@@ -27,8 +27,6 @@ module powur {
                 private $stateParams: ng.ui.IStateParamsService,
                 private customer: ISirenModel) {
       super();
-
-      console.log('customer', customer);
     }
 
     validateZip(): void {
