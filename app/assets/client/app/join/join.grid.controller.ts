@@ -7,6 +7,7 @@ module powur {
 
     gridKey: string;
     gridKeyInvalid: boolean;
+    gridKeyMissing: boolean;
 
     get acceptAction(): Action {
       return this.invite.action('accept_invite');
@@ -22,7 +23,13 @@ module powur {
       if (this.gridKey === this.invite.properties.id) {
         this.state.go('join.grid2', {});
       } else {
-        this.gridKeyInvalid = true;
+        console.log('key', this.gridKey);
+        if (this.gridKey) {
+          this.gridKeyMissing = false;
+          this.gridKeyInvalid = true;
+        } else {
+          this.gridKeyMissing = true;
+        }
       }
     }
 
