@@ -14,14 +14,14 @@
           <!--  -->
           <div class="heading"><div class="title">contact<b> name</b></div></div>
           <md-content layout-padding layout="row">
-            <md-input-container>
+            <md-input-container flex>
               <label>first name</label>
               <input ng-model="dialog.create.field('first_name').value" md-autofocus>
               <div ng-messages="dialog.create.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container>
+            <md-input-container flex>
               <label>last name</label>
               <input ng-model="dialog.create.field('last_name').value">
               <div ng-messages="dialog.create.field('last_name').$error" class="messages">
