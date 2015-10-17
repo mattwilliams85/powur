@@ -2,16 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import "compass/support";
+// @import "compass/support";
 
-$debug-browser-support: true;
-// $browser-minimum-versions: (
-//   "safari": "8"
-//);
+// $debug-browser-support: true;
+// // $browser-minimum-versions: (
+// //   "safari": "8"
+// //);
 
-@debug browser-versions('chrome');
+// @debug browser-versions('chrome');
 
-@import "compass";
+// @import "compass";
 
 // Bower components
 @import 'angular-material/angular-material.min';
