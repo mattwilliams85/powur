@@ -56,11 +56,14 @@
 
     <div class="stat4">
         <div class="stat" layout="row" ng-repeat="req in hud.goalRequirements">
-            <i class="sprite sprite-proposal" flex="10"></i>
-            <div class="progress" flex>
+            <div class="progress" flex ng-hide="req.properties.event_type == 'purchase'">
                 <div class="stat-title">{{ req.properties.event_type | removeExtraChars }} </div>
                 <md-progress-linear md-mode="determinate" value="{{ (req.properties.progress / req.properties.quantity) * 100 }}" ng-class="req.properties.team ? 'md-warn' : ''" flex></md-progress-linear>
                 <div class="stat-title" style="font-size:8pt; font-weight:normal;padding-top:10px;">{{ req.properties.time_span | lowercase }}: {{ req.properties.progress }}/{{ req.properties.quantity }}</div>
+            </div>
+            <div class="progress purchase" flex ng-show="req.properties.event_type == 'purchase'">
+                <div class="stat-title">{{ req.properties.event_type | removeExtraChars }}</div>
+                <i class="sprite sprite-proposal" flex="10"></i> <a ng-href="/upgrade"><div class="stat-title">{{ req.properties.product }}</div>
             </div>
         </div>
     </div>
