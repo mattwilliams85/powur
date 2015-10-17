@@ -12,6 +12,9 @@
 // Greater than medium screen
 $gt-md: 'screen and (min-width: 1281px)';
 
+// smaller screens and smart phones
+$sm: 'screen and (max-width: 720px)';
+
 // Next UX
 @import "css/safari.scss";
 @import "css/general.scss";

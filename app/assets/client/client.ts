@@ -64,6 +64,7 @@
 /// <reference path='app/filters/humanize.filter.ts' />
 /// <reference path='app/filters/remove-extra-characters.filter.ts' />
 /// <reference path='app/components/invite-progress.directive.ts' />
+/// <reference path='app/filters/truncate-name.filter.ts' />
 /// <reference path='app/components/nav.controller.ts' />
 /// <reference path='app/components/nav.directive.ts' />
 /// <reference path='app/components/activity.controller.ts' />

@@ -11,9 +11,13 @@ module powur {
           if (element.length === 1) {
             var node = <any>element[0];
             var canvas = document.createElement('canvas');
-
-            var width = node.getAttribute('data-progress-width') || '170';
-            var height = node.getAttribute('data-progress-height') || '170';
+            var deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            var diameter = (deviceWidth>720) ? 170 : 140;
+            var radius = (deviceWidth>720) ? 80 : 60;
+            var progressWidth =(deviceWidth>720) ? 10 : 7;
+            var width = node.getAttribute('data-progress-width') || diameter;
+            var height = node.getAttribute('data-progress-height') || diameter;
+            console.log(diameter);
 
             canvas.setAttribute('width', width);
             canvas.setAttribute('height', height);
@@ -21,8 +25,8 @@ module powur {
 
             node.parentNode.replaceChild(canvas, node);
 
-            var circleWidth = node.getAttribute('data-circle-width') || '10';
-            var circleRadius = node.getAttribute('data-circle-radius') || '80';
+            var circleWidth = node.getAttribute('data-circle-width') || progressWidth;
+            var circleRadius = node.getAttribute('data-circle-radius') || radius;
             var circleBackgroundColor = node.getAttribute('data-circle-background-color') || '#cccccc';
             var circleForegroundColor = attributes.circleForegroundColor || '#2583a8';
 
