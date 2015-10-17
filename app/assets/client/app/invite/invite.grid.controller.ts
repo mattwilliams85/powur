@@ -60,7 +60,7 @@ module powur {
 
       $interval(() => {
         this.startTimers();
-      }, 100)
+      }, 1000)
     }
 
     // TODO: Serious refactor needed
