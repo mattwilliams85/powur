@@ -1,4 +1,5 @@
 /// <reference path='../_references.ts' />
+/// <reference path='../models/siren.model.ts' />
 
 module powur {
   class JoinGridController extends BaseController {
@@ -24,7 +25,7 @@ module powur {
 
       $timeout(() => {
         this.leadSubmitAllowed = true;
-      }, 30000);
+      }, 60000);
     }
 
     validateGridInviteSubmit(): void {
