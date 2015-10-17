@@ -396,7 +396,7 @@ ALTER SEQUENCE distributions_id_seq OWNED BY distributions.id;
 
 CREATE TABLE invites (
     id character varying NOT NULL,
-    email character varying NOT NULL,
+    email character varying,
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     phone character varying,
@@ -2981,4 +2981,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150923221510');
 INSERT INTO schema_migrations (version) VALUES ('20151011213250');
 
 INSERT INTO schema_migrations (version) VALUES ('20151013222020');
+
+INSERT INTO schema_migrations (version) VALUES ('20151017023317');
 

@@ -8,20 +8,7 @@ module Anon
 
       @customer.update_attributes!(customer_input)
 
-      product.quote_fields.each do |field|
-        require_input field.name
-      end
-
-      @lead = Lead.where(product_id:  product.id,
-                         customer_id: @customer.id).first
-      @lead ||= begin
-        @lead = Lead.create!(
-          product_id: product.id,
-          customer:   @customer,
-          user_id:    @customer.user_id,
-          data:       lead_input)
-      end
-
+      @lead = find_or_create_lead
       if @lead.ready_to_submit?
         @lead.submit!
         @lead.email_customer if @lead.can_email?
@@ -49,6 +36,16 @@ module Anon
 
     def lead_input
       allow_input(*product.quote_fields.map(&:name))
+    end
+
+    def find_or_create_lead
+      product.quote_fields.each { |field| require_input field.name }
+
+      attrs = { product_id: product.id, customer_id: @customer.id }
+      Lead.find_or_create_by(attrs) do |lead|
+        lead.user_id = @customer.user_id
+        lead.data = lead_input
+      end
     end
   end
 end

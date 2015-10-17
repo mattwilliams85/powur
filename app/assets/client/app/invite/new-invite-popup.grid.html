@@ -28,13 +28,16 @@
 
           <div class="heading"><div class="title">contact<b> method</b></div></div>
           <md-content layout-padding layout="column">
+            <div ng-messages="dialog.create.$error" class="messages">
+              <div ng-message="message">{{ dialog.create.$error.message }}</div>
+            </div>
             <md-input-container>
               <label>phone number</label>
               <input ng-model="dialog.create.field('phone').value" type="tel">
             </md-input-container>
             <md-input-container>
               <label>email</label>
-              <input ng-model="dialog.create.field('email').value" type="email">
+              <input ng-model="dialog.create.field('email').value" type="text" novalidate>
               <div ng-messages="dialog.create.field('email').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('email').$error.message }}</div>
               </div>

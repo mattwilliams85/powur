@@ -8,12 +8,15 @@ class Invite < ActiveRecord::Base
   belongs_to :sponsor, class_name: 'User'
 
   # Validates with https://github.com/hallelujah/valid_email
-  validates :email,
-            uniqueness: true,
-            presence:   true,
-            email:      {
-              message: "This isn't a valid email address"
-            }
+  # validates :email, uniqueness: true, presence:   false
+  validates :email, presence:   true,
+                    email:      true,
+                    uniqueness: true, if: :email_present?
+
+  def email_present?
+    email?
+  end
+
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
