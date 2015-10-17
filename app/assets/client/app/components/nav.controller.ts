@@ -5,6 +5,8 @@ module powur {
     static ControllerId: string = 'NavController';
     static $inject: Array<string> = ['$scope', '$mdSidenav'];
 
+    activeMenu: boolean = false;
+
     get home(): any {
       return this.$scope.home;
     }
@@ -21,8 +23,9 @@ module powur {
     }
 
     // TODO: Add animation to side, prevent mobile toggle and desktop toggle combo
+    isOpen() { return this.$mdSidenav('left').isOpen(); };
+
     openMenu() {
-      console.log('fuck')
       this.$mdSidenav('left').toggle();
     }
 

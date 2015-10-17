@@ -14,6 +14,8 @@ module Auth
     end
 
     def create
+      require_input :first_name, :last_name
+
       if !params[:email].present? && !params[:phone].present?
         error!(:either_email_or_phone)
       end

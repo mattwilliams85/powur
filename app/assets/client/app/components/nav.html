@@ -1,7 +1,7 @@
 <div class="nav fill-height">
     <div class="bg fill-height">
         <ul class="list fill-height" layout="column" layout-align="start center">
-            <div ng-click="nav.openMenu()" class="mobile-menu" hide-gt-md></div>
+            <div ng-click="nav.openMenu(); activeMenu = !activeMenu" class="mobile-menu" hide-gt-md ng-class="{ 'active': nav.isOpen() }"></div>
             <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }"><i class="sprite sprite-invite"></i>
             <md-tooltip>Invite</md-tooltip>
             </li>
@@ -9,11 +9,9 @@
             <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i>
             <md-tooltip>Events</md-tooltip>
             </li>
- -->
             <li ui-sref="home.grid" ng-class="{ active: nav.isCurrent('home.grid') }"><i class="sprite sprite-grid"></i>
             <md-tooltip>Grid</md-tooltip>
             </li>
-<!-- 
             <li ui-sref="home.goal" ng-class="{ active: nav.isCurrent('home.goal') }"><i class="sprite sprite-goal"></i>
             <md-tooltip>Goals</md-tooltip>
             </li>

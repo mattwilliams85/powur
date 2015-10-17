@@ -1,5 +1,6 @@
 .nav .bg {
     width: 70px;
+    z-index:20;
     /*height: 1200px;*/
     background: #29a8dd; /* Old browsers */
     background: -moz-linear-gradient(top, #29a8dd 0%, #509f9a 100%); /* FF3.6+ */
@@ -11,14 +12,16 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
     
     .mobile-menu {
-        background: image-url('img/hud-icon.png');
-        background: url(/assets/img/hud-icon.png);
+        background: image-url('img/hud-icon-disabled.png');
         height: 38px;
         width: 34px;
         background-size: 100%;
         background-repeat: no-repeat;
         margin-bottom: 35px;
         cursor: pointer;
+        &.active {
+            background: image-url('img/hud-icon.png');
+        }
     }
 
     .list {

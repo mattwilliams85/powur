@@ -8,7 +8,7 @@
             <iframe src="https://player.vimeo.com/video/142689080?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
             </div>
         </div>
-        <form ng-submit="join.acceptSubmit()" name="acceptGridInviteForm" novalidate>
+        <form ng-submit="join.acceptSubmit()" name="acceptGridInviteForm" novalidate ng-class="{ 'opaque': join.leadSubmitAllowed }">
           <!-- PREVENT CHROME AUTOFILL -->
           <input style="display:none">
           <input type="password" style="display:none">
@@ -17,7 +17,7 @@
           <md-content layout="column" flex="1">
             <div layout="row" layout-sm="column">
               <md-input-container flex-gt-sm="50" flex>
-                <div class="border long"></div>
+                <div class="border"></div>
                 <label>First Name</label>
                 <input ng-model="join.acceptAction.field('first_name').value" type="text">
                 <div ng-messages="join.acceptAction.field('first_name').$error" class="messages">
@@ -35,13 +35,23 @@
             </div>
             <div layout="row" layout-sm="column">
               <md-input-container flex-gt-sm="50">
-                <div class="border long"></div>
+                <div class="border"></div>
                 <label>Email</label>
-                <input ng-model="join.acceptAction.field('email').value"  type="text" autocomplete="off" autocapitalize="off">
+                <input ng-model="join.acceptAction.field('email').value"  type="text" autocomplete="off">
                 <div ng-messages="join.acceptAction.field('email').$error">
                   <div ng-message="message">{{ join.acceptAction.field('email').$error.message }}</div>
                 </div>
               </md-input-container>
+              <md-input-container flex-gt-sm="50">
+                <div class="border"></div>
+                <label>Password</label>
+                <input ng-model="join.acceptAction.field('password').value" type="password">
+                <div ng-messages="join.acceptAction.field('password').$error" class="input-message">
+                  <div ng-message="message">{{ join.acceptAction.field('password').$error.message }}</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div layout="row" layout-sm="column">
                <md-input-container flex-gt-sm="50">
                 <div class="border"></div>
                 <label>Phone</label>
@@ -50,8 +60,6 @@
                   <div ng-message="message">{{ join.acceptAction.field('phone').$error.message }}</div>
                 </div>
               </md-input-container>
-            </div>
-            <div layout="row" layout-sm="column">
               <md-input-container flex-gt-sm="25">
                 <div class="border"></div>
                 <label>State/Province</label>
@@ -68,14 +76,6 @@
                 <div ng-messages="join.acceptAction.field('zip').$error" class="input-message">
                   <div ng-message="required">required</div>
                   <div ng-message="message">{{ join.acceptAction.field('zip').$error.message }}</div>
-                </div>
-              </md-input-container>
-              <md-input-container flex-gt-sm="50">
-                <div class="border"></div>
-                <label>Password</label>
-                <input ng-model="join.acceptAction.field('password').value" type="password">
-                <div ng-messages="join.acceptAction.field('password').$error" class="input-message">
-                  <div ng-message="message">{{ join.acceptAction.field('password').$error.message }}</div>
                 </div>
               </md-input-container>
             </div>

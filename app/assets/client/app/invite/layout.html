@@ -4,7 +4,11 @@
     <div class="subtitle">Your journey of the power revolution starts here.</div>
   </div>
   <ul layout="row" class="tab" layout-align="center center">
-    <li class="grid-invites" flex="{{invite.isCurrent('home.invite.grid')?60:40}}" ng-class="{ active: invite.isCurrent('home.invite.grid') }">
+        <!-- hide until Sunday 10/18/2015
+
+    <li class="grid-invites" flex="{{invite.isCurrent('home.invite.grid')?60:40}}" ng-class="{ active: invite.isCurrent('home.invite.grid') }">-->
+    <li class="grid-invites" flex="100" ng-class="{ active: invite.isCurrent('home.invite.grid') }">
+
       <a layout-fill layout="column" layout-align="center center" ui-sref="home.invite.grid" >
         <div flex layout="column" layout-align="center start">
           <div style="{{invite.isCurrent('home.invite.grid')?'opacity:1':'opacity:.5'}}">
@@ -14,6 +18,7 @@
         </div>
       </a>
     </li>
+    <!-- hide until Sunday 10/18/2015
     <li class="solar-invites" flex="{{invite.isCurrent('home.invite.product')?60:40}}" ng-class="{ active: invite.isCurrent('home.invite.product') }">
       <a layout-fill layout="column" layout-align="center center" ui-sref="home.invite.product" >
         <div flex layout="column" layout-align="center start">
@@ -23,7 +28,7 @@
           </div>
         </div>
       </a>
-    </li>
+    </li>-->
   </ul>
   <div ui-view></div>
 </div>
