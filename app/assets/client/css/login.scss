@@ -21,7 +21,10 @@ $textColor: white;
   color: $textColor;
   font-family: 'Open Sans';
 
-  .bg { @include bg("img/join/join-bg.jpg") }
+  .bg { 
+    @include bg("img/join/join-bg.jpg");
+    min-height: 850px; 
+  }
 
   button {
     margin: 50px 0 0 0;

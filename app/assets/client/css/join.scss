@@ -63,6 +63,7 @@ $buttonColor: #07b7d1;
 
     .bg {
         @include bg("img/join/join-bg.jpg");
+        min-height: 850px;
         &.solar { @include bg("img/join/join-bg2.jpg") }
         &.solar-2 { @include bg("img/join/join-bg4.jpg") }
 
@@ -184,6 +185,7 @@ $buttonColor: #07b7d1;
     .bg2 {
         .bg-img {
             @include bg("img/join/join-bg3.jpg");
+            min-height: 850px;
             position: fixed;
             &.solar {
                 @include bg("img/join/join-bg5-mod.jpg");
