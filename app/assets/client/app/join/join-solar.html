@@ -1,19 +1,14 @@
 <div class="join" layout="column">
     <div flex class="bg solar" layout="column" layout-align="center center">
-        <div class="box">
-            <div class="intro" flex>
-            <iframe src="https://player.vimeo.com/video/142662280?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
-            </div>
-        </div>
         <div layout="column" layout-align="space-around center" layout-padding>
             <div class="key-box">
                 <div class="who">
                     <div class="greeting">Hello,</div>
                     <div class="full-name">{{ join.customer.properties.first_name }}</div>
-                    <div class="detail">We know that you have no defense against the rising energy prices.<br>On the cusp of imminent global energy crisis, how do you take powur back?</div>
+                    <div class="detail">Jonathan Budd invited you here because there is a smarter way to get electricity.</div>
                 </div>
                 <div class="key">
-                <label>Please enter your <b>zipcode</b></label>
+                <label>Enter your <b>zipcode</b> to continue...</label>
                     <form name="zipForm">
                         <div layout="row">
                                 <input name="zip"
@@ -29,8 +24,8 @@
                 </div>
             </div>
             <div class="trailer" layout="row">
-                <a href="https://youtube.com/"><img class="video" src="/assets/img/join/video.png" alt="Video"/></a>
-                <div class="info">want to know more? <a href="https://youtube.com/"><b>watch our trailer</b></a>.</div>
+                <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><img class="video" src="/assets/img/join/video.png" alt="Video"/></a>
+                <div class="info">want to know more? <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><b>watch our trailer</b></a>.</div>
             </div>
         </div>
         <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">

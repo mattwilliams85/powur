@@ -2,7 +2,6 @@ class Customer < ActiveRecord::Base
   include NameEmailSearch
 
   belongs_to :user
-  has_many :quotes
 
   validates_presence_of :first_name, :last_name
   validates_presence_of :email, :phone, :address, :city, :state, :zip,
@@ -32,5 +31,17 @@ class Customer < ActiveRecord::Base
 
   def full_address
     "#{address}, #{city}, #{state} #{zip}"
+  end
+
+  def lead
+    @lead ||= Lead.where(customer_id: id).first
+  end
+
+  def lead?
+    !lead.nil?
+  end
+
+  def lead_submitted?
+    lead? && lead.submitted?
   end
 end

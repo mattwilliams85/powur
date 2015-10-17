@@ -2,6 +2,30 @@
 
 module powur {
   'use strict';
+  class ResetDialogController extends BaseController {
+    static ControllerId: string = 'ResetDialogController';
+    static $inject = ['$mdDialog'];
+    constructor(private $mdDialog: ng.material.IDialogService) {
+      super();
+    }
+
+    cancel() {
+      this.$mdDialog.cancel();
+    }
+
+    get reset(): Action {
+      return this.session.instance.action('reset_password');
+    }
+
+    resetSubmit(): void {
+      this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.cancel();
+      });
+    }
+    
+  }
+
+  controllerModule.controller(ResetDialogController.ControllerId, ResetDialogController);
 
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
@@ -25,9 +49,9 @@ module powur {
       return this._create;
     }
 
-    get reset(): Action {
-      return this.session.instance.action('reset_password');
-    }
+    // get reset(): Action {
+    //   return this.session.instance.action('reset_password');
+    // }
 
     get email(): Field {
       return this.create.field('email');
@@ -41,9 +65,9 @@ module powur {
       return this.create.field('remember_me');
     }
 
-    cancel() {
-      this.$mdDialog.cancel();
-    }
+    // cancel() {
+    //   this.$mdDialog.cancel();
+    // }
 
     loginSubmit(): void {
       this.session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
@@ -51,28 +75,30 @@ module powur {
       });
     }
 
-    resetSubmit(): void {
-      this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.cancel();
-      });
-    }
+    // resetSubmit(): void {
+    //   this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+    //     this.cancel();
+    //   });
+    // }
     
     showNewPassword(): ng.IPromise<any> {
       return this.$mdDialog.show({
         templateUrl: 'app/login/reset-password.html',
-        controller: 'LoginPublicController as login',
+        controller: 'ResetDialogController as login',
         parent: angular.element(document.body),
         clickOutsideToClose: true,
+        bindToController: true
       })
     }
     
     showReset(e: MouseEvent): ng.IPromise<any> {
       return this.$mdDialog.show({
         templateUrl: 'app/login/forgot-password.html',
-        controller: 'LoginPublicController as login',
+        controller: 'ResetDialogController as login',
         parent: angular.element(document.body),
         targetEvent: e,
-        clickOutsideToClose: true
+        clickOutsideToClose: true,
+        bindToController: true
       })
     }
 

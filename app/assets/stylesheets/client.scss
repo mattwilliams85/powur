@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "compass/support";
+
+$debug-browser-support: true;
+// $browser-minimum-versions: (
+//   "safari": "8"
+//);
+
+@debug browser-versions('chrome');
+
+@import "compass";
+
 // Bower components
 @import 'angular-material/angular-material.min';
 @import 'angular-chart.js/dist/angular-chart';
@@ -16,7 +27,7 @@ $gt-md: 'screen and (min-width: 1281px)';
 $sm: 'screen and (max-width: 720px)';
 
 // Next UX
-@import "css/safari.scss";
+//@import "css/safari.scss";
 @import "css/general.scss";
 @import "css/overrides.scss";
 @import "css/nav.scss";

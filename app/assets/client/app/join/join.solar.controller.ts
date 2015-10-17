@@ -5,6 +5,8 @@ module powur {
     static ControllerId = 'JoinSolarController';
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
+    videoId: string;
+
     get params(): any {
       return this.$stateParams;
     }
@@ -57,6 +59,19 @@ module powur {
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true
+      })
+    }
+
+    openTrailer(ev: ng.IAngularEvent, id: string): void {
+      this.$mdDialog.show(<any>{
+        templateUrl: 'app/join/trailer.html',
+        controller: 'JoinSolarController as join',
+        parent: $('.join'),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: {
+          customer: {}
+        }
       })
     }
   }

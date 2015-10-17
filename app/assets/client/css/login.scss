@@ -50,7 +50,8 @@ $textColor: white;
     }
 
     md-input-container {
-      height: 50px;
+      height: 100px;
+      margin-bottom: -50px;
 
 
       &:nth-of-type(1) {

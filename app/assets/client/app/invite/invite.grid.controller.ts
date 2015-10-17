@@ -27,7 +27,7 @@ module powur {
 
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
-    static $inject = ['invites', '$mdDialog'];
+    static $inject = ['invites', '$mdDialog', '$interval'];
 
     get available(): number {
       return this.invites.properties.available_count;
@@ -52,13 +52,38 @@ module powur {
     timerColor: string;
 
     constructor(private invites: ISirenModel,
-                public $mdDialog: ng.material.IDialogService) {
+                public $mdDialog: ng.material.IDialogService,
+                private $interval: ng.IIntervalService) {
       super();
 
       this.timerColor = '#2583a8';
 
-      console.log('list', this.list);
+      $interval(() => {
+        this.startTimers();
+      }, 100)
     }
+
+    startTimers(): void {
+      for (var i = 0; i < this.list.length; i++) {
+        var item = this.list[i].properties;
+        var time = item.expires; 
+        if (time <= 0) {
+          time = 0;
+          continue;
+         }
+        this.list[i].properties.expires -= 100
+        this.list[i].properties.expiration_progress = this.calculateExp(item);
+        // debugger
+      }
+    }
+
+    calculateExp(item: any): any {
+      var start = new Date(item.created_at).getTime();
+      var end = item.expires;
+      var now = new Date().getTime();
+      // debugger
+      return 1 - ((now - start) / (end - start));
+     }
 
     addInvite(e: MouseEvent) {
       this.$mdDialog.show({
@@ -73,8 +98,8 @@ module powur {
       }).then((data: any) => {
         // ok
         this.invites.entities.unshift(data);
-        this.pending += 1;
-        this.available -= 1;
+        this.invites.properties.pending_count += 1;
+        this.invites.properties.available_count -= 1;
       }, () => {
         // cancel
         this.root.$log.debug('cancel');
