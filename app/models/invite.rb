@@ -86,8 +86,10 @@ class Invite < ActiveRecord::Base
   def send_sms
     return if phone.nil? || !valid_phone?(phone)
 
-    host = Rails.configuration.action_mailer.default_url_options[:host]
-    join_url = URI.join(host, 'next/join/grid', id)
+    opts = Rails.configuration.action_mailer.default_url_options
+    join_url = URI.join("#{opts[:protocol]}://#{opts[:host]}",
+                        'next/join/grid/',
+                        id).to_s
     message = I18n.t('sms.grid_invite', name: sponsor.full_name, url: join_url)
 
     twilio_client = TwilioClient.new
