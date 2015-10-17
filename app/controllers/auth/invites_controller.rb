@@ -4,6 +4,7 @@ module Auth
     skip_before_action :authenticate!, only: [ :show ]
 
     def index
+      current_user.reconcile_invites
       @invites = list_criteria
 
       render 'index'

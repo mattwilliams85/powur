@@ -19,7 +19,7 @@
                         <md-input-container>
                             <div class="border"></div>
                             <label>User Name</label>
-                            <input name="email" ng-model="login.create.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off" autofocus>
+                            <input name="email" ng-model="login.create.field('email').value" autocomplete="off" autofocus>
                             <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched" class="input-message">
                                 <div ng-message="required">Email is a required field</div>
                                 <div ng-message="pattern">Must be a valid email address</div>
@@ -28,7 +28,7 @@
                         <md-input-container>
                             <div class="border"></div>
                             <label>Password</label>
-                            <input name="password" ng-model="login.create.field('password').value" type="password" required>
+                            <input name="password" ng-model="login.create.field('password').value" type="password">
                             <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched" class="input-message">
                                 <div ng-message="required">Password is a required field</div>
                             </div>

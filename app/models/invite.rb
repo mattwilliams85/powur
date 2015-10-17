@@ -23,7 +23,6 @@ class Invite < ActiveRecord::Base
                                      on:     :create
 
   after_create :subtract_from_available_invites
-
   after_destroy :increment_available_invites
 
   before_validation do
