@@ -1,6 +1,6 @@
 <div class="join" layout="column">
   <div class="bg" layout="column" layout-align="center center">
-    <div flex layout="column" layout-align="space-around center" layout-padding>
+    <div flex layout="column" layout-padding class="key-wrap">
       <div class="key-box">
         <div class="who">
           <div class="greeting">Hello,</div>
@@ -10,8 +10,8 @@
           <label>Enter your <b>grid key</b></label>
           <form ng-submit="join.validateGridInviteSubmit()" name="validateGridInviteForm" novalidate>
             <div layout="row">
-              <input name="code" type="text" ng-model="join.gridKey" autofocus>
-              <button ng-disabled="join.validateGridInvite.submitting">Continue</button>
+              <input name="code" type="text" ng-model="join.gridKey">
+              <button ng-disabled="join.validateGridInvite.submitting" autofocus>Continue</button>
             </div>
             <div ng-show="join.gridKeyMissing" class="messages">
               Please input your Grid Key
@@ -22,8 +22,8 @@
           </form>
         </div>
         <div class="trailer" layout="row">
-          <a href="https://youtube.com/"><img class="video" src="/assets/img/join/video.png" alt="Video"/></a>
-          <div class="info">want to know more? <a href="https://youtube.com/"><b>watch our trailer</b></a>.</div>
+            <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><div class="video"></div></a>
+            <div class="info">want to know more? <a href="javascript:void(0);" ng-click="join.openTrailer($event, 'Seb_a4SS7sA')"><b>watch our trailer</b></a>.</div>
         </div>
       </div>
     </div>

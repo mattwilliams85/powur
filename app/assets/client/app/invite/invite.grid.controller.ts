@@ -9,6 +9,10 @@ module powur {
                 $mdDialog: ng.material.IDialogService,
                 private invites: ISirenModel) {
       super($log, $mdDialog);
+      this.create.field('first_name').value = null;
+      this.create.field('last_name').value = null;
+      this.create.field('email').value = null;
+      this.create.field('phone').value = null;
     }
 
     send() {
@@ -60,19 +64,29 @@ module powur {
 
       $interval(() => {
         this.startTimers();
-      }, 100)
+      }, 1000)
     }
 
     // TODO: Serious refactor needed
     startTimers(): void {
       for (var i = 0; i < this.list.length; i++) {
         var item = this.list[i].properties;
+
+
+        var x = new Date();
+        var jan = new Date(x.getFullYear(), 0, 1);
+        var jul = new Date(x.getFullYear(), 6, 1);
+        var stdTimezoneOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+        var currentTimeZoneOffsetInHours = x.getTimezoneOffset() / 60;
         var time = new Date(this.list[i].properties.expires).getTime() - new Date().getTime();
+        if(stdTimezoneOffset > x.getTimezoneOffset()) currentTimeZoneOffsetInHours=currentTimeZoneOffsetInHours+1;
+        time=time+(currentTimeZoneOffsetInHours*3600000);
+
         if (time <= 0) {
           time = 0;
           continue;
         }
-        this.list[i].properties.time_left = time 
+        this.list[i].properties.time_left = time; 
         this.list[i].properties.expiration_progress = this.calculateExp(item);
       }
     }

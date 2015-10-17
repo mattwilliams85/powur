@@ -85,11 +85,14 @@ class Invite < ActiveRecord::Base
 
   def send_sms
     return if phone.nil? || !valid_phone?(phone)
+
+    opts = Rails.configuration.action_mailer.default_url_options
+    join_url = URI.join("#{opts[:protocol]}://#{opts[:host]}",
+                        'next/join/grid/',
+                        id).to_s
+    message = I18n.t('sms.grid_invite', name: sponsor.full_name, url: join_url)
+
     twilio_client = TwilioClient.new
-    join_url = 'https://www.powur.com/next/join/grid/' + id
-    message = 'Hey! Jonathan Budd is working on a Game-Changing technology ' \
-              'disrupting the $6 trillion energy industry. ' \
-              'He thinks you should be involved. Check this out... ' + join_url
     twilio_client.send_message(
       to:   phone,
       from: twilio_client.purchased_numbers.sample,

@@ -21,7 +21,10 @@ $textColor: white;
   color: $textColor;
   font-family: 'Open Sans';
 
-  .bg { @include bg("img/join/join-bg.jpg") }
+  .bg { 
+    @include bg("img/join/join-bg.jpg");
+    min-height: 850px; 
+  }
 
   button {
     margin: 50px 0 0 0;
@@ -219,4 +222,24 @@ $textColor: white;
         height: 13px;
         background-position: -40px -5px;
     }
+}
+
+@media screen and (max-width: 500px) {
+  .login {
+    overflow-x: hidden;
+    .bg {
+      min-height: 600px;
+    }
+    .login-box {
+      min-height: 600px;
+      padding: 10px;
+      md-input-container:nth-of-type(1) {
+          margin-top: 15px;
+      }
+    }
+    button {
+      margin: 20px 0 0 0;
+    }
+  }
+
 }

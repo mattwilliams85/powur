@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe '/product_invites/:customer_code' do
+describe '/customers/:customer_code' do
   describe '#show' do
     let(:code) { 'qwerty' }
     let(:user) { create(:user) }
     let!(:customer) { create(:customer, code: code, user: user) }
 
     it 'returns customer data' do
-      get product_invite_path(customer.code), format: :json
+      get customer_path(customer.code), format: :json
 
       expect_200
       expect_props(first_name: customer.first_name)
@@ -32,7 +32,8 @@ describe '/product_invites/:customer_code' do
         city:         'Sunnyvalley',
         state:        'OR',
         zip:          '90210',
-        average_bill: '123' }
+        average_bill: '123',
+        format:       'json' }
     end
     let(:solar_city_form) do
       double(:solar_city_form,
@@ -48,17 +49,5 @@ describe '/product_invites/:customer_code' do
       allow_any_instance_of(Lead).to receive(:email_customer).and_return(true)
     end
 
-    it 'returns lead data' do
-      VCR.use_cassette('zip_validation/valid') do
-        patch product_invite_path(customer.code), payload
-
-        expect_200
-        expect_props(
-          data_status:    'submitted',
-          customer:       payload[:first_name] + ' ' + payload[:last_name],
-          email:          payload[:email],
-          product_fields: { 'average_bill' => payload[:average_bill] })
-      end
-    end
   end
 end

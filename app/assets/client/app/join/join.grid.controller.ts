@@ -1,13 +1,15 @@
 /// <reference path='../_references.ts' />
+/// <reference path='../models/siren.model.ts' />
 
 module powur {
   class JoinGridController extends BaseController {
     static ControllerId = 'JoinGridController';
-    static $inject = ['$mdDialog', '$stateParams', 'invite'];
+    static $inject = ['$mdDialog', '$stateParams', '$timeout', 'invite'];
 
     gridKey: string;
     gridKeyInvalid: boolean;
     gridKeyMissing: boolean;
+    leadSubmitAllowed: boolean = false;
 
     get acceptAction(): Action {
       return this.invite.action('accept_invite');
@@ -15,13 +17,20 @@ module powur {
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
+                private $timeout: ng.ITimeoutService,
                 private invite: ISirenModel) {
       super();
+
+      this.gridKey = invite.properties.id;
+
+      $timeout(() => {
+        this.leadSubmitAllowed = true;
+      }, 60000);
     }
 
     validateGridInviteSubmit(): void {
       if (this.gridKey === this.invite.properties.id) {
-        this.state.go('join.grid2', {});
+        this.state.go('join.grid2', { inviteCode: this.gridKey });
       } else {
         console.log('key', this.gridKey);
         if (this.gridKey) {
@@ -48,6 +57,19 @@ module powur {
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true
+      })
+    }
+
+    openTrailer(ev: ng.IAngularEvent, id: string): void {
+      this.$mdDialog.show(<any>{
+        templateUrl: 'app/join/trailer2.html',
+        controller: 'JoinSolarController as join',
+        parent: $('.join'),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: {
+          customer: {}
+        }
       })
     }
   }

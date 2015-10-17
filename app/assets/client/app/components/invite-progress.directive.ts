@@ -12,9 +12,9 @@ module powur {
             var node = <any>element[0];
             var canvas = document.createElement('canvas');
             var deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-            var diameter = (deviceWidth>720) ? 170 : 140;
+            var diameter = (deviceWidth>720) ? 170 : 132;
             var radius = (deviceWidth>720) ? 80 : 60;
-            var progressWidth =(deviceWidth>720) ? 10 : 7;
+            var progressWidth =(deviceWidth>720) ? 10 : 5;
             var width = node.getAttribute('data-progress-width') || diameter;
             var height = node.getAttribute('data-progress-height') || diameter;
             console.log(diameter);

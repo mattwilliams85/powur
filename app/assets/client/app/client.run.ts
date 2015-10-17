@@ -22,9 +22,16 @@ module powur {
                                 fromState: ng.ui.IState,
                                 fromParams: ng.ui.IStateParamsService) {
 
+        if (toState.data && toState.data.logout && $session.instance.loggedIn()) {
+          e.preventDefault();
+          $session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+            $state.go(toState.name, toParams);
+          })
+        }
+
         if (/home\./.test(toState.name) && !$session.instance.loggedIn()){
           e.preventDefault();
-          $state.go('login.private');
+          $state.go('login.public');
         }
       }
       

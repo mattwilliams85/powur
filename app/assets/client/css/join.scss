@@ -63,6 +63,7 @@ $buttonColor: #07b7d1;
 
     .bg {
         @include bg("img/join/join-bg.jpg");
+        min-height: 850px;
         &.solar { @include bg("img/join/join-bg2.jpg") }
         &.solar-2 { @include bg("img/join/join-bg4.jpg") }
 
@@ -73,6 +74,10 @@ $buttonColor: #07b7d1;
             padding: 5px 5px 5px 10px;
             margin: 10px 0;
             border-left: 2px solid #f00;
+        }
+
+        .key-wrap {
+            margin-top: 20vh;
         }
 
         .key-box {
@@ -165,6 +170,7 @@ $buttonColor: #07b7d1;
             .video {
                 width: 29px;
                 height: $videoIconHeight;
+                background: image-url('img/join/video.png')
             }
 
             .info {
@@ -184,9 +190,20 @@ $buttonColor: #07b7d1;
     .bg2 {
         .bg-img {
             @include bg("img/join/join-bg3.jpg");
+            min-height: 850px;
             position: fixed;
             &.solar {
                 @include bg("img/join/join-bg5-mod.jpg");
+            }
+        }
+
+        &.grid {
+            form {
+                opacity: 0;
+                transition: opacity 1s;
+                &.opaque {
+                    opacity: 1;
+                } 
             }
         }
 

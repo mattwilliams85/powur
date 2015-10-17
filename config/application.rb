@@ -18,8 +18,10 @@ module Powur
       password:             'TrCgMfSpdGnbfztgaiAuvQ',
       authentication:       'plain',
       enable_starttls_auto: true  }
-    email_host = ENV['EMAIL_HOST'] || 'http://localhost:3000'
-    config.action_mailer.default_url_options = { host: email_host }
+
+    config.action_mailer.default_url_options = {
+      host:     ENV['EMAIL_HOST'] || 'http://localhost:3000',
+      protocol: ENV['EMAIL_PROTO'] || 'http' }
     config.action_mailer.default_options = {
       from: "Powur <no-reply#{Rails.env}@powur.com>" }
 

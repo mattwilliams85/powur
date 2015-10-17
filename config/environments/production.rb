@@ -33,7 +33,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.5'
+  config.assets.version = '1.7'
   # config.action_controller.asset_host = Proc.new { |source|
   #   if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
   #     nil
@@ -88,9 +88,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  config.action_mailer.default_url_options = {
-    host: 'www.powur.com',
-    protocol: 'https'
-  }
 end

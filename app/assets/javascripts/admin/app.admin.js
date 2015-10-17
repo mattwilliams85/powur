@@ -24,7 +24,7 @@
 
     $rootScope.redirectUnlessSignedIn = function() {
       if (!$rootScope.isSignedIn) {
-        window.location = '/sign-in';
+        window.location = '/';
       }
     };
 
@@ -93,7 +93,7 @@
 
     $rootScope.signOut = function() {
       $http.delete('/login.json').success(function() {
-        window.location = '/sign-in';
+        window.location = '/';
       });
     };
   }

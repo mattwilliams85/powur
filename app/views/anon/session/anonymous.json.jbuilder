@@ -14,7 +14,7 @@ actions(*actions_list)
 
 entity_list = [ entity(%w(solar_invite),
                        'customer-solar_invite',
-                       product_invite_path('{code}')),
+                       customer_path('{code}')),
                 entity(%w(grid_invite),
                        'user-solar_invite',
                        invite_path('{code}'))]

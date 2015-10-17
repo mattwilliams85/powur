@@ -32,7 +32,7 @@ module powur {
     validateZip(): void {
       this.validateZipAction.submit().then((response) => {
         this.state.go('join.solar2', { inviteCode: this.params.inviteCode });
-      })
+      });
     }
 
     get solarInvite(): Action {

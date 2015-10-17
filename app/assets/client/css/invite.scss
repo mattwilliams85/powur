@@ -259,7 +259,7 @@
         .time {
             font-size: large;
             font-weight: 400;
-            top: 85px;
+            top: 80px;
             position: relative;
             text-align: center;
             height: 0;
@@ -270,6 +270,21 @@
                 font-size: small;
                 font-weight: normal;
             }            
+        }
+        
+        .remove{
+            border-top:1px dashed #666;
+            text-transform:uppercase;
+            font-size:x-small;
+            top:115px;
+            color:#666;
+            position: relative;
+            text-align: center;
+            height: 0;
+            width:50%;
+            margin-left:25%;
+            line-height:20px;
+            display:none;
         }
 
         .date {
@@ -428,8 +443,8 @@
     .invite .invite-item .full-name {
         top:80px;
     }
-    .invite .invite-item .time {
-        top:75px;
+    .invite .invite-item .time{
+        top:65px;
     }
     .invite .counter > ul{
         height:115px;
@@ -474,6 +489,10 @@
         margin: 0 auto;
         text-align: center;
         width: 95px;
+    }
+    .invite .invite-item .remove{
+        top:95px;
+        display:none;
     }
 }
 

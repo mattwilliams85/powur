@@ -26,7 +26,8 @@
         {{ item.properties.first_name | truncateName}} <b>{{ item.properties.last_name | truncateName}}</b>
         <md-tooltip>{{item.properties.first_name}} {{item.properties.last_name}}</md-tooltip>
       </div>
-      <div class="time">{{ item.properties.time_left | date : 'H:mm' }}<span class="superscript">{{ item.properties.time_left | date : 'ss' }}</span></div>
+      <div class="time">{{ item.properties.time_left | date : 'H:mm' }}<span class="superscript">{{ item.properties.time_left  | date : 'ss' }}</span></div>
+      <div class="remove">Remove</div>
       <div pw-invite-progress data-progress-model="item.properties" data-circle-foreground-color="{{ invite.timerColor }}"></div>
     </div>
     <!-- <div ng-if="item.status == 0" class="invite-item">
