@@ -7,6 +7,7 @@ module powur {
     static $inject = ['$mdDialog'];
     constructor(private $mdDialog: ng.material.IDialogService) {
       super();
+      this.reset.field('email').value = null;
     }
 
     cancel() {

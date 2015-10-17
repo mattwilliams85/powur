@@ -3,11 +3,15 @@
     <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate>
       <div class="side-bg"></div>
       <div layout="column" flex>
-        <div class="banner grid">
+        <div class="banner grid" hide-sm>
           <span class="title">Send a<br>new Grid<b> Invite</b></span>
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
         <md-dialog-content layout="column">
+          <!-- TODO: this is what happens when you code for 16 hours straight -->
+          <br hide-gt-sm>
+          <br hide-gt-sm>
+          <!--  -->
           <div class="heading"><div class="title">contact<b> name</b></div></div>
           <md-content layout-padding layout="row">
             <md-input-container>

@@ -23,7 +23,7 @@
 
     $rootScope.redirectUnlessSignedIn = function() {
       if (!$rootScope.isSignedIn) {
-        $location.path('/sign-in');
+        $location.path('/next/login');
       } else {
         if ($rootScope.currentUser.latest_terms) {
           $location.path('/latest-terms');
@@ -90,8 +90,9 @@
     };
 
     $rootScope.signOut = function() {
+      console.log("WOOOOOT");
       $http.delete('/login.json').success(function() {
-        window.location = '/sign-in';
+        window.location = '/next/login';
       });
     };
 
