@@ -6,7 +6,7 @@ json.properties do
   json.code :id
   json.call(invite,
             :id, :first_name, :last_name, :email, :phone,
-            :status, :expiration_progress)
+            :status, :created_at, :expires, :expiration_progress)
   json.expires invite.expires.to_f * 1000
 end
 
