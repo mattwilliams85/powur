@@ -45,7 +45,7 @@ describe Auth::InvitesController do
       expect_alert_error
     end
 
-    [ :email, :first_name, :last_name ].each do |input|
+    [ :first_name, :last_name ].each do |input|
       it "requires #{input}" do
         post :create, invite_params.reject { |k, _v| k == input }
 

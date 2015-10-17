@@ -49,6 +49,7 @@ en:
     invalid_zip: Zip code is invalid
     unqualified_zip: Your zip code is outside the serviceable area
     either_email_or_phone: Either email or phone is required
+    exceeded_max_invites: You have exceeded the max number of invites allowed
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

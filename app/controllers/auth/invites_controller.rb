@@ -17,6 +17,7 @@ module Auth
         error!(:either_email_or_phone)
       end
       validate_email
+      validate_max_invites
 
       @invite = current_user.create_invite(input)
 
@@ -55,6 +56,10 @@ module Auth
 
       error!(:you_exist, :email) if input['email'] == current_user.email
       validate_uniq_email
+    end
+
+    def validate_max_invites
+      error!(:exceeded_max_invites) if current_user.available_invites < 1
     end
 
     def list_criteria
