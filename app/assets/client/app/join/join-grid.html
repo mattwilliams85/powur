@@ -4,7 +4,7 @@
       <div class="key-box">
         <div class="who">
           <div class="greeting">Hello,</div>
-          <div class="full-name">{{ join.invite.properties.full_name }}</div>
+          <div class="full-name">{{ join.invite.properties.first_name }} <b>{{join.invite.properties.last_name}}</b></div>
         </div>
         <div class="key">
           <label>Enter your <b>grid key</b></label>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
-      <div class="logo"></div>
+      <a href="/" class="home-link"><div class="logo"></div></a>
     </div>
   </div>
 </div>
