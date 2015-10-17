@@ -37,11 +37,21 @@
               <md-input-container flex-gt-sm="50">
                 <div class="border long"></div>
                 <label>Email</label>
-                <input ng-model="join.acceptAction.field('email').value"  type="text" autocomplete="off" autocapitalize="off">
+                <input ng-model="join.acceptAction.field('email').value"  type="text" autocomplete="off">
                 <div ng-messages="join.acceptAction.field('email').$error">
                   <div ng-message="message">{{ join.acceptAction.field('email').$error.message }}</div>
                 </div>
               </md-input-container>
+              <md-input-container flex-gt-sm="50">
+                <div class="border"></div>
+                <label>Password</label>
+                <input ng-model="join.acceptAction.field('password').value" type="password">
+                <div ng-messages="join.acceptAction.field('password').$error" class="input-message">
+                  <div ng-message="message">{{ join.acceptAction.field('password').$error.message }}</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div layout="row" layout-sm="column">
                <md-input-container flex-gt-sm="50">
                 <div class="border"></div>
                 <label>Phone</label>
@@ -50,8 +60,6 @@
                   <div ng-message="message">{{ join.acceptAction.field('phone').$error.message }}</div>
                 </div>
               </md-input-container>
-            </div>
-            <div layout="row" layout-sm="column">
               <md-input-container flex-gt-sm="25">
                 <div class="border"></div>
                 <label>State/Province</label>
@@ -68,14 +76,6 @@
                 <div ng-messages="join.acceptAction.field('zip').$error" class="input-message">
                   <div ng-message="required">required</div>
                   <div ng-message="message">{{ join.acceptAction.field('zip').$error.message }}</div>
-                </div>
-              </md-input-container>
-              <md-input-container flex-gt-sm="50">
-                <div class="border"></div>
-                <label>Password</label>
-                <input ng-model="join.acceptAction.field('password').value" type="password">
-                <div ng-messages="join.acceptAction.field('password').$error" class="input-message">
-                  <div ng-message="message">{{ join.acceptAction.field('password').$error.message }}</div>
                 </div>
               </md-input-container>
             </div>
