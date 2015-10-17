@@ -9,6 +9,10 @@ module powur {
                 $mdDialog: ng.material.IDialogService,
                 private invites: ISirenModel) {
       super($log, $mdDialog);
+      this.create.field('first_name').value = null;
+      this.create.field('last_name').value = null;
+      this.create.field('email').value = null;
+      this.create.field('phone').value = null;
     }
 
     send() {
