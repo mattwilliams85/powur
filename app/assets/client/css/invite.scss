@@ -195,6 +195,11 @@
     .invite-item {
         padding: 30px;
         position: relative;
+        &.solar {
+            .full-name {
+                top: 80px;
+            }
+        }
 
         &:hover .hoverable {
             color: #2583a8;
