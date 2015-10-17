@@ -1,0 +1,344 @@
+.collapsed .hud{
+    width:160px;
+    transition: .2s;
+
+    .control-tab{
+        background-image:image-url("img/hud-collapse-tab.png");
+        background-repeat:no-repeat;
+        top:265px;
+        position:absolute;
+        right:0px;
+        width:40px;
+        height:40px;
+        outline:none;
+        transition:0.2s;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+        }
+    }    
+    .achievements{
+        display:none;
+    }
+
+    .heading{
+        padding:30px 0 0 0px;
+        margin:auto;
+    }    
+
+    .headshot {
+        //background-image: image-url("img/default-profile.png");
+        height: 315px;
+        color: white;
+        background-size: cover;
+        background-position:-100px 0px;
+        overflow: hidden;
+        transition:0.2s;
+            
+        .user {
+            height: 100%;
+            padding: 20px 40px 5px 20px;
+        }
+        
+        .greeting {
+            opacity:0;
+            transition:.2s;
+
+        }
+        
+        .full-name {
+            opacity:0;
+            transition:.2s;
+
+        }
+        
+        .actions i {
+            padding: 5px;
+        }        
+    }
+    .stat1{
+        margin: 37px 10px 0 10px;
+        .login-streaks, .sprite{
+            display:none;
+            transition:.2s;
+        }
+        .rank{
+            border-right:0px;
+        }
+        .stat{
+            padding:10px 0 0 0px;
+        }
+    }
+
+    .stat2 {
+        height: 120px;
+        margin: 0 10px 0 10px;
+        border-top: solid #62babf 1px;
+            
+        .sprite{
+            display:none;
+        }        
+        
+        .stat {
+            padding: 10px 0 0 15px;
+                
+            .info {
+                text-align: center;
+                padding: 0 30px 0 0;
+                margin:auto;
+            }        
+        }
+        sup{
+            font-size:small;
+        }
+    }
+    .current-goals{
+        display:none;
+    }
+    .stat4{
+        opacity:0;
+    }
+}
+
+.hud {
+    width: 279px;
+    background-color: #2c6c8a;
+    transition:.2s;
+    overflow:visible;
+    padding-bottom:100px;
+    
+    .control-tab{
+        background-image:image-url("img/hud-collapse-tab.png");
+        width: 40px;
+        height: 40px;
+        background-position:top center;
+        background-repeat:no-repeat;
+        top:265px;
+        position:absolute;
+        right:0px;
+        outline:none;
+        transition:0.2s;
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+        }
+    }    
+
+    .headshot {
+        //background-image: image-url("img/default-profile.png");
+        height: 315px;
+        color: white;
+        background-size: cover;
+        transition:0.2s;
+            
+        .user {
+            height: 100%;
+            padding: 20px 20px 5px 20px;
+        }
+        
+        .greeting {
+            font-size: 12px;
+            padding-bottom: 5px;
+        }
+        
+        .full-name {
+            font-size: 25px;
+            padding-bottom: 10px;
+        }
+        
+        .actions i {
+            padding: 5px;
+        }        
+    }
+    
+    .heading {
+        padding: 30px 0 0 20px;
+        text-transform: uppercase;
+        color: rgba(255,255,255, 0.6);
+        font-weight: bold;
+    }
+    
+    .achievements {
+        height: 65px;
+        font-size:small;
+    }
+    
+    .stat-title {
+        color: #62babf;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 12px;
+    }
+    
+    .superscript {
+        vertical-align: super;
+        font-size: small;
+    }
+    
+    .stat .info {
+        color: white;
+        font-size: 30px;
+        padding-left: 10px;
+    }
+    
+    .stat1 {
+        height: 90px;
+        margin: 7px 10px 0 10px;
+            
+        .rank {
+            border-right: solid #62babf 1px;
+            height: 100%;
+        }
+        
+        .stat {
+            padding: 20px 0 0 15px;
+        }
+        
+        .rank .stat .total {
+            font-size: 25px;
+        }
+        
+        .grid-size {
+        }        
+    
+        .stat-title {
+            font-weight: 400;
+        }
+            
+    }
+    
+    .stat2 {
+        height: 120px;
+        margin: 0 10px 0 10px;
+        border-top: solid #62babf 1px;
+            
+        .sprite-earned {
+            margin-top: 20px;
+        }
+        
+        .stat-title {
+            padding-top: 25px;
+            font-weight: 400;
+        }
+            
+        .sprite-earned {
+            margin-top: 20px;
+        }
+        
+        
+        .stat {
+            padding: 10px 0 0 15px;
+                
+            .info {
+                text-align: center;
+                padding: 0 30px 0 0;
+            }        
+        }
+        sup{
+            font-size:small;
+        }
+    }
+    
+    .current-goals {
+        padding-top: 90px; 
+        font-size: small;   
+    }
+    
+    .stat4 {            
+        .stat {
+            padding: 20px 30px 0 20px;
+            
+            .progress {
+                .stat-title {
+                    text-align: left;
+                    padding-bottom: 10px;
+                }
+                &.purchase {
+                    i {
+                        float: left;
+                    }
+                    a {
+                        text-decoration: none;
+                        float: left;
+                        padding: 5px 0 0 10px;
+
+                        .stat-title {
+                            color: #FF9929;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }                 
+        }        
+    }
+    
+    /* sprites */
+    .sprite {
+        background-image: image-url("img/profile-sprite.png");
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+    
+    .sprite-badge {
+        width: 12px;
+        height: 18px;
+        background-position: -5px -5px;
+    }
+    
+    .sprite-boxes {
+        width: 16px;
+        height: 16px;
+        background-position: -27px -5px;
+    }
+    
+    .sprite-co2 {
+        width: 24px;
+        height: 20px;
+        background-position: -53px -5px;
+    }
+    
+    .sprite-earned {
+        width: 26px;
+        height: 16px;
+        background-position: -87px -5px;
+    }
+    
+    .sprite-grid {
+        width: 22px;
+        height: 18px;
+        background-position: -123px -5px;
+    }
+    
+    .sprite-login {
+        width: 20px;
+        height: 17px;
+        background-position: -155px -5px;
+    }
+    
+    .sprite-proposal {
+        width: 21px;
+        height: 25px;
+        background-position: -185px -5px;
+    }
+    
+    .sprite-proposal-group {
+        width: 26px;
+        height: 26px;
+        background-position: -216px -5px;
+    }
+    
+    .sprite-rank {
+        width: 16px;
+        height: 26px;
+        background-position: -252px -5px;
+    }
+
+}

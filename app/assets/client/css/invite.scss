@@ -1,0 +1,512 @@
+@mixin tab-bg($img) {
+  width: 450px;
+  height: 200px;
+  background-image: image-url($img); 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.invite {
+
+    a {
+        text-decoration: none;
+    }
+
+    .tab {
+      list-style: none;
+      margin: 0;
+      padding: 5px;
+      text-transform: uppercase;
+      
+      li {
+        display: inline-block;
+        margin: 1px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+        transition: filter .2s linear;
+        -webkit-transition: -webkit-filter .2s linear;
+
+        &.active {
+            -webkit-filter: grayscale(0%);
+            filter: grayscale(0%);
+            filter: none;
+
+            &:after {
+              content: "";
+              bottom: 38px;
+              left: 50%;
+              z-index: -1;
+              border-bottom: 20px solid #ffffff;
+              border-left: 12px solid transparent;
+              border-right: 12px solid transparent;
+              margin-left: -12px;
+              position: relative;
+              animation: floatUp .2s;
+            }
+
+            @keyframes floatUp {
+                0% { transform: translateY(38px); }
+                100% { transform: translateY(0); }
+            }
+        }
+        
+        a {
+          color: white;
+        }
+
+        .sub {
+          font-size: smaller;
+        }
+        
+        .title {
+          font-size: 2em;
+        }
+      }
+
+      .grid-invites {
+        @include tab-bg("img/grid-invite-bg.png");
+        transition: 0.2s;
+      }
+      
+      .solar-invites {
+        @include tab-bg("img/solar-invite-bg.png");
+        transition: 0.2s;
+      }
+
+    }
+  
+    .counter {
+        height: 205px;
+        // margin: 0 5px 0 5px;
+        // border-top: 1px solid #ececec;
+        // border-bottom: 1px solid #ececec;
+                        
+        >ul {
+            height: 205px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /*205 - 15*/
+        li { 
+            height: 190px;
+            border-right: 1px solid #ececec;
+        }
+        
+        li:last-child { 
+            border-right: none; 
+        }
+        
+        .count {
+            font-size: 4em;
+            color: #666666;
+            padding: 10px;
+        }
+
+        .fadeIn{
+            -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+            -moz-animation: fadein 1s; /* Firefox < 16 */
+            -ms-animation: fadein 1s; /* Internet Explorer */
+            -o-animation: fadein 1s; /* Opera < 12.1 */
+            animation: fadein 1s;
+        }        
+        @keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Firefox < 16 */
+        @-moz-keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Safari, Chrome and Opera > 12.1 */
+        @-webkit-keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Internet Explorer */
+        @-ms-keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Opera < 12.1 */
+        @-o-keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+                
+        .label {
+            font-weight:300;
+            color: #cccccc;
+            .locked{
+                color:#666;
+                font-size:smaller;
+                padding-top:10px;
+                display: block;
+            }
+
+        }
+
+        .label.kpi{
+            color:#666;
+
+            @media (max-width: 600px) {
+              font-size:x-small;
+            }
+            
+            @media (min-width: 600px) {
+              font-size:small;
+            }
+
+        }
+        .invite{
+            padding-top:10px;
+            display:block;
+            a{
+                color:#ccc;
+            }
+        }
+    }
+    
+        
+    .message {
+        color: #666666;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 50px 0 0 0;
+    }
+    
+    .bg {
+        background-color: #fafafa;
+    }
+    
+    .invite-list {
+        padding: 20px;
+        min-height: 50vh;
+    }
+    
+    .invite-item {
+        padding: 30px;
+        position: relative;
+        &.solar {
+            .full-name {
+                top: 80px;
+            }
+        }
+
+        &:hover .hoverable {
+            color: #2583a8;
+        }   
+            
+        .full-name {
+            text-transform: uppercase;
+            top: 90px;
+            position: relative;
+            text-align: center;
+            height: 32px;
+
+        }
+
+        .status-icons {
+            height: 0;
+            position: absolute;
+            bottom: 114px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            text-align: center;
+            width: 95px;
+
+            .icon {
+                margin: 0 7px;
+            }
+
+            .address {
+                background: image-url('img/invites/address-missing.png') center / cover;
+                &.provided {
+                    background: image-url('img/invites/address-provided.png') center / cover;
+                }
+                height: 20px;
+                width: 15px;
+            }
+
+            .contact {
+                background: image-url('img/invites/utility-missing.png') center / cover;
+                &.provided {
+                    background: image-url('img/invites/utility-provided.png') center / cover;
+                }
+                height: 18px;
+                width: 19px;
+            }
+
+            .utility {
+                background: image-url('img/invites/contact-missing.png') center / cover;
+                &.provided {
+                    background: image-url('img/invites/contact-provided.png') center / cover;
+                }
+                height: 18px;
+                width: 18px;
+            }
+        }
+        
+        .time {
+            font-size: large;
+            font-weight: 400;
+            top: 80px;
+            position: relative;
+            text-align: center;
+            height: 0;
+            color: #2583a8;
+            
+            .superscript {
+                vertical-align: super;
+                font-size: small;
+                font-weight: normal;
+            }            
+        }
+        
+        .remove{
+            border-top:1px dashed #666;
+            text-transform:uppercase;
+            font-size:x-small;
+            top:115px;
+            color:#666;
+            position: relative;
+            text-align: center;
+            height: 0;
+            width:50%;
+            margin-left:25%;
+            line-height:20px;
+            display:none;
+        }
+
+        .date {
+             font-size: small;
+             font-weight: bold;
+             top: 110px;
+             position: relative;
+             text-align: center;
+             height: 0;
+             color: #ccc;          
+         }
+        
+        .add {
+            top: 80px;
+            position: relative;
+            text-align: center;
+            height: 0;
+            
+            .label {
+                height: 0;
+                text-transform: uppercase;
+            }
+        }
+        
+        
+    }
+    
+    /* sprites */
+    
+    .ellipse {
+        &.border-fill {
+            width: 164px;
+            height: 166px;
+            border: 5px solid;
+            display: block;
+            border-radius: 50%;
+        }
+
+        .sprite {
+            background-image: image-url("img/ellipse-sprite.png");
+            background-repeat: no-repeat;
+            display: block;
+        }
+         
+        .sprite-ellipse {
+            width: 165px;
+            height: 165px;
+            background-position: -5px -5px;
+        }
+        
+        .sprite-ellipse-invite {
+            width: 165px;
+            height: 165px;
+            background-position: -180px -5px;
+        }
+        
+        .sprite-ellipse-locked {
+            width: 164px;
+            height: 166px;
+            background-position: -355px -5px;
+        }    
+    }
+    
+    .counter { 
+        .sprite {
+            background-image: image-url("img/invite-sprite.png");
+            background-repeat: no-repeat;
+            display: block;        
+        }        
+         
+        .sprite-accepted {
+            width: 24px;
+            height: 23px;
+            background-position: -5px -5px;
+        }
+        
+        .sprite-available {
+            width: 24px;
+            height: 23px;
+            background-position: -39px -5px;
+        }
+
+        .sprite-sent {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-sent-icon.png");
+        }
+        .sprite-initiated {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-initiated-icon.png");
+        }
+        .sprite-ineligible {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-ineligible-icon.png");
+        }
+        .sprite-accepted {
+            width: 40px;
+            height: 40px;
+            background-image: image-url("img/solar-invite-accepted-as-lead-icon.png");
+        }
+                        
+
+        .sprite-expired {
+            width: 24px;
+            height: 24px;
+            background-position: -73px -5px;
+        }
+        
+        .sprite-invite {
+            width: 35px;
+            height: 32px;
+            background-position: -107px -5px;
+            
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .sprite-pending {
+            width: 24px;
+            height: 24px;
+            background-position: -152px -5px;
+        }
+    }
+    
+}
+
+@media screen and (max-width : 720px) {
+    .invite .counter{
+        height:120px;
+    }
+    .invite .counter .count{
+        font-size:2em;
+    }
+    .invite .counter .sprite{
+        display: none;
+    }
+    .invite .invite-item{
+        padding:0px;
+        &.solar {
+            width: 130px;
+            margin-right: 15px;
+
+            .full-name {
+                top: 60px;
+            }
+            .status-icons {
+                bottom: 74px;
+            }
+            .date {
+                top: 84px;
+            }
+        }
+    }
+    .invite .invite-item .full-name {
+        top:80px;
+    }
+    .invite .invite-item .time{
+        top:65px;
+    }
+    .invite .counter > ul{
+        height:115px;
+    }
+    .invite .ellipse {
+        .sprite-ellipse-invite {
+            width: 140px;
+            height: 140px;
+            background-position: -140px -5px;
+            margin-top: 36px;
+            background-size: 420px 140px;
+        }
+        &.border-fill {
+            width: 130px;
+            height: 130px;
+            margin-right: 15px;
+        }
+    }
+    .invite .invite-item .add .label {
+        height: 0px;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding-top: 0px;
+        line-height: 40px;
+    }
+    .invite .ellipse.border-fill {
+        width: 135px;
+        height: 135px;
+        border: 5px solid;
+        display: block;
+        border-radius: 50%;
+    }     
+    .invite .invite-item .date {
+        display: none;
+    }
+    .invite .invite-item .status-icons {
+        height: 0;
+        position: absolute;
+        bottom: 64px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        width: 95px;
+    }
+    .invite .invite-item .remove{
+        top:95px;
+        display:none;
+    }
+}
+
+
+
+
+
+
+

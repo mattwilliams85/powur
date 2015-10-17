@@ -1,0 +1,57 @@
+md-sidenav, 
+md-sidenav.md-locked-open, 
+md-sidenav.md-closed.md-locked-open-add-active {
+    z-index:5;
+    min-width: 280px !important;
+    width: 85vw !important;
+    max-width: 280px !important;
+    box-shadow:none !important;
+    transition:.2s;
+} 
+
+md-sidenav.collapsed{
+    min-width: 160px !important;
+    width: 85vw !important;
+    max-width: 160px !important;
+    box-shadow:none !important;
+    transition:.2s;
+    overflow:visible;
+}
+
+.md-sidenav-left{
+   transition: all .3s;
+   position:relative !important
+}
+
+.hud .stat4 .stat md-progress-linear {
+    .md-container {
+        height: 7px !important;
+    }
+    .md-bar.md-bar2{
+        background: #52DAE2 !important; /* Old browsers */
+        height: 7px !important;
+        background: -moz-linear-gradient(left,  #52DAE2 0%, #29a8dd 100%) !important; /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#52DAE2), color-stop(100%,#29a8dd)) !important; /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left,  #52DAE2 0%,#29a8dd 100%) !important; /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(left,  #52DAE2 0%,#29a8dd 100%) !important; /* Opera 11.10+ */
+        background: -ms-linear-gradient(left,  #52DAE2 0%,#29a8dd 100%) !important; /* IE10+ */
+        background: linear-gradient(to right,  #52DAE2 0%,#29a8dd 100%) !important; /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52DAE2', endColorstr='#29a8dd',GradientType=1 ) !important; /* IE6-9 */
+    }
+}  
+
+
+.hud .stat4 .stat:nth-child(2) md-progress-linear .md-bar.md-bar2{
+    background: #FFA252 !important; /* Old browsers */
+    background: -moz-linear-gradient(left,  #FFA252 0%, #EA8D00  100%) !important; /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#FFA252), color-stop(100%,#EA8D00 )) !important; /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #FFA252 0%,#EA8D00  100%) !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #FFA252 0%,#EA8D00  100%) !important; /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #FFA252 0%,#EA8D00  100%) !important; /* IE10+ */
+    background: linear-gradient(to right,  #FFA252 0%,#EA8D00  100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFA252', endColorstr='#EA8D00 ',GradientType=1 ) !important; /* IE6-9 */
+}  
+
+.hud md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar1{
+    background-color:#fff !important;
+}  

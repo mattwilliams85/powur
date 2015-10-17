@@ -26,12 +26,12 @@ module UserInvites
   # Create/Send Methods
   def create_invite(params)
     invite = invites.create!(params)
-    send_invite(invite)
+    send_invite(invite) if invite.email?
 
     invite
   end
 
   def send_invite(invite)
-    PromoterMailer.invitation(invite).deliver_later
+    PromoterMailer.grid_invite(invite).deliver_later
   end
 end

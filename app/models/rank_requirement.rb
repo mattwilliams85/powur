@@ -17,4 +17,8 @@ class RankRequirement < ActiveRecord::Base
   def title
     "#{quantity} #{time_span} #{event_type} for #{product.name}"
   end
+
+  def team?
+    grid_proposals? || grid_sales?
+  end
 end

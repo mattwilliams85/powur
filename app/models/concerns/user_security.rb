@@ -35,8 +35,8 @@ module UserSecurity
   end
 
   def reset_token_expired?
-    reset_sent_at.nil? || reset_token.nil? \
-      || DateTime.current > reset_token_expires_at
+    reset_sent_at.nil? || reset_token.nil? ||
+      DateTime.current > reset_token_expires_at
   end
 
   def ensure_reset_password_token
@@ -55,6 +55,7 @@ module UserSecurity
   # Updates last_sign_in_at and remember_created_at timestamps
   def update_sign_in_timestamps!(remember_me = false)
     timestamp = Time.now.utc
+    update_login_streak(timestamp)
     self.last_sign_in_at = timestamp
     self.remember_created_at = timestamp if remember_me
     save(validate: false)
@@ -69,7 +70,19 @@ module UserSecurity
 
   private
 
+  def last_sign_in_yesterday?(timestamp)
+    yesterday = timestamp.yesterday
+    !last_sign_in_at.nil? &&
+      last_sign_in_at.year == yesterday.year &&
+      last_sign_in_at.day == yesterday.day
+  end
+
   def hash_password(value)
     ::BCrypt::Password.create(value, cost: 10).to_s
+  end
+
+  def update_login_streak(timestamp)
+    streaking = last_sign_in_yesterday?(timestamp)
+    self.login_streak = streaking ? login_streak + 1 : 1
   end
 end

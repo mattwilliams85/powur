@@ -1,0 +1,35 @@
+<div class="join" layout="column">
+    <div flex class="bg solar" layout="column" layout-align="center center">
+        <div layout="column" class="key-wrap" layout-padding>
+            <div class="key-box">
+                <div class="who">
+                    <div class="greeting">Hello, </div>
+                    <div class="full-name" >{{ join.customer.properties.first_name }} <b>{{ join.customer.properties.last_name }}</b></div>
+                    <div class="detail">Jonathan Budd invited you here because there is a smarter way to get electricity.</div>
+                </div>
+                <div class="key">
+                <label>Enter your <b>zipcode</b> to continue...</label>
+                    <form name="zipForm">
+                        <div layout="row">
+                                <input name="zip"
+                                       type="text"
+                                       ng-model="join.validateZipAction.field('zip').value">
+
+                            <button ng-click="join.validateZip()">Continue</button>
+                        </div>
+                    </form>
+                </div>
+                <div ng-messages="join.validateZipAction.field('zip').$error" >
+                    <div ng-message="message" class="messages capitalize">{{ join.validateZipAction.field('zip').$error.message }}</div>
+                </div>
+            </div>
+            <div class="trailer" layout="row">
+                <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><div class="video"></div></a>
+                <div class="info">want to know more? <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><b>watch our trailer</b></a>.</div>
+            </div>
+        </div>
+        <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
+          <a href="/" class="home-link"><div class="logo"></div></a>
+        </div>
+    </div>
+</div>

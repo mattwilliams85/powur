@@ -120,6 +120,20 @@ class Lead < ActiveRecord::Base
     lead_action? && !contract? && !installed?
   end
 
+  class << self
+    def valid_zip?(zip)
+      !!(/^\d{5}(-\d{4})?$/ =~ zip)
+    end
+
+    def eligible_zip?(zip)
+      path = "solarbid/api/warehouses/zip/#{zip[0, 5]}"
+      url = URI.join('http://api.solarcity.com', path).to_s
+
+      response = RestClient::Request.execute(method: :get, url: url, timeout: 3)
+      MultiJson.load(response)['IsInTerritory']
+    end
+  end
+
   private
 
   def query_status_count(status, product_id = nil)
@@ -153,19 +167,10 @@ class Lead < ActiveRecord::Base
     submitted("simulated:#{SecureRandom.hex(2)}", DateTime.current)
   end
 
-  def valid_zip?
-    return false unless customer.zip?
-    path = "solarbid/api/warehouses/zip/#{customer.zip[0, 5]}"
-    url = URI.join('http://api.solarcity.com', path).to_s
-
-    response = RestClient::Request.execute(method: :get, url: url, timeout: 3)
-    MultiJson.load(response)['IsInTerritory']
-  end
-
   def calculate_data_status
     return :submitted if submitted_at?
     return :incomplete unless customer.complete?
-    return :ineligible_location unless valid_zip?
+    return :ineligible_location unless Lead.eligible_zip?(customer.zip)
     :ready_to_submit
   end
 

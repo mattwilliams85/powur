@@ -1,0 +1,63 @@
+$caption: #848484;
+
+.activity {
+    width: 300px;
+    background-color: #ededed;
+    padding: 10px;    
+    
+    .heading {
+        text-transform: uppercase;
+        padding: 30px 0 20px 20px;
+        color: #666666;
+        
+        .title {
+            font-size: x-large;
+            line-height: 24px;
+            padding: 0 0 0 30px;
+        }
+    }
+    
+    
+    .wrapper {
+        overflow: auto;
+    }
+    
+    .container {
+    }
+    
+    .activity-item {
+        padding: 20px;
+    }
+    
+    .content {
+        padding: 0 0 0 45px;
+        
+        .date {
+            color: $caption;
+            font-weight: bold;
+        }
+        
+        .caption {
+            color: $caption;
+        }        
+    }
+    
+    .sprite {
+        background-image: image-url("img/activity-sprite.png");
+        background-repeat: no-repeat;
+        display: block;   
+        position: absolute;     
+    }    
+
+    .sprite-news {
+        width: 27px;
+        height: 21px;
+        background-position: -5px -5px;
+    }
+    
+    .sprite-activity {
+        width: 20px;
+        height: 22px;
+        background-position: -42px -5px;
+    }
+}

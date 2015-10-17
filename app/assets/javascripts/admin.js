@@ -4,7 +4,7 @@
  * Bower components
  */
 //= require jquery/dist/jquery
-//= require jquery-ui/ui/jquery-ui
+//= require jquery-ui
 //= require foundation/js/foundation
 //= require angular/angular
 //= require angular-route/angular-route

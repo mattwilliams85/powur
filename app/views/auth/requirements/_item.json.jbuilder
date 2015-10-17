@@ -4,6 +4,7 @@ entity_rel(local_assigns[:rel]) if local_assigns[:rel]
 
 json.properties do
   json.call(requirement, :id, :event_type, :product_id)
+  json.team requirement.team?
   json.product requirement.product.name
   unless requirement.purchase?
     json.quantity requirement.quantity

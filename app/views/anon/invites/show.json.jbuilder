@@ -3,7 +3,7 @@ siren json
 klass :invite
 
 json.properties do
-  json.call(@invite, :id, :first_name, :last_name, :email, :status)
+  json.call(@invite, :id, :first_name, :last_name, :email, :status, :full_name)
 
   json.sponsor_first_name @invite.sponsor.first_name
   json.sponsor_last_name @invite.sponsor.last_name
@@ -13,6 +13,11 @@ json.properties do
 end
 
 if @invite.status == 'valid'
+  tos_version = if ApplicationAgreement.current
+                  ApplicationAgreement.current.version
+                else
+                  0
+                end
   actions \
     action(:accept_invite, :patch, invite_path)
     .field(:code, :hidden, value: @invite.id)
@@ -25,7 +30,6 @@ if @invite.status == 'valid'
     .field(:state, :text)
     .field(:zip, :text)
     .field(:password, :password)
-    .field(:password_confirmation, :password)
-    .field(:tos, :checkbox)
-    .field(:tos_version, :hidden, value: ApplicationAgreement.current.version)
+    .field(:tos, :checkbox, value: true)
+    .field(:tos_version, :hidden, value: tos_version)
 end

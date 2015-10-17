@@ -1,0 +1,34 @@
+<div class="join" layout="column">
+  <div class="bg" layout="column" layout-align="center center">
+    <div flex layout="column" layout-padding class="key-wrap">
+      <div class="key-box">
+        <div class="who">
+          <div class="greeting">Hello,</div>
+          <div class="full-name">{{ join.invite.properties.first_name }} <b>{{join.invite.properties.last_name}}</b></div>
+        </div>
+        <div class="key">
+          <label>Enter your <b>grid key</b></label>
+          <form ng-submit="join.validateGridInviteSubmit()" name="validateGridInviteForm" novalidate>
+            <div layout="row">
+              <input name="code" type="text" ng-model="join.gridKey">
+              <button ng-disabled="join.validateGridInvite.submitting" autofocus>Continue</button>
+            </div>
+            <div ng-show="join.gridKeyMissing" class="messages">
+              Please input your Grid Key
+            </div>
+            <div ng-show="join.gridKeyInvalid" class="messages">
+              Invalid Grid Key
+            </div>
+          </form>
+        </div>
+        <div class="trailer" layout="row">
+            <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><div class="video"></div></a>
+            <div class="info">want to know more? <a href="javascript:void(0);" ng-click="join.openTrailer($event, 'Seb_a4SS7sA')"><b>watch our trailer</b></a>.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
+      <a href="/" class="home-link"><div class="logo"></div></a>
+    </div>
+  </div>
+</div>

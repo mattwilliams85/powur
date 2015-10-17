@@ -23,7 +23,7 @@ Rails.application.configure do
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  # config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -33,7 +33,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.5'
+  config.assets.version = '1.7'
   # config.action_controller.asset_host = Proc.new { |source|
   #   if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
   #     nil
@@ -51,10 +51,6 @@ Rails.application.configure do
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
-
-  # Disable log lines for rendering views
-  # !!! (This line is set in application.rb) !!!
-  # config.action_view.logger = nil
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -92,9 +88,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  config.action_mailer.default_url_options = {
-    host: 'www.powur.com',
-    protocol: 'https'
-  }
 end

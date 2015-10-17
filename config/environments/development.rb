@@ -15,4 +15,6 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   config.action_view.raise_on_missing_translations = true
+
+  Delayed::Worker.delay_jobs = false
 end

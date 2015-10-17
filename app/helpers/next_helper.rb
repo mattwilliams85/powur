@@ -1,0 +1,2 @@
+module NextHelper
+end

@@ -18,6 +18,7 @@
       <!-- <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/marketing')}">Marketing</a></li> -->
       <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/library')}" ng-href="/library">Library</a></li>
       <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/earnings')}" ng-href="/earnings">Earnings</a></li>
+      <li><a class="show-for-large-up" href="/next/invite/grid" target="_self">Invite</a></li>
     </ul>
     <!-- Right Nav Section -->
     <ul class="right">
@@ -34,19 +35,19 @@
       </li>
 
       <!-- For Small Screens, show all menu items in one list for Hamburger Menu -->
-      <li class="hide-for-large-up"><label>Powur</label></li>
-      <li class="hide-for-large-up"><a ng-href="/dashboard">Dashboard</a></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><label>Powur</label></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/dashboard">Dashboard</a></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><a href="/next/invite/grid" target="_self">Invites</a></li> <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/upgrade">Upgrade</a></li>
       <!-- <li class="hide-for-large-up"><a ng-href="/earnings">Earnings</a></li> -->
-      <li class="hide-for-large-up"><a ng-href="/university">Powur U</a></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/university">Powur U</a></li>
       <!-- <li class="hide-for-large-up"><a>Marketing</a></li> -->
-      <li class="hide-for-large-up"><a ng-href="/library">Library</a></li>
-      <li class="hide-for-large-up"><a ng-href="/upgrade">Upgrade</a></li>
-      <li class="hide-for-large-up" class="divider"></li>
-      <li class="hide-for-large-up"><label>Account</label></li>
-      <li class="hide-for-large-up"><a>{{currentUser.first_name}}'s Profile</a></li>
-      <li ng-show="currentUser.is_admin" class="hide-for-large-up"><a href="/admin" target="_self">Administration</a></li>
-      <li class="hide-for-large-up" class="divider"></li>
-      <li class="hide-for-large-up"><a ng-click="signOut()">Sign Out</a></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/library">Library</a></li>
+      <li class="hide-for-large-up" class="divider" style="padding-left:25px;"></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><label>Account</label></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><a>{{currentUser.first_name}}'s Profile</a></li>
+      <li ng-show="currentUser.is_admin" class="hide-for-large-up"><a href="/admin" target="_self" style="padding-left:25px;">Administration</a></li>
+      <li class="hide-for-large-up" class="divider" style="padding-left:25px;"></li>
+      <li class="hide-for-large-up" style="padding-left:25px;"><a ng-click="signOut()">Sign Out</a></li>
     </ul>
   </section>
 </nav>

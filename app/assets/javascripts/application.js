@@ -2,7 +2,7 @@
  * Bower components
  */
 //= require jquery/dist/jquery
-//= require jquery-ui/ui/jquery-ui
+//= require jquery-ui
 //= require foundation/js/foundation
 //= require eyecue-chartjs/Chart
 //= require pagepiling.js/jquery.pagepiling.min

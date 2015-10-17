@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   include UserEwallet
 
   has_many :leads
-  has_many :customers, through: :leads
+  has_many :customers
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
             length:       PASSWORD_LENGTH,
             confirmation: true,
             on:           :create
-  validates :password_confirmation, presence: true, on: :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   validates :available_invites, numericality: { greater_than_or_equal_to: 0 }
 
@@ -213,6 +212,58 @@ class User < ActiveRecord::Base
 
   def breakage_account?
     role?(:breakage_account)
+  end
+
+  def reconcile_invites
+    return if available_invites > 0
+    available = case invites.redeemed.count
+                when (0...9) then 5
+                when (10..19) then 10
+                else 20
+                end
+    pending = invites.pending.count
+    amount_to_add = available - pending
+    return if amount_to_add.zero?
+    update_column(:available_invites, amount_to_add)
+  end
+
+  def metrics
+    @metrics ||= Metrics.new(self)
+  end
+
+  class Metrics
+    attr_reader :user
+
+    def initialize(user)
+      @user = user
+    end
+
+    def team_count
+      @team_count ||= User.with_ancestor(user.id).count
+    end
+
+    def earnings
+      @earnings ||= user.bonus_payments.where(status: [ 2, 4 ]).sum(:amount)
+    end
+
+    def co2_saved
+      @co2_saved ||= begin
+        lb = 0
+        homes = User.installations(user.id).pluck(:installed_at)
+        homes.each do |home|
+          lb += (Time.now - home) / 1.days * 0.133
+        end
+        lb * 1000
+      end
+    end
+
+    def team_leads
+      @team_leads ||= Lead.team_count(user_id: user.id, query: Lead.submitted)
+    end
+
+    def login_streak
+      user.login_streak
+    end
   end
 
   private

@@ -1,8 +1,11 @@
 module Anon
   class InvitesController < AnonController
-    before_action :fetch_invite, only: [ :update, :validate ]
+    before_action :fetch_invite, only: [ :update, :validate, :show ]
 
     def update
+      require_input :first_name, :last_name, :email, :password,
+                    :phone, :state, :zip
+
       input = invite_input
 
       # for ToS, we store the version number the user last agreed to
@@ -11,20 +14,16 @@ module Anon
 
       user = @invite.accept(input)
 
-      if user.errors.empty?
-        User.delay.validate_phone_number!(user.id)
-        PromoterMailer.notify_upline(user).deliver_later
-        PromoterMailer.welcome_new_user(user).deliver_later
-        subscribe_to_mailchimp_list(user)
+      User.delay.validate_phone_number!(user.id)
+      PromoterMailer.notify_upline(user).deliver_later
+      PromoterMailer.welcome_new_user(user).deliver_later
+      subscribe_to_mailchimp_list(user) unless Rails.env.development?
 
-        # Sign in new user and return session
-        user = User.authenticate(params[:email], params[:password])
-        login_user(user, params[:remember_me] == true)
+      # Sign in new user and return session
+      user = User.authenticate(params[:email], params[:password])
+      login_user(user, params[:remember_me] == true)
 
-        render 'anon/session/show'
-      else
-        render json: { errors: user.errors.messages }
-      end
+      render 'anon/session/show'
     end
 
     def validate
@@ -33,16 +32,13 @@ module Anon
 
     private
 
-    def invalid_code!
-      error!(:invalid_code, :code)
-    end
-
     def fetch_invite
-      @invite = Invite.find_by(id: params[:code]) || invalid_code!
+      @invite = Invite.find(params[:id])
+      not_found!(:invite) unless @invite.status == 'valid'
     end
 
     def invite_input
-      params.permit(:first_name, :last_name, :email, :code,
+      params.permit(:first_name, :last_name, :email,
                     :password, :password_confirmation,
                     :address, :city, :phone, :zip, :state, :country,
                     :tos, :tos_version, :communications)

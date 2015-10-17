@@ -16,10 +16,6 @@
       templateUrl: 'dashboard/templates/index.html',
       controller: 'DashboardCtrl'
     }).
-    when('/sign-in', {
-      templateUrl: 'landing/templates/sign-in.html',
-      controller: 'LandingCtrl'
-    }).
     when('/forgot-password', {
       templateUrl: 'landing/templates/forgot-password.html',
       controller: 'LandingCtrl'

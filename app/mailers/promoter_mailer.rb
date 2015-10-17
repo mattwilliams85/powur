@@ -2,10 +2,39 @@ class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = invite.name_and_email
     # url = root_url(code: invite.id)
-    url = root_url + "sign-up/" + invite.id
-    merge_vars = { code: invite.id, invite_url: url, sponsor: User.find(invite.sponsor_id).full_name }
+    url = URI.join(root_url, 'sign-up/', invite.id)
+    merge_vars = {
+      code:       invite.id,
+      invite_url: url,
+      sponsor:    User.find(invite.sponsor_id).full_name }
 
     mail_chimp to, :invite, merge_vars
+  end
+
+  def grid_invite(invite)
+    to = invite.name_and_email
+    url = URI.join(root_url, '/next/join/grid/', invite.id).to_s
+    merge_vars = {
+      gridkey:            invite.id,
+      invite_url:         url,
+      sponsor_first_name: invite.sponsor.first_name,
+      sponsor_full_name:  invite.sponsor.full_name,
+      sponsee_first_name: invite.first_name,
+      sponsee_full_name:  invite.full_name }
+
+    mail_chimp to, 'grid-invite', merge_vars
+  end
+
+  def product_invitation(customer)
+    to = customer.name_and_email
+    url = root_url + 'next/join/solar/' + customer.code
+    sponsor = User.find(customer.user_id)
+    merge_vars = { invite_url:          url,
+                   sponsor_full_name:   sponsor.full_name,
+                   customer_first_name: customer.first_name,
+                   customer_full_name:  customer.full_name }
+
+    mail_chimp to, 'solar-invite', merge_vars
   end
 
   def reset_password(user)
@@ -42,10 +71,9 @@ class PromoterMailer < ActionMailer::Base
     # used when a new user redeems his/her invite (on invites_controller)
     to = user.name_and_email
     merge_vars = {
-      powur_path_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-path.pdf",
-      sponsor:        user.sponsor.full_name,
-      sponsor_phone:  user.sponsor.phone
-    }
+      powur_path_url:    "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-path.pdf",
+      sponsor_full_name: user.sponsor.full_name,
+      sponsor_phone:     user.sponsor.phone }
 
     mail_chimp to, 'welcome-new-user', merge_vars
   end
@@ -68,15 +96,6 @@ class PromoterMailer < ActionMailer::Base
     mail_chimp to, 'team-leader-downline-certification-purchase', merge_vars
   end
 
-  def product_invitation(invite)
-    to = invite.customer.name_and_email
-    url = root_url + 'product-invites/' + invite.code
-    merge_vars = { invite_url: url,
-                   sponsor:    User.find(invite.user_id).full_name }
-
-    mail_chimp to, :product_invitation, merge_vars
-  end
-
   private
 
   def mail_chimp(to, template, merge_vars = {})
@@ -85,7 +104,7 @@ class PromoterMailer < ActionMailer::Base
     headers['X-MC-MergeVars'] = merge_vars.to_json
 
     mail to:      to,
-         subject: t("email_subjects.#{template}"),
+         subject: '',
          body:    ''
   end
 end

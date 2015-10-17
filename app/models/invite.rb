@@ -8,19 +8,21 @@ class Invite < ActiveRecord::Base
   belongs_to :sponsor, class_name: 'User'
 
   # Validates with https://github.com/hallelujah/valid_email
-  validates :email,
-            uniqueness: true,
-            presence:   true,
-            email:      {
-              message: "This isn't a valid email address"
-            }
+  validates :email, presence:   true,
+                    email:      true,
+                    uniqueness: true, if: :email_present?
+  def email_present?
+    email?
+  end
+
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
-  # validates_with ::Phone::Validator, fields: [:phone]
+  validates_with ::Phone::Validator, fields: [:phone],
+                                     if:     'phone.present?',
+                                     on:     :create
 
   after_create :subtract_from_available_invites
-
   after_destroy :increment_available_invites
 
   before_validation do
@@ -28,9 +30,11 @@ class Invite < ActiveRecord::Base
     self.expires ||= expires_timespan
   end
 
-  scope :pending, -> { where(user_id: nil) }
+  scope :pending, -> { where(user_id: nil).where('expires > ?', Time.zone.now) }
   scope :redeemed, -> { where.not(user_id: nil) }
-  scope :expired, -> { where(['expires < ?', Time.zone.now]) }
+  scope :expired, lambda {
+    where('expires < ?', Time.zone.now).where('user_id IS NULL')
+  }
 
   def full_name
     "#{first_name} #{last_name}"
@@ -53,8 +57,6 @@ class Invite < ActiveRecord::Base
   def accept(params)
     params[:sponsor_id] = sponsor_id
 
-    code = params.delete(:code)
-
     user = User.new(params)
 
     latest_agreement = ApplicationAgreement.current
@@ -66,13 +68,35 @@ class Invite < ActiveRecord::Base
       return user
     end
 
-    Invite.where(id: code).update_all(user_id: user.id) if user.save
+    Invite.where(id: id).update_all(user_id: user.id) if user.save!
 
     user
   end
 
   def expires_timespan
     SystemSettings.invite_valid_days.days.from_now
+  end
+
+  def expiration_progress
+    return 0 unless expires
+    time_start = expires - SystemSettings.invite_valid_days.days
+    ((Time.zone.now - time_start) / (expires - time_start)).round(2)
+  end
+
+  def send_sms
+    return if phone.nil? || !valid_phone?(phone)
+
+    opts = Rails.configuration.action_mailer.default_url_options
+    join_url = URI.join("#{opts[:protocol]}://#{opts[:host]}",
+                        'next/join/grid/',
+                        id).to_s
+    message = I18n.t('sms.grid_invite', name: sponsor.full_name, url: join_url)
+
+    twilio_client = TwilioClient.new
+    twilio_client.send_message(
+      to:   phone,
+      from: twilio_client.purchased_numbers.sample,
+      body: message)
   end
 
   class << self

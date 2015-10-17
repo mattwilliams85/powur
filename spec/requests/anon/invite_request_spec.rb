@@ -16,11 +16,13 @@ describe '/invite' do
     end
     let(:user_params) do
       {
-        code:                  invite.id,
         first_name:            invite.first_name,
         last_name:             invite.last_name,
         email:                 invite.email,
         phone:                 '8585551212',
+        address:               '69 Cherry Hill',
+        city:                  'Pleasantville',
+        state:                 'NV',
         zip:                   '92127',
         password:              'password',
         password_confirmation: 'password',
@@ -33,35 +35,14 @@ describe '/invite' do
         .to receive(:lists).and_return(mailchimp_list_api)
     end
 
-    it 'requires a valid invite code' do
-      patch invite_path, user_params.reject { |k, _v| k == :code }
-
-      expect_input_error(:code)
-    end
-
     it 'requires certain fields' do
-      patch invite_path(format: :json),
-            JSON.dump(code: invite.id),
-            'CONTENT_TYPE' => 'application/json'
+      patch invite_path(invite.id)
 
-      expect(json_body['errors']).to eq(
-        'first_name'            => ['First name is required'],
-        'last_name'             => ['Last name is required'],
-        'email'                 => ['Please input an email address'],
-        'encrypted_password'    => ['Encrypted password is required'],
-        'password'              => [
-          'Password is required',
-          'Password must be at least 8 characters.'],
-        'password_confirmation' => ['Password confirmation is required']
-      )
+      expect_input_error(:first_name)
     end
 
     context 'when successfully creates user' do
-      let(:mailchimp_response) do
-        {
-          'id': 'abc123'
-        }
-      end
+      let(:mailchimp_response) {{ 'id': 'abc123' }}
 
       before do
         expect(mailchimp_members_api).to receive(:create).with(
@@ -79,9 +60,7 @@ describe '/invite' do
 
       it 'registers a user and associates any outstanding invites' do
         VCR.use_cassette('invite_promoter_association') do
-          patch invite_path(format: :json),
-                JSON.dump(user_params),
-                'CONTENT_TYPE' => 'application/json'
+          patch invite_path(id: invite.id, format: :json), user_params
         end
 
         expect_200
@@ -106,41 +85,30 @@ describe '/invite/validate' do
     let(:user) { create(:user) }
     let(:invite) { create(:invite, user: user, sponsor: sponsor) }
 
-    it 'renders an error with an invalid code' do
-      post validate_invite_path, code: 'nope', format: :json
-
-      expect_200
-      expect_input_error(:code)
-    end
-
-    it 'returns an invite without an accept action if previously redeemed' do
+    it 'returns not found if previously redeemed' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
       invite.update_attribute(:user_id,  user.id)
 
-      post validate_invite_path, code: invite.id, format: :json
+      get invite_path(invite.id), format: :json
 
-      expect_200
-      expect_props status: 'redeemed'
-      expect(json_body['actions']).to be_nil
+      expect_404
     end
 
-    it 'returns an invite without an accept action if expired' do
+    it 'returns not found if expired' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
       invite.update_attribute(:expires,  (invite.expires -= 2.days))
 
-      post validate_invite_path, code: invite.id, format: :json
+      get invite_path(invite.id), format: :json
 
-      expect_200
-      expect_props status: 'expired'
-      expect(json_body['actions']).to be_nil
+      expect_404
     end
 
     it 'returns an invite when the user has inputted a code' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
-      post validate_invite_path, code: invite.id, format: :json
+      get invite_path(invite.id), format: :json
 
       expect_200
       expect_classes('invite')
