@@ -10,6 +10,17 @@
     background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
     
+    .mobile-menu {
+        background: image-url('img/hud-icon.png');
+        background: url(/assets/img/hud-icon.png);
+        height: 38px;
+        width: 34px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        margin-bottom: 35px;
+        cursor: pointer;
+    }
+
     .list {
         list-style-type: none;
         padding: 30px 15px 0 15px;
