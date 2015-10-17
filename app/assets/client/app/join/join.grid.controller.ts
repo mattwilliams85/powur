@@ -52,6 +52,19 @@ module powur {
         clickOutsideToClose: true
       })
     }
+
+    openTrailer(ev: ng.IAngularEvent, id: string): void {
+      this.$mdDialog.show(<any>{
+        templateUrl: 'app/join/trailer2.html',
+        controller: 'JoinSolarController as join',
+        parent: $('.join'),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: {
+          customer: {}
+        }
+      })
+    }
   }
 
   controllerModule.controller(JoinGridController.ControllerId, JoinGridController);
