@@ -60,8 +60,12 @@ class Customer < ActiveRecord::Base
 
   def send_sms
     return if phone.nil? || !valid_phone?(phone)
-    host = Rails.configuration.action_mailer.default_url_options[:host]
-    join_url = URI.join(host, 'next/join/solar', code)
+
+    opts = Rails.configuration.action_mailer.default_url_options
+    join_url = URI.join("#{opts[:protocol]}://#{opts[:host]}",
+                        'next/join/solar/',
+                        code).to_s
+
     message = I18n.t('sms.solar_invite', name: user.full_name, url: join_url)
 
     twilio_client = TwilioClient.new
