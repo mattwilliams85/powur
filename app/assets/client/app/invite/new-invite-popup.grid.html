@@ -34,6 +34,9 @@
             <md-input-container>
               <label>phone number</label>
               <input ng-model="dialog.create.field('phone').value" type="tel">
+              <div ng-messages="dialog.create.field('phone').$error" class="messages">
+                <div ng-message="message">{{ dialog.create.field('phone').$error.message }}</div>
+              </div>
             </md-input-container>
             <md-input-container>
               <label>email</label>
