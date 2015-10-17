@@ -17,6 +17,11 @@
         -o-transform: rotate(180deg);
         -ms-transform: rotate(180deg);
         transform: rotate(180deg);
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+        }
     }    
     .achievements{
         display:none;
@@ -119,6 +124,11 @@
         right:0px;
         outline:none;
         transition:0.2s;
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+        }
     }    
 
     .headshot {

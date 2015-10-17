@@ -13,8 +13,11 @@
               <input name="code" type="text" ng-model="join.gridKey" autofocus>
               <button ng-disabled="join.validateGridInvite.submitting">Continue</button>
             </div>
+            <div ng-show="join.gridKeyMissing" class="messages">
+              Please input your Grid Key
+            </div>
             <div ng-show="join.gridKeyInvalid" class="messages">
-              Invalid invite code
+              Invalid Grid Key
             </div>
           </form>
         </div>
