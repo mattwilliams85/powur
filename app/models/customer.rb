@@ -18,6 +18,10 @@ class Customer < ActiveRecord::Base
     email?
   end
 
+  validates_with ::Phone::Validator, fields: [:phone],
+                                     if:     'phone.present?',
+                                     on:     :create
+
   before_validation do
     self.code ||= Invite.generate_code
   end
