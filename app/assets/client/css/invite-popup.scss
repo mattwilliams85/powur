@@ -40,12 +40,15 @@
   .dialog {
     max-height: 100%;
     margin: 1em auto;
-  }
-  
-  @media #{$gt-md} {
-    .dialog {
+
+    @media (max-width: 600px) {
+      max-width: 300px;
+    }
+    
+    @media (min-width: 600px) {
       max-width: 800px;
     }
+    
   }
 
   @media #{$gt-md} {
