@@ -3,11 +3,12 @@
 module powur {
   class JoinGridController extends BaseController {
     static ControllerId = 'JoinGridController';
-    static $inject = ['$mdDialog', '$stateParams', 'invite'];
+    static $inject = ['$mdDialog', '$stateParams', '$timeout', 'invite'];
 
     gridKey: string;
     gridKeyInvalid: boolean;
     gridKeyMissing: boolean;
+    leadSubmitAllowed: boolean = false;
 
     get acceptAction(): Action {
       return this.invite.action('accept_invite');
@@ -15,10 +16,15 @@ module powur {
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
+                private $timeout: ng.ITimeoutService,
                 private invite: ISirenModel) {
       super();
 
       this.gridKey = invite.properties.id;
+
+      $timeout(() => {
+        this.leadSubmitAllowed = true;
+      }, 30000);
     }
 
     validateGridInviteSubmit(): void {
