@@ -29,6 +29,8 @@ describe Auth::InvitesController do
     end
 
     it 'creates an invite' do
+      allow_any_instance_of(Invite)
+        .to receive(:delay).and_return(double(send_sms: true))
       post :create, invite_params
 
       expect_200
