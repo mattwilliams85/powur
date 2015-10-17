@@ -11,13 +11,16 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
     
     .mobile-menu {
-        background: image-url('img/hud-icon.png');
+        background: image-url('img/hud-icon-disabled.png');
         height: 38px;
         width: 34px;
         background-size: 100%;
         background-repeat: no-repeat;
         margin-bottom: 35px;
         cursor: pointer;
+        &.active {
+            background: image-url('img/hud-icon.png');
+        }
     }
 
     .list {
