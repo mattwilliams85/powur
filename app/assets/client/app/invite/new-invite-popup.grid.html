@@ -16,7 +16,7 @@
           <md-content layout-padding layout="row">
             <md-input-container>
               <label>first name</label>
-              <input ng-model="dialog.create.field('first_name').value" md-autofocus>
+              <input ng-model="dialog.create.field('first_name').value">
               <div ng-messages="dialog.create.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
               </div>
