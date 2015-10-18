@@ -25,7 +25,7 @@ module powur {
 
       $timeout(() => {
         this.leadSubmitAllowed = true;
-      }, 60000);
+      }, 10000);
     }
 
     validateGridInviteSubmit(): void {
