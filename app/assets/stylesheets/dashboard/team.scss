@@ -551,6 +551,9 @@
 
         &.info-row {
           height: 500px;
+          @media screen and (max-width: 64em) {
+            height: 800px;
+          }
         }
       }
 
