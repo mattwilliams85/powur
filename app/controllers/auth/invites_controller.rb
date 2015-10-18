@@ -67,7 +67,7 @@ module Auth
     end
 
     def list_criteria
-      current_user.invites.pending.order(created_at: :desc)
+      current_user.invites.where('user_id is null').order(created_at: :desc)
     end
 
     def fetch_invite
