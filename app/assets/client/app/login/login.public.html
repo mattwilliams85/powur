@@ -19,7 +19,7 @@
                         <md-input-container>
                             <div class="border"></div>
                             <label>User Name</label>
-                            <input name="email" ng-model="login.create.field('email').value" autocomplete="off" autofocus>
+                            <input name="email" ng-model="login.create.field('email').value" autocomplete="off" autocapitalize="off">
                             <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched" class="input-message">
                                 <div ng-message="required">Email is a required field</div>
                                 <div ng-message="pattern">Must be a valid email address</div>

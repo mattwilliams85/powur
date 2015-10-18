@@ -47,13 +47,15 @@ class PromoterMailer < ActionMailer::Base
     mail_chimp to, 'reset-password', merge_vars
   end
 
-  def new_quote(quote)
+  def new_quote(lead)
     to = quote.customer.name_and_email
+    pdf_url = "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-home-solar-guide.pdf"
     merge_vars = {
-      promoter_name: quote.user.full_name,
-      solar_guide_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-home-solar-guide.pdf" }
+      customer_full_name: lead.customer.full_name,
+      sponsor_full_name:  lead.user.full_name,
+      solar_guide_url:    pdf_url }
 
-    mail_chimp to, 'customer-onboard', merge_vars
+    mail_chimp to, 'customer-onboard-1', merge_vars
   end
 
   def notify_upline(user)

@@ -21,8 +21,10 @@ module Auth
     end
 
     def create
-      unless SystemSettings.case_sensitive_auth
-        params[:email].downcase! if params[:email]
+      require_input :first_name, :last_name
+
+      if !params[:email].present? && !params[:phone].present?
+        error!(:either_email_or_phone)
       end
 
       @customer = Customer.create!(
@@ -30,7 +32,7 @@ module Auth
       if @customer.email?
         PromoterMailer.product_invitation(@customer).deliver_later
       end
-      @customer.delay.send_sms
+      @customer.send_sms
 
       show
     end
