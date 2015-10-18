@@ -16,7 +16,7 @@ module ParamValidation
 
   def try_required_error(value, arg_name)
     return unless value.blank?
-    msg = t('errors.required', input: arg_name)
+    msg = t('errors.required', input: arg_name.to_s.titleize)
     fail ::Errors::InputError.new(arg_name, required: true), msg
   end
 
