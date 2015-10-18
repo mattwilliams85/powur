@@ -25,6 +25,8 @@ module Auth
       @invite = current_user.create_invite(input)
       @invite.delay.send_sms
 
+      current_user.reconcile_invites if current_user.available_invites < 1
+
       render 'show'
     end
 
