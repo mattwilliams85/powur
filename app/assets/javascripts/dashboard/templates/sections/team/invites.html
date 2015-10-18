@@ -18,7 +18,7 @@
           </div>
           <div class="info-text user-text">
             <span>{{invite.properties.first_name}} {{invite.properties.last_name}}</span>
-            <span ng-if="!inviteExpired(invite)" class="info-detail">Expires {{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</span>
+            <span ng-if="!inviteExpired(invite)" class="info-detail">Expires {{ invite.properties.expires | date:"MM/dd/yyyy 'at' h:mma" }}</span>
             <span ng-if="inviteExpired(invite)" class="info-detail">Expired Invite</span>
           </div>
         </div>
