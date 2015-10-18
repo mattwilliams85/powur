@@ -20,10 +20,10 @@ module Powur
       enable_starttls_auto: true  }
 
     config.action_mailer.default_url_options = {
-      host:     ENV['EMAIL_HOST'] || 'http://localhost:3000',
+      host:     ENV['EMAIL_HOST'] || 'localhost:3000',
       protocol: ENV['EMAIL_PROTO'] || 'http' }
     config.action_mailer.default_options = {
-      from: "Powur <no-reply#{Rails.env}@powur.com>" }
+      from: "Powur <no-reply-#{Rails.env}@powur.com>" }
 
     config.paperclip_defaults = {
       storage:        :s3,
