@@ -60,7 +60,7 @@
         SolarCityZipValidator.check({
           zip: $scope.zip.code
         }).then(function(data){
-          if (data.valid) {
+          if (data.properties.is_valid) {
             $scope.proposalStatus = 'new';
             $scope.proposal = {};
             $scope.proposal.zip = $scope.zip.code;

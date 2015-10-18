@@ -21,6 +21,14 @@ module Anon
       @is_valid = true
     end
 
+    def validate
+      require_input :zip
+
+      @is_valid = Lead.eligible_zip?(params[:zip])
+      
+      render 'validate'
+    end
+
     private
 
     def fetch_customer

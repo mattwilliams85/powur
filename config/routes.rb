@@ -49,7 +49,9 @@ Rails.application.routes.draw do
     resources :invites, only: [ :show, :update ] do
     end
 
-    resource :zip_validator, only: [ :create ]
+    resource :zip_validator, only: [ :create ] do
+      post :validate
+    end
 
     resources :customers, only: [ :show, :update ]
   end
