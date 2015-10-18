@@ -11,7 +11,7 @@ en:
     grid-invite: "Wow, check out the new #PowurGrid"
   sms:
     solar_invite: "Hey! %{name} found the #1 way to save money on your electric bill. It's not good for your utility company, but it's good for you. Check this out...%{url}"
-    grid_invite: "Hey! %{name} is working on a Game-Changing technology disrupting the $6 trillion energy industry. He thinks you should be involved. Check this out...%{url}"
+    grid_invite: "Hey! %{name} is working on a Game-Changing technology disrupting the $6 trillion energy industry. Check this out...%{url}"
   valid_email:
     validations:
       email:
