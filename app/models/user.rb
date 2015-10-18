@@ -215,6 +215,7 @@ class User < ActiveRecord::Base
   end
 
   def reconcile_invites
+    update_column(:available_invites, 0) if available_invites < 0
     return if available_invites > 0
     available = case invites.redeemed.count
                 when (0...9) then 5
@@ -223,7 +224,7 @@ class User < ActiveRecord::Base
                 end
     pending = invites.pending.count
     amount_to_add = available - pending
-    return if amount_to_add.zero?
+    return if amount_to_add < 1
     update_column(:available_invites, amount_to_add)
   end
 
