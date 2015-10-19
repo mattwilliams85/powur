@@ -4,14 +4,15 @@ module powur {
   'use strict';
   class ResetDialogController extends BaseController {
     static ControllerId: string = 'ResetDialogController';
-    static $inject = ['$mdDialog', '$stateParams'];
+    static $inject = ['$mdDialog', '$stateParams', 'resetToken'];
 
     constructor(private $mdDialog: ng.material.IDialogService,
-                private $stateParams: ng.ui.IStateParamsService) {
+                private $stateParams: ng.ui.IStateParamsService,
+                private resetToken: ISirenModel) {
       super();
 
       this.reset.field('email').value = null;
-      this.updatePassword.field('token').value = $stateParams['resetCode'];
+      if (resetToken) this.updatePassword.field('token').value = $stateParams['resetCode'];
     }
 
     cancel() {
@@ -23,7 +24,7 @@ module powur {
     }
 
     get updatePassword(): Action {
-      return this.session.instance.action('update_password');
+      return this.resetToken.action('update_password');
     }
 
     resetSubmit(): void {
@@ -43,13 +44,13 @@ module powur {
 
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
-    static $inject = ['$mdDialog', '$stateParams', '$timeout'];
+    static $inject = ['$mdDialog', '$stateParams', 'resetToken'];
     private _create: Action;
-
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
-                private $timeout: ng.ITimeoutService) {
+                private resetToken: ISirenModel) {
+
       super();
       if (this.$stateParams['resetCode'])  {
         this.showNewPassword();
@@ -87,7 +88,10 @@ module powur {
         controller: 'ResetDialogController as login',
         parent: angular.element(document.body),
         clickOutsideToClose: true,
-        bindToController: true
+        bindToController: true,
+        locals: {
+          resetToken: this.resetToken
+        }
       })
     }
 
@@ -98,7 +102,10 @@ module powur {
         parent: angular.element(document.body),
         targetEvent: e,
         clickOutsideToClose: true,
-        bindToController: true
+        bindToController: true,
+        locals: {
+          resetToken: null
+        }
       })
     }
   }

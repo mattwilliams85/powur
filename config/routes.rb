@@ -42,8 +42,8 @@ Rails.application.routes.draw do
     resource :password, only: [ :show, :create, :new ] do
       member do
         put :update
-        post :validate_reset_token
       end
+      get '/reset_token/:token', to: 'passwords#reset_token', as: :reset_token
     end
 
     resources :invites, only: [ :show, :update ] do

@@ -29,10 +29,24 @@ module powur {
           url: '/{resetCode}',
           templateUrl: 'app/login/login.public.html',
           controller: 'LoginPublicController as login',
-        })
-        .state('login.private', {
+          resolve: {
+            resetToken: function($stateParams, $q) {
+              if (!$stateParams.resetCode) return;
+
+              var root = RootController.get();
+              var fail = function(response) {
+                var reason: any = (response.status === 404) ? 'invalid_password_token' : response;
+                return $q.reject(reason);
+              }
+              return root.$session.instance.getPasswordToken($stateParams.resetCode).then(null, fail);
+            }
+          }
+        }).state('login.private', {
           templateUrl: 'app/login/login.private.html',
           controller: 'LoginPrivateController as login',
+          resolve: {
+            resetToken: function() {}
+          }
         })
 
         .state('join', {
