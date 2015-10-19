@@ -40,7 +40,7 @@ class PromoterMailer < ActionMailer::Base
   def reset_password(user)
     to = user.name_and_email
 
-    url = root_url + "reset-password/#{user.reset_token}"
+    url = root_url + "next/login/#{user.reset_token}"
 
     merge_vars = { reset_url: url }
 
