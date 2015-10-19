@@ -69,15 +69,15 @@
 
       <!-- Invite New Team Member Button -->
       <div class="w20percent small-2 columns">
-        <div class="new-team-member" ng-class="{'accordion': is.accordion(0) , 'invert': activeTab === 'invites'}">
-          <a href="/next/invite/grid" target="_self" class="invites-summary">
+        <div class="new-team-member" ng-class="{'accordion': is.accordion(0) , 'invert': activeTab === 'invites'}" ng-click="invitesTab()">
+          <div class="invites-summary">
             <div class="number">
               <span>{{invites.available || 0}}</span>
             </div>
             <div class="info-text">
               <span>Invites Available</span>
             </div>
-          </a>
+          </div>
 
         </div>
 
