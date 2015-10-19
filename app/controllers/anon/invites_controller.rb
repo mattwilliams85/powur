@@ -34,7 +34,7 @@ module Anon
 
     def fetch_invite
       @invite = Invite.find(params[:id])
-      not_found!(:invite) unless @invite.status == 'valid'
+      not_found!(:invite) unless @invite.pending?
     end
 
     def invite_input

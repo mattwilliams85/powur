@@ -12,7 +12,7 @@ json.properties do
   json.latest_terms ApplicationAgreement.current
 end
 
-if @invite.status == 'valid'
+if @invite.valid?
   tos_version = if ApplicationAgreement.current
                   ApplicationAgreement.current.version
                 else

@@ -40,14 +40,26 @@ class Invite < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def expired?
+    expires < Time.now
+  end
+
+  def redeemed?
+    !user_id.nil?
+  end
+
   def status
-    if user_id
-      'redeemed'
-    elsif expires < Time.now
-      'expired'
+    if redeemed?
+      :redeemed
+    elsif expired?
+      :expired
     else
-      'valid'
+      :pending
     end
+  end
+
+  def pending?
+    status == :pending
   end
 
   def renew
