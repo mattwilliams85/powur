@@ -20,6 +20,15 @@
 </div>
 
 <div layout="row" layout-wrap class="invite-list bg">
+    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
+        <div class="invite-item">
+                <span class="add counter">
+                    <i class="sprite sprite-invite"></i>
+                    <div class="label hoverable">Click to <b>Invite</b></div>
+                </span>
+            <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
+        </div>
+    </a>
     <div ng-repeat="item in invite.invites.entities">
         <div ng-if="item.properties.status == 'sent'" class="invite-item solar" style="color: {{invite.timerColor}} !important">
             <div class="full-name">
@@ -44,13 +53,4 @@
             <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
         </div>
     </div>
-    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
-        <div class="invite-item">
-                <span class="add counter">
-                    <i class="sprite sprite-invite"></i>
-                    <div class="label hoverable">Click to <b>Invite</b></div>
-                </span>
-            <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
-        </div>
-    </a>
 </div>
