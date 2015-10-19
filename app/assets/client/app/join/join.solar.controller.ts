@@ -6,6 +6,7 @@ module powur {
     static $inject = ['$mdDialog', '$stateParams', '$timeout', 'customer'];
 
     videoId: string;
+    watched: boolean;
 
     get params(): any {
       return this.$stateParams;
@@ -71,11 +72,14 @@ module powur {
         templateUrl: 'app/join/trailer.html',
         controller: 'JoinSolarController as join',
         parent: $('.join'),
+        hasBackdrop: true,
         targetEvent: ev,
         clickOutsideToClose: true,
         locals: {
           customer: {}
         }
+      }).finally(() => {
+        this.watched = true;
       })
     }
   }

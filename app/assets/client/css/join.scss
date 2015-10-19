@@ -31,6 +31,10 @@ $buttonColor: #07b7d1;
         background: #000;
     }
 
+    .md-scroll-mask {
+        background-color: rgba(0,0,0,0.5);
+    }
+
     .box {
         text-align: center;
         width: 90% !important;
@@ -64,7 +68,7 @@ $buttonColor: #07b7d1;
 
     .bg {
         @include bg("img/join/join-bg.jpg");
-        min-height: 850px;
+        // min-height: 850px;
         &.solar { @include bg("img/join/join-bg2.jpg") }
         &.solar-2 { @include bg("img/join/join-bg4.jpg") }
 
@@ -195,6 +199,13 @@ $buttonColor: #07b7d1;
             position: fixed;
             &.solar {
                 @include bg("img/join/join-bg5-mod.jpg");
+
+                .key-wrap {
+                    visibility: hidden;
+                    &.visible {
+                        visibility: visible;
+                    }
+                }
             }
         }
 
