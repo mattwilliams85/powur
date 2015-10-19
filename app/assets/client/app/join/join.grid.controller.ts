@@ -21,7 +21,7 @@ module powur {
                 private invite: ISirenModel) {
       super();
 
-      this.gridKey = invite.properties.id;
+      if (invite) this.gridKey = invite.properties.id;
 
       $timeout(() => {
         this.leadSubmitAllowed = true;
@@ -29,17 +29,11 @@ module powur {
     }
 
     validateGridInviteSubmit(): void {
-      if (this.gridKey === this.invite.properties.id) {
+      this.session.instance.getInvite(this.gridKey).then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.state.go('join.grid2', { inviteCode: this.gridKey });
-      } else {
-        console.log('key', this.gridKey);
-        if (this.gridKey) {
-          this.gridKeyMissing = false;
-          this.gridKeyInvalid = true;
-        } else {
-          this.gridKeyMissing = true;
-        }
-      }
+      }, () => {
+        this.gridKeyInvalid = true;
+      });
     }
 
     acceptSubmit(): void {

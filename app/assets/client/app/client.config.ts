@@ -51,12 +51,12 @@ module powur {
           },
           resolve: {
             invite: function($stateParams, $q) {
-              var root = RootController.get();
-              var fail = function(response) {
-                var reason: any = (response.status === 404) ? 'invalid_code' : response;
-                return $q.reject(reason);
-              }
-              return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
+              // var root = RootController.get();
+              // var fail = function(response) {
+              //   var reason: any = (response.status === 404) ? 'invalid_code' : response;
+              //   return $q.reject(reason);
+              // }
+              // return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
             }
           }
         }).state('join.grid2', {
