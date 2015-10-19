@@ -3,7 +3,7 @@
 module powur {
   class JoinSolarController extends BaseController {
     static ControllerId = 'JoinSolarController';
-    static $inject = ['$mdDialog', '$stateParams', 'customer'];
+    static $inject = ['$mdDialog', '$stateParams', '$timeout', 'customer'];
 
     videoId: string;
 
@@ -25,8 +25,14 @@ module powur {
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
+                private $timeout: ng.ITimeoutService,
                 private customer: ISirenModel) {
       super();
+      if (!_.isEmpty(this.customer)) {
+        $timeout(() => {
+          angular.element('#open_trailer').trigger('click');
+        });
+      }
     }
 
     validateZip(): void {
