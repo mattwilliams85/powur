@@ -4,10 +4,14 @@ module powur {
   'use strict';
   class ResetDialogController extends BaseController {
     static ControllerId: string = 'ResetDialogController';
-    static $inject = ['$mdDialog'];
-    constructor(private $mdDialog: ng.material.IDialogService) {
+    static $inject = ['$mdDialog', '$stateParams'];
+
+    constructor(private $mdDialog: ng.material.IDialogService,
+                private $stateParams: ng.ui.IStateParamsService) {
       super();
+
       this.reset.field('email').value = null;
+      this.updatePassword.field('token').value = $stateParams['resetCode'];
     }
 
     cancel() {
@@ -18,12 +22,21 @@ module powur {
       return this.session.instance.action('reset_password');
     }
 
+    get updatePassword(): Action {
+      return this.session.instance.action('update_password');
+    }
+
     resetSubmit(): void {
       this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
         this.cancel();
       });
     }
-    
+
+    updatePasswordSubmit(): void {
+      this.updatePassword.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.cancel();
+      });
+    }
   }
 
   controllerModule.controller(ResetDialogController.ControllerId, ResetDialogController);
@@ -38,8 +51,8 @@ module powur {
                 private $stateParams: ng.ui.IStateParamsService,
                 private $timeout: ng.ITimeoutService) {
       super();
-      if (this.$stateParams['resetCode'])  {          
-          this.showNewPassword();
+      if (this.$stateParams['resetCode'])  {
+        this.showNewPassword();
       }
     }
 
@@ -49,10 +62,6 @@ module powur {
       }
       return this._create;
     }
-
-    // get reset(): Action {
-    //   return this.session.instance.action('reset_password');
-    // }
 
     get email(): Field {
       return this.create.field('email');
@@ -66,22 +75,12 @@ module powur {
       return this.create.field('remember_me');
     }
 
-    // cancel() {
-    //   this.$mdDialog.cancel();
-    // }
-
     loginSubmit(): void {
       this.session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
         this.state.go('home.invite.grid');
       });
     }
 
-    // resetSubmit(): void {
-    //   this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-    //     this.cancel();
-    //   });
-    // }
-    
     showNewPassword(): ng.IPromise<any> {
       return this.$mdDialog.show({
         templateUrl: 'app/login/reset-password.html',
@@ -91,7 +90,7 @@ module powur {
         bindToController: true
       })
     }
-    
+
     showReset(e: MouseEvent): ng.IPromise<any> {
       return this.$mdDialog.show({
         templateUrl: 'app/login/forgot-password.html',
@@ -102,8 +101,6 @@ module powur {
         bindToController: true
       })
     }
-
-
   }
 
   controllerModule.controller(LoginPublicController.ControllerId, LoginPublicController);
