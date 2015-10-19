@@ -13,7 +13,7 @@ describe '/zip_validator' do
       end
 
       it 'returns actions data' do
-        post zip_validator_path, zip: zip, code: code
+        post zip_validator_path, zip: zip, code: code, format: :json
 
         expect_200
         expect_props is_valid: true
@@ -40,7 +40,7 @@ describe '/zip_validator' do
       end
 
       it 'defaults to true' do
-        post zip_validator_path, zip: zip, code: code
+        post zip_validator_path, zip: zip, code: code, format: :json
 
         expect_200
         expect_props is_valid: true
