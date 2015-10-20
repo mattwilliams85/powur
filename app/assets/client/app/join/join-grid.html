@@ -1,34 +1,42 @@
-<div class="join">
-  <div flex class="bg" layout="column" layout-align="center center">
-    <div class="key-wrap" layout-padding>
-      <div class="key-box">
-        <div class="who">
-          <div class="greeting">Hello,</div>
-          <div class="full-name">{{ join.invite.properties.first_name }} <b>{{join.invite.properties.last_name}}</b></div>
+<div class="join" layout="column" layout-fill>
+  <div class="bg grid parent-height" layout="row" layout-align="end center">
+    <div layout-fill>
+      <div flex layout="column" layout-align="end center">
+        <div class="box">
+          <div class="intro" flex>
+            <iframe src="https://player.vimeo.com/video/142689080?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
+          </div>
         </div>
-        <div class="key">
-          <label>Enter your <b>grid key</b></label>
-          <form ng-submit="join.validateGridInviteSubmit()" name="validateGridInviteForm" novalidate>
-            <div layout="row">
-              <input name="code" type="text" ng-model="join.gridKey">
-              <button ng-disabled="join.validateGridInvite.submitting" autofocus>Continue</button>
-            </div>
-            <div ng-show="join.gridKeyMissing" class="messages">
-              Please input your Grid Key
-            </div>
-            <div ng-show="join.gridKeyInvalid" class="messages">
-              You only had 24 hours to accept this invite. It's now expired, please get back to the person who invited you to get another one.
-            </div>
-          </form>
-        </div>
-        <div class="trailer" layout="row">
-            <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><div class="video"></div></a>
-            <div class="info">want to know more? <a href="javascript:void(0);" ng-click="join.openTrailer($event, 'Seb_a4SS7sA')"><b>watch our trailer</b></a>.</div>
+
+        <div class="key-box">
+          <div class="who">
+            <div class="greeting">Hello,</div>
+            <div class="full-name">{{ join.invite.properties.first_name }} <b>{{join.invite.properties.last_name}}</b></div>
+          </div>
+          <div class="key">
+            <label>Enter your <b>grid key</b></label>
+            <form ng-submit="join.validateGridInviteSubmit()" name="validateGridInviteForm" novalidate>
+              <div layout="row">
+                <input name="code" type="text" ng-model="join.gridKey">
+                <button ng-disabled="join.validateGridInvite.submitting" autofocus>Continue</button>
+              </div>
+              <div ng-show="join.gridKeyMissing" class="messages">
+                Please input your Grid Key
+              </div>
+              <div ng-show="join.gridKeyInvalid" class="messages">
+                You only had 24 hours to accept this invite. It's now expired, please get back to the person who invited you to get another one.
+              </div>
+            </form>
+          </div>
+          <!-- <div class="trailer" layout="row">
+              <a href="javascript:void(0);" ng-click="join.openTrailer($event, '142662280')"><div class="video"></div></a>
+              <div class="info">want to know more? <a href="javascript:void(0);" ng-click="join.openTrailer($event, 'Seb_a4SS7sA')"><b>watch our trailer</b></a>.</div>
+          </div> -->
         </div>
       </div>
-    </div>
-    <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
-      <a href="/" class="home-link"><div class="logo"></div></a>
+      <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
+        <a href="/" class="home-link"><div class="logo"></div></a>
+      </div>
     </div>
   </div>
 </div>
