@@ -15,6 +15,10 @@ module powur {
       return this.invite.action('accept_invite');
     }
 
+    get termsPath(): string {
+      return this.session.instance.properties.latest_terms.document_path;
+    }
+
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
                 private $timeout: ng.ITimeoutService,
@@ -44,16 +48,6 @@ module powur {
           this.state.go('home.invite');
         });
       });
-    }
-
-    openTerms(ev: ng.IAngularEvent): void {
-      this.$mdDialog.show(<any>{
-        controller: 'TermsDialogController as terms',
-        templateUrl: 'app/join/trailer.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose: true
-      })
     }
 
     openTrailer(ev: ng.IAngularEvent, id: string): void {

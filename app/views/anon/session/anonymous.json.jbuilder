@@ -2,6 +2,10 @@ siren json
 
 klass :session, :anonymous
 
+json.properties do
+  json.latest_terms ApplicationAgreement.current
+end
+
 actions_list = [
   action(:create, :post, login_path)
     .field(:email, :email)

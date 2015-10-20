@@ -24,6 +24,10 @@ module powur {
       return this.customer.action('submit_lead');
     }
 
+    get termsPath(): string {
+      return this.session.instance.properties.latest_terms.document_path;
+    }
+
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
                 private customer: ISirenModel) {
@@ -49,16 +53,6 @@ module powur {
     enterSolar(): void {
       this.log.debug(JoinSolarController.ControllerId + ':enterGrid');
       this.state.go('join.solar3', {});
-    }
-
-    openTerms(ev: ng.IAngularEvent): void {
-      this.$mdDialog.show(<any>{
-        controller: 'TermsDialogController as terms',
-        templateUrl: 'app/join/terms.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose: true
-      })
     }
 
     openTrailer(ev: ng.IAngularEvent, id: string): void {
