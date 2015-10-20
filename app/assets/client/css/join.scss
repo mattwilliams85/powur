@@ -19,7 +19,7 @@ $buttonColor: #07b7d1;
 
 .join {
     width: 100%;
-    height: 100%;
+    height: auto;
     color: $textColor;
     font-family: 'Open Sans';
 
@@ -215,7 +215,7 @@ $buttonColor: #07b7d1;
                 transition: opacity 1s;
                 &.opaque {
                     opacity: 1;
-                } 
+                }
             }
         }
 
