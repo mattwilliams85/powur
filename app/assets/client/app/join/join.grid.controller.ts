@@ -21,7 +21,9 @@ module powur {
                 private invite: ISirenModel) {
       super();
 
-      if (invite) this.gridKey = invite.properties.id;
+      if (!_.isEmpty(invite)) {
+        this.gridKey = invite.properties.id;
+      }
 
       $timeout(() => {
         this.leadSubmitAllowed = true;
