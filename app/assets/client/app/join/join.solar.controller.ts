@@ -6,7 +6,7 @@ module powur {
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
     videoId: string;
-    watched: boolean;
+    watched: boolean = false;
 
     get params(): any {
       return this.$stateParams;
