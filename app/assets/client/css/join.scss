@@ -71,7 +71,17 @@ $buttonColor: #07b7d1;
         // min-height: 850px;
         // &.solar .bg-img { @include bg("img/join/join-bg.jpg") }
         // &.solar-2 { @include bg("img/join/join-bg4.jpg") }
+        overflow-x: hidden;
         position: relative;
+
+        .footer {
+            position: absolute;
+            z-index: 2;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            margin-top: 0
+        }
 
         .bg-img {
             @include bg("img/join/join-bg3.jpg");

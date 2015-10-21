@@ -97,25 +97,27 @@ module powur {
             logout: true
           },
           resolve: {
-            anon: function($q): any {
-              var defer = $q.defer();
-              var root = RootController.get();
-              if (root.$session.instance.loggedIn()) {
-                return root.$session.logout().then(function() {
-                  defer.resolve();
-                })
-              } else {
-                return defer.resolve();
-              }
-              return defer.promise;
-            },
+            // anon: function($q): any {
+            //   var defer = $q.defer();
+            //   var root = RootController.get();
+            //   if (root.$session.instance.loggedIn()) {
+            //     return root.$session.logout().then(function() {
+            //       defer.resolve();
+            //     })
+            //   } else {
+            //     return defer.resolve();
+            //   }
+            //   return defer.promise;
+            // },
             customer: function($stateParams, $q) {
               var root = RootController.get();
-              var fail = function(response) {
-                var reason: any = (response.status === 404) ? 'invalid_code' : response;
-                return $q.reject(reason);
-              }
-              return root.$session.instance.getCustomer($stateParams.inviteCode).then(null, fail);
+              var defer = $q.defer();
+              root.$session.instance.getCustomer($stateParams.inviteCode).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+                defer.resolve(response);
+              }, () => {
+                defer.resolve({});
+              });
+              return defer.promise;
             }
           }
         }).state('join.solar2', {

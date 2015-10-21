@@ -50,7 +50,7 @@ module powur {
                                 error: any) {
         $log.debug('$stateChangeError', error);
         if (error === 'invalid_code') {
-          $state.go('join.invalid');
+          // $state.go('join.invalid');
         } else if (error === 'invalid_password_token') {
           $state.go('login');
         }
