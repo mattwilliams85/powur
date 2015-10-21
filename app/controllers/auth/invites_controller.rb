@@ -14,11 +14,8 @@ module Auth
     end
 
     def create
-      require_input :first_name, :last_name
+      require_input :first_name, :last_name, :email
 
-      if !params[:email].present? && !params[:phone].present?
-        error!(:either_email_or_phone)
-      end
       validate_email
       validate_max_invites
 
@@ -65,7 +62,9 @@ module Auth
     end
 
     def validate_max_invites
-      error!(:exceeded_max_invites) if current_user.available_invites < 1
+      max_exceeded =
+        current_user.limited_invites? && current_user.available_invites < 1
+      error!(:exceeded_max_invites) if max_exceeded
     end
 
     def list_criteria

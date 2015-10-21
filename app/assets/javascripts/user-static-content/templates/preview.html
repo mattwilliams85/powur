@@ -4,9 +4,38 @@
   <ng-include src="'shared/header-signed-out.html'"></ng-include>
   <div class="exclusive-webinar">
     <div class="timer-box video-box" ng-show="timer == '00:00'">
-      <video poster="{{legacyImagePaths.spinner}}" class="video" id="video-1" ng-src="{{legacyImagePaths.betaVideo}}" preload controls>
+      <!-- <video poster="{{legacyImagePaths.spinner}}" class="video" id="video-1" ng-src="{{legacyImagePaths.betaVideo}}" preload controls>
         Your browser does not support the <code>video</code> element.
-      </video>
+      </video> -->
+      <!-- <iframe width="900" height="509" src="https://www.youtube.com/embed/hYWoLpIXWxU" frameborder="0" allowfullscreen></iframe> -->
+
+      <div id="player"></div>
+      <script>
+        var tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('player', {
+            height: '509',
+            width: '900',
+            videoId: 'hYWoLpIXWxU',
+            events: {
+              'onReady': onPlayerReady
+            }
+          });
+        }
+
+        function onPlayerReady(event) {
+          setTimeout(function() {
+            event.target.playVideo();
+          }, 8000);
+        }
+      </script>
+
     </div>
     <div class="timer-box" ng-hide="timer == '00:00'">
       <span class="header">

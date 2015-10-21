@@ -20,6 +20,7 @@ $textColor: white;
   height: 100%;
   color: $textColor;
   font-family: 'Open Sans';
+  position: relative;
 
   .bg { 
     @include bg("img/join/join-bg.jpg");
@@ -40,11 +41,11 @@ $textColor: white;
     background: rgba(0,0,0,0.4);
     width: 100%;
     
-    @media (max-width: 600px) {
+    @media (max-width: 500px) {
       padding: 25px;
     }
     
-    @media (min-width: 600px) {
+    @media (min-width: 500px) {
       padding: 75px;
     }
 
@@ -62,14 +63,10 @@ $textColor: white;
 
     md-input-container {
       height: 100px;
-      //margin-bottom: -50px;
 
       &:nth-of-type(1) {
         margin-top: 35px;
       }
-      // &:nth-of-type(2) {
-      //   margin-top: 5px;
-      // }
     }
 
     label {
@@ -159,21 +156,21 @@ $textColor: white;
         margin-right: auto;
         border-radius: 0;
 
-        @media (max-width: 600px) {
+        @media (max-width: 500px) {
           max-width: 300px;
         }
         
-        @media (min-width: 600px) {
+        @media (min-width: 500px) {
           max-width: 800px;
         }
       }
 
     md-dialog-content {
-      @media (max-width: 600px) {
+      @media (max-width: 500px) {
         padding: 0 50px 0 50px;
       }
       
-      @media (min-width: 600px) {
+      @media (min-width: 500px) {
         padding: 0 150px 0 150px;
       }
     }
@@ -241,18 +238,29 @@ $textColor: white;
   .login {
     overflow-x: hidden;
     .bg {
-      min-height: 600px;
-    }
-    .login-box {
-      min-height: 600px;
-      padding: 10px;
-      md-input-container:nth-of-type(1) {
-          margin-top: 15px;
+      min-height: 300px;
+
+      .login-wrap {
+        background: rgba(0, 0, 0, 0.4);
+        width: 100%;
+
+        .login-box {
+          min-height: 0;
+          background: transparent;
+          padding: 10px;
+          md-input-container {
+            margin-top: -25px;
+            &:nth-of-type(1) {
+              margin-top: 15px;
+            }
+          }
+        }
+        button {
+          margin: 20px 0 0 0;
+        }
       }
     }
-    button {
-      margin: 20px 0 0 0;
-    }
+
   }
 
 }

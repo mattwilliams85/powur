@@ -9,8 +9,12 @@ json.properties do
             :status, :created_at, :expires, :expiration_progress)
 end
 
-actions \
-  action(:resend, :post, resend_invite_path(invite)),
-  action(:delete, :delete, delete_invite_path(invite))
+actions = []
+actions << action(:resend, :post, resend_invite_path(invite)) if invite.expired?
+if invite.redeemed?
+  ations << action(:delete, :delete, delete_invite_path(invite))
+end
+
+actions(*actions)
 
 links link :self, invite_path(invite)

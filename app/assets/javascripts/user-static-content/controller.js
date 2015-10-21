@@ -61,9 +61,9 @@
 
         if (seconds == 0) {
           $interval.cancel(timer);
-          $('#video-1').get(0).play();
+          // $('#video-1').get(0).play();
         }
-        
+
         $scope.timer = '00:0' + seconds;
       }, 1000)
     }

@@ -18,9 +18,9 @@ actions_list = [
     .field(:last_name, :text, value: @customer.last_name)
     .field(:email, :email, value: @customer.email)
     .field(:phone, :text, value: @customer.phone)
-    .field(:address, :text)
-    .field(:city, :text)
-    .field(:state, :text)
+    .field(:address, :text, value: @customer.address)
+    .field(:city, :text, value: @customer.city)
+    .field(:state, :text, value: @customer.state)
     .field(:zip, :text, value: @customer.zip)
     .field(:average_bill, :text) ]
 

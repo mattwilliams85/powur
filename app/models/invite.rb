@@ -17,13 +17,16 @@ class Invite < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
-  validate :max_invites, on: :create
+  validate :max_invites, on: :create, if: :sponsor_limited_invites?
   validates_with ::Phone::Validator, fields: [:phone],
                                      if:     'phone.present?',
                                      on:     :create
 
-  after_create :subtract_from_available_invites
-  after_destroy :increment_available_invites
+  after_create :subtract_from_available_invites, if: :sponsor_limited_invites?
+  after_destroy :increment_available_invites, if: :sponsor_limited_invites?
+  def sponsor_limited_invites?
+    sponsor.limited_invites?
+  end
 
   before_validation do
     self.id ||= Invite.generate_code
@@ -40,14 +43,26 @@ class Invite < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def expired?
+    expires < Time.now
+  end
+
+  def redeemed?
+    !user_id.nil?
+  end
+
   def status
-    if user_id
-      'redeemed'
-    elsif expires < Time.now
-      'expired'
+    if redeemed?
+      :redeemed
+    elsif expired?
+      :expired
     else
-      'valid'
+      :pending
     end
+  end
+
+  def pending?
+    status == :pending
   end
 
   def renew

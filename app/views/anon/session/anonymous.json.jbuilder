@@ -2,6 +2,10 @@ siren json
 
 klass :session, :anonymous
 
+json.properties do
+  json.latest_terms ApplicationAgreement.current
+end
+
 actions_list = [
   action(:create, :post, login_path)
     .field(:email, :email)
@@ -17,7 +21,11 @@ entity_list = [ entity(%w(solar_invite),
                        customer_path('{code}')),
                 entity(%w(grid_invite),
                        'user-solar_invite',
-                       invite_path('{code}'))]
+                       invite_path('{code}')),
+                entity(%w(password_token),
+                       'user-password_token',
+                       reset_token_password_path('{code}')) ]
+
 entities(*entity_list)
 
 self_link root_path

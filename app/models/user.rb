@@ -181,6 +181,10 @@ class User < ActiveRecord::Base
     !lifetime_rank.nil? && lifetime_rank >= 1
   end
 
+  def limited_invites?
+    !partner?
+  end
+
   def purchased_at(product_id)
     purchase = product_receipts.entries.detect do |pr|
       pr.product_id == product_id

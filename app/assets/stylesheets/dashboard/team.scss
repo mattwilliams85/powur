@@ -32,7 +32,7 @@
       .line-2 {
         display: none;
       }
-      
+
       .button-box {
         display: none;
         position: absolute;
@@ -177,7 +177,7 @@
       }
 
       .right-side {
-       padding-top: 20px; 
+       padding-top: 20px;
         .right-summary {
           border-left: 1px solid #555;
           min-height: 400px !important;
@@ -296,7 +296,7 @@
            border-radius: 15px;
            line-height: 32px;
            transition: background-color .3s linear;
-           text-align: center; 
+           text-align: center;
 
            &.fa-facebook {
              background-color: #3b5998;
@@ -616,7 +616,7 @@
     .team-member-info-large {
       background-color: transparent;
       color: #fff;
-      cursor:pointer; 
+      cursor:pointer;
 
       &.invert {
         background-color: #333;
@@ -732,7 +732,7 @@
         .avatar {
           position: relative;
           top: 15%;
-          
+
           img {
             height: 150px;
             width: auto;
@@ -815,6 +815,7 @@
       color: #555;
       font-family: $dashboard-font-family;
       text-align: center;
+      display: block;
 
       .number {
         position: relative;

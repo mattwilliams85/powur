@@ -1,104 +1,95 @@
-<div class="join" layout="column" layout-fill>
-    <div class="bg2 parent-height" layout="row" layout-align="end center">
-        <div class="bg-img solar"></div>
-        <div flex>
-            <div flex layout="column" layout-align="end center">
-                <div class="box">
-                    <div class="intro" flex>
-                    <iframe src="https://player.vimeo.com/video/142663379?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
-                    </div>
-                </div>
-                <form ng-submit="join.submitLead()" name="submitForm" novalidate>
-                    <md-content layout="column" layout-padding flex="1">
-                        <div layout="row" layout-sm="column">
-                            <md-input-container flex-gt-sm="20" flex>
-                                <div class="border"></div>
-                                <label id="first-name">First Name</label>
-                                <input name="first_name" ng-model="join.leadAction.field('first_name').value" type="text" required="">
-                                <div ng-messages="join.leadAction.field('first_name').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('first_name').$error.message }}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex-gt-sm="20" flex>
-                                <div class="border"></div>
-                                <label>Last Name</label>
-                                <input name="last_name" ng-model="join.leadAction.field('last_name').value" type="text" required="">
-                                <div ng-messages="join.leadAction.field('last_name').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('last_name').$error.message }}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex-gt-sm="35">
-                                <div class="border"></div>
-                                <label>Email</label>
-                                <input name="email" ng-model="join.leadAction.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
-                                <div ng-messages="join.leadAction.field('email').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('email').$error.message }}</div>
-                                    <div ng-message="pattern">Must be a valid email address</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex-gt-sm="25">
-                                <div class="border"></div>
-                                <label>Phone</label>
-                                <input name="phone" ng-model="join.leadAction.field('phone').value">
-                                <div ng-messages="join.leadAction.field('phone').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('phone').$error.message }}</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                        <div layout="row" layout-sm="column">
-                            <md-input-container flex-gt-sm="25">
-                                <div class="border"></div>
-                                <label>Average Utility Bill</label>
-                                <input name="average_bill" ng-model="join.leadAction.field('average_bill').value" type="text" ng-pattern="/^[0-9]+$/">
-                                <div ng-messages="join.leadAction.field('average_bill').$error || submitForm.average_bill.$error">
-                                    <div class="capitalize">{{ join.leadAction.field('average_bill').$error.message }}</div>
-                                    <div ng-message="pattern">Please use numbers only</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex-gt-sm="25">
-                                <div class="border"></div>
-                                <label>Address</label>
-                                <input name="address" ng-model="join.leadAction.field('address').value" type="text">
-                                <div ng-messages="join.leadAction.field('address').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('address').$error.message }}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex-gt-sm="20">
-                                <div class="border"></div>
-                                <label>City</label>
-                                <input name="city" ng-model="join.leadAction.field('city').value" type="text">
-                                <div ng-messages="join.leadAction.field('city').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('city').$error.message }}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex-gt-sm="15">
-                                <div class="border"></div>
-                                <label>State</label>
-                                <input name="state" ng-model="join.leadAction.field('state').value" type="text">
-                                <div ng-messages="join.leadAction.field('state').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('state').$error.message }}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex-gt-sm="15">
-                                <div class="border"></div>
-                                <label>Zip</label>
-                                <input name="zip" ng-model="join.leadAction.field('zip').value" type="text">
-                                <div ng-messages="join.leadAction.field('zip').$error">
-                                    <div class="capitalize">{{ join.leadAction.field('zip').$error.message }}</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                        <div layout="column" layout-align="center center">
-                            <md-button class="md-raised">get<b>free consultation</b></md-button>
-                        </div>
-                        <div class="terms" layout="column" layout-align="center center">
-                            <div>By clicking on this button, you also accept the <a href="javascript:void(0);" ng-click="join.openTerms($event)">terms & conditions</a></div>
-                        </div>
-                    </md-content>
-                </form>
-            </div>
+<div class="join step2" layout="column" layout-align="start center">
+    <div class="bg-img s2"></div>
+    <div class="trailer-box">
+        <div class="intro" flex>
+            <iframe src="https://player.vimeo.com/video/142663379?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
         </div>
-
-
     </div>
+    <form ng-submit="join.submitLead()" name="submitForm" novalidate layout-padding>
+        <div layout="row" layout-sm="column">
+            <md-input-container flex-gt-sm="20" flex>
+                <div class="border"></div>
+                <label id="first-name">First Name</label>
+                <input name="first_name" ng-model="join.leadAction.field('first_name').value" type="text" required="">
+                <div ng-messages="join.leadAction.field('first_name').$error">
+                    <div class="capitalize">{{ join.leadAction.field('first_name').$error.message }}</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="20" flex>
+                <div class="border"></div>
+                <label>Last Name</label>
+                <input name="last_name" ng-model="join.leadAction.field('last_name').value" type="text" required="">
+                <div ng-messages="join.leadAction.field('last_name').$error">
+                    <div class="capitalize">{{ join.leadAction.field('last_name').$error.message }}</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="35">
+                <div class="border"></div>
+                <label>Email</label>
+                <input name="email" ng-model="join.leadAction.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+                <div ng-messages="join.leadAction.field('email').$error">
+                    <div class="capitalize">{{ join.leadAction.field('email').$error.message }}</div>
+                    <div ng-message="pattern">Must be a valid email address</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="25">
+                <div class="border"></div>
+                <label>Phone</label>
+                <input name="phone" ng-model="join.leadAction.field('phone').value">
+                <div ng-messages="join.leadAction.field('phone').$error">
+                    <div class="capitalize">{{ join.leadAction.field('phone').$error.message }}</div>
+                </div>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-sm="column">
+            <md-input-container flex-gt-sm="25">
+                <div class="border"></div>
+                <label>Average Utility Bill</label>
+                <input name="average_bill" ng-model="join.leadAction.field('average_bill').value" type="text" ng-pattern="/^[0-9]+$/">
+                <div ng-messages="join.leadAction.field('average_bill').$error || submitForm.average_bill.$error">
+                    <div class="capitalize">{{ join.leadAction.field('average_bill').$error.message }}</div>
+                    <div ng-message="pattern">Please use numbers only</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="25">
+                <div class="border"></div>
+                <label>Address</label>
+                <input name="address" ng-model="join.leadAction.field('address').value" type="text">
+                <div ng-messages="join.leadAction.field('address').$error">
+                    <div class="capitalize">{{ join.leadAction.field('address').$error.message }}</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="20">
+                <div class="border"></div>
+                <label>City</label>
+                <input name="city" ng-model="join.leadAction.field('city').value" type="text">
+                <div ng-messages="join.leadAction.field('city').$error">
+                    <div class="capitalize">{{ join.leadAction.field('city').$error.message }}</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="15">
+                <div class="border"></div>
+                <label>State</label>
+                <input name="state" ng-model="join.leadAction.field('state').value" type="text">
+                <div ng-messages="join.leadAction.field('state').$error">
+                    <div class="capitalize">{{ join.leadAction.field('state').$error.message }}</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex-gt-sm="15">
+                <div class="border"></div>
+                <label>Zip</label>
+                <input name="zip" ng-model="join.leadAction.field('zip').value" type="text">
+                <div ng-messages="join.leadAction.field('zip').$error">
+                    <div class="capitalize">{{ join.leadAction.field('zip').$error.message }}</div>
+                </div>
+            </md-input-container>
+        </div>
+        <div layout="column" layout-align="center center">
+            <md-button class="md-raised">get<b>free consultation</b></md-button>
+        </div>
+        <div class="terms" layout="column" layout-align="center center">
+            <div>By clicking on this button, you also accept the <a href="{{ join.termsPath }}" target="_blank">terms & conditions</a></div>
+        </div>
+    </form>
+    <a href="/"><div class="footer"></div></a>
 </div>

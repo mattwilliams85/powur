@@ -6,6 +6,7 @@ module powur {
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
     videoId: string;
+    watched: boolean = false;
 
     get params(): any {
       return this.$stateParams;
@@ -21,6 +22,10 @@ module powur {
 
     get leadAction(): Action {
       return this.customer.action('submit_lead');
+    }
+
+    get termsPath(): string {
+      return this.session.instance.properties.latest_terms.document_path;
     }
 
     constructor(private $mdDialog: ng.material.IDialogService,
@@ -50,26 +55,19 @@ module powur {
       this.state.go('join.solar3', {});
     }
 
-    openTerms(ev: ng.IAngularEvent): void {
-      this.$mdDialog.show(<any>{
-        controller: 'TermsDialogController as terms',
-        templateUrl: 'app/join/terms.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose: true
-      })
-    }
-
     openTrailer(ev: ng.IAngularEvent, id: string): void {
       this.$mdDialog.show(<any>{
         templateUrl: 'app/join/trailer.html',
         controller: 'JoinSolarController as join',
         parent: $('.join'),
+        hasBackdrop: true,
         targetEvent: ev,
         clickOutsideToClose: true,
         locals: {
           customer: {}
         }
+      }).finally(() => {
+        this.watched = true;
       })
     }
   }

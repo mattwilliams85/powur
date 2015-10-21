@@ -1,9 +1,8 @@
 <!-- Row: Invites Carousel -->
 <div class="row collapse carousel-box downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'invites'}">
   <!-- New Invite Button -->
-  <div class="w20percent team-member-info-large small-2 columns" ng-click="newInvite()" ng-class="{'invert': showNew, 'disabled': noInvitesAvailable}">
-  </div>
-
+  <a href="/next/invite/grid" target="_self" class="w20percent team-member-info-large small-2 columns" ng-class="{'invert': showNew, 'disabled': noInvitesAvailable}">
+  </a>
 
   <!-- Invites Carousel -->
   <div class="carousel-container w80percent small-10 columns">
@@ -141,4 +140,3 @@
     </div>
   </div>
 </div>
-

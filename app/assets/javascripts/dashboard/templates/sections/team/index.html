@@ -2,8 +2,8 @@
   <div class="large-12 columns">
     <div ng-show="placement.on" class="placement-box" ng-class="{'placing': placement.parent}">
       <span class="line-1">Click or tap the image of an advocate to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on their team. Search or explore your GRID to find the right placement. <a class="place-button clear" ng-click="clearPlacement();">CANCEL</a> </span>
-      <span class="line-2"> 
-        Would you like to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on to <b>{{placement.parent.first_name + ' ' + placement.parent.last_name}}'s</b> team? 
+      <span class="line-2">
+        Would you like to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on to <b>{{placement.parent.first_name + ' ' + placement.parent.last_name}}'s</b> team?
       </span>
       <div class="button-box">
         <a class="place-button" ng-click="placeUser();">Yes</a>
@@ -26,14 +26,14 @@
         <div class="row collapse">
           <form ng-submit="teamSection.search()" class="search-form">
             <div class="no-padding large-12 medium-12 small-12 columns">
-              <input 
-                id="team-search" 
-                type="search" 
-                ng-model="teamSearch.string"  
+              <input
+                id="team-search"
+                type="search"
+                ng-model="teamSearch.string"
                 placeholder="SEARCH"
-                autocomplete="off" 
-                ng-change="fetchNames()" 
-                ng-blur="clearQuery(true)" 
+                autocomplete="off"
+                ng-change="fetchNames()"
+                ng-blur="clearQuery(true)"
                 ng-focus="clearQuery(false)"
                 ng-keydown="key($event)">
               <!-- Loading Animation -->
@@ -78,7 +78,7 @@
               <span>Invites Available</span>
             </div>
           </div>
-         
+
         </div>
 
       </div>
@@ -105,50 +105,50 @@
 
         <!-- If Team Members -->
         <div ng-if="downline[0]" class="team owl-carousel" id="carousel-0" data-row="0">
-        
+
           <a ng-repeat="member in downline[0]">
 
-            <div 
-              class="team-member" 
-              ng-class="{ active: memberActive(member), 'accordion': is.accordion(0) }" 
+            <div
+              class="team-member"
+              ng-class="{ active: memberActive(member), 'accordion': is.accordion(0) }"
               ng-mouseenter="hover = true"
               ng-mouseleave="hover = false">
               <div class="team-tabs">
-                <div 
-                  class="team-tab downline" 
+                <div
+                  class="team-tab downline"
                   ng-if="!is.inactiveTeamTab(member)"
-                  ng-class="{ 
+                  ng-class="{
                     'raise': hover || isMobile() || is.activeMember(member, downline[0]),
                     'active-tab':  is.activeTab(member, downline[0], 'team'),
                     'even': is.even(member),
                   }"
                   ng-click="changeTab(member, downline[0], 'team');">
- 
+
                   <img ng-hide="is.activeTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIconInvert}}">
                   <img ng-show="is.activeTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIcon}}">
                 </div>
                 <div class="team-tab info" ng-if="is.inactiveTeamTab(member)" ng-class="{ 'raise': hover || is.activeMember(member, downline[0]) }">
                   <img ng-src="{{img.teamSection.teamIconInactive}}">
                 </div>
-                <div 
-                  class="team-tab info" 
-                  ng-class="{ 
+                <div
+                  class="team-tab info"
+                  ng-class="{
                     'raise': hover || isMobile() || is.activeMember(member, downline[0]),
                     'active-tab': is.activeTab(member, downline[0], 'info'),
                     'even': is.even(member),
-                  }" 
+                  }"
                   ng-click="changeTab(member, downline[0], 'info');">
                   <img ng-hide="is.activeTab(member, downline[0], 'info')" ng-src="{{img.teamSection.kpiIconInvert}}">
                   <img ng-show="is.activeTab(member, downline[0], 'info')" ng-src="{{img.teamSection.kpiIcon}}">
                 </div>
-                <div 
-                  class="team-tab info" 
+                <div
+                  class="team-tab info"
                   ng-if="member.totals.lead_count"
-                  ng-class="{ 
+                  ng-class="{
                     'raise': hover || is.activeMember(member, downline[0]),
                     'active-tab': is.activeTab(member, downline[0], 'proposals'),
                     'even': is.even(member),
-                  }" 
+                  }"
                   ng-click="changeTab(member, downline[0], 'proposals'); teamSection.fetchLeads(member);">
                  <!--  <i class="fa fa-info-circle invert"></i> -->
                   <img ng-hide="is.activeTab(member, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIconInvert}}">
@@ -158,7 +158,7 @@
                   <img ng-src="{{img.teamSection.customerIconInactive}}">
                 </div>
               </div>
-              <div class="info-box" ng-class="{ 
+              <div class="info-box" ng-class="{
                     'raise': hover || isMobile() || is.accordion(0) || is.activeMember(member, downline[0]),
                     'accordion': is.accordion(0) }"
                     ng-click="changeTab(member, downline[0], 'info');">

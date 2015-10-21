@@ -7,6 +7,7 @@ json.properties do
   json.accepted_count current_user.invites.redeemed.count
   json.expired_count current_user.invites.expired.count
   json.pending_count current_user.invites.pending.count
+  json.limited_invites current_user.limited_invites?
 end
 
 json.entities @invites, partial: 'item', as: :invite
