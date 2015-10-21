@@ -1,307 +1,222 @@
-$videoIconHeight: 25px;
-$buttonColor: #07b7d1;
-$textColor: #fff;
-
 @mixin bg($img) {
-        min-width: 100%;
-        min-height: 100%;
-        position: fixed;
-        background-image: image-url($img);
-        background-size: cover;
+    min-width: 100%;
+    min-height: 100%;
+    position: fixed;
+    background-image: image-url($img);
+    background-size: cover;
 }
 
 .join {
-    font-family: 'Open Sans';
-    color: $textColor;
-    min-height: 100vh;
+  font-family: 'Open Sans';
+  min-height: 100vh;
+  padding-bottom: 100px;
+  position: relative;
 
-    .trailer-box {
-        width: 90%;
-        max-width: 650px;
-        margin: 7vh;
-    }
+  * {
+    color: #fff;
+  }
+
+  .bg-img {
+    &.g1 { @include bg("img/join/join-bg.jpg") }
+    &.g2 { @include bg("img/join/join-bg3.jpg") }
+    &.s1 { @include bg("img/join/join-bg2.jpg") }
+    &.s2 { @include bg("img/join/join-bg4.jpg") }
+    &.s3 { @include bg("img/join/join-bg5-mod.jpg") }
+  }
+
+  .trailer-box {
+    width: 90%;
+    max-width: 650px;
+    margin: 7vh;
 
     .controls, .sidedock {
-        display: none !important;
+      display: none !important;
     }
 
     .intro {
-        box-shadow: 0px 60px 100px -50px rgba(0, 0, 0, 1);
-        max-height: 55vh;
-        height: 45vh;
-        position: relative;
-        background: #000;
+      box-shadow: 0px 60px 100px -50px rgba(0, 0, 0, 1);
+      max-height: 55vh;
+      height: 45vh;
+      position: relative;
+      background: #000;
     }
+  }
 
-    .bg-img {
-        &.s1 { @include bg("img/join/join-bg2.jpg") }
-        &.s2 { @include bg("img/join/join-bg4.jpg") }
-        &.s3 { @include bg("img/join/join-bg5-mod.jpg") }
-        &.g1 { @include bg("img/join/join-bg.jpg") }
-        &.g2 { @include bg("img/join/join-bg3.jpg") }
-    }
-
+  &.step1 {
     .messages {
-        color: $textColor;
-        background: rgba(255,255,255,0.3);
-        max-width: 360px;
-        padding: 5px 5px 5px 10px;
-        margin: 10px 0;
-        border-left: 2px solid #f00;
-        text-transform: uppercase;
-    }
-
-    .key-box {
-        position: relative;
+      background: rgba(255,255,255,0.3);
+      max-width: 360px;
+      padding: 5px 5px 5px 10px;
+      margin: 10px 0;
+      border-left: 2px solid #f00;
+      text-transform: uppercase;
     }
 
     .text-box {
-        max-width: 600px;
-        text-align: center;
-        .header {
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        .detail {
-            padding: 15px 0;
-        }
+      max-width: 600px;
+      text-align: center;
+      .header {
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .detail {
+        padding: 15px 0;
+      }
     }
 
-    .who {
-        .greeting {
-            font-size: small;
-            text-transform: uppercase;
-        }
+    .key-box {
+      position: relative;
+    }
 
-        .full-name {
-            font-size: x-large;
-            text-transform: uppercase;
-        }
-        .detail {
-            padding: 15px 0 0px 0;
-            font-size: 11pt;
-        }
+
+    .who {
+      .greeting {
+        font-size: small;
+        text-transform: uppercase;
+      }
+
+      .full-name {
+        font-size: x-large;
+        text-transform: uppercase;
+      }
+      .detail {
+        padding: 15px 0 0px 0;
+        font-size: 11pt;
+      }
     }
 
     .key {
-        color: $textColor;
+    
+      text-transform: uppercase;
+
+      label {
+        padding: 30px 0 5px 0;
+        display: block;
+        font-size: 11pt;
+      }
+
+      input[type="text"] {
+        border-radius: 0;
         text-transform: uppercase;
+        background: rgba(0,0,0,.2);
+        border: rgba(0,0,0,0.15) 1px solid;
+        padding: 5px;
+        width: 100%;
+        max-width: 300px;
+        height: 40px;
+      }
 
-        label {
-            padding: 30px 0 5px 0;
-            display: block;
-            font-size: 11pt;
+      input[type="text"]:focus{
+        outline: 0;
+      }
+
+      button {
+        font-size: medium;
+        font-weight: 500;
+        text-transform: uppercase;
+        width: 146px;
+        height: 40px;
+        background: rgba(0,55,101,0.7);
+        transition: background .5s;
+        border: none;
+        &:hover {
+         background: rgba(0,55,101,0.8);
         }
-
-        input[type="text"] {
-            border-radius: 0;
-            color: $textColor;
-            text-transform: uppercase;
-            background: rgba(0,0,0,.2);
-            border: rgba(0,0,0,0.15) 1px solid;
-            padding: 5px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        input[type="text"]:focus{
-            outline: 0;
-        }
-
-        button {
-            font-size: medium;
-            font-weight: 500;
-            color: $textColor;
-            text-transform: uppercase;
-            width: 146px;
-            height: 40px;
-            background: rgba(0,55,101,0.7);
-            transition: background .5s;
-            border: none;
-            &:hover {
-              background: rgba(0,55,101,0.8);
-            }
-        }
-    }
-
-    &.grid-1 {
-        button {
-            background: rgba(0, 105, 151, 0.7);
-            &:hover {
-              background: rgba(0, 105, 151, 0.9);
-            }
-        }
-    }
-
-    .bg2 {
-
         &.grid {
-            form {
-                opacity: 0;
-                transition: opacity 1s;
-                &.opaque {
-                    opacity: 1;
-                }
-            }
+          background: rgba(0, 105, 151, 0.7);
+          &:hover {
+           background: rgba(0, 105, 151, 0.9);
+          }
         }
-
-
-        md-content {
-            background: transparent;
-            color: $textColor;
-            font-size: smaller;
-
-            label, span {
-                color: $textColor;
-                text-transform: uppercase;
-                padding: 0 10px 0 5px;
-            }
-
-            input {
-                color: $textColor;
-                padding-left: 5px;
-            }
-
-            button {
-                color: $textColor;
-                background-color: $buttonColor;
-                text-transform: uppercase;
-                width: 275px;
-                height: 40px;
-                letter-spacing: .1em;
-                border-radius: 0;
-                transition: color .5s, background .5s;
-            }
-
-            button:hover {
-                * {
-                  color: black;
-                }
-            }
-
-            md-input-container {
-                .md-input {
-                    border-width: 0;
-                    font-size: medium;
-                    font-weight: 600;
-                }
-                &:last-child {
-                    .border {
-                        width: 100%;
-                    }
-                }
-            }
-
-
-            md-select .md-select-value {
-                color: $textColor;
-
-                &:not(.md-select-placeholder) {
-                    font-size: medium;
-                    font-weight: 600;
-                }
-
-                .md-select-icon {
-                    width: 15px;
-                    -webkit-transform: translate3d(-8px, 1px, 0);
-                    transform: translate3d(-8px, 1px, 0);
-                }
-            }
-
-            md-select:not([disabled]):focus .md-select-value {
-                border-width: 0;
-            }
-
-            .border {
-                width: 95%;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                margin: auto 0;
-                border: 1px solid #fff;
-                border-width: 0 1px 1px 1px;
-                margin-top: 40px;
-                height: 10px;
-                pointer-events: none;
-                &.long {
-                    width: 97.5%
-                }
-            }
-        }
-
-        .terms {
-            font-size: smaller;
-            padding: 10px;
-
-            a {
-                color: $textColor;
-            }
-        }
+      }
     }
-}
- .terms-dialog {
-     background: rgba(255, 255, 255, 0.9);
+  }
 
-     md-toolbar:not(.md-menu-toolbar) {
-         background-color: #0a3b86;
-     }
-
-    .md-actions {
-
-        button {
-            color: $textColor;
-            background-color: $buttonColor !important;
+  &.step2 {
+    form {
+      &.grid {
+        opacity: 0;
+        transition: opacity 1s;
+        &.opaque {
+          opacity: 1;
         }
+      }
 
-        button:hover {
-            color: black;
-            background-color: white !important;
+      label, span {
+        color: #fff;
+        text-transform: uppercase;
+        padding: 0 10px 0 5px;
+      }
+
+      input {
+        color: #fff;
+        padding-left: 5px;
+      }
+
+      button {
+        background-color: #07b7d1;
+        text-transform: uppercase;
+        width: 275px;
+        height: 40px;
+        letter-spacing: .1em;
+        border-radius: 0;
+        transition: color .5s, background .5s;
+      }
+
+      button:hover {
+        * {
+         color: black;
         }
+      }
+
+      md-input-container {
+        .md-input {
+          border-width: 0;
+          font-size: medium;
+          font-weight: 600;
+        }
+        &:last-child {
+          .border {
+            width: 100%;
+          }
+        }
+      }
     }
-}
 
-@media only screen and (max-width: 600px) {
-    .join {
-        height: inherit;
-
-        .messages {
-            font-size: small;
-        }
-
-        .box {
-            width: 100% !important;
-            max-width: 100%;
-        }
-
-        .solar-1 {
-            .key {
-                button {
-                    font-size: small;
-                }
-            }
-        }
-
-        form {
-            md-input-container:first-of-type {
-                margin-top: 15px;
-            }
-        }
-
-
-        .bg2 {
-            md-content {
-                button {
-                    margin-top: 30px;
-                }
-                md-select .md-select-value .md-select-icon {
-                    transform: translate3d(-20px, 1px, 0);
-                }
-                md-input-container .border {
-                    width: 100%;
-                }
-            }
-        }
-
+    .terms {
+      position: relative;
+      font-size: smaller;
+      padding: 10px;
     }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .messages {
+      font-size: small;
+    }
+
+    .box {
+      width: 100% !important;
+      max-width: 100%;
+    }
+
+    &.step1 .key button {
+      font-size: small;
+    }
+
+    .trailer-box {
+      margin: 0 0 7vh 0;
+      width: 100%;
+    }
+
+    form {
+      .border {
+         width: 100% !important;
+       }
+    }
+
+    &.step2 md-content button {
+      margin-top: 30px;
+    }
+  }
 }

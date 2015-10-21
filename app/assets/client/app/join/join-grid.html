@@ -1,4 +1,4 @@
-<div class="join grid-1" flex layout="column" layout-align="start center">
+<div class="join step1" flex layout="column" layout-align="start center">
     <div class="bg-img g1"></div>
     <div class="trailer-box">
       <div class="intro" flex>
@@ -16,7 +16,7 @@
         <form ng-submit="join.validateGridInviteSubmit()" name="validateGridInviteForm" novalidate>
           <div layout="row">
             <input name="code" type="text" ng-model="join.gridKey">
-            <button ng-disabled="join.validateGridInvite.submitting" autofocus>Continue</button>
+            <button class="grid" ng-disabled="join.validateGridInvite.submitting" autofocus>Continue</button>
           </div>
           <div ng-show="join.gridKeyMissing" class="messages">
             Please input your Grid Key
@@ -27,9 +27,5 @@
         </form>
       </div>
     </div>
+    <a href="/"><div class="footer"></div></a>
 </div>
-
-
-<!--     <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
-      <a href="/" class="home-link"><div class="logo"></div></a>
-    </div> -->

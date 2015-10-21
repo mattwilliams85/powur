@@ -1,4 +1,4 @@
-<div class="join solar-1" flex layout="column" layout-align="start center">
+<div class="join step1" flex layout="column" layout-align="start center">
     <div class="bg-img s1"></div>
     <div class="trailer-box">
       <div class="intro" flex>
@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="invalid messages key-box" layout-padding ng-hide="join.customer.properties">
-      You only had 24 hours to accept this invite. It's now expired, please get back to the person who invited you to get another.
+      This solar invite is invalid, please get in contact with the person who invited you.
     </div>
     <div class="key-box" layout-padding ng-show="join.customer.properties">
       <div class="who">
@@ -30,4 +30,5 @@
         <div ng-message="message" class="messages">{{ join.validateZipAction.field('zip').$error.message }}</div>
       </div>
     </div>
+    <a href="/"><div class="footer"></div></a>
 </div>

@@ -20,6 +20,7 @@ $textColor: white;
   height: 100%;
   color: $textColor;
   font-family: 'Open Sans';
+  position: relative;
 
   .bg { 
     @include bg("img/join/join-bg.jpg");
