@@ -34,6 +34,10 @@ module powur {
     static ControllerId = 'InviteGridController';
     static $inject = ['invites', '$mdDialog', '$interval'];
 
+    get unlimitedInvites(): boolean {
+      return !this.invites.properties.limited_invites
+    }
+
     get available(): number {
       return this.invites.properties.available_count;
     }
@@ -87,7 +91,7 @@ module powur {
           time = 0;
           continue;
         }
-        this.list[i].properties.time_left = time; 
+        this.list[i].properties.time_left = time;
         this.list[i].properties.expiration_progress = this.calculateExp(item);
       }
     }

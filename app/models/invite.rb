@@ -17,13 +17,16 @@ class Invite < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
-  validate :max_invites, on: :create
+  validate :max_invites, on: :create, if: :sponsor_limited_invites?
   validates_with ::Phone::Validator, fields: [:phone],
                                      if:     'phone.present?',
                                      on:     :create
 
-  after_create :subtract_from_available_invites
-  after_destroy :increment_available_invites
+  after_create :subtract_from_available_invites, if: :sponsor_limited_invites?
+  after_destroy :increment_available_invites, if: :sponsor_limited_invites?
+  def sponsor_limited_invites?
+    sponsor.limited_invites?
+  end
 
   before_validation do
     self.id ||= Invite.generate_code

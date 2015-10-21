@@ -1,7 +1,7 @@
 <div class="counter">
   <ul layout="row" layout-align="center center" class="fadeIn">
     <li flex="25" layout="column" layout-align="center center">
-      <div layout="row" layout-align="center center"><i class="sprite sprite-available"></i><span class="count">{{ invite.available }}</span></div>
+      <div layout="row" layout-align="center center"><i class="sprite sprite-available"></i><span class="count">{{ invite.unlimitedInvites ? '∞' : invite.available }}</span></div>
       <div class="label kpi">available</div>
     </li>
     <li flex="25" layout="column" layout-align="center center">

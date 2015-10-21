@@ -65,7 +65,9 @@ module Auth
     end
 
     def validate_max_invites
-      error!(:exceeded_max_invites) if current_user.available_invites < 1
+      max_exceeded =
+        current_user.limited_invites? && current_user.available_invites < 1
+      error!(:exceeded_max_invites) if max_exceeded
     end
 
     def list_criteria
