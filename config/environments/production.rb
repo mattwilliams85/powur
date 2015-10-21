@@ -33,7 +33,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '2.1'
+  config.assets.version = '2.2'
   # config.action_controller.asset_host = Proc.new { |source|
   #   if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
   #     nil
