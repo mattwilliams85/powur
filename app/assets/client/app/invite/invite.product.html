@@ -1,56 +1,55 @@
 <div class="counter">
-    <ul layout="row" layout-align="center center" class="fadeIn">
-        <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-sent"></i><span class="count">{{ invite.listProps.sent }}</span></div>
-            <div class="label kpi">sent</div>
-        </li>
-        <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-initiated"></i><span class="count">{{ invite.listProps.initiated }}</span></div>
-            <div class="label kpi">initiated</div>
-        </li>
-        <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-ineligible"></i><span class="count">{{ invite.listProps.ineligible_location }}</span></div>
-            <div class="label kpi">ineligible location</div>
-        </li>
-        <li flex="25" layout="column" layout-align="center center">
-            <div layout="row" layout-align="center center"><i class="sprite sprite-accepted"></i><span class="count">{{ invite.listProps.accepted }}</span></div>
-            <div class="label kpi">accepted</div>
-        </li>
-    </ul>
+  <ul layout="row" layout-align="center center" class="fadeIn">
+    <li flex="25" layout="column" layout-align="center center">
+      <div layout="row" layout-align="center center"><i class="sprite sprite-sent"></i><span class="count">{{ invite.listProps.sent }}</span></div>
+      <div class="label kpi">sent</div>
+    </li>
+    <li flex="25" layout="column" layout-align="center center">
+      <div layout="row" layout-align="center center"><i class="sprite sprite-initiated"></i><span class="count">{{ invite.listProps.initiated }}</span></div>
+      <div class="label kpi">initiated</div>
+    </li>
+    <li flex="25" layout="column" layout-align="center center">
+      <div layout="row" layout-align="center center"><i class="sprite sprite-ineligible"></i><span class="count">{{ invite.listProps.ineligible_location }}</span></div>
+      <div class="label kpi">ineligible location</div>
+    </li>
+    <li flex="25" layout="column" layout-align="center center">
+      <div layout="row" layout-align="center center"><i class="sprite sprite-accepted"></i><span class="count">{{ invite.listProps.accepted }}</span></div>
+      <div class="label kpi">accepted</div>
+    </li>
+  </ul>
 </div>
 
 <div layout="row" layout-wrap class="invite-list bg">
-    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
-        <div class="invite-item">
-                <span class="add counter">
-                    <i class="sprite sprite-invite"></i>
-                    <div class="label hoverable">Click to <b>Invite</b></div>
-                </span>
-            <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
-        </div>
-    </a>
-    <div ng-repeat="item in invite.invites.entities">
-        <div ng-if="item.properties.status == 'sent'" class="invite-item solar" style="color: {{invite.timerColor}} !important">
-            <div class="full-name">
-                {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
-                <md-tooltip>{{item.properties.first_name}} {{item.properties.last_name}}</md-tooltip>
-            </div>
-            <div class="status-icons" flex layout="row">
-                <!-- TODO: Add tooltips for icons -->
-                <div class="icon contact" ng-class="{ 'provided': item.properties.email }"></div>
-                <div class="icon address" ng-class="{ 'provided': item.properties.zip }"></div>
-                <div class="icon utility" ng-class="{ 'provided': item.properties.average_bill }"></div>
-            </div>
-            <div class="date">Est. {{item.properties.updated_at | date : 'd/M/yy'}}</div>
-            <span class="ellipse border-fill"></span>
-        </div>
-
-        <div ng-if="item.status == 4" class="invite-item">
-            <span class="add counter">
-                <i class="sprite sprite-invite"></i>
-                <div class="label"><b>locked</b></div>
-            </span>
-            <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
-        </div>
+  <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
+    <div class="invite-item">
+        <span class="add counter">
+          <i class="sprite sprite-invite"></i>
+          <div class="label hoverable">Click to <b>Invite</b></div>
+        </span>
+      <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
     </div>
+  </a>
+  <div ng-repeat="item in invite.invites.entities">
+    <div ng-if="item.properties.status == 'sent'" class="invite-item solar" style="color: {{invite.timerColor}} !important">
+      <div class="full-name">
+        {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+        <md-tooltip>{{item.properties.first_name}} {{item.properties.last_name}}</md-tooltip>
+      </div>
+      <!-- <div class="status-icons" flex layout="row">
+        <div class="icon contact" ng-class="{ 'provided': item.properties.email }"></div>
+        <div class="icon address" ng-class="{ 'provided': item.properties.zip }"></div>
+        <div class="icon utility" ng-class="{ 'provided': item.properties.average_bill }"></div>
+      </div> -->
+      <div class="date">Est. {{item.properties.updated_at | date : 'M/d/yy'}}</div>
+      <span class="ellipse border-fill"></span>
+    </div>
+
+    <div ng-if="item.status == 4" class="invite-item">
+      <span class="add counter">
+        <i class="sprite sprite-invite"></i>
+        <div class="label"><b>locked</b></div>
+      </span>
+      <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
+    </div>
+  </div>
 </div>
