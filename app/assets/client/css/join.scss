@@ -1,56 +1,24 @@
-$textColor: white;
 $videoIconHeight: 25px;
 $buttonColor: #07b7d1;
+$textColor: #fff;
 
 @mixin bg($img) {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
         min-width: 100%;
         min-height: 100%;
-        overflow-x: hidden;
+        position: fixed;
         background-image: image-url($img);
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
         background-size: cover;
 }
 
 .join {
-    width: 100%;
-    height: auto;
-    color: $textColor;
     font-family: 'Open Sans';
+    color: $textColor;
+    min-height: 100vh;
 
-    md-dialog {
+    .trailer-box {
         width: 90%;
-        max-width: 700px;
-        height: auto;
-        overflow: hidden;
-        background: #000;
-    }
-
-    .md-scroll-mask {
-        background-color: rgba(0,0,0,0.5);
-    }
-
-    .box {
-        text-align: center;
-        width: 90% !important;
         max-width: 650px;
         margin: 7vh;
-        position: relative;
-        padding-top: 15px;
-        &.pop-up {
-            width: 100% !important;
-            max-width: 100%;
-            margin: 0;
-            padding-top: 0;
-        }
-        &.smaller {
-            margin: 3vh 0 7vh 0;
-        }
     }
 
     .controls, .sidedock {
@@ -62,179 +30,110 @@ $buttonColor: #07b7d1;
         max-height: 55vh;
         height: 45vh;
         position: relative;
-        z-index: 2;
         background: #000;
     }
 
-    .bg {
-        // @include bg("img/join/join-bg.jpg");
-        // min-height: 850px;
-        // &.solar .bg-img { @include bg("img/join/join-bg.jpg") }
-        // &.solar-2 { @include bg("img/join/join-bg4.jpg") }
-        overflow-x: hidden;
+    .bg-img {
+        &.s1 { @include bg("img/join/join-bg2.jpg") }
+        &.s2 { @include bg("img/join/join-bg4.jpg") }
+        &.s3 { @include bg("img/join/join-bg5-mod.jpg") }
+        &.g1 { @include bg("img/join/join-bg.jpg") }
+        &.g2 { @include bg("img/join/join-bg3.jpg") }
+    }
+
+    .messages {
+        color: $textColor;
+        background: rgba(255,255,255,0.3);
+        max-width: 360px;
+        padding: 5px 5px 5px 10px;
+        margin: 10px 0;
+        border-left: 2px solid #f00;
+        text-transform: uppercase;
+    }
+
+    .key-box {
         position: relative;
+    }
 
-        .footer {
-            position: absolute;
-            z-index: 2;
-            right: 0;
-            left: 0;
-            margin: 0 auto;
-            margin-top: 0
+    .text-box {
+        max-width: 600px;
+        text-align: center;
+        .header {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .detail {
+            padding: 15px 0;
+        }
+    }
+
+    .who {
+        .greeting {
+            font-size: small;
+            text-transform: uppercase;
         }
 
-        .bg-img {
-            @include bg("img/join/join-bg3.jpg");
-            min-height: 850px;
-            position: fixed;
-            z-index: 1;
-            &.solar {
-                @include bg("img/join/join-bg2.jpg");
-            }
+        .full-name {
+            font-size: x-large;
+            text-transform: uppercase;
         }
-
-        &.solar {
-            .key-wrap {
-                opacity: 0;
-                transition: opacity .2s;
-                &.visible {
-                    opacity: 1;
-                }
-            }
+        .detail {
+            padding: 15px 0 0px 0;
+            font-size: 11pt;
         }
+    }
 
-        .messages {
-            color: #fff;
-            background: rgba(255,255,255,0.3);
-            max-width: 360px;
-            padding: 5px 5px 5px 10px;
-            margin: 10px 0;
-            border-left: 2px solid #f00;
-        }
+    .key {
+        color: $textColor;
+        text-transform: uppercase;
 
-        .key-wrap {
-            margin-top: 0vh;
-        }
-
-        .key-box {
-            width: auto;
-            margin-bottom: 100px;
+        label {
+            padding: 30px 0 5px 0;
             display: block;
-            z-index: 2;
-            position: relative;
+            font-size: 11pt;
         }
 
-        .text-box {
-            max-width: 600px;
-            text-align: center;
-            .header {
-                text-transform: uppercase;
-                font-weight: 600;
-            }
-            .detail {
-                padding: 15px 0;
-            }
-        }
-
-        .who {
-
-            &.invalid {
-                padding: 30px;
-                background: rgba(0,0,0,0.15);
-                border-left: 5px solid rgba(255,0,0,0.65)
-            }
-
-            .greeting {
-                font-size: small;
-                text-transform: uppercase;
-            }
-
-            .full-name {
-                font-size: x-large;
-                text-transform: uppercase;
-                font-weight: 100;
-            }
-            .detail {
-                padding: 15px 0 0px 0;
-                font-size: 11pt;
-            }
-        }
-
-        .key {
+        input[type="text"] {
+            border-radius: 0;
             color: $textColor;
             text-transform: uppercase;
-
-            label {
-                padding: 30px 0 5px 0;
-                display: block;
-                font-size: 11pt;
-            }
-
-            input[type="text"] {
-                border-radius: 0;
-                color: $textColor;
-                text-transform: uppercase;
-                background: rgba(0,0,0,.2);
-                border: rgba(0,0,0,0.15) 1px solid;
-                padding: 5px;
-                width: 100%;
-                max-width: 356px;
-                height: 40px;
-            }
-
-            input[type="text"]:focus{
-                outline: 0;
-            }
-
-            button {
-                font-size: medium;
-                font-weight: 500;
-                color: $textColor;
-                text-transform: uppercase;
-                width: 146px;
-                height: 40px;
-                background: rgba(0,55,101,0.7);
-                transition: background .5s;
-                border: none;
-                &:hover {
-                  background: rgba(0,55,101,0.8);
-                }
-                //border: #124b79 1px solid;
-            }
+            background: rgba(0,0,0,.2);
+            border: rgba(0,0,0,0.15) 1px solid;
+            padding: 5px;
+            width: 100%;
+            max-width: 300px;
         }
 
-        .trailer {
-            padding-top: 25px;
+        input[type="text"]:focus{
+            outline: 0;
+        }
 
-            .video {
-                width: 29px;
-                height: $videoIconHeight;
-                background: image-url('img/join/video.png')
+        button {
+            font-size: medium;
+            font-weight: 500;
+            color: $textColor;
+            text-transform: uppercase;
+            width: 146px;
+            height: 40px;
+            background: rgba(0,55,101,0.7);
+            transition: background .5s;
+            border: none;
+            &:hover {
+              background: rgba(0,55,101,0.8);
             }
+        }
+    }
 
-            .info {
-                color: $textColor;
-                font-size: small;
-                text-transform: uppercase;
-                line-height: $videoIconHeight;
-                padding-left: 10px;
-
-                a {
-                    color: $textColor;
-                }
+    &.grid-1 {
+        button {
+            background: rgba(0, 105, 151, 0.7);
+            &:hover {
+              background: rgba(0, 105, 151, 0.9);
             }
         }
     }
 
     .bg2 {
-        .bg-img {
-            @include bg("img/join/join-bg3.jpg");
-            min-height: 850px;
-            position: fixed;
-            &.solar {
-                @include bg("img/join/join-bg5-mod.jpg");
-            }
-        }
 
         &.grid {
             form {
@@ -375,10 +274,7 @@ $buttonColor: #07b7d1;
             max-width: 100%;
         }
 
-        .bg {
-            .trailer .info {
-                font-size: x-small
-            }
+        .solar-1 {
             .key {
                 button {
                     font-size: small;
