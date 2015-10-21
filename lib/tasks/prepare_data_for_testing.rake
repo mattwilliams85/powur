@@ -25,16 +25,18 @@ namespace :powur do
     User.find_each do |user|
       next if user.email.match(/eyecue/)
 
+      password = "#{new_password}#{user.id}"
+
       user.update_attributes(
         first_name:            Faker::Name.first_name,
         last_name:             Faker::Name.first_name,
-        email:                 "development+#{user.id}@eyecuelab.com",
+        email:                 "#{user.id}@eyecuelab.com",
         address:               Faker::Address.street_address,
         city:                  Faker::Address.city,
         phone:                 Faker::PhoneNumber.phone_number,
         valid_phone:           Faker::PhoneNumber.phone_number,
-        password:              new_password,
-        password_confirmation: new_password)
+        password:              password,
+        password_confirmation: password)
     end
 
     Customer.all.each do |customer|
