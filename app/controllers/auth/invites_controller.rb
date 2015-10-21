@@ -14,11 +14,8 @@ module Auth
     end
 
     def create
-      require_input :first_name, :last_name
+      require_input :first_name, :last_name, :email
 
-      if !params[:email].present? && !params[:phone].present?
-        error!(:either_email_or_phone)
-      end
       validate_email
       validate_max_invites
 

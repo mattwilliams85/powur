@@ -21,11 +21,7 @@ module Auth
     end
 
     def create
-      require_input :first_name, :last_name
-
-      if !params[:email].present? && !params[:phone].present?
-        error!(:either_email_or_phone)
-      end
+      require_input :first_name, :last_name, :email
 
       @customer = Customer.create!(
         customer_input.merge(user_id: current_user.id))
@@ -45,7 +41,7 @@ module Auth
     end
 
     def validate_existence
-      return unless params[:meail].present?
+      return unless params[:email].present?
       customer = Customer.find_by(email: customer_input['email'])
       error!(:product_invite_exist, :email) if customer
     end
