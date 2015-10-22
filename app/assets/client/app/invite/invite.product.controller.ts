@@ -34,18 +34,24 @@ module powur {
     static $inject = ['invites', '$mdDialog'];
 
     get list(): any[] {
-      return this.invites.entities;
+      if (_.isEmpty(this.filters)) {
+        return this.invites.entities;
+      } else {
+        return _.filter(this.invites.entities, (i) => {
+          return _.includes(this.filters, i['properties']['status']);
+        });
+      }
     }
 
     get listProps(): any {
       return this.invites.properties;
     }
 
-    timerColor: string;
+    filters: string[] = [];
+    timerColor: string = '#39ABA1';
 
     constructor(private invites: ISirenModel, public $mdDialog: ng.material.IDialogService) {
       super();
-      this.timerColor = '#39ABA1';
     }
 
     addInvite(e: MouseEvent) {
@@ -67,6 +73,15 @@ module powur {
           // cancel
           this.root.$log.debug('cancel');
         });
+    }
+
+    filter(type: string) {
+      var index = this.filters.indexOf(type);
+      if (index > -1) {
+        this.filters.splice(index, 1);
+      } else {
+        this.filters.push(type);
+      }
     }
   }
 
