@@ -55,7 +55,6 @@ module UserSecurity
   # Updates last_sign_in_at and remember_created_at timestamps
   def update_sign_in_timestamps!(remember_me = false)
     timestamp = Time.now.utc
-    update_login_streak(timestamp)
     self.last_sign_in_at = timestamp
     self.remember_created_at = timestamp if remember_me
     save(validate: false)
@@ -68,8 +67,6 @@ module UserSecurity
       (session_expires_at.nil? || session_expires_at < Time.current)
   end
 
-  private
-
   def last_sign_in_yesterday?(timestamp)
     yesterday = timestamp.yesterday
     !last_sign_in_at.nil? &&
@@ -77,12 +74,14 @@ module UserSecurity
       last_sign_in_at.day == yesterday.day
   end
 
-  def hash_password(value)
-    ::BCrypt::Password.create(value, cost: 10).to_s
-  end
-
   def update_login_streak(timestamp)
     streaking = last_sign_in_yesterday?(timestamp)
     self.login_streak = streaking ? login_streak + 1 : 1
+  end
+
+  private
+
+  def hash_password(value)
+    ::BCrypt::Password.create(value, cost: 10).to_s
   end
 end
