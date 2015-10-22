@@ -1,6 +1,10 @@
 module Anon
   class InvitesController < AnonController
-    before_action :fetch_invite, only: [ :update, :validate, :show ]
+    before_action :fetch_invite, only: [ :update, :show ]
+
+    def show
+      @invite.touch(:last_viewed_at)
+    end
 
     def update
       require_input :first_name, :last_name, :email, :password,
@@ -24,10 +28,6 @@ module Anon
       login_user(user, params[:remember_me] == true)
 
       render 'anon/session/show'
-    end
-
-    def validate
-      render 'show'
     end
 
     private
