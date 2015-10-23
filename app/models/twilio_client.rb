@@ -11,9 +11,32 @@ class TwilioClient
     @account ||= client.account
   end
 
+  # Returns purchased phone numbers
+  # Could be filtered by area code
+  # Example: client.purchased_numbers(area_code: '760')
   def purchased_numbers(opts = {})
+    area_code = opts.delete(:area_code)
     @purchased_numbers ||= account.incoming_phone_numbers.list(opts)
       .map(&:phone_number)
+    return @purchased_numbers unless area_code
+
+    # Area code filter
+    exclude = false
+    if area_code[0] == '!'
+      exclude = true
+      area_code.delete!('!')
+    end
+    @purchased_numbers.select do |n|
+      exclude ? n[2..4] != area_code : n[2..4] == area_code
+    end
+  end
+
+  def numbers_for_bulk_sms
+    purchased_numbers(area_code: '760')
+  end
+
+  def numbers_for_personal_sms
+    purchased_numbers(area_code: '!760')
   end
 
   def send_message(*args)
