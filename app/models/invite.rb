@@ -110,7 +110,7 @@ class Invite < ActiveRecord::Base
     twilio_client = TwilioClient.new
     twilio_client.send_message(
       to:   phone,
-      from: twilio_client.purchased_numbers.sample,
+      from: twilio_client.numbers_for_personal_sms.sample,
       body: message)
   end
 
