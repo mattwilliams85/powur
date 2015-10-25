@@ -38,7 +38,7 @@ module powur {
                 var reason: any = (response.status === 404) ? 'invalid_password_token' : response;
                 return $q.reject(reason);
               }
-              return root.$session.instance.getPasswordToken($stateParams.resetCode).then(null, fail);
+              return root.$session.getPasswordToken($stateParams.resetCode).then(null, fail);
             }
           }
         }).state('login.private', {
@@ -67,7 +67,7 @@ module powur {
             invite: function($stateParams, $q) {
               var root = RootController.get();
               var defer = $q.defer();
-              root.$session.instance.getInvite($stateParams.inviteCode).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+              root.$session.getInvite($stateParams.inviteCode).then((response: ng.IHttpPromiseCallbackArg<any>) => {
                 defer.resolve(response);
               }, () => {
                 defer.resolve({});
@@ -86,7 +86,7 @@ module powur {
                 var reason: any = (response.status === 404) ? 'invalid_code' : response;
                 return $q.reject(reason);
               }
-              return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
+              return root.$session.getInvite($stateParams.inviteCode).then(null, fail);
             }
           }
         }).state('join.solar', {
@@ -100,7 +100,7 @@ module powur {
             // anon: function($q): any {
             //   var defer = $q.defer();
             //   var root = RootController.get();
-            //   if (root.$session.instance.loggedIn()) {
+            //   if (root.$session.loggedIn()) {
             //     return root.$session.logout().then(function() {
             //       defer.resolve();
             //     })
@@ -112,7 +112,9 @@ module powur {
             customer: function($stateParams, $q) {
               var root = RootController.get();
               var defer = $q.defer();
-              root.$session.instance.getCustomer($stateParams.inviteCode).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+              root.$session
+                  .getCustomer($stateParams.inviteCode)
+                  .then((response: ng.IHttpPromiseCallbackArg<any>) => {
                 defer.resolve(response);
               }, () => {
                 defer.resolve({});
@@ -134,7 +136,7 @@ module powur {
                 var reason: any = (response.status === 404) ? 'invalid_code' : response;
                 return $q.reject(reason);
               }
-              return root.$session.instance.getCustomer($stateParams.inviteCode).then(null, fail);
+              return root.$session.getCustomer($stateParams.inviteCode).then(null, fail);
             }
           }
         }).state('join.solar3', {
@@ -149,7 +151,7 @@ module powur {
           resolve: {
             goals: function() {
               var root = RootController.get();
-              return root.$session.instance.getEntity(GoalsModel, 'user-goals');
+              return root.$session.getEntity(GoalsModel, 'user-goals');
             },
             requirements: function(goals: GoalsModel) {
               return goals.getRequirements();
@@ -166,7 +168,7 @@ module powur {
           resolve: {
             invites: function() {
               var root = RootController.get();
-              return root.$session.instance.getEntity(SirenModel, 'user-product_invites');
+              return root.$session.getEntity(SirenModel, 'user-product_invites');
             }
           }
         }).state('home.invite.grid', {
@@ -176,7 +178,7 @@ module powur {
           resolve: {
             invites: function() {
               var root = RootController.get();
-              return root.$session.instance.getEntity(SirenModel, 'user-invites');
+              return root.$session.getEntity(SirenModel, 'user-invites');
             }
           }
         })

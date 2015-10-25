@@ -8,7 +8,7 @@ module powur {
     static $inject = [];
 
     get logout(): Action {
-      return this.session.instance.action('logout');
+      return this.session.action('logout');
     }
 
     logoutSubmit(): void {

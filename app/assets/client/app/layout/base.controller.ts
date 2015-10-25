@@ -11,7 +11,7 @@ module powur {
     }
 
     get loggedIn(): boolean {
-      return this.session.instance.loggedIn();
+      return this.session.loggedIn();
     }
 
     get log(): ng.ILogService {

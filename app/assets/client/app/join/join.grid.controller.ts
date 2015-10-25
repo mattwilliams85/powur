@@ -16,7 +16,7 @@ module powur {
     }
 
     get termsPath(): string {
-      return this.session.instance.properties.latest_terms.document_path;
+      return this.session.properties.latest_terms.document_path;
     }
 
     constructor(private $mdDialog: ng.material.IDialogService,
@@ -35,7 +35,7 @@ module powur {
     }
 
     validateGridInviteSubmit(): void {
-      this.session.instance.getInvite(this.gridKey).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+      this.session.getInvite(this.gridKey).then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.state.go('join.grid2', { inviteCode: this.gridKey });
       }, () => {
         this.gridKeyInvalid = true;

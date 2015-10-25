@@ -20,7 +20,7 @@ module powur {
     }
 
     get reset(): Action {
-      return this.session.instance.action('reset_password');
+      return this.session.action('reset_password');
     }
 
     get updatePassword(): Action {
@@ -59,7 +59,7 @@ module powur {
 
     get create(): Action {
       if (!this._create) {
-        this._create = this.session.instance.action('create');
+        this._create = this.session.action('create');
       }
       return this._create;
     }

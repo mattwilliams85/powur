@@ -6,7 +6,7 @@ module powur {
     static $inject = ['$mdSidenav', 'goals', 'requirements'];
 
     get userData(): any {
-      return this.session.instance.properties;
+      return this.session.properties;
     }
     
     constructor(private $mdSidenav: ng.material.ISidenavService,

@@ -7,16 +7,12 @@ module powur {
     static ControllerId = 'LoginController';
     static $inject = [];
 
-    get create(): Action {
-      return this.session.instance.action('create');
-    }
-
     get childState(): string {
       return this.loggedIn ? 'home.invite' : 'login.public';
     }
 
     constructor() {
-      super()
+      super();
       this.state.go(this.childState);
     }
   }

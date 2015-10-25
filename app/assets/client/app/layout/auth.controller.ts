@@ -5,7 +5,7 @@ module powur {
 
   export class AuthController extends BaseController {
     get userData(): any {
-      return this.root.$session.instance.properties;
+      return this.root.$session.properties;
     }
   }
 }

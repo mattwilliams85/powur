@@ -35,8 +35,12 @@ module powur {
       }
     }
 
-    constructor(data: any) {
-      super();
+    constructor(data: any, http?: ng.IHttpService, q?: ng.IQService) {
+      super(http, q);
+      this.refreshData(data);
+    }
+
+    refreshData(data: any): void {
       this._data = data;
       this.rel = data.rel;
       this.properties = data.properties || {};

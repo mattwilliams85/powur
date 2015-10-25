@@ -25,7 +25,7 @@ module powur {
     }
 
     get termsPath(): string {
-      return this.session.instance.properties.latest_terms.document_path;
+      return this.session.properties.latest_terms.document_path;
     }
 
     constructor(private $mdDialog: ng.material.IDialogService,
@@ -41,7 +41,7 @@ module powur {
     }
 
     get solarInvite(): Action {
-      return this.session.instance.action('solar_invite');
+      return this.session.action('solar_invite');
     }
 
     submitLead(): any {

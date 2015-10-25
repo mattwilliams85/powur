@@ -20,6 +20,11 @@ module powur {
       }
       return this._q;
     }
+
+    constructor(http?: ng.IHttpService, q?: ng.IQService) {
+      this._http = http;
+      this._q = q;
+    }
   }
 
   export class EntityRef extends ServiceModel {
