@@ -3,9 +3,12 @@ module Auth
     before_action :fetch_invite, only: [ :show, :resend, :delete ]
     skip_before_action :authenticate!, only: [ :show ]
 
+    page max_limit: 20
+
     def index
       current_user.reconcile_invites
-      @invites = list_criteria
+      @invites = apply_list_query_options(
+        current_user.invites.where('user_id is null').order(created_at: :desc))
 
       render 'index'
     end
@@ -65,10 +68,6 @@ module Auth
       max_exceeded =
         current_user.limited_invites? && current_user.available_invites < 1
       error!(:exceeded_max_invites) if max_exceeded
-    end
-
-    def list_criteria
-      current_user.invites.where('user_id is null').order(created_at: :desc)
     end
 
     def fetch_invite

@@ -5,14 +5,30 @@ module powur {
     static DirectiveId: string = 'pwScrolled';
     static $inject: Array<string> = ['$log'];
 
+    root: IRootController;
+
     constructor($log: ng.ILogService) {
+      this.root = RootController.get();
+
+      function loadMore(entity) {
+        this.root.$session.getEntity(
+          SirenModel,
+          entity.rel[0],
+          { page: entity.properties.paging.current_page + 1 },
+          true
+        ).then((data: any) => {
+          entity.entities = entity.entities.concat(data.entities);
+          entity.properties = data.properties;
+        });
+      }
+
       return <any>{
-        link: function (scope: ng.IScope, element: JQuery, attributes: any) {
+        link: function(scope: ng.IScope, element: JQuery, attributes: any) {
           var raw = element[0];
 
           element.bind('scroll', function() {
             if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-              scope.$apply(attributes.pwScrolled);
+              loadMore(scope.$apply(attributes.pwScrolled));
             }
           });
         }

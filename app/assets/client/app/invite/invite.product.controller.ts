@@ -82,19 +82,6 @@ module powur {
         this.filters.push(type);
       }
     }
-
-    loadMore() {
-      this.page += 1;
-
-      this.session.getEntity(
-        SirenModel,
-        'user-product_invites',
-        { page: this.page },
-        true
-      ).then((data: any) => {
-        this.invites.entities = this.invites.entities.concat(data.entities);
-      });
-    }
   }
 
   angular

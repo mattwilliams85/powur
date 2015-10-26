@@ -9,7 +9,7 @@ module powur {
   }
 
   function userInvites(session: ISessionService) {
-      return session.getEntity(SirenModel, 'user-invites');
+      return session.getEntity(SirenModel, 'user-invites', { page: 1 });
   }
 
   inviteConfig.$inject = ['$stateProvider'];
