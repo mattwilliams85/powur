@@ -19,29 +19,27 @@
   </ul>
 </div>
 
-<div layout="row" layout-wrap class="invite-list bg">
+<div layout="row" layout-wrap layout-align="center start" class="invite-list bg">
   <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
-    <div class="invite-item">
-        <span class="add counter">
-          <i class="sprite sprite-invite"></i>
-          <div class="label hoverable">Click to <b>Invite</b></div>
-        </span>
-      <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
+    <div class="invite-item ellipse">
+      <span class="add counter">
+        <i class="sprite sprite-invite"></i>
+        <div class="label hoverable">Click to <b>Invite</b></div>
+      </span>
     </div>
   </a>
-  <div ng-repeat="item in invite.list">
-    <div class="invite-item solar" style="color: {{invite.timerColor}} !important">
-      <div class="full-name">
-        {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
-        <md-tooltip>{{item.properties.first_name}} {{item.properties.last_name}}</md-tooltip>
+
+  <div ng-repeat="item in invite.list track by $index">
+    <div class="invite-item solar">
+      <div class="invite-bg" ng-class="item.properties.status"></div>
+      <canvas id="pie-{{$index}}" width="170" height="170"></canvas>
+      <div class="text-box" flex layout="column" layout-align="start center">
+        <div class="icon" ng-class="item.properties.status"></div>
+        <div class="full-name">
+          {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+        </div>
+        <div class="est">EST. {{item.properties.updated_at | date: 'M/d/yy'}}</div>
       </div>
-      <!-- <div class="status-icons" flex layout="row">
-        <div class="icon contact" ng-class="{ 'provided': item.properties.email }"></div>
-        <div class="icon address" ng-class="{ 'provided': item.properties.zip }"></div>
-        <div class="icon utility" ng-class="{ 'provided': item.properties.average_bill }"></div>
-      </div> -->
-      <div class="date">Est. {{item.properties.updated_at | date : 'M/d/yy'}}</div>
-      <span class="ellipse border-fill"></span>
     </div>
   </div>
 </div>

@@ -33,7 +33,7 @@ module powur {
 
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
-    static $inject = ['invites', '$mdDialog', '$interval'];
+    static $inject = ['invites', '$mdDialog', '$interval', '$timeout'];
 
     get unlimitedInvites(): boolean {
       return !this.invites.properties.limited_invites
@@ -66,20 +66,59 @@ module powur {
     }
 
     filters: string[] = [];
-    timerColor: string = '#2583a8';
 
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
-                private $interval: ng.IIntervalService) {
+                private $interval: ng.IIntervalService,
+                private $timeout: ng.ITimeoutService) {
       super();
 
+      var options = {
+        segmentShowStroke: false
+      }
+
       $interval(() => {
-        this.startTimers();
+        this.updateTimers();
+      }, 1000)
+
+
+      $timeout(() => {
+        this.updateTimers();
+        for (var i = 0; i < this.list.length; i++) {
+          if (this.list[i].properties.status === 'expired') continue;
+          var progress = this.list[i].properties.expiration_progress;
+          var data = [
+            {
+              value: progress,
+              color: "#2583a8",
+              highlight: "#2583a8",
+              label: "Complete"
+            },
+            {
+              value: 1 - progress,
+              color: "#c5c5c5",
+              label: "Incomplete"
+            }
+          ]
+          var canvas = <HTMLCanvasElement>document.getElementById('pie-' + i);
+          var ctx = canvas.getContext('2d');
+          var myPieChart = new Chart(ctx).Pie(data, options);
+          this.updatePie(myPieChart, i);
+        }
+      });
+    }
+
+    updatePie(chart, i): void {
+      this.$interval(() => {
+        chart.segments[0].value = this.list[i].properties.expiration_progress;
+        chart.segments[1].value = 1 - this.list[i].properties.expiration_progress;
+        console.log(this.list[i].properties.expiration_progress)
+        chart.update();
       }, 1000)
     }
 
-    // TODO: Serious refactor needed
-    startTimers(): void {
+    // TODO: Time conversion needs to happen at endpoint
+    updateTimers(): void {
       for (var i = 0; i < this.list.length; i++) {
         var item = this.list[i].properties;
 
@@ -97,7 +136,7 @@ module powur {
           continue;
         }
         this.list[i].properties.time_left = time;
-        this.list[i].properties.expiration_progress = item.expiration_progress + 0.0000115;
+        this.list[i].properties.expiration_progress = (stdTimezoneOffset > x.getTimezoneOffset()) ? ((time - (currentTimeZoneOffsetInHours * 3600000)) / 86400000) : (time / 86400000);
       }
     }
 

@@ -12,6 +12,7 @@
 //= require angular-animate/angular-animate
 //= require angular-material/angular-material
 //= require angular-messages/angular-messages
+//= require eyecue-chartjs/Chart
 
 // NOTE: make sure to load template first
 //= require angular-rails-templates

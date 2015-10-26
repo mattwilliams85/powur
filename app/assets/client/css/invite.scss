@@ -1,6 +1,6 @@
 @mixin tab-bg($img) {
   width: 450px;
-  height: 200px;
+  height: 300px;
   background-image: image-url($img);
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -37,13 +37,13 @@
 
         &:after {
           content: "";
-          bottom: 38px;
+          bottom: 48px;
           left: 50%;
           z-index: -1;
-          border-bottom: 20px solid #ffffff;
-          border-left: 12px solid transparent;
-          border-right: 12px solid transparent;
-          margin-left: -12px;
+          border-bottom: 30px solid #ffffff;
+          border-left: 20px solid transparent;
+          border-right: 20px solid transparent;
+          margin-left: -20px;
           position: relative;
           animation: floatUp .2s;
         }
@@ -205,12 +205,132 @@
   }
 
   .invite-item {
-    padding: 30px;
     position: relative;
+    margin: 30px;
+    height: 170px;
+    width: 170px;
+    cursor: pointer;
+
+    &.ellipse {
+      border: 3px dashed #aaa;
+      border-radius: 50%;
+    }
+
+    .invite-bg {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      background-color: #c5c5c5;
+      z-index: 1;
+
+      &.sent { background-color: #47bcaf}
+      &.initiated { background-color: #11706b }
+      &.ineligible_location { background-color: #b15151 }
+    }
+
+    .expired {
+      font-weight: 600;
+      font-size: large;
+    }
+
+    .full-name {
+      font-size: large;
+      text-transform: uppercase;
+    }
+
+    .text-box {
+      position: absolute;
+      text-align: center;
+      z-index: 3;
+      top: 50px;
+      color: #fff;
+      height: 100%;
+      width: 100%;
+    }
+
+    sup {
+      font-size: 12pt;
+    }
+
+    canvas {
+      position: absolute;
+      z-index: 2;
+    }
+
+    .warning-bg {
+      background: image-url('img/expired.png');
+      position: absolute;
+      height: 125px;
+      width: 125px;
+      z-index: 3;
+      background-size: cover;
+      left: 0;
+      right: 0;
+      margin: auto auto;
+      top: 0;
+      bottom: 0;
+    }
+
+    .time {
+      font-size: 22pt;
+      font-weight: 600;
+      margin-left: 10px;
+      position: relative;
+      text-align: center;
+
+      .superscript {
+        vertical-align: super;
+        font-size: medium;
+        margin-left: 1px;
+        font-weight: normal;
+      }
+    }
 
     &.solar {
+
+      .text-box {
+        top: 0;
+      }
+      
+      .icon {
+        height: 32px;
+        width: 32px;
+        position: absolute;
+        top: 25px;
+        left: 0;
+        right: 0;
+        margin: auto auto;
+
+        &.sent {
+          background: image-url('img/sent-icon-lt.png');
+          background-size: contain;
+        }
+        &.initiated {
+          background: image-url('img/initiated-icon-lt.png');
+          background-size: contain;
+          top: 25px;
+        }
+        &.ineligible_location {
+          background: image-url('img/ineligible-icon-lt.png');
+          background-size: contain;
+        }
+      }
+
       .full-name {
-        top: 80px;
+        top: 70px;
+      }
+
+      .est {
+        border-top: 1px solid #fff;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        right: 0;
+        margin: auto auto;
+        font-size: small;
+        padding-top: 10px;
+        width: 120px;
       }
     }
 
@@ -220,73 +340,68 @@
 
     .full-name {
       text-transform: uppercase;
-      top: 90px;
+      letter-spacing: .1em;
+      font-size: 12pt;
       position: relative;
       text-align: center;
       height: 32px;
 
     }
 
-    .status-icons {
-      height: 0;
-      position: absolute;
-      bottom: 114px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      text-align: center;
-      width: 95px;
+    .sprite-invite {
+      background-image: image-url("img/invite-sprite.png");
+      width: 35px;
+      height: 32px;
+      background-position: -107px -5px;
 
-      .icon {
-        margin: 0 7px;
-      }
-
-      .address {
-        background: image-url('img/invites/address-missing.png') center / cover;
-        height: 20px;
-        width: 15px;
-
-        &.provided {
-          background: image-url('img/invites/address-provided.png') center / cover;
-        }
-      }
-
-      .contact {
-        background: image-url('img/invites/utility-missing.png') center / cover;
-        height: 18px;
-        width: 19px;
-
-        &.provided {
-          background: image-url('img/invites/utility-provided.png') center / cover;
-        }
-      }
-
-      .utility {
-        background: image-url('img/invites/contact-missing.png') center / cover;
-        height: 18px;
-        width: 18px;
-
-        &.provided {
-          background: image-url('img/invites/contact-provided.png') center / cover;
-        }
-      }
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .time {
-      font-size: large;
-      font-weight: 400;
-      top: 80px;
-      position: relative;
-      text-align: center;
-      height: 0;
-      color: #2583a8;
+    // .status-icons {
+    //   height: 0;
+    //   position: absolute;
+    //   bottom: 114px;
+    //   left: 0;
+    //   right: 0;
+    //   margin: 0 auto;
+    //   text-align: center;
+    //   width: 95px;
 
-      .superscript {
-        vertical-align: super;
-        font-size: small;
-        font-weight: normal;
-      }
-    }
+    //   .icon {
+    //     margin: 0 7px;
+    //   }
+
+    //   .address {
+    //     background: image-url('img/invites/address-missing.png') center / cover;
+    //     height: 20px;
+    //     width: 15px;
+
+    //     &.provided {
+    //       background: image-url('img/invites/address-provided.png') center / cover;
+    //     }
+    //   }
+
+    //   .contact {
+    //     background: image-url('img/invites/utility-missing.png') center / cover;
+    //     height: 18px;
+    //     width: 19px;
+
+    //     &.provided {
+    //       background: image-url('img/invites/utility-provided.png') center / cover;
+    //     }
+    //   }
+
+    //   .utility {
+    //     background: image-url('img/invites/contact-missing.png') center / cover;
+    //     height: 18px;
+    //     width: 18px;
+
+    //     &.provided {
+    //       background: image-url('img/invites/contact-provided.png') center / cover;
+    //     }
+    //   }
+    // }
 
     .remove{
       border-top:1px dashed #666;
@@ -314,7 +429,7 @@
      }
 
     .add {
-      top: 80px;
+      top: 50px;
       position: relative;
       text-align: center;
       height: 0;
@@ -403,18 +518,10 @@
     }
 
     .sprite-expired {
-      width: 24px;
-      height: 24px;
-      background-position: -73px -5px;
-    }
-
-    .sprite-invite {
-      width: 35px;
-      height: 32px;
-      background-position: -107px -5px;
-
-      margin-left: auto;
-      margin-right: auto;
+      background: image-url('img/expired-lt.png');
+      width: 27px;
+      height: 27px;
+      background-size: cover;
     }
 
     .sprite-pending {

@@ -31,7 +31,7 @@ module powur {
 
   class InviteProductController extends AuthController {
     static ControllerId = 'InviteProductController';
-    static $inject = ['invites', '$mdDialog'];
+    static $inject = ['invites', '$mdDialog', '$timeout'];
 
     get list(): any[] {
       if (_.isEmpty(this.filters)) {
@@ -48,9 +48,8 @@ module powur {
     }
 
     filters: string[] = [];
-    timerColor: string = '#39ABA1';
 
-    constructor(private invites: ISirenModel, public $mdDialog: ng.material.IDialogService) {
+    constructor(private invites: ISirenModel, public $mdDialog: ng.material.IDialogService, public $timeout: ng.ITimeoutService) {
       super();
     }
 
