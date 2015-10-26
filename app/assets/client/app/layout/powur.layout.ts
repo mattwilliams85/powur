@@ -10,7 +10,7 @@ module powur {
   }
 
   function requirements(goals: GoalsModel) {
-    return goals ? goals.getRequirements() : [];
+    return goals.getRequirements();
   }
 
   homeConfig.$inject = ['$stateProvider'];
