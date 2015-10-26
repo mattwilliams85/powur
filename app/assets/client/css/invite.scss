@@ -211,9 +211,11 @@
     width: 170px;
     cursor: pointer;
 
-    &.ellipse {
-      border: 3px dashed #aaa;
-      border-radius: 50%;
+    &:hover {
+      .invite-bg {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+      }
     }
 
     .invite-bg {
@@ -223,10 +225,17 @@
       border-radius: 50%;
       background-color: #c5c5c5;
       z-index: 1;
+      transition: transform .2s;
+      transition: -webkit-transform .2s;
 
       &.sent { background-color: #47bcaf}
       &.initiated { background-color: #11706b }
       &.ineligible_location { background-color: #b15151 }
+      &.ellipse {
+        border: 3px dashed #aaa;
+        background-color: transparent;
+      }
+
     }
 
     .expired {

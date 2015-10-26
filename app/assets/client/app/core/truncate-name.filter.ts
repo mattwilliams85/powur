@@ -9,7 +9,7 @@ module powur {
       var init = (input: string): string => {
         var deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
         var v = input;
-        if(deviceWidth<720 || input.length>=8) v = input[0]+".";
+        if(deviceWidth<720 || input.length>=7) v = input[0]+".";
         return v;        
       };
       
