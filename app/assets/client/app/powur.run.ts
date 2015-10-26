@@ -1,4 +1,4 @@
-/// <reference path='_references.ts' />
+/// <reference path='powur.module.ts' />
 
 module powur {
   'use strict';
@@ -24,9 +24,7 @@ module powur {
 
         if (toState.data && toState.data.logout && $session.loggedIn()) {
           e.preventDefault();
-          $session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-            $state.go(toState.name, toParams);
-          })
+          $session.logout(toState.name, toParams);
         }
 
         if (/home\./.test(toState.name) && !$session.loggedIn()){
@@ -48,10 +46,12 @@ module powur {
                                 fromState: ng.ui.IState,
                                 fromParams: ng.ui.IStateParamsService,
                                 error: any) {
+
         $log.debug('$stateChangeError', error);
-        if (error === 'invalid_code') {
-          // $state.go('join.invalid');
-        } else if (error === 'invalid_password_token') {
+
+        if (typeof error === 'object') {
+        }
+        if (error === 'invalid_password_token') {
           $state.go('login');
         }
       }
@@ -63,6 +63,18 @@ module powur {
         $log.debug('not found', unfoundState);
       }
     }
-
   }
+
+  angular.module('powur').run(RunConfigs);
+
+  var $http: ng.IHttpService = angular.injector(['ng']).get<ng.IHttpService>('$http');
+  var config: ng.IRequestShortcutConfig = { headers: { 'X-Requested-With': 'XMLHttpRequest' } };
+
+  $http.get('/', config).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+    angular.element(document).ready(() => {
+      angular.module('powur').constant('sessionData', response.data);
+
+      angular.bootstrap(document, ['powur']);
+    });
+  });
 }

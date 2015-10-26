@@ -1,6 +1,8 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../layout/auth.controller.ts' />
 
 module powur {
+  'use strict';
+
   class HomeController extends AuthController {
     static ControllerId = 'HomeController';
     static $inject = ['$mdSidenav', 'goals', 'requirements'];
@@ -16,6 +18,8 @@ module powur {
     }
     
   }
-  
-  controllerModule.controller(HomeController.ControllerId, HomeController);
+
+  angular
+    .module('powur.layout')
+    .controller(HomeController.ControllerId, HomeController);
 }

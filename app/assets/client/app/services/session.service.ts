@@ -12,7 +12,7 @@ module powur {
 
   export class SessionService extends SessionModel implements ISessionService {
     static ServiceId = 'SessionService';
-    static $inject = ['sessionData', '$http', '$q'];
+    static $inject = ['sessionData', '$http', '$q', '$state'];
 
     private executeAndRefresh(promise: ng.IPromise<ng.IHttpPromiseCallbackArg<any>>): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
       var deferred = this.q.defer<ng.IHttpPromiseCallbackArg<any>>();
@@ -32,7 +32,8 @@ module powur {
 
     constructor(sessionData: any,
                 $http: ng.IHttpService,
-                $q: ng.IQService) {
+                $q: ng.IQService,
+                private $state: ng.ui.IStateService) {
       super(sessionData, $http, $q);
     }
 
@@ -45,14 +46,24 @@ module powur {
       return this.get().then(afterGet);
     }
 
-    login(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
-      return this.executeAndRefresh(super.login());
+    login(redirect = 'home.invite.grid', redirectParams?: any): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
+      var promise = this.executeAndRefresh(super.login());
+      promise.then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$state.go(redirect, redirectParams); 
+      });
+      return promise;
     }
 
-    logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
-      return this.executeAndRefresh(super.logout());
+    logout(redirect = 'login.public', redirectParams?: any): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
+      var promise = this.executeAndRefresh(super.logout());
+      promise.then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$state.go(redirect, redirectParams);
+      });
+      return promise;
     }
   }
 
-  serviceModule.service(SessionService.ServiceId, SessionService);
+  angular
+    .module('powur.services')
+    .service(SessionService.ServiceId, SessionService);
 }

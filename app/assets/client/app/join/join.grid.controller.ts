@@ -1,7 +1,9 @@
-/// <reference path='../_references.ts' />
-/// <reference path='../models/siren.model.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../layout/base.controller.ts' />
 
 module powur {
+  'use strict';
+
   class JoinGridController extends BaseController {
     static ControllerId = 'JoinGridController';
     static $inject = ['$mdDialog', '$stateParams', '$timeout', 'invite'];
@@ -64,5 +66,7 @@ module powur {
     }
   }
 
-  controllerModule.controller(JoinGridController.ControllerId, JoinGridController);
+  angular
+    .module('powur.join')
+    .controller(JoinGridController.ControllerId, JoinGridController);
 }

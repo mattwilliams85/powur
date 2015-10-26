@@ -1,6 +1,8 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../layout/base.controller.ts' />
 
 module powur {
+  'use strict';
+
   class JoinSolarController extends BaseController {
     static ControllerId = 'JoinSolarController';
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
@@ -72,5 +74,7 @@ module powur {
     }
   }
 
-  controllerModule.controller(JoinSolarController.ControllerId, JoinSolarController);
+  angular
+    .module('powur.join')
+    .controller(JoinSolarController.ControllerId, JoinSolarController);
 }

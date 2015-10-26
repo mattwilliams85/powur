@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   interface IHudScope extends ng.IScope {
@@ -54,5 +54,7 @@ module powur {
 
   }
 
-  controllerModule.controller(HudController.ControllerId, HudController);
+  angular
+    .module('powur.layout')
+    .controller(HudController.ControllerId, HudController);
 }

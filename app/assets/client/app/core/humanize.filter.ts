@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class HumanizeFilter {
@@ -14,6 +14,8 @@ module powur {
       return <any>init;
     } // ctor
   } // class
-  
-  directiveModule.filter(HumanizeFilter.FilterId, <any>HumanizeFilter);
+
+  angular
+    .module('powur.core')
+    .filter(HumanizeFilter.FilterId, <any>HumanizeFilter);
 }

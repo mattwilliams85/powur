@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class WholeNumberFilter {
@@ -12,12 +12,14 @@ module powur {
       
       var init = (input: number, withCommas: boolean = true): string => {
         var v = Math.floor(input);
-        return withCommas ? toCommas(v) : v.toString();                                
+        return withCommas ? toCommas(v) : v.toString();
       };
       
       return <any>init;
     } // ctor
   } // class
-  
-  directiveModule.filter(WholeNumberFilter.FilterId, <any>WholeNumberFilter);
+
+  angular
+    .module('powur.core')
+      .filter(WholeNumberFilter.FilterId, <any>WholeNumberFilter);
 }

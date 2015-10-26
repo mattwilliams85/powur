@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class InviteProgress {
@@ -62,5 +62,7 @@ module powur {
     } // ctor
   } // class
 
-  directiveModule.directive(InviteProgress.DirectiveId, <any>InviteProgress);
+  angular
+    .module('powur.components')
+    .directive(InviteProgress.DirectiveId, <any>InviteProgress);
 }

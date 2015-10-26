@@ -1,6 +1,9 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../layout/auth.controller.ts' />
 
 module powur {
+  'use strict';
+
   export class NewInviteDialogController {
     static ControllerId = 'NewInviteDialogController';
     static $inject = ['$log', '$mdDialog'];
@@ -26,5 +29,7 @@ module powur {
     }
   }
 
-  controllerModule.controller(InviteController.ControllerId, InviteController);
+  angular
+    .module('powur.invite')
+    .controller(InviteController.ControllerId, InviteController);
 }

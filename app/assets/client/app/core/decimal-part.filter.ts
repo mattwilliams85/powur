@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class DecimalPartFilter {
@@ -13,6 +13,8 @@ module powur {
       return <any>init;
     } // ctor
   } // class
-  
-  directiveModule.filter(DecimalPartFilter.FilterId, <any>DecimalPartFilter);
+
+  angular
+    .module('powur.core')
+    .filter(DecimalPartFilter.FilterId, <any>DecimalPartFilter);
 }

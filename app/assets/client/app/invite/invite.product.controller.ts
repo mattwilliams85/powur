@@ -1,6 +1,8 @@
-/// <reference path='../_references.ts' />
+/// <reference path='invite.controller.ts' />
 
 module powur {
+  'use strict';
+
   class NewInviteSolarDialogController extends NewInviteDialogController {
     static ControllerId = 'NewInviteSolarDialogController';
     static $inject = ['$log', '$mdDialog', 'invites'];
@@ -26,8 +28,6 @@ module powur {
       return this.invites.action('create');
     }
   }
-
-  controllerModule.controller(NewInviteSolarDialogController.ControllerId, NewInviteSolarDialogController);
 
   class InviteProductController extends AuthController {
     static ControllerId = 'InviteProductController';
@@ -85,5 +85,8 @@ module powur {
     }
   }
 
-  controllerModule.controller(InviteProductController.ControllerId, InviteProductController);
+  angular
+    .module('powur.invite')
+    .controller(NewInviteSolarDialogController.ControllerId, NewInviteSolarDialogController)
+    .controller(InviteProductController.ControllerId, InviteProductController);
 }

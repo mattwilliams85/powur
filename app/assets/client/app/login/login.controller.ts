@@ -1,4 +1,5 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../layout/base.controller.ts' />
 
 module powur {
   'use strict';
@@ -17,5 +18,7 @@ module powur {
     }
   }
 
-  controllerModule.controller(LoginController.ControllerId, LoginController);
+  angular
+    .module('powur.login')
+    .controller(LoginController.ControllerId, LoginController);
 }

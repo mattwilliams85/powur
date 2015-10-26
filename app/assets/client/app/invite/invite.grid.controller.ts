@@ -1,6 +1,10 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../layout/auth.controller.ts' />
+/// <reference path='invite.controller.ts' />
 
 module powur {
+  'use strict';
+
   class NewInviteGridDialogController extends NewInviteDialogController {
     static ControllerId = 'NewInviteGridDialogController';
     static $inject = ['$log', '$mdDialog', 'invites'];
@@ -26,8 +30,6 @@ module powur {
       return this.invites.action('create');
     }
   }
-
-  controllerModule.controller(NewInviteGridDialogController.ControllerId, NewInviteGridDialogController);
 
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
@@ -138,5 +140,8 @@ module powur {
     }
   }
 
-  controllerModule.controller(InviteGridController.ControllerId, InviteGridController);
+  angular
+    .module('powur.invite')
+    .controller(NewInviteGridDialogController.ControllerId, NewInviteGridDialogController)
+    .controller(InviteGridController.ControllerId, InviteGridController);
 }

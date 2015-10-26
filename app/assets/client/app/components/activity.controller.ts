@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   
@@ -38,6 +38,8 @@ module powur {
       ];
     }
   }
-  
-  controllerModule.controller(ActivityController.ControllerId, ActivityController);
+
+  angular
+    .module('powur.components')
+    .controller(ActivityController.ControllerId, ActivityController);
 }

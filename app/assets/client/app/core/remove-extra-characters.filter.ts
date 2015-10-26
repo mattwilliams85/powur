@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class RemoveExtraCharsFilter {
@@ -16,5 +16,7 @@ module powur {
     } // ctor
   } // class
   
-  directiveModule.filter(RemoveExtraCharsFilter.FilterId, <any>RemoveExtraCharsFilter);
+  angular
+    .module('powur.core')
+    .filter(RemoveExtraCharsFilter.FilterId, <any>RemoveExtraCharsFilter);
 }

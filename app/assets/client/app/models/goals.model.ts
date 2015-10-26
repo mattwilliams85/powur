@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='siren.model.ts' />
 
 module powur {
     'use strict';

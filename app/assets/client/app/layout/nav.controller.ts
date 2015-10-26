@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class NavController {
@@ -30,11 +30,11 @@ module powur {
     }
 
     logout() {
-      this.home.session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.state.go('login.public');
-      })
+      this.home.session.logout();
     }
   }
   
-  controllerModule.controller(NavController.ControllerId, NavController);
+  angular
+    .module('powur.layout')
+    .controller(NavController.ControllerId, NavController);
 }

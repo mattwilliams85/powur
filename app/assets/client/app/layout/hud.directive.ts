@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class HudDirective {
@@ -12,10 +12,12 @@ module powur {
           home: '=pwHud'
         },
         controller: 'HudController as hud',
-        templateUrl: 'app/components/hud.html'
+        templateUrl: 'app/layout/hud.html'
       }; // return
     } // ctor
   } // class
-  
-  directiveModule.directive(HudDirective.DirectiveId, <any>HudDirective);
+
+  angular
+    .module('powur.layout')
+    .directive(HudDirective.DirectiveId, <any>HudDirective);
 }

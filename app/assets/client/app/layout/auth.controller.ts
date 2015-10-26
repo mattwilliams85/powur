@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='base.controller.ts' />
 
 module powur {
   'use strict';

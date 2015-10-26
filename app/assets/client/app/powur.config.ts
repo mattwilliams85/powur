@@ -1,4 +1,4 @@
-/// <reference path='../typings/tsd.d.ts' />
+/// <reference path='powur.module.ts' />
 
 module powur {
   'use strict';
@@ -21,34 +21,6 @@ module powur {
       $locationProvider.html5Mode(true);
 
       $stateProvider
-        .state('login', {
-          url: '/login',
-          templateUrl: 'app/login/layout.html',
-          controller: 'LoginController as loginLayout',
-        }).state('login.public', {
-          url: '/{resetCode}',
-          templateUrl: 'app/login/login.public.html',
-          controller: 'LoginPublicController as login',
-          resolve: {
-            resetToken: function($stateParams, $q) {
-              if (!$stateParams.resetCode) return;
-
-              var root = RootController.get();
-              var fail = function(response) {
-                var reason: any = (response.status === 404) ? 'invalid_password_token' : response;
-                return $q.reject(reason);
-              }
-              return root.$session.getPasswordToken($stateParams.resetCode).then(null, fail);
-            }
-          }
-        }).state('login.private', {
-          templateUrl: 'app/login/login.private.html',
-          controller: 'LoginPrivateController as login',
-          resolve: {
-            resetToken: function() {}
-          }
-        })
-
         .state('join', {
           url: '/join',
           template: '<div ui-view></div>',
@@ -56,7 +28,8 @@ module powur {
         }).state('join.invalid', {
           url: '',
           templateUrl: 'app/join/invalid.html',
-        }).state('join.grid', {
+        })
+        .state('join.grid', {
           url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid.html',
           controller: 'JoinGridController as join',
@@ -75,7 +48,8 @@ module powur {
               return defer.promise;
             }
           }
-        }).state('join.grid2', {
+        })
+        .state('join.grid2', {
           url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinGridController as join',
@@ -89,7 +63,8 @@ module powur {
               return root.$session.getInvite($stateParams.inviteCode).then(null, fail);
             }
           }
-        }).state('join.solar', {
+        })
+        .state('join.solar', {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar.html',
           controller: 'JoinSolarController as join',
@@ -97,18 +72,6 @@ module powur {
             logout: true
           },
           resolve: {
-            // anon: function($q): any {
-            //   var defer = $q.defer();
-            //   var root = RootController.get();
-            //   if (root.$session.loggedIn()) {
-            //     return root.$session.logout().then(function() {
-            //       defer.resolve();
-            //     })
-            //   } else {
-            //     return defer.resolve();
-            //   }
-            //   return defer.promise;
-            // },
             customer: function($stateParams, $q) {
               var root = RootController.get();
               var defer = $q.defer();
@@ -122,7 +85,8 @@ module powur {
               return defer.promise;
             }
           }
-        }).state('join.solar2', {
+        })
+        .state('join.solar2', {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar2.html',
           controller: 'JoinSolarController as join',
@@ -139,49 +103,12 @@ module powur {
               return root.$session.getCustomer($stateParams.inviteCode).then(null, fail);
             }
           }
-        }).state('join.solar3', {
+        })
+        .state('join.solar3', {
           url: '/solar',
           templateUrl: 'app/join/join-solar3.html'
         })
 
-        .state('home', {
-          abstract: true,
-          templateUrl: 'app/home/home.html',
-          controller: 'HomeController as home',
-          resolve: {
-            goals: function() {
-              var root = RootController.get();
-              return root.$session.getEntity(GoalsModel, 'user-goals');
-            },
-            requirements: function(goals: GoalsModel) {
-              return goals.getRequirements();
-            }
-          }
-        }).state('home.invite', {
-          url: '/invite',
-          templateUrl: 'app/invite/layout.html',
-          controller: 'InviteController as invite',
-        }).state('home.invite.product', {
-          url: '/solar',
-          templateUrl: 'app/invite/invite.product.html',
-          controller: 'InviteProductController as invite',
-          resolve: {
-            invites: function() {
-              var root = RootController.get();
-              return root.$session.getEntity(SirenModel, 'user-product_invites');
-            }
-          }
-        }).state('home.invite.grid', {
-          url: '/grid',
-          templateUrl: 'app/invite/invite.grid.html',
-          controller: 'InviteGridController as invite',
-          resolve: {
-            invites: function() {
-              var root = RootController.get();
-              return root.$session.getEntity(SirenModel, 'user-invites');
-            }
-          }
-        })
         .state('home.events', {
           url: '/events',
           views: {
@@ -193,4 +120,6 @@ module powur {
         });
     }
   }
+
+  angular.module('powur').config(RouteConfigs);
 }

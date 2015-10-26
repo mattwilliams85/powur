@@ -56,6 +56,9 @@ module powur {
 
       var defer = this.q.defer<T>();
       this.http.get(url).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        if (!response.data) {
+          console.log('no data!', response);
+        }
         defer.resolve(new ctor(response.data));
       }, (response: ng.IHttpPromiseCallbackArg<any>) => {
         defer.reject(response);

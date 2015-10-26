@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class ActivityDirective {
@@ -13,6 +13,8 @@ module powur {
       }; // return
     } // ctor
   } // class
-  
-  directiveModule.directive(ActivityDirective.DirectiveId, <any>ActivityDirective);
+
+  angular
+    .module('powur.components')
+    .directive(ActivityDirective.DirectiveId, <any>ActivityDirective);
 }

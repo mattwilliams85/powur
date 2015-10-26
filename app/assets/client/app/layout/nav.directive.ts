@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class NavDirective {
@@ -12,10 +12,12 @@ module powur {
           home: '=pwNav'
         },
         controller: 'NavController as nav',
-        templateUrl: 'app/components/nav.html'
+        templateUrl: 'app/layout/nav.html'
       }; // return
     } // ctor
   } // class
-  
-  directiveModule.directive(NavDirective.DirectiveId, <any>NavDirective);
+
+  angular
+    .module('powur.layout')
+    .directive(NavDirective.DirectiveId, <any>NavDirective);
 }

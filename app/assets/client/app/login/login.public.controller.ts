@@ -1,7 +1,9 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../layout/base.controller.ts' />
 
 module powur {
   'use strict';
+
   class ResetDialogController extends BaseController {
     static ControllerId: string = 'ResetDialogController';
     static $inject = ['$mdDialog', '$stateParams', 'resetToken'];
@@ -40,8 +42,6 @@ module powur {
     }
   }
 
-  controllerModule.controller(ResetDialogController.ControllerId, ResetDialogController);
-
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
     static $inject = ['$mdDialog', '$stateParams', 'resetToken'];
@@ -77,9 +77,7 @@ module powur {
     }
 
     loginSubmit(): void {
-      this.session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.state.go('home.invite.grid');
-      });
+      this.session.login();
     }
 
     showNewPassword(): ng.IPromise<any> {
@@ -110,5 +108,8 @@ module powur {
     }
   }
 
-  controllerModule.controller(LoginPublicController.ControllerId, LoginPublicController);
+  angular
+    .module('powur.login')
+    .controller(ResetDialogController.ControllerId, ResetDialogController)
+    .controller(LoginPublicController.ControllerId, LoginPublicController);
 }

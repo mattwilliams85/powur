@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class TruncateNameFilter {
@@ -16,6 +16,8 @@ module powur {
       return <any>init;
     } // ctor
   } // class
-  
-  directiveModule.filter(TruncateNameFilter.FilterId, <any>TruncateNameFilter);
+
+  angular
+    .module('powur.core')
+    .filter(TruncateNameFilter.FilterId, <any>TruncateNameFilter);
 }
