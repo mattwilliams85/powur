@@ -16,9 +16,8 @@ module Anon
         @customer.update_attributes(status: status, zip: nil)
         error!(:unqualified_zip, :zip)
       end
-    rescue RestClient::RequestTimeout => e
-      Airbrake.notify(e)
-      @is_valid = true
+    rescue Lead::ZipApiError
+      error!(:zip_api)
     end
 
     def validate

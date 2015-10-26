@@ -120,20 +120,6 @@ class Lead < ActiveRecord::Base
     lead_action? && !contract? && !installed?
   end
 
-  class << self
-    def valid_zip?(zip)
-      !!(/^\d{5}(-\d{4})?$/ =~ zip)
-    end
-
-    def eligible_zip?(zip)
-      path = "solarbid/api/warehouses/zip/#{zip[0, 5]}"
-      url = URI.join('http://api.solarcity.com', path).to_s
-
-      response = RestClient::Request.execute(method: :get, url: url, timeout: 3)
-      MultiJson.load(response)['IsInTerritory']
-    end
-  end
-
   private
 
   def query_status_count(status, product_id = nil)
@@ -214,6 +200,8 @@ class Lead < ActiveRecord::Base
     end
   end
 
+  class ZipApiError < StandardError; end
+
   class << self
     def find_for_downline(id, parent_id)
       Lead.where(id: id)
@@ -245,6 +233,30 @@ class Lead < ActiveRecord::Base
           where("date_part('month', #{field}) = ?", month)
         end
       query.where("date_part('year', #{field}) = ?", year)
+    end
+
+    def valid_zip?(zip)
+      !!(/^\d{5}(-\d{4})?$/ =~ zip)
+    end
+
+    def eligible_zip?(zip)
+      zip = zip.to_s[0, 5]
+      path = "solarbid/api/warehouses/zip/#{zip}"
+      url = URI.join('http://api.solarcity.com', path).to_s
+
+      response = RestClient::Request.execute(method: :get, url: url, timeout: 3)
+      MultiJson.load(response)['IsInTerritory']
+    rescue SocketError, RestClient::RequestFailed
+      url = URI.join('http://www.solarcity.com/api/zipcode/', zip).to_s
+      begin
+        response = RestClient::Request.execute(
+          method:  :get,
+          url:     url,
+          timeout: 3)
+        response == 'yes'
+      rescue SocketError, RestClient::RequestFailed
+        raise ZipApiError.new, 'Failure connecting to zip api'
+      end
     end
   end
 end
