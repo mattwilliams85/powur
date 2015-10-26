@@ -49,7 +49,11 @@ module powur {
     login(redirect = 'home.invite.grid', redirectParams?: any): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
       var promise = this.executeAndRefresh(super.login());
       promise.then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$state.go(redirect, redirectParams); 
+        //(<any>this)._data.class = r.data.class;
+        var data = r.data;
+        angular.module('powur').constant('sessionData', data);
+        this.refreshData(data);
+        this.$state.go(redirect, redirectParams, { reload: true }); 
       });
       return promise;
     }

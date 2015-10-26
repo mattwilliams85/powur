@@ -77,6 +77,7 @@ module powur {
     }
 
     loginSubmit(): void {
+      this.session.actions[0].fields = this.create.fields; // copy fields
       this.session.login();
     }
 

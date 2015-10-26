@@ -75,6 +75,7 @@ module powur {
     entities: ISirenModel[];
     entityRefs: EntityRef[];
     hasClass(s: string): boolean;
+    removeClass(name: string);
     hasRel(s: string): boolean;
     action(name: string): Action;
     getEntity<T extends ISirenModel>(c: { new (d: any): T; }, rel: string, params?: any): ng.IPromise<T>;

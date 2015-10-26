@@ -52,6 +52,11 @@ module powur {
       return this.class.indexOf(name) !== -1;
     }
 
+    removeClass(name: string) {
+      var index = this.class.indexOf(name);
+      this.class.splice(index, 1);
+    }
+
     hasRel(r: string): boolean {
       return this.rel && this.rel.indexOf(r) !== -1;
     }
