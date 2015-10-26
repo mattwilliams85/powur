@@ -201,7 +201,8 @@
 
   .invite-list {
     padding: 20px;
-    min-height: 50vh;
+    height: 50vh;
+    overflow: auto;
   }
 
   .invite-item {

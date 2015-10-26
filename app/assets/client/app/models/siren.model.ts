@@ -70,11 +70,13 @@ module powur {
       return undefined;
     }
 
-    entity(rel: string): EntityRef|ISirenModel {
+    entity(rel: string, force?: boolean): EntityRef|ISirenModel {
       if (!this.entities) return undefined;
-      for (var i = 0; i !== this.entities.length; i++) {
-        var entity: ISirenModel = this.entities[i];
-        if (entity.hasRel(rel)) return entity;
+      if (!force) {
+        for (var i = 0; i !== this.entities.length; i++) {
+          var entity: ISirenModel = this.entities[i];
+          if (entity.hasRel(rel)) return entity;
+        }
       }
       for (var i = 0; i !== this.entityRefs.length; i++) {
         var ref: EntityRef = this.entityRefs[i];
@@ -83,10 +85,10 @@ module powur {
       return undefined;
     }
 
-    getEntity<T extends ISirenModel>(ctor: { new(d: any): T; }, rel: string, params?: any): ng.IPromise<T> {
-      var defer = this.q.defer<T>();
+    getEntity<T extends ISirenModel>(ctor: { new(d: any): T; }, rel: string, params?: any, force?: boolean): ng.IPromise<T> {
+      var defer = this.q.defer<T>(),
+          entity: any = this.entity(rel, force);
 
-      var entity: any = this.entity(rel);
       if (entity instanceof EntityRef) {
         entity.get(ctor, params).then((model: T) => {
           model.rel = entity.rel

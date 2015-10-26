@@ -78,7 +78,7 @@ module powur {
     removeClass(name: string);
     hasRel(s: string): boolean;
     action(name: string): Action;
-    getEntity<T extends ISirenModel>(c: { new (d: any): T; }, rel: string, params?: any): ng.IPromise<T>;
+    getEntity<T extends ISirenModel>(c: { new (d: any): T; }, rel: string, params?: any, force?: boolean): ng.IPromise<T>;
   }
 
   export class Field {

@@ -3,7 +3,7 @@ module Auth
     before_action :validate_existence, only: [ :create ]
     before_action :fetch_invite, only: [ :show ]
 
-    page
+    page max_limit: 20
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
     filter :status,
