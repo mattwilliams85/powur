@@ -30,10 +30,9 @@
     </div>
   </a>
 
-  <div ng-repeat="item in invite.list track by $index">
+  <div ng-repeat="item in invite.list">
     <div class="invite-item solar">
       <div class="invite-bg" ng-class="item.properties.status"></div>
-      <canvas id="pie-{{$index}}" width="170" height="170"></canvas>
       <div class="text-box" flex layout="column" layout-align="start center">
         <div class="icon" ng-class="item.properties.status"></div>
         <div class="full-name">

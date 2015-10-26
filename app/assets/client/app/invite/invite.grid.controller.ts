@@ -86,6 +86,7 @@ module powur {
         this.updateTimers();
         for (var i = 0; i < this.list.length; i++) {
           if (this.list[i].properties.status === 'expired') continue;
+          var id = this.list[i].properties.id;
           var progress = this.list[i].properties.expiration_progress;
           var data = [
             {
@@ -100,7 +101,7 @@ module powur {
               label: "Incomplete"
             }
           ]
-          var canvas = <HTMLCanvasElement>document.getElementById('pie-' + i);
+          var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
           var ctx = canvas.getContext('2d');
           var myPieChart = new Chart(ctx).Pie(data, options);
           this.updatePie(myPieChart, i);
@@ -112,7 +113,6 @@ module powur {
       this.$interval(() => {
         chart.segments[0].value = this.list[i].properties.expiration_progress;
         chart.segments[1].value = 1 - this.list[i].properties.expiration_progress;
-        console.log(this.list[i].properties.expiration_progress)
         chart.update();
       }, 1000)
     }
@@ -139,14 +139,6 @@ module powur {
         this.list[i].properties.expiration_progress = (stdTimezoneOffset > x.getTimezoneOffset()) ? ((time - (currentTimeZoneOffsetInHours * 3600000)) / 86400000) : (time / 86400000);
       }
     }
-
-    // calculateExp(item: any): any {
-    //   var start = new Date(item.created_at).getTime();
-    //   var end = item.expires;
-    //   var now = new Date().getTime();
-    //   // debugger
-    //   return 1 - ((now - start) / (end - start));
-    // }
 
     addInvite(e: MouseEvent) {
       this.$mdDialog.show({

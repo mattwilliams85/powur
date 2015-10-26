@@ -33,14 +33,14 @@
   <div ng-repeat="item in invite.list track by $index">
     <div class="invite-item">
       <div class="invite-bg"></div>
-      <div ng-show="!item.properties.time_left" class="warning-bg"></div>
-      <canvas id="pie-{{$index}}" width="170" height="170"></canvas>
+      <div ng-hide="item.properties.time_left" class="warning-bg"></div>
+      <canvas id="pie-{{item.properties.id}}" width="170" height="170"></canvas>
       <div class="text-box" flex layout="column" layout-align="start center">
         <div class="full-name">
           {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
         </div>
         <div ng-show="item.properties.time_left" class="time">{{ item.properties.time_left | date : 'H:mm' }}<span class="superscript">{{ item.properties.time_left  | date : 'ss' }}</span></div>
-        <div ng-show="!item.properties.time_left" class="expired">EXPIRED</div>
+        <div ng-hide="item.properties.time_left" class="expired">EXPIRED</div>
       </div>
     </div>
   </div>
