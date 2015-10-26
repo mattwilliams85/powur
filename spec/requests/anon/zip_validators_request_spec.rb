@@ -35,16 +35,14 @@ describe '/zip_validator' do
 
     context 'when solar api timeout' do
       before do
-        allow(Lead).to receive(:eligible_zip?)
-          .and_raise(RestClient::RequestTimeout)
+        allow(RestClient::Request)
+          .to receive(:execute).and_raise(RestClient::RequestTimeout)
       end
 
       it 'defaults to true' do
         post zip_validator_path, zip: zip, code: code, format: :json
 
-        expect_200
-        expect_props is_valid: true
-        expect_actions('solar_invite')
+        expect_alert_error
       end
     end
   end

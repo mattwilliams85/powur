@@ -14,5 +14,5 @@ module powur {
     'templates',
     // cross-app/util modules
     'powur.services'
-    ]);
+  ]);
 }
