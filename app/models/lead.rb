@@ -59,6 +59,8 @@ class Lead < ActiveRecord::Base
   def submit!
     fail 'Lead is not ready for submission' unless ready_to_submit?
 
+    Rails.logger.info("Submitting lead to SC: #{id}")
+
     ENV['SIMULATE_LEAD_SUBMIT'] ? simulate_submit : submit_to_provider
   end
 
@@ -155,12 +157,16 @@ class Lead < ActiveRecord::Base
                    data_status:  Lead.data_statuses[:submitted])
   end
 
+  class SolarCityApiError < StandardError; end
+
   def submit_to_provider
     form = SolarCityForm.new(self)
     form.post
     fail(form.error) if form.error? && !form.dupe?
 
     submitted(form.provider_uid, DateTime.parse(form.response.headers[:date]))
+  rescue RestClient::RequestFailed => e
+    raise SolarCityApiError.new, "Request failed to solar city: #{e.message}"
   end
 
   def simulate_submit

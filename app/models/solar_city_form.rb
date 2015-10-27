@@ -1,5 +1,5 @@
 class SolarCityForm
-  attr_reader :lead, :response, :parsed_response
+  attr_reader :lead, :response, :parsed_response, :request_error
 
   def initialize(lead)
     @lead = lead
@@ -16,12 +16,10 @@ class SolarCityForm
       url:          url,
       payload:      post_body,
       timeout:      10,
-      open_timeout: 10)
-  rescue RestClient::InternalServerError => e
-    @error = e
+      open_timeout: 5)
+  rescue RestClient::RequestFailed => e
+    @request_error = e
     @response = e.inspect
-  rescue RestClient::RequestTimeout
-    @error = 'Request to submit timed out'
   end
 
   def provider_uid
@@ -31,7 +29,7 @@ class SolarCityForm
   def parsed_response
     @parsed_response ||= MultiJson.decode(response)
   rescue => e
-    @error = e
+    @error_response = e
     @response = e.inspect
   end
 
@@ -39,21 +37,25 @@ class SolarCityForm
     parsed_response['LeadId'].presence
   end
 
-  def error
-    @error ||= begin
+  def error_response
+    @error_response ||= begin
       parsed_response &&
         parsed_response['Status'] != 'SUCCESS' &&
         parsed_response['Message']
     end
   end
 
+  def error
+    request_error || error_response
+  end
+
   def error?
-    error
+    !error.nil?
   end
 
   DUPE_REGEX = /duplicates value on record with id: (?<id>\w+$)/
   def dupe_match
-    @dupe_match ||= error.match(DUPE_REGEX)
+    @dupe_match ||= error_response && error_response.match(DUPE_REGEX)
   end
 
   def dupe?
