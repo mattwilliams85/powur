@@ -9,35 +9,34 @@ module powur {
   }
 
   function userInvites(session: ISessionService) {
-      return session.getEntity(SirenModel, 'user-invites', { page: 1 });
+    return session.getEntity(SirenModel, 'user-invites', { page: 1, status: '' });
   }
 
   inviteConfig.$inject = ['$stateProvider'];
 
   function inviteConfig($stateProvider: ng.ui.IStateProvider) {
-      $stateProvider
-        .state('home.invite', {
-            url: '/invite',
-            templateUrl: 'app/invite/layout.html',
-            controller: 'InviteController as invite',
-        })
-        .state('home.invite.product', {
-            url: '/solar',
-            templateUrl: 'app/invite/invite.product.html',
-            controller: 'InviteProductController as invite',
-            resolve: {
-              invites: ['SessionService', productInvites]
-            }
-        })
-        .state('home.invite.grid', {
-            url: '/grid',
-            templateUrl: 'app/invite/invite.grid.html',
-            controller: 'InviteGridController as invite',
-            resolve: {
-              invites: ['SessionService', userInvites]
-            }
-        });
-
+    $stateProvider
+      .state('home.invite', {
+        url: '/invite',
+        templateUrl: 'app/invite/layout.html',
+        controller: 'InviteController as invite',
+      })
+      .state('home.invite.product', {
+        url: '/solar',
+        templateUrl: 'app/invite/invite.product.html',
+        controller: 'InviteProductController as invite',
+        resolve: {
+          invites: ['SessionService', productInvites]
+        }
+      })
+      .state('home.invite.grid', {
+        url: '/grid',
+        templateUrl: 'app/invite/invite.grid.html',
+        controller: 'InviteGridController as invite',
+        resolve: {
+          invites: ['SessionService', userInvites]
+        }
+      });
   }
 
   angular

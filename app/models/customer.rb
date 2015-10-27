@@ -28,9 +28,7 @@ class Customer < ActiveRecord::Base
 
   enum status: [ :sent, :initiated, :accepted, :ineligible_location ]
 
-  scope :status, lambda { |s|
-    where('status = ?', Customer.statuses[s])
-  }
+  scope :status, ->(s) { where('status = ?', Customer.statuses[s]) }
 
   def complete?
     %w(first_name last_name email phone address city state zip).all? do |f|

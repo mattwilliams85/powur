@@ -4,6 +4,9 @@ module Auth
     skip_before_action :authenticate!, only: [ :show ]
 
     page max_limit: 20
+    filter :status,
+           options:  [ :pending, :expired ],
+           required: false
 
     def index
       current_user.reconcile_invites

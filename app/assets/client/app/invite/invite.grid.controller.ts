@@ -56,16 +56,10 @@ module powur {
     }
 
     get list(): any[] {
-      if (_.isEmpty(this.filters)) {
-        return this.invites.entities;
-      } else {
-        return _.filter(this.invites.entities, (i) => {
-          return _.includes(this.filters, i['properties']['status']);
-        });
-      }
+      return this.invites.entities;
     }
 
-    filters: string[] = [];
+    filters: any = {};
 
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
@@ -163,13 +157,19 @@ module powur {
       });
     }
 
-    filter(type: string) {
-      var index = this.filters.indexOf(type);
-      if (index > -1) {
-        this.filters.splice(index, 1);
-      } else {
-        this.filters.push(type);
+    filter(name: string) {
+      var opts = { page: 1 };
+      this.filters.status = this.filters.status == name ? '' : name;
+
+      for (var key in this.filters) {
+        opts[key] = this.filters[key];
       }
+
+      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
+        .then((data: any) => {
+          this.invites.entities = data.entities;
+          this.invites.properties = data.properties;
+      });
     }
   }
 

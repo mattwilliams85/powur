@@ -34,17 +34,17 @@ class Invite < ActiveRecord::Base
   end
 
   scope :pending, -> { where(user_id: nil).where('expires > ?', Time.zone.now) }
+  scope :expired, -> { where(user_id: nil).where('expires < ?', Time.zone.now) }
   scope :redeemed, -> { where.not(user_id: nil) }
-  scope :expired, lambda {
-    where('expires < ?', Time.zone.now).where('user_id IS NULL')
-  }
+
+  scope :status, ->(s) { send(s) }
 
   def full_name
     "#{first_name} #{last_name}"
   end
 
   def expired?
-    expires < Time.now
+    expires < Time.zone.now
   end
 
   def redeemed?
