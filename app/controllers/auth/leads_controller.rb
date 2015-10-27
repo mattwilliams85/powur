@@ -40,6 +40,8 @@ module Auth
     end
 
     def update
+      error!(:update_lead) if @lead.submitted_at?
+
       @lead.customer.update_attributes!(customer_input)
       @lead.update(data: lead_input)
 
@@ -75,6 +77,7 @@ module Auth
       scope = Lead
         .includes(:customer, :user, :product)
         .references(:customer, :user, :product)
+        .joins(:customer)
       scope = scope.where(user_id: @user.id) if @user
       scope = scope.merge(Customer.search(params[:search])) if params[:search]
       @leads = scope
