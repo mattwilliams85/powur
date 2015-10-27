@@ -73,13 +73,12 @@ module powur {
                 private $timeout: ng.ITimeoutService) {
       super();
 
-      $interval(() => {
-        this.updateTimers();
-      }, 1000)
-
+      $interval.cancel(this.invites.properties.pieTimer);
 
       $timeout(() => {
-        this.updateTimers();
+        this.invites.properties.pieTimer = $interval(() => {
+            this.updateTimers();
+        }, 1000)
         this.buildPies();
       });
     }
@@ -94,7 +93,6 @@ module powur {
     }
 
     buildPies(): void {
-
       var options = {
         segmentShowStroke: false,
         animation: true
@@ -120,18 +118,18 @@ module powur {
         var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
         var ctx = canvas.getContext('2d');
         var myPieChart = new Chart(ctx).Pie(data, options);
-        this.updatePie(myPieChart, i);
+        // this.updatePie(myPieChart, i);
       }
     }
 
-    updatePie(chart, i): void {
-      this.$interval(() => {
-        var progress = this.progress(this.list[i]);
-        chart.segments[0].value = progress;
-        chart.segments[1].value = 1 - progress;
-        chart.update();
-      }, 1000)
-    }
+    // updatePie(chart, i): void {
+    //   this.$interval(() => {
+    //     var progress = this.progress(this.list[i]);
+    //     chart.segments[0].value = progress;
+    //     chart.segments[1].value = 1 - progress;
+    //     chart.update();
+    //   }, 1000)
+    // }
 
     updateTimers(): void {
       for (var i = 0; i < this.list.length; i++) {

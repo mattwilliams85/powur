@@ -232,6 +232,7 @@
       &.sent { background-color: #47bcaf}
       &.initiated { background-color: #11706b }
       &.ineligible_location { background-color: #b15151 }
+      &.accepted { background-color: #1DB770 }
       &.ellipse {
         border: 3px dashed #aaa;
         background-color: transparent;
@@ -323,6 +324,10 @@
         }
         &.ineligible_location {
           background: image-url('img/ineligible-icon-lt.png');
+          background-size: contain;
+        }
+        &.accepted {
+          background: image-url('img/accepted-icon-lt.png');
           background-size: contain;
         }
       }
