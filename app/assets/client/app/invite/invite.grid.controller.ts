@@ -13,6 +13,7 @@ module powur {
       this.create.field('last_name').value = null;
       this.create.field('email').value = null;
       this.create.field('phone').value = null;
+
     }
 
     send() {
@@ -54,22 +55,17 @@ module powur {
     }
 
     get list(): any[] {
-      if (_.isEmpty(this.filters)) {
-        return this.invites.entities;
-      } else {
-        return _.filter(this.invites.entities, (i) => {
-          return _.includes(this.filters, i['properties']['status']);
-        });
-      }
+      return this.invites.entities;
     }
 
-    filters: string[] = [];
-    timerColor: string = '#2583a8';
+    timerColor: string;
 
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
                 private $interval: ng.IIntervalService) {
       super();
+
+      this.timerColor = '#2583a8';
 
       $interval(() => {
         this.startTimers();
@@ -80,6 +76,7 @@ module powur {
     startTimers(): void {
       for (var i = 0; i < this.list.length; i++) {
         var item = this.list[i].properties;
+
 
         var x = new Date();
         var jan = new Date(x.getFullYear(), 0, 1);
@@ -95,17 +92,17 @@ module powur {
           continue;
         }
         this.list[i].properties.time_left = time;
-        this.list[i].properties.expiration_progress = item.expiration_progress + 0.0000115;
+        this.list[i].properties.expiration_progress = this.calculateExp(item);
       }
     }
 
-    // calculateExp(item: any): any {
-    //   var start = new Date(item.created_at).getTime();
-    //   var end = item.expires;
-    //   var now = new Date().getTime();
-    //   // debugger
-    //   return 1 - ((now - start) / (end - start));
-    // }
+    calculateExp(item: any): any {
+      var start = new Date(item.created_at).getTime();
+      var end = item.expires;
+      var now = new Date().getTime();
+      // debugger
+      return 1 - ((now - start) / (end - start));
+     }
 
     addInvite(e: MouseEvent) {
       this.$mdDialog.show({
@@ -126,15 +123,6 @@ module powur {
         // cancel
         this.root.$log.debug('cancel');
       });
-    }
-
-    filter(type: string) {
-      var index = this.filters.indexOf(type);
-      if (index > -1) {
-        this.filters.splice(index, 1);
-      } else {
-        this.filters.push(type);
-      }
     }
   }
 
