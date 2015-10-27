@@ -74,7 +74,8 @@ module powur {
       super();
 
       var options = {
-        segmentShowStroke: false
+        segmentShowStroke: false,
+        animation: true
       }
 
       $interval(() => {

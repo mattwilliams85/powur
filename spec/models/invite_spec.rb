@@ -71,12 +71,12 @@ describe Invite do
       end
     end
 
-    describe '#expiration_progress' do
-      it 'returns percentage of time past relative to expiration' do
+    describe '#time_left' do
+      it 'returns remaning time for invite' do
         invite
-        expect(invite.expiration_progress).to eq(0)
+        expect(invite.time_left).to be > 8.6e+7;
         invite.update_attribute(:expires, Time.zone.now + 6.hours)
-        expect(invite.expiration_progress).to eq(0.75)
+        expect(invite.time_left).to be > (2.15e+7)
       end
     end
   end
