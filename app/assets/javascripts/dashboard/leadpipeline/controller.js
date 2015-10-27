@@ -242,6 +242,7 @@
         $scope.drilldownActive = false;
         $scope.animateDrilldown();
         $scope.lead = {};
+        $scope.formAction = $scope.leadCreateAction;
         $scope.currentLead = {};
 
         // getLeads(function(items){
@@ -587,7 +588,8 @@
         // Set Leads
         $scope.leads = items.entities;
         // Set Actions
-        $scope.formAction = $scope.getAction(items.actions, 'create');
+        $scope.leadCreateAction = $scope.getAction(items.actions, 'create');
+        $scope.formAction = $scope.leadCreateAction;
         $scope.productFields = $scope.setProductFields($scope.formAction);
         $scope.leadPipelineSection.indexAction = $scope.getAction(items.actions, 'index');
         // Initialize Leads Carousel
