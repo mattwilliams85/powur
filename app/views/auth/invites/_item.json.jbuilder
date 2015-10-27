@@ -6,7 +6,7 @@ json.properties do
   json.code :id
   json.call(invite,
             :id, :first_name, :last_name, :email, :phone,
-            :status, :created_at, :expires, :expiration_progress)
+            :status, :created_at, :expires, :time_left)
 end
 
 actions = []

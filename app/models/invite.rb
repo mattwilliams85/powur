@@ -92,10 +92,9 @@ class Invite < ActiveRecord::Base
     SystemSettings.invite_valid_days.days.from_now
   end
 
-  def expiration_progress
-    return 0 unless expires
-    time_start = expires - SystemSettings.invite_valid_days.days
-    ((Time.zone.now - time_start) / (expires - time_start)).round(2)
+  def time_left
+    time_left = (expires.in_time_zone - Time.now) * 1000.0
+    time_left <= 0 ? (return 0) : (return time_left)
   end
 
   def send_sms

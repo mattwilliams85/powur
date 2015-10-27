@@ -39,7 +39,7 @@
         <div class="full-name">
           {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
         </div>
-        <div ng-show="item.properties.time_left" class="time">{{ item.properties.time_left | date : 'H:mm' }}<span class="superscript">{{ item.properties.time_left  | date : 'ss' }}</span></div>
+        <div ng-show="item.properties.time_left" class="time">{{ invite.dateFormat(item, 'H:mm') }}<span class="superscript">{{ invite.dateFormat(item, 'ss')  }}</span></div>
         <div ng-hide="item.properties.time_left" class="expired">EXPIRED</div>
       </div>
     </div>
