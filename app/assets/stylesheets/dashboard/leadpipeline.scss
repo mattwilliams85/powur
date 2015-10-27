@@ -113,6 +113,17 @@
         }
       }
 
+      .lead-form {
+        .lead-error {
+          margin-left: 5px;
+          color: rgba(255,0,0,0.7);
+          text-transform: capitalize;
+        }
+        input {
+          margin: 5px 0;
+        }
+      }
+
       .summary {
         padding: 30px;
         @media only screen and (max-width: 64em) { 

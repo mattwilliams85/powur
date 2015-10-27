@@ -69,6 +69,9 @@ module Auth
       @lead.email_customer if @lead.can_email?
 
       show
+    rescue Lead::SolarCityApiError => e
+      Airbrake.notify(e)
+      error!(:solarcity_api)
     end
 
     private

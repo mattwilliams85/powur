@@ -55,6 +55,7 @@ en:
     either_email_or_phone: Either email or phone is required
     exceeded_max_invites: You have exceeded the max number of invites allowed
     zip_api: The Solar City Zip Code Validation API is not responding right now. Please try again later.
+    solarcity_api: The Solar City Lead Submission API is not responding. Please try again later.
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

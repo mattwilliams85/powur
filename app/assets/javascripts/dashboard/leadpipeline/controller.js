@@ -232,6 +232,7 @@
     // New Proposal Action
     $scope.leadPipelineSection.newLead = function() {
       $scope.closeForm();
+      $scope.saveError = null;
       resetFormValidations();
 
       if ($scope.showForm === true && $scope.mode === 'new') {
@@ -260,15 +261,19 @@
     $scope.leadPipelineSection.saveLead = function() {
       if ($scope.isSubmitDisabled) return;
 
+      $scope.saveError = null;
       resetFormValidations();
+      $scope.isSubmitDisabled = true;
 
-      // check validity and submit if valid:
-      if ($scope.lead && $('#customers-form')[0].checkValidity()) {
-        $scope.isSubmitDisabled = true;
-        CommonService.execute($scope.formAction, $scope.lead).then(actionCallback($scope.formAction));
-      } else {
-        showInvalidFormMessages();
-      }
+      CommonService.execute($scope.formAction, $scope.lead).then(function(data){
+        $scope.isSubmitDisabled = false;
+        if (data.error) {
+          console.log('error');
+          $scope.saveError = data.error;
+        } else {
+          refreshCarousel(function() {});
+        }
+      });
     };
 
     // Form Validation Methods:
