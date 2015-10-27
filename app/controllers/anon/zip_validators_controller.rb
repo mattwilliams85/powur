@@ -17,7 +17,7 @@ module Anon
         error!(:unqualified_zip, :zip)
       end
     rescue Lead::ZipApiError
-      error!(:zip_api)
+      error!(:zip_api, :zip)
     end
 
     def validate

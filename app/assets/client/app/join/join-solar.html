@@ -29,6 +29,9 @@
       <div ng-messages="join.validateZipAction.field('zip').$error" >
         <div ng-message="message" class="messages">{{ join.validateZipAction.field('zip').$error.message }}</div>
       </div>
+      <div ng-messages="join.validateZipAction.$error" >
+        <div ng-message="message" class="messages">{{ join.validateZipAction.$error.message }}</div>
+      </div>
     </div>
     <a href="/"><div class="footer"></div></a>
 </div>
