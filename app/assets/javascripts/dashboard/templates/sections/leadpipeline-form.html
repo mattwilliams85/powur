@@ -51,8 +51,8 @@
     <div class="bg-mask"></div>
     <ng-include src="'shared/qualify.html'"></ng-include>
   </div>
-  <div class="form-box" ng-class="{ 'slide': proposalStatus === 'new', 'pull': mode !== 'new'}">
-    <form ng-submit="leadPipelineSection.saveLead()" id="customers-form">
+  <div class="form-box lead-form" ng-class="{ 'slide': proposalStatus === 'new', 'pull': mode !== 'new'}">
+    <form ng-submit="leadPipelineSection.saveLead()" id="customers-form" autocomplete="off">
       <div class="row">
         <div class="large-6 columns">
 
@@ -101,13 +101,17 @@
                   type="email"
                   id="new_lead_email"
                   ng-model="lead.email"
-                  ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }"
                   required>
-                <label
-                  ng-show="leadPipelineSection.isEmailInvalid"
-                  ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">
-                  Please enter a valid email address.
-                </label>
+              </div>
+              <div
+                ng-show="leadPipelineSection.isEmailInvalid"
+                class="lead-error">
+                Please enter a valid email address.
+              </div>
+              <div
+                ng-show="saveError.input === 'email'"
+                class="lead-error">
+                Email {{saveError.message}}
               </div>
             </div>
 
@@ -116,6 +120,11 @@
               <div class="large-12 medium-12 columns">
                 <label>Phone</label>
                 <input ng-model="lead.phone" type="text">
+              </div>
+              <div
+                ng-show="saveError.input === 'phone'"
+                class="lead-error">
+                Phone {{saveError.message}}
               </div>
             </div>
 
@@ -140,6 +149,11 @@
               <div class="large-4 medium-4 small-6 columns">
                 <label>ZIP</label>
                 <input ng-model="lead.zip" type="text">
+                <div
+                  ng-show="saveError.input === 'zip'"
+                  class="lead-error">
+                  Zip {{saveError.message}}
+                </div>
               </div>
             </div>
 
