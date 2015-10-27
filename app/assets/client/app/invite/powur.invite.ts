@@ -5,7 +5,7 @@ module powur {
   'use strict';
 
   function productInvites(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-product_invites', { page: 1 });
+    return session.getEntity(SirenModel, 'user-product_invites', { page: 1, status: '' });
   }
 
   function userInvites(session: ISessionService) {

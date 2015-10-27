@@ -11,10 +11,17 @@ module powur {
       this.root = RootController.get();
 
       function loadMore(entity) {
+        var opts = { page: entity.properties.paging.current_page + 1 };
+        if (entity.properties.filters) {
+          for (var key in entity.properties.filters) {
+            opts[key] = entity.properties.filters[key];
+          }
+        }
+
         this.root.$session.getEntity(
           SirenModel,
           entity.rel[0],
-          { page: entity.properties.paging.current_page + 1 },
+          opts,
           true
         ).then((data: any) => {
           entity.entities = entity.entities.concat(data.entities);
