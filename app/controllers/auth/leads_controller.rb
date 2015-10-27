@@ -29,7 +29,7 @@ module Auth
     end
 
     def create
-      customer = Customer.create!(customer_input)
+      customer = find_or_create_customer
       @lead = Lead.create!(
         product_id: product.id,
         customer:   customer,
@@ -95,6 +95,18 @@ module Auth
           Lead.find_for_downline(id, current_user.id)
         end
       not_found!(:lead) unless @lead
+    end
+
+    def find_or_create_customer
+      customer = Customer.where(
+        email:   customer_input['email'],
+        user_id: current_user.id).first
+      if customer && !customer.lead?
+        customer.update_attributes!(customer_input)
+        customer
+      else
+        Customer.create!(customer_input)
+      end
     end
 
     def customer_input
