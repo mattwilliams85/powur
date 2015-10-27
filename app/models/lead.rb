@@ -146,6 +146,13 @@ class Lead < ActiveRecord::Base
     form.post
     fail(form.error) if form.error? && !form.dupe?
 
+    if form.dupe?
+      Rails.logger.error(
+        'Lead#submit_to_provider duplicate error. ' \
+        "Request: #{form.post_body} " \
+        "Response: #{form.parsed_response}")
+    end
+
     submitted(form.provider_uid, DateTime.parse(form.response.headers[:date]))
   end
 
