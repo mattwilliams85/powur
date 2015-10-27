@@ -73,11 +73,6 @@ module powur {
                 private $timeout: ng.ITimeoutService) {
       super();
 
-      var options = {
-        segmentShowStroke: false,
-        animation: true
-      }
-
       $interval(() => {
         this.updateTimers();
       }, 1000)
@@ -85,28 +80,7 @@ module powur {
 
       $timeout(() => {
         this.updateTimers();
-        for (var i = 0; i < this.list.length; i++) {
-          if (this.list[i].properties.status === 'expired') continue;
-          var id = this.list[i].properties.id;
-          var progress = this.progress(this.list[i]);
-          var data = [
-            {
-              value: progress,
-              color: "#2583a8",
-              highlight: "#2583a8",
-              label: "Complete"
-            },
-            {
-              value: 1 - progress,
-              color: "#c5c5c5",
-              label: "Incomplete"
-            }
-          ]
-          var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
-          var ctx = canvas.getContext('2d');
-          var myPieChart = new Chart(ctx).Pie(data, options);
-          this.updatePie(myPieChart, i);
-        }
+        this.buildPies();
       });
     }
 
@@ -117,6 +91,37 @@ module powur {
     // TODO: move this to an angular custom filter (might already exist as angular-moment?)
     dateFormat(item, format): string {
       return moment.utc(item.properties.time_left).format(format);
+    }
+
+    buildPies(): void {
+
+      var options = {
+        segmentShowStroke: false,
+        animation: true
+      }
+
+      for (var i = 0; i < this.list.length; i++) {
+        if (this.list[i].properties.status === 'expired') continue;
+        var id = this.list[i].properties.id;
+        var progress = this.progress(this.list[i]);
+        var data = [
+          {
+            value: progress,
+            color: "#2583a8",
+            highlight: "#2583a8",
+            label: "Complete"
+          },
+          {
+            value: 1 - progress,
+            color: "#c5c5c5",
+            label: "Incomplete"
+          }
+        ]
+        var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
+        var ctx = canvas.getContext('2d');
+        var myPieChart = new Chart(ctx).Pie(data, options);
+        this.updatePie(myPieChart, i);
+      }
     }
 
     updatePie(chart, i): void {
@@ -153,6 +158,7 @@ module powur {
         this.invites.entities.unshift(data);
         this.invites.properties.pending_count += 1;
         this.invites.properties.available_count -= 1;
+        this.buildPies();
       }, () => {
         // cancel
         this.root.$log.debug('cancel');
