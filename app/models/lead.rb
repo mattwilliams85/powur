@@ -162,7 +162,7 @@ class Lead < ActiveRecord::Base
     raise SolarCityApiError.new, "Request failed to solar city: #{e.message}"
   rescue => e
     Airbrake.notify(
-      "Unexpected error in SC submission: #{form.response.execute}")
+      "Unexpected error in SC submission: #{form.response.inspect}")
     raise e
   end
 
