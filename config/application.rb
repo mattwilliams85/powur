@@ -15,7 +15,7 @@ module Powur
       port:                 587,
       domain:               'eyecuelab.com',
       user_name:            'paul.walker@eyecuelab.com',
-      password:             'TrCgMfSpdGnbfztgaiAuvQ',
+      password:             ENV['MANDRILL_API_KEY'],
       authentication:       'plain',
       enable_starttls_auto: true  }
 

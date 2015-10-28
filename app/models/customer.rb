@@ -76,4 +76,9 @@ class Customer < ActiveRecord::Base
       from: twilio_client.numbers_for_personal_sms.sample,
       body: message)
   end
+
+  def mandrill
+    return nil unless email
+    @mandrill ||= MandrillMonitor.new(email: email, tag: 'solar-invite')
+  end
 end

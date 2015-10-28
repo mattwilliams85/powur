@@ -113,6 +113,11 @@ class Invite < ActiveRecord::Base
       body: message)
   end
 
+  def mandrill
+    return nil unless email
+    @mandrill ||= MandrillMonitor.new(email: email, tag: 'grid-invite')
+  end
+
   class << self
     def generate_code(size = 3)
       SecureRandom.hex(size).upcase

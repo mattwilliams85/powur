@@ -205,6 +205,7 @@ GEM
       railties (~> 4.0)
     erubis (2.7.0)
     escape_utils (1.1.0)
+    excon (0.45.4)
     execjs (2.6.0)
     extlib (0.9.16)
     factory_girl (4.5.0)
@@ -264,6 +265,9 @@ GEM
       rake (>= 0.9.2.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mandrill-api (1.0.53)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
     meta_request (0.3.4)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
@@ -489,6 +493,7 @@ DEPENDENCIES
   jquery-ui-rails
   lograge
   m
+  mandrill-api
   meta_request
   minitest-reporters
   minitest-spec-rails

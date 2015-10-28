@@ -48,6 +48,7 @@ gem 'twilio-ruby'
 gem 'typescript-rails'
 gem 'foundation-rails'
 gem 'lograge'
+gem 'mandrill-api'
 
 group :development do
   gem 'spring'

@@ -103,7 +103,9 @@ class PromoterMailer < ActionMailer::Base
   def mail_chimp(to, template, merge_vars = {})
     merge_vars[:logo_url] = "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-blue-logo.png"
     headers['X-MC-Template'] = template
+    headers['X-MC-Tags'] = template
     headers['X-MC-MergeVars'] = merge_vars.to_json
+    headers['X-MC-Track'] = 'opens, clicks_all'
 
     mail to:      to,
          subject: '',
