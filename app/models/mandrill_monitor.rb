@@ -16,10 +16,10 @@ class MandrillMonitor
   end
 
   def opened?
-    message['opens'] > 0
+    message && message['opens'] > 0
   end
 
   def clicked?
-    message['clicks'] > 0
+    message && message['clicks'] > 0
   end
 end
