@@ -167,6 +167,10 @@ class Lead < ActiveRecord::Base
     submitted(form.provider_uid, DateTime.parse(form.response.headers[:date]))
   rescue RestClient::RequestFailed => e
     raise SolarCityApiError.new, "Request failed to solar city: #{e.message}"
+  rescue => e
+    Airbrake.notify(
+      "Unexpected error in SC submission: #{form.response.execute}")
+    raise e
   end
 
   def simulate_submit
