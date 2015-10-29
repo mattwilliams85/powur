@@ -168,8 +168,10 @@ class Lead < ActiveRecord::Base
   rescue RestClient::RequestFailed => e
     raise SolarCityApiError.new, "Request failed to solar city: #{e.message}"
   rescue => e
-    Airbrake.notify(
-      "Unexpected error in SC submission: #{form.response.inspect}")
+    params = {
+      response: form.response.inspect,
+      error:    form.error.inspect }
+    Airbrake.notify(e, parameters: params)
     raise e
   end
 
