@@ -89,9 +89,9 @@ module powur {
     buildPies(): void {
       var options = {
         segmentShowStroke: false,
-        animation: true
+        showTooltips: false,
+        responsive: true
       }
-
       for (var i = 0; i < this.list.length; i++) {
         if (this.list[i].properties.status === 'expired') continue;
         var id = this.list[i].properties.id;
@@ -150,7 +150,9 @@ module powur {
         this.invites.entities.unshift(data);
         this.invites.properties.pending_count += 1;
         this.invites.properties.available_count -= 1;
-        this.buildPies();
+        setTimeout(() => {
+          this.buildPies();
+        });
       }, () => {
         // cancel
         this.root.$log.debug('cancel');
@@ -164,7 +166,6 @@ module powur {
       for (var key in this.filters) {
         opts[key] = this.filters[key];
       }
-
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
           this.invites.entities = data.entities;

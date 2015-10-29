@@ -1,13 +1,3 @@
-@mixin tab-bg($img) {
-  width: 450px;
-  height: 300px;
-  background-image: image-url($img);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
 .invite {
   a {
     text-decoration: none;
@@ -16,41 +6,46 @@
   .tab {
     list-style: none;
     margin: 0;
-    padding: 5px;
     text-transform: uppercase;
+    padding: 0;
 
     li {
       display: inline-block;
-      margin: 1px;
+      margin: 0 -10px 0 15px;
       padding: 0 10px;
       box-sizing: border-box;
-      -webkit-filter: grayscale(100%);
-      filter: grayscale(100%);
-      filter: gray;
-      transition: filter .2s linear;
-      -webkit-transition: -webkit-filter .2s linear;
+      height: 50px;
+      width: 200px;
+      background: #d0d0d0;
+      position: relative;
+
+      .bar {
+        width: 0;
+        transition: .15s;
+        height: 3px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      &.grid-invites .bar {
+        background-color: #2583A8;
+      }
+      &.solar-invites .bar {
+        background-color: #52BCAF;
+      }
 
       &.active {
-        -webkit-filter: grayscale(0%);
-        filter: grayscale(0%);
-        filter: none;
+        background: #EFEFEF;
+        height: 53px; 
 
-        &:after {
-          content: "";
-          bottom: 48px;
-          left: 50%;
-          z-index: -1;
-          border-bottom: 30px solid #ffffff;
-          border-left: 20px solid transparent;
-          border-right: 20px solid transparent;
-          margin-left: -20px;
-          position: relative;
-          animation: floatUp .2s;
+        .bar { 
+          width: 100%;
         }
 
-        @keyframes floatUp {
-          0% { transform: translateY(38px); }
-          100% { transform: translateY(0); }
+
+        .title {
+          color: #666;
         }
       }
 
@@ -58,35 +53,29 @@
         color: white;
       }
 
-      .sub {
-        font-size: smaller;
-      }
-
       .title {
-        font-size: 2em;
+        font-size: large;
       }
     }
 
     .grid-invites {
-      @include tab-bg("img/grid-invite-bg.png");
       transition: 0.2s;
     }
 
     .solar-invites {
-      @include tab-bg("img/solar-invite-bg.png");
       transition: 0.2s;
     }
 
   }
 
   .counter {
-    height: 205px;
-    // margin: 0 5px 0 5px;
-    // border-top: 1px solid #ececec;
-    // border-bottom: 1px solid #ececec;
+    height: 140px;
+    background: #EFEFEF;
+    position: relative;
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.3);
 
     >ul {
-      height: 205px;
+      height: 100%;
       text-align: center;
       text-transform: uppercase;
     }
@@ -99,20 +88,44 @@
 
     /*205 - 15*/
     li {
-      height: 190px;
-      border-right: 1px solid #ececec;
+      max-width: 300px;
+      height: 100%;
+      border-right: 1px solid #ccc;
+      position: relative;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      outline: none
     }
 
     li:last-child {
       border-right: none;
     }
 
-    li[ng-click] {
-      cursor: pointer;
+    .bar {
+      width: 55%;
+      height: 5px;
+      background: #aaa;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto auto;
+      transition: background-color .5s;
+      &.active {
+        &.sent { background-color: #47bcaf}
+        &.initiated { background-color: #11706b }
+        &.ineligible { background-color: #b15151 }
+        &.pending { background-color: #2583A8 }
+        &.expired { background-color: #b15151 }
+      }
     }
 
     .count {
-      font-size: 4em;
+      font-size: x-large;
       color: #666666;
       padding: 10px;
     }
@@ -167,6 +180,7 @@
 
     .label.kpi{
       color:#666;
+      padding-top: 4px;
 
       @media (max-width: 600px) {
         font-size:x-small;
@@ -188,6 +202,93 @@
     }
   }
 
+  .speed-dial {
+    padding: 20px 50px 0 45px;
+
+    .md-ripple-container {
+      display: none;
+    }
+
+    .menu {
+      background-color: #fff;
+      &:focus, &:hover {
+        background-color: #fff;
+      }
+    }
+    .menu-icon {
+      height: 25px;
+      width: 25px;
+      background: image-url('img/funnel.png');
+      background-size: contain;
+    }
+    .icon {
+      height: 20px;
+      width: 20px;
+    }
+    .sent {
+      background-color: #47bcaf;
+      &:hover {
+        background-color: #4FD2C3;
+      }
+      .icon {
+        background: image-url('img/sent-icon-lt.png');
+        background-size: contain;
+      }
+    }
+    .initiated {
+      background-color: #11706b;
+      &:hover {
+        background-color: #1E908A;
+      }
+      .icon {
+        background: image-url('img/initiated-icon-lt.png');
+        background-size: contain;
+      }
+    }
+    .ineligible {
+      background-color: #b15151;
+      &:hover {
+        background-color: #CA5B5B;
+      }
+      .icon {
+        background: image-url('img/ineligible-icon-lt.png');
+        background-size: contain;
+      }
+    }
+    .pending {
+      background-color: #2583A8;
+      &:hover {
+        background-color: #2C99C4;
+      }
+      .icon {
+        margin-top: -2px;
+        background: image-url('img/pending-icon-lt.png');
+        background-size: contain;
+      }
+    }
+    .expired {
+      background-color: #b15151;
+      &:hover {
+        background-color: #CA5B5B;
+      }
+      .icon {
+        margin-top: -2px;
+        background: image-url('img/expired-lt.png');
+        background-size: contain;
+      }
+    }
+    .cancel {
+      background-color: #ccc;
+      &:hover {
+        background-color: #d5d5d5;
+      }
+      .icon {
+        background: image-url('img/cancel.png');
+        background-size: contain;
+      }
+    }
+  }
+
   .message {
     color: #666666;
     text-transform: uppercase;
@@ -195,14 +296,15 @@
     padding: 50px 0 0 0;
   }
 
-  .bg {
+  .invite-list-bg {
     background-color: #fafafa;
+    min-height: 100vh;
   }
 
   .invite-list {
-    padding: 20px;
-    height: 50vh;
-    overflow: auto;
+    padding: 0 20px;
+    overflow: hidden;
+    max-width: 1200px;
   }
 
   .invite-item {
@@ -231,33 +333,49 @@
 
       &.sent { background-color: #47bcaf}
       &.initiated { background-color: #11706b }
-      &.ineligible_location { background-color: #b15151 }
+      &.ineligible_location, &.expired { background-color: #b15151 }
       &.accepted { background-color: #1DB770 }
       &.ellipse {
         border: 3px dashed #aaa;
         background-color: transparent;
       }
-
+    }
+    
+    &.expired {
+      .invite-bg {
+        background-color: #b15151; 
+      }
+      .text-box .exp-label {
+        font-weight: 600;
+        font-size: 18pt;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+        padding: 10px 0;
+        display: block;
+      }
     }
 
-    .expired {
-      font-weight: 600;
-      font-size: large;
-    }
 
     .full-name {
-      font-size: large;
       text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 10pt;
+      padding-top: 10px;
+      position: relative;
+      text-align: center;
+      height: 32px;
     }
 
     .text-box {
       position: absolute;
       text-align: center;
       z-index: 3;
-      top: 50px;
+      top: 49px;
       color: #fff;
       height: 100%;
       width: 100%;
+      .exp-label {
+        display: none;
+      }
     }
 
     sup {
@@ -270,7 +388,7 @@
     }
 
     .warning-bg {
-      background: image-url('img/expired.png');
+      background: image-url('img/expired-bg.png');
       position: absolute;
       height: 125px;
       width: 125px;
@@ -284,11 +402,14 @@
     }
 
     .time {
-      font-size: 22pt;
+      font-size: 28pt;
       font-weight: 600;
-      margin-left: 10px;
+      margin-left: 18px;
       position: relative;
       text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.8);
+      width: 68%;
+      padding-bottom: 5px;
 
       .superscript {
         vertical-align: super;
@@ -299,7 +420,6 @@
     }
 
     &.solar {
-
       .text-box {
         top: 0;
       }
@@ -334,10 +454,12 @@
 
       .full-name {
         top: 70px;
+        font-size: 12pt;
+        padding-top: 0px;
       }
 
       .est {
-        border-top: 1px solid #fff;
+        border-top: 1px solid rgba(255,255,255,0.8);
         position: absolute;
         top: 100px;
         left: 0;
@@ -351,16 +473,6 @@
 
     &:hover .hoverable {
       color: #2583a8;
-    }
-
-    .full-name {
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      font-size: 12pt;
-      position: relative;
-      text-align: center;
-      height: 32px;
-
     }
 
     .sprite-invite {
@@ -506,126 +618,169 @@
     }
 
     .sprite-available {
-      width: 24px;
-      height: 23px;
-      background-position: -39px -5px;
+      width: 25px;
+      height: 25px;
+      background-image: image-url("img/grid-invite-available-icon.png");
+      background-size: contain;
     }
 
     .sprite-sent {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
+      margin-bottom: -3px;
       background-image: image-url("img/solar-invite-sent-icon.png");
+      background-size: contain;
     }
     .sprite-initiated {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       background-image: image-url("img/solar-invite-initiated-icon.png");
+      background-size: contain;
     }
     .sprite-ineligible {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
+      margin-bottom: -2px;
       background-image: image-url("img/solar-invite-ineligible-icon.png");
+      background-size: contain;
     }
     .sprite-accepted {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
+      margin-bottom: -9px;
       background-image: image-url("img/solar-invite-accepted-as-lead-icon.png");
+      background-size: contain;
     }
 
     .sprite-expired {
-      background: image-url('img/expired-lt.png');
-      width: 27px;
-      height: 27px;
+      background: image-url('img/expired.png');
+      width: 22px;
+      height: 22px;
       background-size: cover;
     }
 
     .sprite-pending {
-      width: 24px;
-      height: 24px;
-      background-position: -152px -5px;
+      width: 20px;
+      height: 20px;
+      background-image: image-url("img/grid-invite-pending-icon.png");
+      background-size: contain;
     }
   }
 }
 
 @media screen and (max-width : 720px) {
-  .invite .counter{
-    height:120px;
-  }
-  .invite .counter .count{
-    font-size:2em;
-  }
-  .invite .counter .sprite{
-    display: none;
-  }
-  .invite .invite-item{
-    padding:0px;
-    &.solar {
+  .invite {
+    .counter {
+      height:120px;
+
+      .sprite {
+        display: none;
+      }
+
+      .count {
+        font-size:2em;
+      }
+    }
+
+    .ellipse {
+      .sprite-ellipse-invite {
+        width: 140px;
+        height: 140px;
+        background-position: -140px -5px;
+        margin-top: 36px;
+        background-size: 420px 140px;
+      }
+      .border-fill {
+        width: 130px;
+        height: 130px;
+        border: 5px solid;
+        display: block;
+        border-radius: 50%;
+      }
+    }
+
+    .invite-item {
+      padding:0px;
+      height: 130px;
       width: 130px;
-      margin-right: 15px;
+      margin: 30px 15px;
+
+      .text-box {
+        top: 0px
+      }
+
+      .time{
+        top: 38px;
+        font-size: 21pt;
+        margin-left: 15px;
+      }
+
+      .date {
+        display: none;
+      }
+
+      .add .label {
+        height: 0px;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding-top: 0px;
+        line-height: 30px;
+      }
+
+      .status-icons {
+        height: 0;
+        position: absolute;
+        bottom: 64px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        width: 95px;
+      }
+
+      .remove {
+        top:95px;
+        display:none;
+      }
 
       .full-name {
-        top: 60px;
+        top: 35px;
       }
-      .status-icons {
-        bottom: 74px;
+
+      &.solar {
+        .icon {
+          top: 20px;
+        }
+        .full-name {
+          top: 55px;
+        }
+        .status-icons {
+          bottom: 74px;
+        }
+        .date {
+          top: 84px;
+        }
+        .est {
+          top: 82px;
+          font-size: 9pt;
+          padding-top: 7px;
+          width: 90px;
+        }
       }
-      .date {
-        top: 84px;
+
+      &.expired {
+        .text-box .exp-label {
+          top: 32px;
+          position: relative;
+          font-size: 15pt;
+          padding: 10px 0;
+        }
+
+        .full-name {
+          top: 26px;
+          font-size: 9pt;
+        }
       }
     }
-  }
-  .invite .invite-item .full-name {
-    top:80px;
-  }
-  .invite .invite-item .time{
-    top:65px;
-  }
-  .invite .counter > ul{
-    height:115px;
-  }
-  .invite .ellipse {
-    .sprite-ellipse-invite {
-      width: 140px;
-      height: 140px;
-      background-position: -140px -5px;
-      margin-top: 36px;
-      background-size: 420px 140px;
-    }
-    &.border-fill {
-      width: 130px;
-      height: 130px;
-      margin-right: 15px;
-    }
-  }
-  .invite .invite-item .add .label {
-    height: 0px;
-    text-transform: uppercase;
-    font-size: 14px;
-    padding-top: 0px;
-    line-height: 40px;
-  }
-  .invite .ellipse.border-fill {
-    width: 135px;
-    height: 135px;
-    border: 5px solid;
-    display: block;
-    border-radius: 50%;
-  }
-  .invite .invite-item .date {
-    display: none;
-  }
-  .invite .invite-item .status-icons {
-    height: 0;
-    position: absolute;
-    bottom: 64px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    text-align: center;
-    width: 95px;
-  }
-  .invite .invite-item .remove{
-    top:95px;
-    display:none;
   }
 }

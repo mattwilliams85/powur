@@ -75,7 +75,7 @@ module powur {
       for (var key in this.filters) {
         opts[key] = this.filters[key];
       }
-
+      
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
           this.invites.entities = data.entities;
