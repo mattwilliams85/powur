@@ -9,7 +9,6 @@ module PaperclipScopes
       :avatar,
       path:            '/avatars/:id/:basename_:style.:extension',
       url:             ':s3_domain_url',
-      default_url:     'dashboard/default-avatar.png',
       storage:         :s3,
       s3_credentials:  { bucket:            aws_bucket,
                          access_key_id:     aws_access_key_id,
