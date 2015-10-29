@@ -10,8 +10,8 @@ module powur {
     'ngStorage',
     'ngMaterial',
     // 3rd party modules
-    'ui.router',
-    'templates',
+    //'ui.router',
+    //'templates',
     // cross-app/util modules
     'powur.services'
   ]);
