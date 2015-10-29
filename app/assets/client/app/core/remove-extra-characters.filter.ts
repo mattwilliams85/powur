@@ -9,7 +9,7 @@ module powur {
       var init = (input: string): string => {
         var v = input;
         v = v.replace("_", " ");
-        return v;        
+        return v;
       };
       
       return <any>init;

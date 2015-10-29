@@ -2,7 +2,7 @@
 // -----------------------------------------------------
 //= require jquery/dist/jquery
 //= require jquery-ui
-//= require velocity/test/q
+//= require q/q
 //= require lodash/lodash
 //= require moment/moment
 //= require angular/angular

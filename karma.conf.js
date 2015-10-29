@@ -6,11 +6,9 @@ config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
     //basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
-
 
     // list of files / patterns to load in the browser
     files: [
@@ -29,12 +27,20 @@ config.set({
        'vendor/assets/bower_components/angular-ui-router/release/angular-ui-router.js',
 
        'vendor/assets/bower_components/angular-mocks/angular-mocks.js',
-       //'app/assets/client/test/templates.ts',
+       'app/assets/client/test/templates.ts',
        
        'app/assets/client/app/services/powur.services.ts',
        'app/assets/client/app/core/powur.core.ts',
+       
        'app/assets/client/app/core/decimal-part.filter.ts',
-       'app/assets/client/test/core/decimal-part.filter.ts'
+       'app/assets/client/app/core/remove-extra-characters.filter.ts',
+       'app/assets/client/app/core/truncate-name.filter.ts',
+       'app/assets/client/app/core/whole-number.filter.ts',
+
+       'app/assets/client/test/core/decimal-part.filter.ts',
+       'app/assets/client/test/core/remove-extra-characters.filter.ts',
+       'app/assets/client/test/core/truncate-name.filter.ts',
+       'app/assets/client/test/core/whole-number.filter.ts',
     ],
     
     // list of files to exclude
