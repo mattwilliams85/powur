@@ -12,7 +12,7 @@ describe('wholeNumber', () => {
     expect(wholeNumber).not.toBeNull();
   }));
 
-  it('should return decimal part only', inject((wholeNumberFilter: any) => {
+  it('should return whole part only', inject((wholeNumberFilter: any) => {
     expect(wholeNumberFilter(123.46)).toBe('123');
     expect(wholeNumberFilter(22.0)).toBe('22');
   }));

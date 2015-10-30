@@ -1,4 +1,5 @@
 /// <reference path='powur.module.ts' />
+/// <reference path='services/session.service.ts' />
 
 module powur {
   'use strict';

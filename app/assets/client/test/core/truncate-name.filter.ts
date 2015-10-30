@@ -6,7 +6,7 @@ describe('truncateName', () => {
     angular.mock.module('powur.core');
 
     angular.mock.module(($provide: any) => {
-          $provide.value('$window', { innerWidth: 500 });
+        $provide.value('$window', { innerWidth: 500 });
       });
   });
   
@@ -30,7 +30,7 @@ describe('truncateName with 800', () => {
     angular.mock.module('powur.core');
 
     angular.mock.module(($provide: any) => {
-          $provide.value('$window', { innerWidth: 800 });
+        $provide.value('$window', { innerWidth: 800 });
       });
   });
   

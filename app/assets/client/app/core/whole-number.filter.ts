@@ -21,5 +21,5 @@ module powur {
 
   angular
     .module('powur.core')
-      .filter(WholeNumberFilter.FilterId, <any>WholeNumberFilter);
+    .filter(WholeNumberFilter.FilterId, <any>WholeNumberFilter);
 }

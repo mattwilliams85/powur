@@ -13,7 +13,6 @@ config.set({
     // list of files / patterns to load in the browser
     files: [
        //'app/assets/client/app/**/*.ts',
-       //'app/assets/client/test/**/*.ts'
        'vendor/assets/bower_components/jquery/dist/jquery.js',
        'vendor/assets/bower_components/q/q.js',
        'vendor/assets/bower_components/lodash/lodash.js',
@@ -37,10 +36,11 @@ config.set({
        'app/assets/client/app/core/truncate-name.filter.ts',
        'app/assets/client/app/core/whole-number.filter.ts',
 
-       'app/assets/client/test/core/decimal-part.filter.ts',
-       'app/assets/client/test/core/remove-extra-characters.filter.ts',
-       'app/assets/client/test/core/truncate-name.filter.ts',
-       'app/assets/client/test/core/whole-number.filter.ts',
+       'app/assets/client/test/core/**/*.ts',
+      //  'app/assets/client/test/core/decimal-part.filter.ts',
+      //  'app/assets/client/test/core/remove-extra-characters.filter.ts',
+      //  'app/assets/client/test/core/truncate-name.filter.ts',
+      //  'app/assets/client/test/core/whole-number.filter.ts',
     ],
     
     // list of files to exclude
@@ -52,7 +52,6 @@ config.set({
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       '**/*.ts': ['typescript']
-      //'test/**/*.ts': ['typescript']
     },
 
     typescriptPreprocessor: {
@@ -92,7 +91,7 @@ config.set({
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
@@ -101,7 +100,7 @@ config.set({
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS', 'Chrome'],
 
 
     // Continuous Integration mode
