@@ -5,12 +5,10 @@
       <div layout="row" layout-align="center center"><i class="sprite sprite-available"></i><span class="count">{{ invite.unlimitedInvites ? '∞' : invite.available }}</span></div>
     </li>
     <li flex="25" layout="column" layout-align="center center">
-      <div class="bar pending" ng-class=" { 'active': invite.filters.status === 'pending' || !invite.filters.status }"></div>
       <div class="label kpi">pending</div>
       <div layout="row" layout-align="center center"><i class="sprite sprite-pending"></i><span class="count">{{ invite.pending }}</span></div>
     </li>
     <li flex="25" layout="column" layout-align="center center">
-      <div class="bar expired" ng-class=" { 'active': invite.filters.status === 'expired' || !invite.filters.status }"></div>
       <div class="label kpi">expired</div>
       <div layout="row" layout-align="center center"><i class="sprite sprite-expired"></i><span class="count">{{ invite.expired }}</span></div>
     </li>
@@ -22,27 +20,13 @@
 </div>
 
 <div class="invite-list-bg">
-    <div class="speed-dial">
-      <md-fab-speed-dial md-open="demo.isOpen" md-direction="right" class="md-scale">
-        <md-fab-trigger>
-          <md-button aria-label="menu" class="menu md-fab">
-            <md-icon class="menu-icon"></md-icon>
-          </md-button>
-        </md-fab-trigger>
-
-        <md-fab-actions>
-          <md-button class="md-fab md-raised md-mini pending" ng-click="invite.filter('pending')" >
-            <md-icon class="icon" aria-label="pending"></md-icon>
-          </md-button>
-          <md-button class="md-fab md-raised md-mini expired" ng-click="invite.filter('expired')">
-            <md-icon class="icon" aria-label="expired"></md-icon>
-          </md-button>
-          <md-button class="md-fab md-raised md-mini cancel" ng-click="invite.filter('')">
-            <md-icon class="icon" aria-label="cancel"></md-icon>
-          </md-button>
-        </md-fab-actions>
-      </md-fab-speed-dial>
-    </div>
+  <md-toolbar>
+    <h3>
+      <md-button ng-class=" { 'active': !invite.filters.status }" ng-click="invite.filter('')">All</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'pending' }" ng-click="invite.filter('pending')">Pending</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'expired' }" ng-click="invite.filter('expired')">Expired</md-button>
+    </h3>
+  </md-toolbar>
 
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
     <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" ng-show="{{invite.available}}">

@@ -1,17 +1,14 @@
 <div class="counter">
   <ul layout="row" layout-align="start center" class="fadeIn">
     <li flex="25" layout="column" layout-align="center center">
-      <div class="bar sent" ng-class=" { 'active': invite.filters.status === 'sent' || !invite.filters.status }"></div>
       <div class="label kpi">sent</div>
       <div layout="row" layout-align="center center"><i class="sprite sprite-sent"></i><span class="count">{{ invite.listProps.sent }}</span></div>
     </li>
     <li flex="25" layout="column" layout-align="center center">
-      <div class="bar initiated" ng-class=" { 'active': invite.filters.status === 'initiated' || !invite.filters.status  }"></div>
       <div class="label kpi">initiated</div>
       <div layout="row" layout-align="center center"><i class="sprite sprite-initiated"></i><span class="count">{{ invite.listProps.initiated }}</span></div>
     </li>
     <li flex="25" layout="column" layout-align="center center">
-      <div class="bar ineligible" ng-class=" { 'active': invite.filters.status === 'ineligible_location' || !invite.filters.status  }"></div>
       <div  class="label kpi">ineligible location</div>
       <div layout="row" layout-align="center center"><i class="sprite sprite-ineligible"></i><span class="count">{{ invite.listProps.ineligible_location }}</span></div>
     </li>
@@ -23,30 +20,14 @@
 </div>
 
 <div class="invite-list-bg">
-  <div class="speed-dial">
-    <md-fab-speed-dial md-open="demo.isOpen" md-direction="right" class="md-scale">
-      <md-fab-trigger>
-        <md-button aria-label="menu" class="menu md-fab">
-          <md-icon class="menu-icon"></md-icon>
-        </md-button>
-      </md-fab-trigger>
-
-      <md-fab-actions>
-        <md-button class="md-fab md-raised md-mini sent" ng-click="invite.filter('sent')" >
-          <md-icon class="icon" aria-label="Sent"></md-icon>
-        </md-button>
-        <md-button class="md-fab md-raised md-mini initiated" ng-click="invite.filter('initiated')">
-          <md-icon class="icon" aria-label="Initiated"></md-icon>
-        </md-button>
-        <md-button class="md-fab md-raised md-mini ineligible" ng-click="invite.filter('ineligible_location')">
-          <md-icon class="icon" aria-label="Ineligible"></md-icon>
-        </md-button>
-        <md-button class="md-fab md-raised md-mini cancel" ng-click="invite.filter('')">
-          <md-icon class="icon" aria-label="cancel"></md-icon>
-        </md-button>
-      </md-fab-actions>
-    </md-fab-speed-dial>
-  </div>
+  <md-toolbar>
+    <h3>
+      <md-button ng-class=" { 'active': !invite.filters.status }" ng-click="invite.filter('')">All</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'sent' }" ng-click="invite.filter('sent')">Sent</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'initiated' }" ng-click="invite.filter('initiated')">Initiated</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'ineligible_location' }" ng-click="invite.filter('ineligible_location')">Ineligible</md-button>
+    </h3>
+  </md-toolbar>
 
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
     <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
