@@ -50,7 +50,7 @@ class SolarCityForm
   end
 
   def error?
-    !error.nil?
+    error
   end
 
   DUPE_REGEX = /duplicates value on record with id: (?<id>\w+$)/
