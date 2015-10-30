@@ -99,7 +99,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :invites, only: [ :index, :create ] do
+    resources :invites do
       member do
         delete :delete
         post :resend
@@ -170,7 +170,11 @@ Rails.application.routes.draw do
 
     resources :resources, only: [:index, :show]
 
-    resources :product_invites, only: [ :index, :create, :show ]
+    resources :product_invites do
+      member do
+        post :resend
+      end
+    end
 
     get 'uploader_config', to: 'uploader_config#show'
   end

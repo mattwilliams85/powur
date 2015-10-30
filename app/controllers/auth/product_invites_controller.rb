@@ -1,7 +1,7 @@
 module Auth
   class ProductInvitesController < AuthController
     before_action :validate_existence, only: [ :create ]
-    before_action :fetch_invite, only: [ :show ]
+    before_action :fetch_customer, only: [ :show, :update, :destroy ]
 
     page max_limit: 20
     sort created:  { created_at: :desc },
@@ -31,6 +31,18 @@ module Auth
       @customer.delay.send_sms
 
       show
+    end
+
+    def update
+      @customer.update_attributes!(customer_input)
+
+      show
+    end
+
+    def destroy
+      @customer.destroy!
+
+      head :ok
     end
 
     private

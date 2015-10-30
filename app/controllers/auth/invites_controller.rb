@@ -1,6 +1,6 @@
 module Auth
   class InvitesController < AuthController
-    before_action :fetch_invite, only: [ :show, :resend, :delete ]
+    before_action :fetch_invite, only: [ :show, :update, :resend, :delete ]
     skip_before_action :authenticate!, only: [ :show ]
 
     page max_limit: 20
@@ -38,6 +38,12 @@ module Auth
       current_user.send_invite(@invite)
 
       render 'show'
+    end
+
+    def update
+      @invite.update_attributes!(input)
+
+      show
     end
 
     def delete
