@@ -11,7 +11,7 @@ module Auth
     def index
       current_user.reconcile_invites
       @invites = apply_list_query_options(
-        current_user.invites.where('user_id is null').order(created_at: :desc))
+        current_user.invites.where('user_id is null').order(expires: :desc))
 
       render 'index'
     end
