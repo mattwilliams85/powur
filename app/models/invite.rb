@@ -29,7 +29,7 @@ class Invite < ActiveRecord::Base
   end
 
   before_validation do
-    self.id ||= Invite.generate_code
+    self.id ||= self.class.generate_code
     self.expires ||= expires_timespan
   end
 
@@ -38,6 +38,13 @@ class Invite < ActiveRecord::Base
   scope :redeemed, -> { where.not(user_id: nil) }
 
   scope :status, ->(s) { send(s) }
+
+  class << self
+    def generate_code(size = 3)
+      code = SecureRandom.hex(size).upcase
+      find_by(id: code) ? generate_code(size) : code
+    end
+  end
 
   def full_name
     "#{first_name} #{last_name}"
@@ -116,12 +123,6 @@ class Invite < ActiveRecord::Base
   def mandrill
     return nil unless email
     @mandrill ||= MandrillMonitor.new(email: email, tag: 'grid-invite')
-  end
-
-  class << self
-    def generate_code(size = 3)
-      SecureRandom.hex(size).upcase
-    end
   end
 
   def max_invites

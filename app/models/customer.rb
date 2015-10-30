@@ -23,12 +23,19 @@ class Customer < ActiveRecord::Base
                                      on:     :create
 
   before_validation do
-    self.code ||= Invite.generate_code
+    self.code ||= self.class.generate_code
   end
 
   enum status: [ :sent, :initiated, :accepted, :ineligible_location ]
 
   scope :status, ->(s) { where('status = ?', Customer.statuses[s]) }
+
+  class << self
+    def generate_code(size = 3)
+      code = SecureRandom.hex(size).upcase
+      find_by(code: code) ? generate_code(size) : code
+    end
+  end
 
   def complete?
     %w(first_name last_name email phone address city state zip).all? do |f|
