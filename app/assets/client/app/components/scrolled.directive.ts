@@ -3,11 +3,11 @@
 module powur {
   class ScrolledDirective {
     static DirectiveId: string = 'pwScrolled';
-    static $inject: Array<string> = ['$log'];
+    static $inject: Array<string> = ['$log', '$window'];
 
     root: IRootController;
 
-    constructor($log: ng.ILogService) {
+    constructor($log: ng.ILogService, $window: any) {
       this.root = RootController.get();
 
       function loadMore(entity) {
@@ -32,10 +32,15 @@ module powur {
       return <any>{
         link: function(scope: ng.IScope, element: JQuery, attributes: any) {
           var raw = element[0];
-
-          element.bind('scroll', function() {
-            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-              loadMore(scope.$apply(attributes.pwScrolled));
+          var loading;
+          angular.element($window).bind('scroll', function() {
+            if (angular.element($window).scrollTop() + angular.element($window).height() > $(document).height() - 100 && !loading) {
+                loading = true;
+                setTimeout(function(){
+                  loading = false;
+                  loadMore(scope.$apply(attributes.pwScrolled));
+                }, 500);
+              
             }
           });
         }

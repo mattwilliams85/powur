@@ -32,7 +32,7 @@
         <div class="stat-title">grid size</div>
         <div class="stat" layout="row">
             <i class="sprite sprite-grid" flex="10"></i>
-            <span class="info" flex>{{ hud.userData.metrics.team_count }}</span>
+            <span class="info" flex>{{ hud.userData.metrics.team_count | wholeNumber }}</span>
         </div>
     </div>
 
