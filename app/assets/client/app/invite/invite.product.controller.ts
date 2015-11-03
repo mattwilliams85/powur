@@ -108,6 +108,7 @@ module powur {
       })
         .then((data: any) => {
           // ok
+          console.log(this.invites)
           this.invites.entities.unshift(data);
           this.invites.properties.sent += 1;
         }, () => {
@@ -129,7 +130,7 @@ module powur {
           invite: invite
         }
       }).then((data: any) => {
-        if (data) this.invites = new SirenModel(data);
+        if (data) this.invites.entities = new SirenModel(data).entities;
       }, () => {
         // cancel
         this.root.$log.debug('cancel');
@@ -148,7 +149,7 @@ module powur {
           invite: invite
         }
       }).then((data: any) => {
-          this.invites = new SirenModel(data);
+        if (data) this.invites.entities = new SirenModel(data).entities;
       }, () => {
         // cancel
       });

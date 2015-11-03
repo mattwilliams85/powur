@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       get '/reset_token/:token', to: 'passwords#reset_token', as: :reset_token
     end
 
-    resources :invites, only: [ :show, :update ] do
+    resources :invites, as: :anon_invites, only: [ :show, :update ] do
     end
 
     resource :zip_validator, only: [ :create ] do

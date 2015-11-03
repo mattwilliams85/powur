@@ -17,14 +17,14 @@
           <div layout="column" class="info-box">
             <div class="icon viewed"></div>
             <div class="header">last viewed</div>
-            <div class="detail">{{dialog.invite.properties.viewed_at | date: 'MMM d, yyyy' || 'Unopened'}}</div>
+            <div class="detail">{{(dialog.invite.properties.viewed_at | date: 'MMM d, yyyy') || '---'}}</div>
           </div>
         </md-content>
         <md-content layout-padding layout="column" class="status-wrap">
-          <div class="header">status</div>
-          <div class="title">invitation <b>{{dialog.invite.properties.status}}</b></div>
+          <div class="header">expiration status</div>
+          <div class="title">{{ dialog.parentCtrl.dateFormat(dialog.invite, 'H:mm') }}</div>
         </md-content>
-        <md-button class="md-primary md-raised" ng-click="dialog.resendInvite()">Resend</md-button>
+        <md-button ng-if="!dialog.invite.properties.time_left" class="md-primary md-raised" ng-click="dialog.resendInvite()">Resend</md-button>
         <md-button class="md-warn md-raised" ng-click="dialog.remove()">Delete</md-button>
       </md-dialog-content>
     </div>

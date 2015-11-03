@@ -17,7 +17,7 @@
           <div layout="column" class="info-box">
             <div class="icon viewed"></div>
             <div class="header">last viewed</div>
-            <div class="detail">{{dialog.invite.properties.viewed_at | date: 'MMM d, yyyy' || 'Unopened'}}</div>
+            <div class="detail">{{(dialog.invite.properties.viewed_at | date: 'MMM d, yyyy') || '---'}}</div>
           </div>
         </md-content>
         <md-content layout-padding layout="column" class="status-wrap">

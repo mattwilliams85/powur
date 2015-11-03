@@ -127,6 +127,7 @@ module powur {
 
     // TODO: move this to an angular custom filter (might already exist as angular-moment?)
     dateFormat(item, format): string {
+      if (!item.properties.time_left) return 'expired';
       return moment.utc(item.properties.time_left).format(format);
     }
 
@@ -216,7 +217,12 @@ module powur {
           invite: invite
         }
       }).then((data: any) => {
-        if (data) this.invites = new SirenModel(data);
+        if (data) { 
+          this.invites.entities = new SirenModel(data).entities;
+          setTimeout(() => {
+            this.buildPies();
+          });
+        }
       }, () => {
         // cancel
         this.root.$log.debug('cancel');
@@ -235,7 +241,10 @@ module powur {
           invite: invite
         }
       }).then((data: any) => {
-          this.invites = new SirenModel(data);
+         this.invites.entities = new SirenModel(data).entities;
+         setTimeout(() => {
+           this.buildPies();
+         });
       }, () => {
         // cancel
       });

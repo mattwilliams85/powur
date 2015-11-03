@@ -33,13 +33,13 @@ module Auth
       @invite.renew
       current_user.send_invite(@invite)
 
-      render 'show'
+      index
     end
 
     def update
       @invite.update_attributes!(input)
 
-      show
+      index
     end
 
     def delete
