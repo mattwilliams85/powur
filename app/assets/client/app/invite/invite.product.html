@@ -30,7 +30,7 @@
   </md-toolbar>
 
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
-    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
+    <a href="javascript:void(0);" ng-click="invite.addInvite($event)">
       <div class="invite-item">
         <div class="invite-bg ellipse"></div>
         <span class="add counter">
@@ -41,7 +41,7 @@
     </a>
 
     <div ng-repeat="item in invite.list">
-      <div class="invite-item solar">
+      <div class="invite-item solar" ng-click="invite.showInvite($event, item)" id="{{item.properties.id}}">
         <div class="invite-bg" ng-class="item.properties.status"></div>
         <div class="text-box" flex layout="column" layout-align="start center">
           <div class="icon" ng-class="item.properties.status"></div>

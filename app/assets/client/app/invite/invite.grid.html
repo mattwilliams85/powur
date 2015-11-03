@@ -36,7 +36,7 @@
     </a>
 
     <div ng-repeat="item in invite.list track by $index">
-      <div class="invite-item" ng-class="{ 'expired': !item.properties.time_left }">
+      <div class="invite-item" ng-class="{ 'expired': !item.properties.time_left }" ng-click="invite.showInvite($event, item)">
         <div class="invite-bg"></div>
         <div ng-hide="item.properties.time_left" class="warning-bg"></div>
         <canvas ng-show="item.properties.time_left" id="pie-{{item.properties.id}}" width="170" height="170"></canvas>

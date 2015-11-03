@@ -1,7 +1,7 @@
 module Auth
   class ProductInvitesController < AuthController
     before_action :validate_existence, only: [ :create ]
-    before_action :fetch_customer, only: [ :show, :update, :destroy ]
+    before_action :fetch_customer, only: [ :show, :update, :destroy, :resend ]
 
     page max_limit: 20
     sort created:  { created_at: :desc },
@@ -36,13 +36,20 @@ module Auth
     def update
       @customer.update_attributes!(customer_input)
 
-      show
+      index
+    end
+
+    def resend
+      PromoterMailer.product_invitation(@customer).deliver_later
+      @customer.touch
+
+      index
     end
 
     def destroy
       @customer.destroy!
 
-      head :ok
+      index
     end
 
     private

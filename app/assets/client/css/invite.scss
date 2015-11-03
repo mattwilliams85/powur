@@ -1,4 +1,5 @@
 .invite {
+  position: relative;
   a {
     text-decoration: none;
   }
@@ -250,6 +251,7 @@
     height: 170px;
     width: 170px;
     cursor: pointer;
+    outline: 0;
 
     &:hover {
       .invite-bg {

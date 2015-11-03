@@ -95,19 +95,123 @@
 
   .actions {
     padding: 0px 0 50px 5px;
+  }
+
+  button {
+    // background-color: #41c1f6;
+
+    span {
+      padding: 10px;
+      color: white;
+    }
+
+    span:hover {
+      color: #4d4c4d;
+    }
+  }
+
+
+  &.show {
+    md-dialog-content {
+      padding: 30px 40px 30px 70px;
+    }
+
+    * {
+      color: #444;
+    }
+
+    md-content {
+      text-align: center;
+    }
+
+    .side-bg {
+      position: absolute;
+      left: 0; 
+      top: 0;
+      height: 100%;
+    }
+
+    .layout-padding {
+      padding: 10px;
+    }
+
+    .full-name {
+      line-height: 30pt;
+      font-size: x-large;
+    }
+
+    .header {
+      text-transform: uppercase;
+      font-size: small;
+      font-weight: 600;
+      line-height: 18pt;
+    }
+
+    .title {
+      font-size: large;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    .detail {
+      line-height: 15pt;
+    }
 
     button {
-      background-color: #41c1f6;
-
-      span {
-        padding: 10px;
-        color: white;
-      }
-
-      span:hover {
-        color: #4d4c4d;
+      margin: 15px 0 0 0;
+      span { 
+        color: #fff;
       }
     }
+
+    .info-wrap {
+      margin-top: 15px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding: 7px 0px;
+    }
+
+    .status-wrap {
+      padding: 15px 0 25px 0;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .info-box {
+      padding: 20px 30px;
+      &:first-child {
+        border-right: 1px solid #ccc;
+      }
+      .header {
+
+      }
+      .detail {
+        font-size: medium;
+        color: #666;
+        line-height: 12pt;
+      }
+    }
+
+    .icon {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+
+      &.sent {
+        background-image: image-url("img/solar-invite-sent-icon.png");
+        background-size: contain;
+      }
+      &.viewed {
+        background-image: image-url("img/solar-invite-viewed-icon.png");
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+    }
+
   }
 
   /* sprite */

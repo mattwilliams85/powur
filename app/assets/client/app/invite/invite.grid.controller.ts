@@ -7,12 +7,14 @@ module powur {
 
   class NewInviteGridDialogController extends NewInviteDialogController {
     static ControllerId = 'NewInviteGridDialogController';
-    static $inject = ['$log', '$mdDialog', 'invites'];
+    static $inject = ['$log', '$mdDialog', 'invites', 'invite'];
 
     constructor($log: ng.ILogService,
                 $mdDialog: ng.material.IDialogService,
-                private invites: ISirenModel) {
+                private invites: ISirenModel,
+                public invite: ISirenModel) {
       super($log, $mdDialog);
+
       if (this.create) {
         this.create.field('first_name').value = null;
         this.create.field('last_name').value = null;
@@ -30,6 +32,54 @@ module powur {
 
     get create(): Action {
       return this.invites.action('create');
+    }
+  }
+
+  class UpdateInviteGridDialogController extends NewInviteDialogController {
+    static ControllerId = 'UpdateInviteGridDialogController';
+    static $inject = ['$log', '$mdDialog', 'parentCtrl', 'invite'];
+
+    constructor($log: ng.ILogService,
+                $mdDialog: ng.material.IDialogService,
+                private parentCtrl: ng.IScope,
+                public invite: any) {
+      super($log, $mdDialog);
+
+      this.update.field('first_name').value = this.invite.properties.first_name;
+      this.update.field('last_name').value = this.invite.properties.last_name;
+      this.update.field('email').value = this.invite.properties.email;
+      this.update.field('phone').value = this.invite.properties.phone;
+      
+    }
+
+    remove() {
+      this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+      });
+    }
+
+    resendInvite() {
+      this.resend.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+      });
+    }
+
+    updateInvite() {
+      this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+      });
+    }
+
+    get delete(): Action {
+      return this.invite.action('delete');
+    }
+
+    get resend(): Action {
+      return this.invite.action('resend');
+    }
+
+    get update(): Action {
+      return this.invite.action('update');
     }
   }
 
@@ -137,6 +187,7 @@ module powur {
         targetEvent: e,
         clickOutsideToClose: true,
         locals: {
+          invite: {},
           invites: this.invites
         }
       }).then((data: any) => {
@@ -149,6 +200,44 @@ module powur {
       }, () => {
         // cancel
         this.root.$log.debug('cancel');
+      });
+    }
+
+    showInvite(e: MouseEvent, invite) {
+      this.$mdDialog.show({
+        controller: 'UpdateInviteGridDialogController as dialog',
+        templateUrl: 'app/invite/show-invite-popup.grid.html',
+        parent: angular.element('.invite.main'),
+        targetEvent: e,
+        clickOutsideToClose: true,
+        preserveScope: true,
+        locals: {
+          parentCtrl: this,
+          invite: invite
+        }
+      }).then((data: any) => {
+        if (data) this.invites = new SirenModel(data);
+      }, () => {
+        // cancel
+        this.root.$log.debug('cancel');
+      });
+    }
+
+    inviteUpdate(e: MouseEvent, invite) {
+      this.$mdDialog.show({
+        controller: 'UpdateInviteGridDialogController as dialog',
+        templateUrl: 'app/invite/update-invite-popup.grid.html',
+        parent: angular.element('.invite.main'),
+        targetEvent: e,
+        clickOutsideToClose: true,
+        locals: {
+          parentCtrl: this,
+          invite: invite
+        }
+      }).then((data: any) => {
+          this.invites = new SirenModel(data);
+      }, () => {
+        // cancel
       });
     }
 
@@ -170,5 +259,6 @@ module powur {
   angular
     .module('powur.invite')
     .controller(NewInviteGridDialogController.ControllerId, NewInviteGridDialogController)
+    .controller(UpdateInviteGridDialogController.ControllerId, UpdateInviteGridDialogController)
     .controller(InviteGridController.ControllerId, InviteGridController);
 }

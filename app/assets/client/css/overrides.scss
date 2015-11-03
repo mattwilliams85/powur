@@ -18,9 +18,26 @@ md-sidenav.collapsed{
     overflow:visible;
 }
 
+md-dialog {
+    border-radius: 0px !important;
+}
+
+md-backdrop {
+    display: block !important;
+}
+
 .md-sidenav-left{
    transition: all .3s;
    position:relative !important
+}
+
+.md-primary {
+    background-color: rgb(49, 166, 206) !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    span {
+        color: #fff !important;
+    }
 }
 
 .hud .stat4 .stat md-progress-linear {

@@ -25,6 +25,10 @@
 //= require invite/layout
 //= require invite/new-invite-popup.solar
 //= require invite/new-invite-popup.grid
+//= require invite/show-invite-popup.solar
+//= require invite/show-invite-popup.grid
+//= require invite/update-invite-popup.solar
+//= require invite/update-invite-popup.grid
 //= require invite/invite.product
 //= require invite/invite.grid
 

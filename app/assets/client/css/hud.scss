@@ -126,8 +126,8 @@
         transition:0.2s;
         cursor: pointer;
         &:hover {
-            transform: scale(1.2);
-            -webkit-transform: scale(1.2);
+            transform: translateX(-10px);
+            -webkit-transform: translateX(-10px);
         }
     }    
 

@@ -29,6 +29,54 @@ module powur {
     }
   }
 
+  class UpdateInviteSolarDialogController extends NewInviteDialogController {
+    static ControllerId = 'UpdateInviteSolarDialogController';
+    static $inject = ['$log', '$mdDialog', 'parentCtrl', 'invite'];
+
+    constructor($log: ng.ILogService,
+                $mdDialog: ng.material.IDialogService,
+                private parentCtrl: ng.IScope,
+                public invite: any) {
+      super($log, $mdDialog);
+
+      this.update.field('first_name').value = this.invite.properties.first_name;
+      this.update.field('last_name').value = this.invite.properties.last_name;
+      this.update.field('email').value = this.invite.properties.email;
+      this.update.field('phone').value = this.invite.properties.phone;
+      
+    }
+
+    remove() {
+      this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+      });
+    }
+
+    resendInvite() {
+      this.resend.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+      });
+    }
+
+    updateInvite() {
+      this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+      });
+    }
+
+    get delete(): Action {
+      return this.invite.action('delete');
+    }
+
+    get resend(): Action {
+      return this.invite.action('resend');
+    }
+
+    get update(): Action {
+      return this.invite.action('update');
+    }
+  }
+
   class InviteProductController extends AuthController {
     static ControllerId = 'InviteProductController';
     static $inject = ['invites', '$mdDialog', '$timeout'];
@@ -51,11 +99,11 @@ module powur {
       this.$mdDialog.show({
         controller: 'NewInviteSolarDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.solar.html',
-        parent: angular.element(document.body),
+        parent: angular.element('.invite.main'),
         targetEvent: e,
         clickOutsideToClose: true,
         locals: {
-          invites: this.invites
+          invites: this.invites,
         }
       })
         .then((data: any) => {
@@ -66,6 +114,44 @@ module powur {
           // cancel
           this.root.$log.debug('cancel');
         });
+    }
+
+    showInvite(e: MouseEvent, invite) {
+      this.$mdDialog.show({
+        controller: 'UpdateInviteSolarDialogController as dialog',
+        templateUrl: 'app/invite/show-invite-popup.solar.html',
+        parent: angular.element('.invite.main'),
+        targetEvent: e,
+        clickOutsideToClose: true,
+        preserveScope: true,
+        locals: {
+          parentCtrl: this,
+          invite: invite
+        }
+      }).then((data: any) => {
+        if (data) this.invites = new SirenModel(data);
+      }, () => {
+        // cancel
+        this.root.$log.debug('cancel');
+      });
+    }
+
+    inviteUpdate(e: MouseEvent, invite) {
+      this.$mdDialog.show({
+        controller: 'UpdateInviteSolarDialogController as dialog',
+        templateUrl: 'app/invite/update-invite-popup.solar.html',
+        parent: angular.element('.invite.main'),
+        targetEvent: e,
+        clickOutsideToClose: true,
+        locals: {
+          parentCtrl: this,
+          invite: invite
+        }
+      }).then((data: any) => {
+          this.invites = new SirenModel(data);
+      }, () => {
+        // cancel
+      });
     }
 
     filter(name: string) {
@@ -87,5 +173,6 @@ module powur {
   angular
     .module('powur.invite')
     .controller(NewInviteSolarDialogController.ControllerId, NewInviteSolarDialogController)
+    .controller(UpdateInviteSolarDialogController.ControllerId, UpdateInviteSolarDialogController)
     .controller(InviteProductController.ControllerId, InviteProductController);
 }
