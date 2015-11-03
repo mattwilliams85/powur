@@ -38,6 +38,7 @@ module powur {
 
     validateZip(): void {
       this.validateZipAction.submit().then((response) => {
+        this.leadAction.field('zip').value = this.validateZipAction.field('zip').value;
         this.state.go('join.solar2', { inviteCode: this.params.inviteCode });
       });
     }
