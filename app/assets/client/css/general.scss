@@ -3,6 +3,8 @@ html,body {
   font-weight: 300;
 }
 
+:focus { outline:none; }
+
 .fill-height {
   flex: 1;
   flex-direction: column;

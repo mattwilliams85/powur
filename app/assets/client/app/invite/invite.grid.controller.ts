@@ -49,7 +49,6 @@ module powur {
       this.update.field('last_name').value = this.invite.properties.last_name;
       this.update.field('email').value = this.invite.properties.email;
       this.update.field('phone').value = this.invite.properties.phone;
-      
     }
 
     remove() {
@@ -68,6 +67,10 @@ module powur {
       this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.$mdDialog.hide(response.data);
       });
+    }
+
+    showLink(event, invite) {
+      event.target.innerHTML = 'powur.com/next/join/grid/' + invite.id
     }
 
     get delete(): Action {
@@ -122,7 +125,8 @@ module powur {
     }
 
     progress(item): number {
-      return item.properties.time_left / 86400000;
+      var prog = item.properties.time_left / 86400000;
+      return Math.ceil(prog * 50) / 50;
     }
 
     // TODO: move this to an angular custom filter (might already exist as angular-moment?)
@@ -172,11 +176,10 @@ module powur {
 
     updateTimers(): void {
       for (var i = 0; i < this.list.length; i++) {
+        this.list[i].properties.time_left -= 1000;
         if (this.list[i].properties.time_left <= 0) {
           this.list[i].properties.time_left = 0;
-          continue;
         }
-        this.list[i].properties.time_left -= 1000;
       }
     }
 

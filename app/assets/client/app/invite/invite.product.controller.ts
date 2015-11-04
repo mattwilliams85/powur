@@ -64,6 +64,10 @@ module powur {
       });
     }
 
+    showLink(event, invite) {
+      event.target.innerHTML = 'powur.com/next/join/grid/' + invite.id
+    }
+
     get delete(): Action {
       return this.invite.action('delete');
     }

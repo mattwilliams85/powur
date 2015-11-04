@@ -7,6 +7,7 @@
         <div class="full-name">{{dialog.invite.properties.first_name}}<b> {{dialog.invite.properties.last_name}}</b></div>
         <div class="detail">{{dialog.invite.properties.phone}}</div>
         <div class="detail">{{dialog.invite.properties.email}}</div>
+        <div class="link" ng-click="dialog.showLink($event, dialog.invite.properties); shown = true" ng-class="{'shown': shown }">SHOW INVITE LINK</div>
         <md-button class="md-primary md-raised" ng-click="dialog.parentCtrl.inviteUpdate($event,dialog.invite)">Edit</md-button>
         <md-content layout-padding layout="row" class="info-wrap">
           <div layout="column" class="info-box">
