@@ -21,7 +21,7 @@ entity_list = [ entity(%w(solar_invite),
                        customer_path('{code}')),
                 entity(%w(grid_invite),
                        'user-solar_invite',
-                       invite_path('{code}')),
+                       anon_invite_path('{code}')),
                 entity(%w(password_token),
                        'user-password_token',
                        reset_token_password_path('{code}')) ]
