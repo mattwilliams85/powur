@@ -8,7 +8,7 @@ module UserInvites
   end
 
   def lifetime_invites_count
-    available_invites + invites.count
+    invites.count
   end
 
   def open_invites_count

@@ -19,22 +19,6 @@ describe Invite do
         .to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    describe '#create' do
-      it 'subtracts one invite from sponsor\'s available invites' do
-        invite
-        expect(sponsor.available_invites).to eq(3)
-      end
-    end
-
-    describe '#destroy' do
-      it 'adds one invite from sponsor\'s available invites' do
-        invite
-        expect(sponsor.available_invites).to eq(3)
-        invite.destroy
-        expect(sponsor.available_invites).to eq(4)
-      end
-    end
-
     describe '#accept' do
       let(:user) { invite.accept(params) }
       let(:params) do

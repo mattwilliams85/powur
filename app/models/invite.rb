@@ -17,16 +17,16 @@ class Invite < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
-  validate :max_invites, on: :create, if: :sponsor_limited_invites?
+  # validate :max_invites, on: :create, if: :sponsor_limited_invites?
   validates_with ::Phone::Validator, fields: [:phone],
                                      if:     'phone.present?',
                                      on:     :create
 
-  after_create :subtract_from_available_invites, if: :sponsor_limited_invites?
-  after_destroy :increment_available_invites, if: :sponsor_limited_invites?
-  def sponsor_limited_invites?
-    sponsor.limited_invites?
-  end
+  # after_create :subtract_from_available_invites, if: :sponsor_limited_invites?
+  # after_destroy :increment_available_invites, if: :sponsor_limited_invites?
+  # def sponsor_limited_invites?
+  #   sponsor.limited_invites?
+  # end
 
   before_validation do
     self.id ||= self.class.generate_code
@@ -125,16 +125,16 @@ class Invite < ActiveRecord::Base
     @mandrill ||= MandrillMonitor.new(email: email, tag: 'grid-invite')
   end
 
-  def max_invites
-    return if sponsor.available_invites > 0
-    errors.add(:sponsor, :exceeded_max_invites)
-  end
+  # def max_invites
+  #   return if sponsor.available_invites > 0
+  #   errors.add(:sponsor, :exceeded_max_invites)
+  # end
 
-  def subtract_from_available_invites
-    sponsor.update_column(:available_invites, sponsor.available_invites - 1)
-  end
+  # def subtract_from_available_invites
+  #   sponsor.update_column(:available_invites, sponsor.available_invites - 1)
+  # end
 
-  def increment_available_invites
-    sponsor.update_column(:available_invites, sponsor.available_invites + 1)
-  end
+  # def increment_available_invites
+  #   sponsor.update_column(:available_invites, sponsor.available_invites + 1)
+  # end
 end

@@ -1,5 +1,6 @@
 <div class="invite-popup fill-height">
   <md-dialog aria-label="Invite" class="dialog">
+
     <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate>
       <div class="side-bg"></div>
       <div layout="column" flex>
@@ -7,7 +8,14 @@
           <span class="title">Send a<br>new Grid<b> Invite</b></span>
         </div>
         <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close" ng-click="dialog.cancel()"></i></a></div>
-        <md-dialog-content layout="column">
+
+        <md-dialog-content ng-if="!dialog.create" layout="column">
+          <br hide-gt-sm>
+          <p>Please upgrade to partner</p>
+          <br hide-gt-sm>
+        </md-dialog-content>
+
+        <md-dialog-content ng-if="dialog.create" layout="column">
           <!-- TODO: this is what happens when you code for 16 hours straight -->
           <br hide-gt-sm>
           <br hide-gt-sm>

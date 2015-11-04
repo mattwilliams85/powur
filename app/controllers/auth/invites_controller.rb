@@ -9,7 +9,6 @@ module Auth
            required: false
 
     def index
-      current_user.reconcile_invites
       @invites = apply_list_query_options(
         current_user.invites.where('user_id is null').order(expires: :desc))
 
@@ -20,15 +19,12 @@ module Auth
     end
 
     def create
+      error!(:create_invite_not_allowed) unless current_user.partner?
       require_input :first_name, :last_name, :email
-
       validate_email
-      validate_max_invites
 
       @invite = current_user.create_invite(input)
       @invite.delay.send_sms
-
-      current_user.reconcile_invites if current_user.available_invites < 1
 
       render 'show'
     end
@@ -71,12 +67,6 @@ module Auth
 
       error!(:you_exist, :email) if input['email'] == current_user.email
       validate_uniq_email
-    end
-
-    def validate_max_invites
-      max_exceeded =
-        current_user.limited_invites? && current_user.available_invites < 1
-      error!(:exceeded_max_invites) if max_exceeded
     end
 
     def fetch_invite

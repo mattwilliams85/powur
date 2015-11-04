@@ -25,17 +25,7 @@ describe User, type: :model do
     end
   end
 
-  describe '#available_invites' do
-    it 'returns the correct number of available invites' do
-      user = create(:user, available_invites: 10)
-      create_list(:invite, 3, sponsor: user)
-
-      expect(user.available_invites).to eq(7)
-    end
-  end
-
   describe '#upline' do
-
     before :each do
       @root = create(:user)
       @parent = create(:user, sponsor: @root)

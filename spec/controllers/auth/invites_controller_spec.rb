@@ -4,7 +4,7 @@ describe Auth::InvitesController do
   render_views
 
   before :each do
-    @user = login_user(auth: true, available_invites: 3)
+    @user = login_user(auth: true)
   end
 
   describe '#index' do
@@ -28,44 +28,49 @@ describe Auth::InvitesController do
         phone:      '858.555.1212' }
     end
 
-    it 'creates an invite' do
-      allow_any_instance_of(Invite)
-        .to receive(:delay).and_return(double(send_sms: true))
-      post :create, invite_params
+    context 'when current user is NOT a partner' do
+      it 'does not allow to create an invite' do
+        post :create, invite_params
 
-      expect_200
-
-      expect_classes('invite')
-      expect(json_body['properties']['email']).to eq(invite_params[:email])
-    end
-
-    it 'does not allow the user to exceed the max # of invites' do
-      create_list(:invite, @user.available_invites, sponsor: @user)
-
-      post :create, invite_params
-
-      expect_alert_error
-    end
-
-    [ :first_name, :last_name ].each do |input|
-      it "requires #{input}" do
-        post :create, invite_params.reject { |k, _v| k == input }
-
-        expect_input_error(input)
+        expect_alert_error
       end
     end
 
-    it 'does not allow you to invite yourself' do
-      post :create, invite_params.merge(email: @user.email)
+    context 'when current user is a partner' do
+      before do
+        allow_any_instance_of(User).to receive(:partner?).and_return(true)
+      end
 
-      expect_input_error(:email)
-    end
+      it 'creates an invite' do
+        allow_any_instance_of(Invite)
+          .to receive(:delay).and_return(double(send_sms: true))
+        post :create, invite_params
 
-    it 'does not allow creating an invite with an existing email' do
-      user = create(:user)
-      post :create, invite_params.merge(email: user.email)
+        expect_200
 
-      expect_input_error(:email)
+        expect_classes('invite')
+        expect(json_body['properties']['email']).to eq(invite_params[:email])
+      end
+
+      [ :first_name, :last_name ].each do |input|
+        it "requires #{input}" do
+          post :create, invite_params.reject { |k, _v| k == input }
+
+          expect_input_error(input)
+        end
+      end
+
+      it 'does not allow you to invite yourself' do
+        post :create, invite_params.merge(email: @user.email)
+        expect_input_error(:email)
+      end
+
+      it 'does not allow creating an invite with an existing email' do
+        user = create(:user)
+        post :create, invite_params.merge(email: user.email)
+
+        expect_input_error(:email)
+      end
     end
   end
 

@@ -13,10 +13,12 @@ module powur {
                 $mdDialog: ng.material.IDialogService,
                 private invites: ISirenModel) {
       super($log, $mdDialog);
-      this.create.field('first_name').value = null;
-      this.create.field('last_name').value = null;
-      this.create.field('email').value = null;
-      this.create.field('phone').value = null;
+      if (this.create) {
+        this.create.field('first_name').value = null;
+        this.create.field('last_name').value = null;
+        this.create.field('email').value = null;
+        this.create.field('phone').value = null;
+      }
     }
 
     send() {
@@ -34,14 +36,6 @@ module powur {
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
     static $inject = ['invites', '$mdDialog', '$interval', '$timeout'];
-
-    get unlimitedInvites(): boolean {
-      return !this.invites.properties.limited_invites
-    }
-
-    get available(): number {
-      return this.invites.properties.available_count;
-    }
 
     get pending(): number {
       return this.invites.properties.pending_count;
@@ -149,7 +143,6 @@ module powur {
         // ok
         this.invites.entities.unshift(data);
         this.invites.properties.pending_count += 1;
-        this.invites.properties.available_count -= 1;
         setTimeout(() => {
           this.buildPies();
         });

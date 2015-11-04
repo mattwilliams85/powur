@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
             confirmation: true,
             on:           :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
-  validates :available_invites, numericality: { greater_than_or_equal_to: 0 }
+  # validates :available_invites, numericality: { greater_than_or_equal_to: 0 }
 
   before_create :set_url_slug
   after_create :hydrate_upline
@@ -181,9 +181,9 @@ class User < ActiveRecord::Base
     !lifetime_rank.nil? && lifetime_rank >= 1
   end
 
-  def limited_invites?
-    !partner?
-  end
+  # def limited_invites?
+  #   !partner?
+  # end
 
   def purchased_at(product_id)
     purchase = product_receipts.entries.detect do |pr|
@@ -218,19 +218,19 @@ class User < ActiveRecord::Base
     role?(:breakage_account)
   end
 
-  def reconcile_invites
-    update_column(:available_invites, 0) if available_invites < 0
-    return if available_invites > 0
-    available = case invites.redeemed.count
-                when (0...9) then 5
-                when (10..19) then 10
-                else 20
-                end
-    pending = invites.pending.count
-    amount_to_add = available - pending
-    return if amount_to_add < 1
-    update_column(:available_invites, amount_to_add)
-  end
+  # def reconcile_invites
+  #   update_column(:available_invites, 0) if available_invites < 0
+  #   return if available_invites > 0
+  #   available = case invites.redeemed.count
+  #               when (0...9) then 5
+  #               when (10..19) then 10
+  #               else 20
+  #               end
+  #   pending = invites.pending.count
+  #   amount_to_add = available - pending
+  #   return if amount_to_add < 1
+  #   update_column(:available_invites, amount_to_add)
+  # end
 
   def metrics
     @metrics ||= Metrics.new(self)
