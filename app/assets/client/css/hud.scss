@@ -8,8 +8,8 @@
         top:265px;
         position:absolute;
         right:0px;
-        width:40px;
-        height:40px;
+        width:50px;
+        height:50px;
         outline:none;
         transition:0.2s;
         -webkit-transform: rotate(180deg);
@@ -19,8 +19,7 @@
         transform: rotate(180deg);
         cursor: pointer;
         &:hover {
-            transform: scale(1.2);
-            -webkit-transform: scale(1.2);
+            padding-right: 0;
         }
     }    
     .achievements{
@@ -126,8 +125,7 @@
         transition:0.2s;
         cursor: pointer;
         &:hover {
-            transform: translateX(-10px);
-            -webkit-transform: translateX(-10px);
+            padding-right: 60px;
         }
     }    
 
