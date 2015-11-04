@@ -37,6 +37,16 @@
     }
   }
 
+  .timer {
+    font-size: 14pt;
+    text-transform: uppercase;
+    color: #fff !important;
+    background-color: #cfcfcf;
+    padding: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+  }
+
   .dialog {
     max-height: 100%;
     margin: 1em auto;

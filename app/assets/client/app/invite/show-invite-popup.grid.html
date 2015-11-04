@@ -12,7 +12,7 @@
           <div layout="column" class="info-box">
             <div class="icon sent"></div>
             <div class="header">invitation date</div>
-            <div class="detail">{{dialog.invite.properties.updated_at | date: 'MMM d, yyyy'}}</div>
+            <div class="detail">{{dialog.invite.properties.created_at | date: 'MMM d, yyyy'}}</div>
           </div>
           <div layout="column" class="info-box">
             <div class="icon viewed"></div>
@@ -21,8 +21,9 @@
           </div>
         </md-content>
         <md-content layout-padding layout="column" class="status-wrap">
-          <div class="header">expiration status</div>
-          <div class="title">{{ dialog.parentCtrl.dateFormat(dialog.invite, 'H:mm') }}</div>
+          <div class="header">Time Remaining</div>
+          <div ng-if="dialog.invite.properties.time_left" class="timer">{{ dialog.parentCtrl.dateFormat(dialog.invite, 'H') }} hours : {{ dialog.parentCtrl.dateFormat(dialog.invite, 'mm') }} minutes</div>
+          <div ng-if="!dialog.invite.properties.time_left" class="timer">expired</div>
         </md-content>
         <md-button ng-if="!dialog.invite.properties.time_left" class="md-primary md-raised" ng-click="dialog.resendInvite()">Resend</md-button>
         <md-button class="md-warn md-raised" ng-click="dialog.remove()">Delete</md-button>
