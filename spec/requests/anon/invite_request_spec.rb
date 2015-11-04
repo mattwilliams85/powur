@@ -36,7 +36,7 @@ describe '/invite' do
     end
 
     it 'requires certain fields' do
-      patch invite_path(invite.id)
+      patch anon_invite_path(invite.id)
 
       expect_input_error(:first_name)
     end
@@ -60,7 +60,7 @@ describe '/invite' do
 
       it 'registers a user and associates any outstanding invites' do
         VCR.use_cassette('invite_promoter_association') do
-          patch invite_path(id: invite.id, format: :json), user_params
+          patch anon_invite_path(id: invite.id, format: :json), user_params
         end
 
         expect_200
@@ -87,7 +87,7 @@ describe '/invite/{code}' do
   let(:invite) { create(:invite, sponsor: sponsor) }
 
   it 'returns not found if previously redeemed' do
-    get invite_path(redeemed_invite.id), format: :json
+    get anon_invite_path(redeemed_invite.id), format: :json
 
     expect_404
   end
@@ -95,13 +95,13 @@ describe '/invite/{code}' do
   it 'returns not found if expired' do
     invite.update_attribute(:expires, (invite.expires -= 2.days))
 
-    get invite_path(invite.id), format: :json
+    get anon_invite_path(invite.id), format: :json
 
     expect_404
   end
 
   it 'returns an invite when the user has inputted a code' do
-    get invite_path(invite.id), format: :json
+    get anon_invite_path(invite.id), format: :json
 
     expect_200
     expect_classes('invite')
@@ -111,7 +111,7 @@ describe '/invite/{code}' do
 
   it 'updates last viewed at field' do
     invite.update_attribute(:last_viewed_at, Time.zone.now - 1.month)
-    get invite_path(invite.id), format: :json
+    get anon_invite_path(invite.id), format: :json
 
     expect_200
     expect(invite.reload.last_viewed_at)
