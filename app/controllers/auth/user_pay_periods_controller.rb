@@ -5,7 +5,7 @@ module Auth
     filter :time_span, options: [ :monthly, :weekly ]
 
     def index
-      query = PayPeriod.user_has_bonuses(@user.id)
+      query = PayPeriod.distributed.user_has_bonuses(@user.id)
       @pay_periods = apply_list_query_options(query)
     end
 

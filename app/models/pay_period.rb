@@ -10,7 +10,6 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   scope :calculated, -> { where('calculated_at is not null') }
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
-  scope :disbursed, -> { where('disbursed_at is not null') }
   scope :within_date_range,
         ->(start_date, end_date) { where(end_date: start_date..end_date) }
   scope :time_span,
