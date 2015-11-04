@@ -23,9 +23,9 @@
   <md-toolbar>
     <h3>
       <md-button ng-class=" { 'active': !invite.filters.status }" ng-click="invite.filter('')">All</md-button>
-      <md-button ng-class=" { 'active': invite.filters.status === 'sent' }" ng-click="invite.filter('sent')">Sent</md-button>
-      <md-button ng-class=" { 'active': invite.filters.status === 'initiated' }" ng-click="invite.filter('initiated')">Initiated</md-button>
-      <md-button ng-class=" { 'active': invite.filters.status === 'ineligible_location' }" ng-click="invite.filter('ineligible_location')">Ineligible</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'sent' }" ng-click="invite.filter('sent')" ng-show="invite.listProps.sent">Sent</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'initiated' }" ng-click="invite.filter('initiated')" ng-show="invite.listProps.initiated">Initiated</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'ineligible_location' }" ng-click="invite.filter('ineligible_location')" ng-show="invite.listProps.ineligible_location">Ineligible</md-button>
     </h3>
   </md-toolbar>
 

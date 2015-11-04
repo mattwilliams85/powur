@@ -19,8 +19,8 @@
   <md-toolbar>
     <h3>
       <md-button ng-class=" { 'active': !invite.filters.status }" ng-click="invite.filter('')">All</md-button>
-      <md-button ng-class=" { 'active': invite.filters.status === 'pending' }" ng-click="invite.filter('pending')">Pending</md-button>
-      <md-button ng-class=" { 'active': invite.filters.status === 'expired' }" ng-click="invite.filter('expired')">Expired</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'pending' }" ng-click="invite.filter('pending')" ng-show="invite.pending">Pending</md-button>
+      <md-button ng-class=" { 'active': invite.filters.status === 'expired' }" ng-click="invite.filter('expired')" ng-show="invite.expired">Expired</md-button>
     </h3>
   </md-toolbar>
 
