@@ -26,6 +26,15 @@ md-backdrop {
     display: block !important;
 }
 
+md-ink-bar {
+    background-color: #eee !important;
+    color: #eee !important;
+}
+
+md-tab-item:not([disabled]) {
+    color: #eee !important;
+}
+
 .md-sidenav-left{
    transition: all .3s;
    position:relative !important

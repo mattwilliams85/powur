@@ -215,25 +215,26 @@
     min-height: 100vh;
 
     md-tabs {
-      background-color: #777;
-      background-image: image-url('img/invites-filter-icon.png');
-      background-position: 20px 12px;
+      background-color: #8f8f8f;
+      background-image: url(/assets/img/funnel.png);
       background-repeat: no-repeat;
       min-height: initial;
-      padding-left: 50px;
+      padding-left: 60px;
+      background-size: 22px 22px;
+      background-position: 23px;
 
       &.solar {
         md-ink-bar {
-          background-color: #02AAEB;
+          background-color: #52BCAF !important;
         }
       }
 
       md-tabs-wrapper {
-        background-color: #777;
+        background-color: #8f8f8f;
       }
 
       md-ink-bar {
-        background-color: #02AAEB;
+        background-color: #2583A8 !important;
         height: 3px;
       }
 
