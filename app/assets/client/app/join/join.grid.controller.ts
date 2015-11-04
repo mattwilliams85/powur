@@ -18,7 +18,8 @@ module powur {
     }
 
     get termsPath(): string {
-      return this.session.properties.latest_terms.document_path;
+      var terms = this.session.properties.latest_terms || {};
+      return terms.document_path;
     }
 
     constructor(private $mdDialog: ng.material.IDialogService,
