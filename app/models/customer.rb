@@ -85,7 +85,7 @@ class Customer < ActiveRecord::Base
   end
 
   def mandrill
-    return nil unless email
-    @mandrill ||= MandrillMonitor.new(email: email, tag: 'solar-invite')
+    return nil unless mandrill_id
+    @mandrill ||= MandrillMonitor.new(mandrill_id)
   end
 end

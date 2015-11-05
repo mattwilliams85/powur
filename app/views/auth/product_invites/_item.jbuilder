@@ -22,4 +22,10 @@ actions << action(:delete, :delete, product_invite_path(invite))
 
 actions(*actions)
 
+entity_list = [ entity(%w(email),
+                       'invite-email',
+                       email_product_invite_path(invite.id)) ]
+
+entities(*entity_list)
+
 self_link product_invite_path(invite)

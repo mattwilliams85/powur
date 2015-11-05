@@ -1,7 +1,7 @@
 module Auth
   class ProductInvitesController < AuthController
     before_action :validate_existence, only: [ :create ]
-    before_action :fetch_customer, only: [ :show, :update, :destroy, :resend ]
+    before_action :fetch_customer, only: [ :show, :update, :destroy, :resend, :email ]
 
     page max_limit: 20
     sort created:  { created_at: :desc },

@@ -103,6 +103,7 @@ Rails.application.routes.draw do
       member do
         delete :delete
         post :resend
+        get :email
       end
     end
 
@@ -173,6 +174,7 @@ Rails.application.routes.draw do
     resources :product_invites do
       member do
         post :resend
+        get :email
       end
     end
 

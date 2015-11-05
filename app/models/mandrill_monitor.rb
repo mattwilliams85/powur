@@ -1,25 +1,27 @@
 require 'mandrill'
 
 class MandrillMonitor
-  attr_reader :client, :email, :tag
+  attr_reader :client, :message_id
 
-  def initialize(opts = {})
+  def initialize(message_id)
     @client = Mandrill::API.new(ENV['MANDRILL_API_KEY'])
-    @email = opts[:email]
-    @tag = opts[:tag]
+    @message_id = message_id
   end
 
   # Returns a mandrill message object data
   def message
-    @message ||=
-      client.messages.search("email:'#{email}' AND tags:'#{tag}'").first
+    @message ||= client.messages.info(message_id)
   end
 
-  def opened?
-    message && message['opens'] > 0
+  def opens
+    message && message['opens']
   end
 
-  def clicked?
-    message && message['clicks'] > 0
+  def clicks
+    message && message['clicks']
+  end
+
+  def state
+    message && message['state']
   end
 end

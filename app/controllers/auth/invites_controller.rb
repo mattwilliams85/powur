@@ -1,6 +1,7 @@
 module Auth
   class InvitesController < AuthController
-    before_action :fetch_invite, only: [ :show, :update, :resend, :delete ]
+    before_action :fetch_invite,
+                  only: [ :show, :update, :resend, :delete, :email ]
     skip_before_action :authenticate!, only: [ :show ]
 
     page max_limit: 20

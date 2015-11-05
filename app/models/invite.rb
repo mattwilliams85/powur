@@ -121,8 +121,8 @@ class Invite < ActiveRecord::Base
   end
 
   def mandrill
-    return nil unless email
-    @mandrill ||= MandrillMonitor.new(email: email, tag: 'grid-invite')
+    return nil unless mandrill_id
+    @mandrill ||= MandrillMonitor.new(mandrill_id)
   end
 
   # def max_invites
