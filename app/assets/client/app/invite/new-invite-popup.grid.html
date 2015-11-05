@@ -11,8 +11,14 @@
 
         <md-dialog-content ng-if="!dialog.create" layout="column">
           <br hide-gt-sm>
-          <p>Please upgrade to partner</p>
+          <p>You must be a certified partner to build your #PowurGrid</p>
+          <p>Becoming a partner allows you to do more than just spread the word.</p>
+          <p>As a partner, you have the ability to earn an unlimited income disrupting the current energy grid.<br>Get certified today, and discover how to reach your Impact and Income goals.</p>
           <br hide-gt-sm>
+
+          <div class="actions">
+            <md-button ng-href="/upgrade" class="md-primary">Upgrade</md-button>
+          </div>
         </md-dialog-content>
 
         <md-dialog-content ng-if="dialog.create" layout="column">
