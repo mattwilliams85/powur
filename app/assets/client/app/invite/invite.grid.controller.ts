@@ -20,6 +20,10 @@ module powur {
         this.create.field('last_name').value = null;
         this.create.field('email').value = null;
         this.create.field('phone').value = null;
+        this.create.field('first_name').$error = null;
+        this.create.field('last_name').$error = null;
+        this.create.field('email').$error = null;
+        this.create.field('phone').$error = null;
       }
     }
 
@@ -69,8 +73,8 @@ module powur {
       });
     }
 
-    showLink(event, invite) {
-      event.target.innerHTML = 'powur.com/next/join/grid/' + invite.id
+    showLink(invite): string {
+      return 'powur.com/next/join/grid/' + invite.id;
     }
 
     get delete(): Action {
@@ -118,10 +122,10 @@ module powur {
                 private $timeout: ng.ITimeoutService) {
       super();
 
-      $interval.cancel(this.invites.properties.pieTimer);
+      this.$interval.cancel(this.invites.properties.pieTimer);
 
-      $timeout(() => {
-        this.invites.properties.pieTimer = $interval(() => {
+      this.$timeout(() => {
+        this.invites.properties.pieTimer = this.$interval(() => {
             this.updateTimers();
         }, 1000)
         this.buildPies();
@@ -200,7 +204,7 @@ module powur {
         }
       }).then((data: any) => {
         // ok
-        this.invites.entities.unshift(data);
+        this.invites.entities.unshift(new SirenModel(data));
         this.invites.properties.pending_count += 1;
         setTimeout(() => {
           this.buildPies();
@@ -267,7 +271,12 @@ module powur {
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
           this.invites.entities = data.entities;
+          var pieTimer = this.invites.properties.pieTimer;
           this.invites.properties = data.properties;
+          this.invites.properties.pieTimer = pieTimer;
+          setTimeout(() => {
+            this.buildPies();
+          });
       });
     }
   }

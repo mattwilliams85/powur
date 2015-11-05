@@ -15,6 +15,10 @@ module powur {
       this.create.field('last_name').value = null;
       this.create.field('email').value = null;
       this.create.field('phone').value = null;
+      this.create.field('first_name').$error = null;
+      this.create.field('last_name').$error = null;
+      this.create.field('email').$error = null;
+      this.create.field('phone').$error = null;
     }
 
     send() {
@@ -64,8 +68,8 @@ module powur {
       });
     }
 
-    showLink(event, invite) {
-      event.target.innerHTML = 'powur.com/next/join/grid/' + invite.id
+    showLink(invite): string {
+      return 'powur.com/next/join/grid/' + invite.id;
     }
 
     get delete(): Action {
@@ -118,8 +122,7 @@ module powur {
       })
         .then((data: any) => {
           // ok
-          console.log(this.invites)
-          this.invites.entities.unshift(data);
+          this.invites.entities.unshift(new SirenModel(data));
           this.invites.properties.sent += 1;
         }, () => {
           // cancel

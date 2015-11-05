@@ -50,6 +50,10 @@ md-tab-item:not([disabled]) {
     }
 }
 
+button:disabled {
+    background-color: #e5e5e5 !important;
+}
+
 .hud .stat4 .stat md-progress-linear {
     .md-container {
         height: 7px !important;

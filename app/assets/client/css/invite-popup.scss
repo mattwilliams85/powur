@@ -40,15 +40,19 @@
   .timer {
     font-size: 14pt;
     text-transform: uppercase;
-    color: #fff !important;
-    background-color: #cfcfcf;
+    color: #2583A8 !important;
     padding: 10px;
     font-weight: 600;
     letter-spacing: .1em;
+    line-height: 8pt;
+    &.expired {
+      color: #C34646 !important;
+    }
   }
 
   .dialog {
     max-height: 100%;
+    min-width: 425px;
     margin: 1em auto;
 
     @media (max-width: 600px) {
@@ -169,14 +173,10 @@
     }
 
     .link {
-      color: #31A6CE;
+      color: #666;
       font-size: 11pt;
       font-weight: 400;
-      margin-top: 5px;
-      cursor: pointer;
-      &.shown {
-        cursor: text;
-      }
+      border: 0;
     }
 
     button {
@@ -187,21 +187,29 @@
     }
 
     .info-wrap {
-      margin-top: 15px;
+      margin-top: 5px;
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
-      padding: 7px 0px;
+      padding: 0px;
     }
 
     .status-wrap {
-      padding: 15px 0 15px 0;
-      border-bottom: 1px solid #ccc;
+      padding: 15px 0 0 0;
+    }
+
+    .link-wrap {
+      text-align: center;
+      margin-top: 5px;
+      input {
+        text-align: center;
+      }
     }
 
     .info-box {
       padding: 20px 30px;
-      &:first-child {
-        border-right: 1px solid #ccc;
+      margin: 0 auto;
+      &:nth-child(2) {
+        border-left: 1px solid #ccc;
       }
       .header {
 

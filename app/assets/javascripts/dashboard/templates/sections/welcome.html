@@ -5,7 +5,9 @@
     <div class="welcome-message row">
       <!-- Photo -->
       <div class="large-2 large-offset-1 medium-3 small-4 small-offset-1 columns">
-        <img class="avatar" ng-src="{{currentUser.avatar.large || legacyImagePaths.defaultAvatar}}">
+        <div class="avatar">
+          <img ng-src="{{currentUser.avatar.large || legacyImagePaths.defaultAvatar}}">
+        </div>
       </div>
       <!-- Name and Welcome Quote -->
       <div class="large-9 medium-8 small-7 columns">
