@@ -55,7 +55,7 @@ module powur {
     acceptSubmit(): void {
       this.acceptAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.session.refresh().then(() => {
-          this.state.go('home.invite');
+          this.state.go('home.invite.grid');
         });
       });
     }
