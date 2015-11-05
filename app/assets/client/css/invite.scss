@@ -102,10 +102,6 @@
       outline: none
     }
 
-    li:last-child {
-      border-right: none;
-    }
-
     .bar {
       width: 55%;
       height: 5px;
@@ -222,6 +218,7 @@
       padding-left: 60px;
       background-size: 22px 22px;
       background-position: 23px;
+      border-radius: 0;
 
       &.solar {
         md-ink-bar {
@@ -262,7 +259,7 @@
   }
 
   .invite-list {
-    padding: 0 20px;
+    padding: 20px 20px;
     overflow: hidden;
     max-width: 1200px;
   }
