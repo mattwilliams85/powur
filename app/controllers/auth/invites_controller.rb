@@ -10,7 +10,7 @@ module Auth
 
     def index
       @invites = apply_list_query_options(
-        current_user.invites.where('user_id is null').order(expires: :desc))
+        current_user.invites.where('user_id is null').order(expires: :asc))
 
       render 'index'
     end
