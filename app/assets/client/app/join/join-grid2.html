@@ -1,8 +1,8 @@
 <div class="join step2" flex layout="column" layout-align="start center">
     <div class="bg-img g2"></div>
-    <div class="trailer-box smaller">
+    <div class="trailer-box smaller" ng-if="join.videoStep2">
         <div class="intro" flex>
-        <iframe src="https://player.vimeo.com/video/142689080?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
+          <iframe src="{{ join.videoStep2 }}" width="100%" height="100%" frameborder="0" ></iframe>
         </div>
     </div>
     <form ng-submit="join.acceptSubmit()" name="acceptGridInviteForm" layout-padding novalidate ng-class="{ 'opaque': join.leadSubmitAllowed }" class="grid">

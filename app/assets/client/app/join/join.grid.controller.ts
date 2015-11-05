@@ -6,12 +6,15 @@ module powur {
 
   class JoinGridController extends BaseController {
     static ControllerId = 'JoinGridController';
-    static $inject = ['$mdDialog', '$stateParams', '$timeout', 'invite'];
+    static $inject = ['$mdDialog', '$stateParams', '$timeout', '$sce', 'invite'];
 
     gridKey: string;
     gridKeyInvalid: boolean;
     gridKeyMissing: boolean;
     leadSubmitAllowed: boolean = false;
+
+    videoStep1: string;
+    videoStep2: string;
 
     get acceptAction(): Action {
       return this.invite.action('accept_invite');
@@ -25,12 +28,16 @@ module powur {
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
                 private $timeout: ng.ITimeoutService,
+                private $sce: ng.ISCEService,
                 private invite: ISirenModel) {
       super();
 
       if (!_.isEmpty(invite)) {
         this.gridKey = invite.properties.id;
       }
+
+      this.videoStep1 = $sce.trustAsResourceUrl(this.session.properties.join_grid_step1_youtube_embed_url)
+      this.videoStep2 = $sce.trustAsResourceUrl(this.session.properties.join_grid_step2_youtube_embed_url)
 
       $timeout(() => {
         this.leadSubmitAllowed = true;

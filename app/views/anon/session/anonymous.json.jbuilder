@@ -4,6 +4,10 @@ klass :session, :anonymous
 
 json.properties do
   json.latest_terms ApplicationAgreement.current
+  json.join_grid_step1_youtube_embed_url(
+    SystemSettings.join_grid_step1_youtube_embed_url)
+  json.join_grid_step2_youtube_embed_url(
+    SystemSettings.join_grid_step2_youtube_embed_url)
 end
 
 actions_list = [
