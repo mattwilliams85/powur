@@ -106,6 +106,10 @@ module powur {
       return this.invites.entities;
     }
 
+    get showFilters(): boolean {
+      return !!(this.pending || this.expired);
+    }
+
     filters: any = {};
 
     constructor(private invites: ISirenModel,
@@ -220,7 +224,7 @@ module powur {
           invite: invite
         }
       }).then((data: any) => {
-        if (data) { 
+        if (data) {
           this.invites.entities = new SirenModel(data).entities;
           setTimeout(() => {
             this.buildPies();

@@ -20,7 +20,7 @@
 </div>
 
 <div class="invite-list-bg">
-  <md-tabs class="md-accent solar">
+  <md-tabs ng-show="invite.showFilters" class="md-accent solar">
     <md-tab ng-class=" { 'active': !invite.filters.status }" ng-click="invite.filter('')">All</md-tab>
     <md-tab ng-class=" { 'active': invite.filters.status === 'sent' }" ng-click="invite.filter('sent')"  ng-if="invite.listProps.sent">Sent</md-tab>
     <md-tab ng-class=" { 'active': invite.filters.status === 'initiated' }" ng-click="invite.filter('initiated')"  ng-if="invite.listProps.initiated">Initiated</md-tab>

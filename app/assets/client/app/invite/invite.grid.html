@@ -16,11 +16,10 @@
 </div>
 
 <div class="invite-list-bg">
-
-  <md-tabs class="md-accent">
+  <md-tabs ng-show="invite.showFilters" class="md-accent">
     <md-tab ng-class=" { 'active': !invite.filters.status }" ng-click="invite.filter('')">All</md-tab>
-    <md-tab ng-class=" { 'active': invite.filters.status === 'pending' }" ng-click="invite.filter('pending')" ng-show="invite.pending">Pending</md-tab>
-    <md-tab ng-class=" { 'active': invite.filters.status === 'expired' }" ng-click="invite.filter('expired')" ng-show="invite.expired">Expired</md-tab>
+    <md-tab ng-class=" { 'active': invite.filters.status === 'pending' }" ng-click="invite.filter('pending')" ng-if="invite.pending">Pending</md-tab>
+    <md-tab ng-class=" { 'active': invite.filters.status === 'expired' }" ng-click="invite.filter('expired')" ng-if="invite.expired">Expired</md-tab>
   </md-tabs>
 
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">

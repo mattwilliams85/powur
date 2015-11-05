@@ -43,7 +43,7 @@ module powur {
       this.update.field('last_name').value = this.invite.properties.last_name;
       this.update.field('email').value = this.invite.properties.email;
       this.update.field('phone').value = this.invite.properties.phone;
-      
+
     }
 
     remove() {
@@ -91,6 +91,12 @@ module powur {
 
     get listProps(): any {
       return this.invites.properties;
+    }
+
+    get showFilters(): boolean {
+      return !!(this.listProps.sent ||
+                this.listProps.ineligible_location ||
+                this.listProps.initiated);
     }
 
     filters: any = {};
@@ -166,7 +172,7 @@ module powur {
       for (var key in this.filters) {
         opts[key] = this.filters[key];
       }
-      
+
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
           this.invites.entities = data.entities;
