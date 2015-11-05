@@ -17,13 +17,14 @@
             <div class="header">invitation date</div>
             <div class="detail">{{dialog.invite.properties.created_at | date: 'MMM d, yyyy'}}</div>
           </div>
-          <div class="info-box" ng-if="dialog.invite.properties.viewed_at">
+          <div class="info-box" ng-if="dialog.invite.properties.email_data.opens">
             <div class="icon viewed"></div>
             <div class="header">last viewed</div>
             <div class="detail">{{(dialog.invite.properties.viewed_at | date: 'MMM d, yyyy') || '---'}}</div>
           </div>
         </md-content>
         <md-content layout-padding layout="column" class="status-wrap">
+          <div ng-if="dialog.invite.properties.email_data">{{ dialog.invite.properties.email_data.state }}</div>
           <div class="header">Time Remaining</div>
           <div ng-if="dialog.invite.properties.time_left" class="timer">{{ dialog.parentCtrl.dateFormat(dialog.invite, 'H') }} hours : {{ dialog.parentCtrl.dateFormat(dialog.invite, 'mm') }} minutes</div>
           <div ng-if="!dialog.invite.properties.time_left" class="timer expired">expired</div>

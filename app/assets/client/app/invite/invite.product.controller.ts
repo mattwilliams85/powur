@@ -48,6 +48,9 @@ module powur {
       this.update.field('email').value = this.invite.properties.email;
       this.update.field('phone').value = this.invite.properties.phone;
 
+      this.invite.entity('invite-email').get((email_data: any) => {
+        this.invite.properties.email_data = email_data.properties;
+      });
     }
 
     remove() {

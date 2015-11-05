@@ -58,11 +58,11 @@
     @media (max-width: 600px) {
       max-width: 300px;
     }
-    
+
     @media (min-width: 600px) {
       max-width: 850px;
     }
-    
+
   }
 
   @media #{$gt-md} {
@@ -141,7 +141,7 @@
 
     .side-bg {
       position: absolute;
-      left: 0; 
+      left: 0;
       top: 0;
       height: 100%;
     }
@@ -181,7 +181,7 @@
 
     button {
       margin: 15px 0 0 0;
-      span { 
+      span {
         color: #fff;
       }
     }
