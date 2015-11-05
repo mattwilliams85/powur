@@ -1,5 +1,3 @@
-require 'mandrill'
-
 class MandrillMonitor
   attr_reader :client, :message_id
 

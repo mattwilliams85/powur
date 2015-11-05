@@ -1,5 +1,3 @@
-require 'mandrill'
-
 class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = invite.name_and_email

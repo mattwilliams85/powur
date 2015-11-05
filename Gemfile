@@ -48,7 +48,7 @@ gem 'twilio-ruby'
 gem 'typescript-rails'
 gem 'foundation-rails'
 gem 'lograge'
-gem 'mandrill-api'
+gem 'mandrill-api', require: 'mandrill'
 
 group :development do
   gem 'spring'
