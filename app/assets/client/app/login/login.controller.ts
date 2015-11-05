@@ -9,7 +9,7 @@ module powur {
     static $inject = [];
 
     get childState(): string {
-      return this.loggedIn ? 'home.invite' : 'login.public';
+      return this.loggedIn ? 'home.invite.grid' : 'login.public';
     }
 
     constructor() {
