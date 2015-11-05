@@ -1,7 +1,7 @@
 siren json
 
 json.properties do
-  json.state @invite.mandrill.state
-  json.opens @invite.mandrill.opens
-  json.clicks @invite.mandrill.clicks
+  json.state @invite.mandrill.try(:state)
+  json.opens @invite.mandrill.try(:opens)
+  json.clicks @invite.mandrill.try(:clicks)
 end
