@@ -11,7 +11,9 @@ module Auth
            required: false
 
     def index
-      @invites = apply_list_query_options(current_user.customers)
+      invites_scope = current_user.customers.where.not(
+        status: Customer.statuses[:accepted])
+      @invites = apply_list_query_options(invites_scope)
 
       render 'index'
     end
