@@ -78,7 +78,7 @@ module powur {
     }
 
     showLink(invite): string {
-      return 'powur.com/next/join/grid/' + invite.id;
+      return 'https://powur.com/next/join/grid/' + invite.id;
     }
 
     get delete(): Action {
