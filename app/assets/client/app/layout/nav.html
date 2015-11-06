@@ -4,7 +4,7 @@
             <!-- <div ng-click="nav.openMenu(); activeMenu = !activeMenu" class="mobile-menu" hide-gt-md ng-class="{ 'active': nav.isOpen() }"></div> -->
             <div class="align-top">
                 <a href="/dashboard" target="_self">
-                  <li ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard">
+                  <li ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard" target="_self">
                     <i class="sprite sprite-dashboard"></i>
                     <md-tooltip>Dashboard</md-tooltip>
                   </li>
@@ -15,17 +15,17 @@
                   <md-tooltip>Invite</md-tooltip>
                   </li>
                 </a>
-                <a ng-href="/university">
+                <a ng-href="/university" target="_self">
                   <li ng-class="{'active': isMenuLinkActive('/university')}"><i class="sprite sprite-certs"></i>
                   <md-tooltip>Powur U</md-tooltip>
                   </li>
                 </a>
-                <a ng-href="/earnings">
+                <a ng-href="/earnings" target="_self">
                   <li ng-class="{'active': isMenuLinkActive('/earnings')}" ><i class="sprite sprite-earnings"></i>
                   <md-tooltip>Earnings</md-tooltip>
                   </li>
                 </a>
-                <a ng-href="/library" class="hover">
+                <a ng-href="/library" target="_self">
                   <li ng-class="{'active': isMenuLinkActive('/earnings')}"><i class="sprite sprite-library"></i>
                   <md-tooltip>Library</md-tooltip>
                   </li>
@@ -38,7 +38,7 @@
                   <md-tooltip>Admin</md-tooltip>
                   </li>
                 </a>
-                <a ng-href="/profile">
+                <a ng-href="/profile" target="_self">
                   <li><i class="sprite sprite-stats"></i>
                   <md-tooltip>Profile</md-tooltip>
                   </li>
