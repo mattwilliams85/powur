@@ -176,7 +176,7 @@ module powur {
             label: "Incomplete"
           }
         ]
-        console.log(id, this.activePies)
+        
         if (this.activePies.indexOf(id) > -1) continue;
         var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
         var ctx = canvas.getContext('2d');

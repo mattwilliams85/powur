@@ -10,6 +10,8 @@
     background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
     background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
+
+    a { text-decoration: none; }
     
     .mobile-menu {
         background: image-url('img/hud-icon-disabled.png');
@@ -52,6 +54,13 @@
         left: 16px;
         width: 40px;
     }
+
+    .admin {
+        color: #2C6B8A;
+        font-weight: 600;
+        margin-left: -9px;
+        font-size: 11pt;
+    }
     
     .sprite {
         background-image: image-url("img/nav-sprite.png");
@@ -60,18 +69,25 @@
     }
 
     .sprite-library {
-        background: image-url('img/library-icon.png');
+        width: 35px;
+        height: 43px;
+        background-position: -5px -5px;
+    }
+
+    .sprite-upgrade {
+        background: image-url('img/upgrade-icon.png');
+        background-size: contain;
+        width: 35px;
+        height: 35px;
+        margin-left: -3px;
+    }
+    
+    .sprite-certs {
+        background: image-url('img/powur-u-icon.png');
         background-size: contain;
         width: 35px;
         height: 35px;
         margin-left: 1px;
-    }
-    
-    
-    .sprite-certs {
-        width: 35px;
-        height: 43px;
-        background-position: -5px -5px;
     }
     
     .sprite-earnings {
