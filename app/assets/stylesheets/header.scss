@@ -151,3 +151,151 @@ and (max-device-width : 960px) {
     }
   }
 }
+
+.nav .bg {
+    width: 70px;
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    /*height: 1200px;*/
+    background: #29a8dd; /* Old browsers */
+    background: -moz-linear-gradient(top, #29a8dd 0%, #509f9a 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#29a8dd), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
+
+    .admin {
+        color: #2C6B8A;
+        font-weight: 600;
+        font-size: 11pt;
+    }
+
+    .align-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    
+    .mobile-menu {
+        background: image-url('img/hud-icon-disabled.png');
+        height: 38px;
+        width: 34px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        margin-bottom: 35px;
+        cursor: pointer;
+        &.active {
+            background: image-url('img/hud-icon.png');
+        }
+    }
+
+    .list {
+        list-style-type: none;
+        padding: 30px 15px 0 15px;
+        margin: 0;        
+        text-align: center;
+            
+        li {
+            margin-bottom: 40px;
+        }
+        
+        li:hover, li.active {
+            -webkit-filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1);
+            cursor: pointer;
+        }        
+    }
+
+    // .bottom {
+    //     position: fixed;
+    //     bottom: 10px;
+    // }
+    
+    .sprite {
+        background-image: image-url("img/nav-sprite.png");
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+    
+    .sprite-certs {
+        width: 35px;
+        height: 43px;
+        background-position: -5px -5px;
+    }
+    
+    .sprite-earnings {
+        width: 42px;
+        height: 40px;
+        background-position: -50px -5px;
+    }
+    
+    .sprite-events {
+        width: 33px;
+        height: 33px;
+        background-position: -102px -5px;
+    }
+    
+    .sprite-goal {
+        width: 42px;
+        height: 40px;
+        background-position: -145px -5px;
+    }
+    
+    .sprite-grid {
+        width: 42px;
+        height: 40px;
+        background-position: -197px -5px;
+    }
+    
+    .sprite-logout {
+        width: 33px;
+        height: 26px;
+        background-position: -249px -5px;
+    }
+    
+    .sprite-social {
+        width: 33px;
+        height: 29px;
+        background-position: -292px -5px;
+    }
+    
+    .sprite-stats {
+        width: 27px;
+        height: 31px;
+        background-position: -335px -5px;
+    }
+
+    .sprite-library {
+        background: image-url('dashboard/library-icon.png');
+        background-size: contain;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .sprite-strategy {
+        width: 21px;
+        height: 37px;
+        background-position: -372px -5px;
+    }
+    
+    .sprite-dashboard {
+      width: 35px;
+      height: 35px;
+      background-position: -403px -5px;
+    }
+    
+    .sprite-invite {
+      width: 32px;
+      height: 38px;
+      background-position: -448px -5px;
+    }
+
+}
+

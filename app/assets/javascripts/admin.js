@@ -12,6 +12,10 @@
 //= require angular-scroll/angular-scroll
 //= require angular-s3-file-upload/angular-s3-file-upload
 //= require Autolinker.js/dist/Autolinker.min
+//= require angular-material/angular-material
+//= require angular-aria/angular-aria
+//= require angular-animate/angular-animate
+//= require angular-messages/angular-messages
 
 /*
  * Templates

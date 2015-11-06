@@ -17,6 +17,10 @@
 //= require velocity/velocity
 //= require velocity/velocity.ui.min
 //= require Autolinker.js/dist/Autolinker.min
+//= require angular-material/angular-material
+//= require angular-aria/angular-aria
+//= require angular-animate/angular-animate
+//= require angular-messages/angular-messages
 
 /*
  * TODO: this lib is still in the repo,
