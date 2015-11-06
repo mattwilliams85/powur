@@ -114,11 +114,13 @@ module powur {
       return this.invites.entities;
     }
 
+    get listProps(): any {
+      return this.invites.properties;
+    }
+
     get showFilters(): boolean {
       return !!(this.pending || this.expired);
     }
-
-    filters: any = {};
 
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
@@ -266,12 +268,11 @@ module powur {
     }
 
     filter(name: string) {
-      var opts = { page: 1 };
-      this.filters.status = this.filters.status == name ? '' : name;
+      var opts = {
+        page: 1,
+        status: name
+      };
 
-      for (var key in this.filters) {
-        opts[key] = this.filters[key];
-      }
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
           this.invites.entities = data.entities;

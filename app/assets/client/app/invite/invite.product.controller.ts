@@ -106,8 +106,6 @@ module powur {
                 this.listProps.initiated);
     }
 
-    filters: any = {};
-
     constructor(private invites: ISirenModel, public $mdDialog: ng.material.IDialogService, public $timeout: ng.ITimeoutService) {
       super();
     }
@@ -172,12 +170,10 @@ module powur {
     }
 
     filter(name: string) {
-      var opts = { page: 1 };
-      this.filters.status = this.filters.status == name ? '' : name;
-
-      for (var key in this.filters) {
-        opts[key] = this.filters[key];
-      }
+      var opts = {
+        page: 1,
+        status: name
+      };
 
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {

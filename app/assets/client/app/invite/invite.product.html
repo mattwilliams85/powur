@@ -21,10 +21,10 @@
 
 <div class="invite-list-bg">
   <md-tabs ng-show="invite.showFilters" class="md-accent solar">
-    <md-tab ng-class=" { 'active': !invite.filters.status }" ng-click="invite.filter('')">All</md-tab>
-    <md-tab ng-class=" { 'active': invite.filters.status === 'sent' }" ng-click="invite.filter('sent')"  ng-if="invite.listProps.sent">Sent</md-tab>
-    <md-tab ng-class=" { 'active': invite.filters.status === 'initiated' }" ng-click="invite.filter('initiated')"  ng-if="invite.listProps.initiated">Initiated</md-tab>
-    <md-tab ng-class=" { 'active': invite.filters.status === 'ineligible_location' }" ng-click="invite.filter('ineligible_location')" ng-if="invite.listProps.ineligible_location">Ineligible</md-tab>
+    <md-tab md-active="!invite.listProps.filters.status" ng-class="{ 'active': !invite.getFilterStatus() }" ng-click="invite.filter('')">All</md-tab>
+    <md-tab md-active="invite.listProps.filters.status === 'sent'" ng-click="invite.filter('sent')" ng-if="invite.listProps.sent">Sent</md-tab>
+    <md-tab md-active="invite.listProps.filters.status === 'initiated'" ng-click="invite.filter('initiated')"  ng-if="invite.listProps.initiated">Initiated</md-tab>
+    <md-tab md-active="invite.listProps.filters.status === 'ineligible_location'" ng-click="invite.filter('ineligible_location')" ng-if="invite.listProps.ineligible_location">Ineligible</md-tab>
   </md-tabs>
 
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
