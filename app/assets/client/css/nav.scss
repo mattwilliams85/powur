@@ -1,6 +1,10 @@
 .nav .bg {
     width: 70px;
-    z-index:20;
+    z-index: 20;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
     /*height: 1200px;*/
     background: #29a8dd; /* Old browsers */
     background: -moz-linear-gradient(top, #29a8dd 0%, #509f9a 100%); /* FF3.6+ */
@@ -12,6 +16,21 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
 
     a { text-decoration: none; }
+
+
+    .admin {
+        color: #2C6B8A;
+        font-weight: 600;
+        font-size: 11pt;
+    }
+
+    .align-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
     
     .mobile-menu {
         background: image-url('img/hud-icon-disabled.png');
@@ -30,6 +49,7 @@
         list-style-type: none;
         padding: 30px 15px 0 15px;
         margin: 0;        
+        text-align: center;
             
         li {
             margin-bottom: 40px;
@@ -42,32 +62,17 @@
         }        
     }
 
-    .align-bottom {
-        position: fixed;
-        bottom: 0;
-        left: 20px;
-    }
-
-    .align-top {
-        position: fixed;
-        top: 20px;
-        left: 16px;
-        width: 40px;
-    }
-
-    .admin {
-        color: #2C6B8A;
-        font-weight: 600;
-        margin-left: -9px;
-        font-size: 11pt;
-    }
+    // .bottom {
+    //     position: fixed;
+    //     bottom: 10px;
+    // }
     
     .sprite {
         background-image: image-url("img/nav-sprite.png");
         background-repeat: no-repeat;
         display: inline-block;
     }
-
+    
     .sprite-library {
         width: 35px;
         height: 43px;
@@ -89,12 +94,10 @@
         height: 35px;
         margin-left: 1px;
     }
-    
     .sprite-earnings {
         width: 42px;
         height: 40px;
         background-position: -50px -5px;
-        margin-left: -3px;
     }
     
     .sprite-events {
@@ -143,14 +146,13 @@
       width: 35px;
       height: 35px;
       background-position: -403px -5px;
-      margin-left: 2px;
     }
     
     .sprite-invite {
       width: 32px;
       height: 38px;
       background-position: -448px -5px;
-      margin-left: 2px;
     }
 
 }
+

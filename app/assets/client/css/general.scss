@@ -5,6 +5,11 @@ html,body {
 
 :focus { outline:none; }
 
+.main-view {
+  left: 70px;
+  position: relative;
+}
+
 .fill-height {
   flex: 1;
   flex-direction: column;
@@ -23,6 +28,11 @@ html,body {
 
 md-backdrop {
   display: none;
+}
+
+.md-sidenav-left {
+  position: relative;
+  left: 70px !important;
 }
 
 /* #2c6b8a - nav-icon-color */
