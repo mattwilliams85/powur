@@ -92,15 +92,25 @@ class PromoterMailer < ActionMailer::Base
     team_leader = User.find(user.upline[-2])
 
     to = team_leader.name_and_email
-    merge_vars = { team_leader: team_leader.full_name, downline_name: user.full_name }
+    merge_vars = {
+      team_leader:   team_leader.full_name,
+      downline_name: user.full_name }
 
     mail_chimp to, 'team-leader-downline-certification-purchase', merge_vars
   end
 
+  def lead_mistmatch(to, merge_vars)
+    mail_chimp to, 'lead-data-correction', merge_vars
+  end
+
   private
 
+  def logo_url
+    "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/emails/powur-blue-logo.png"
+  end
+
   def mail_chimp(to, template, merge_vars = {})
-    merge_vars[:logo_url] = "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-blue-logo.png"
+    merge_vars[:logo_url] = logo_url
     headers['X-MC-Template'] = template
     headers['X-MC-Tags'] = template
     headers['X-MC-MergeVars'] = merge_vars.to_json
