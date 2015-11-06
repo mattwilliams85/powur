@@ -122,6 +122,9 @@ module powur {
       return !!(this.pending || this.expired);
     }
 
+    filters: any = {};
+    activePies: string[];
+
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
                 private $interval: ng.IIntervalService,
@@ -129,6 +132,7 @@ module powur {
       super();
 
       this.$interval.cancel(this.invites.properties.pieTimer);
+      this.activePies = [];
 
       this.$timeout(() => {
         this.invites.properties.pieTimer = this.$interval(() => {
@@ -172,9 +176,12 @@ module powur {
             label: "Incomplete"
           }
         ]
+        console.log(id, this.activePies)
+        if (this.activePies.indexOf(id) > -1) continue;
         var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
         var ctx = canvas.getContext('2d');
         var myPieChart = new Chart(ctx).Pie(data, options);
+        this.activePies.push(id)
         // this.updatePie(myPieChart, i);
       }
     }
@@ -210,8 +217,9 @@ module powur {
         }
       }).then((data: any) => {
         // ok
-        this.invites.entities.unshift(new SirenModel(data));
+        this.invites.entities.push(new SirenModel(data));
         this.invites.properties.pending_count += 1;
+
         setTimeout(() => {
           this.buildPies();
         });
@@ -279,6 +287,7 @@ module powur {
           var pieTimer = this.invites.properties.pieTimer;
           this.invites.properties = data.properties;
           this.invites.properties.pieTimer = pieTimer;
+          this.activePies = [];
           setTimeout(() => {
             this.buildPies();
           });
