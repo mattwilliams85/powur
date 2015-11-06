@@ -10,7 +10,7 @@ module powur {
     constructor($log: ng.ILogService, $window: any) {
       this.root = RootController.get();
 
-      function loadMore(entity) {
+      function loadMore(entity, scope) {
         var opts = { page: entity.properties.paging.current_page + 1 };
         if (entity.properties.filters) {
           for (var key in entity.properties.filters) {
@@ -26,11 +26,14 @@ module powur {
         ).then((data: any) => {
           entity.entities = entity.entities.concat(data.entities);
           entity.properties = data.properties;
+          setTimeout(function() {
+              scope.invite.buildPies();
+          })
         });
       }
 
       return <any>{
-        link: function(scope: ng.IScope, element: JQuery, attributes: any) {
+        link: function(scope: any, element: JQuery, attributes: any) {
           var raw = element[0];
           var loading;
           angular.element($window).bind('scroll', function() {
@@ -38,9 +41,9 @@ module powur {
                 loading = true;
                 setTimeout(function(){
                   loading = false;
-                  loadMore(scope.$apply(attributes.pwScrolled));
+                  loadMore(scope.$apply(attributes.pwScrolled), scope);
+                  
                 }, 500);
-              
             }
           });
         }
