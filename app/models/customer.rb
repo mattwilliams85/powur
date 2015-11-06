@@ -86,6 +86,6 @@ class Customer < ActiveRecord::Base
 
   def mandrill
     return nil unless mandrill_id
-    @mandrill ||= MandrillMonitor.new(mandrill_id)
+    @mandrill ||= MandrillMonitor.new(self)
   end
 end

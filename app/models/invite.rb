@@ -122,7 +122,7 @@ class Invite < ActiveRecord::Base
 
   def mandrill
     return nil unless mandrill_id
-    @mandrill ||= MandrillMonitor.new(mandrill_id)
+    @mandrill ||= MandrillMonitor.new(self)
   end
 
   # def max_invites
