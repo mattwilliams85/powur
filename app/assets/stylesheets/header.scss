@@ -154,7 +154,7 @@ and (max-device-width : 960px) {
 
 .nav .bg {
     width: 70px;
-    z-index: 999;
+    z-index: 20;
     position: fixed;
     left: 0;
     top: 0;
@@ -168,6 +168,7 @@ and (max-device-width : 960px) {
     background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
     background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
+
 
     .admin {
         color: #2C6B8A;

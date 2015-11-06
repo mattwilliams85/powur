@@ -8,14 +8,13 @@
             <a href="/dashboard" target="_self" class="hover">
               <li ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard">
                 <i class="sprite sprite-dashboard"></i>
-                
+                <md-tooltip>Dashboard</md-tooltip>
               </li>
-              <md-tooltip>Dashboard</md-tooltip>
             </a>
             <a href="/next/invite/grid" target="_self" >
               <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }" >
                 <i class="sprite sprite-invite"></i>
-              <md-tooltip>Invite</md-tooltip>
+                <md-tooltip>Invite</md-tooltip>
               </li>
             </a>
             <a ng-href="/university">
