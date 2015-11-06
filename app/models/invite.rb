@@ -100,8 +100,8 @@ class Invite < ActiveRecord::Base
   end
 
   def time_left
-    time_left = (expires.in_time_zone - Time.now) * 1000.0
-    time_left <= 0 ? (return 0) : (return time_left)
+    time_left = (expires.in_time_zone - Time.zone.now) * 1000.0
+    (time_left <= 0 ? 0 : time_left).round
   end
 
   def send_sms
