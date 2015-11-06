@@ -16,17 +16,17 @@
                   </li>
                 </a>
                 <a ng-href="/university">
-                  <li ui-sref="home.certs" ng-class="{'active': isMenuLinkActive('/university')}"><i class="sprite sprite-certs"></i>
+                  <li ng-class="{'active': isMenuLinkActive('/university')}"><i class="sprite sprite-certs"></i>
                   <md-tooltip>Powur U</md-tooltip>
                   </li>
                 </a>
                 <a ng-href="/earnings">
-                  <li ui-sref="home.earnings" ng-class="{'active': isMenuLinkActive('/earnings')}" ><i class="sprite sprite-earnings"></i>
+                  <li ng-class="{'active': isMenuLinkActive('/earnings')}" ><i class="sprite sprite-earnings"></i>
                   <md-tooltip>Earnings</md-tooltip>
                   </li>
                 </a>
                 <a ng-href="/library" class="hover">
-                  <li ui-sref="home.library"><i class="sprite sprite-library"></i>
+                  <li ng-class="{'active': isMenuLinkActive('/earnings')}"><i class="sprite sprite-library"></i>
                   <md-tooltip>Library</md-tooltip>
                   </li>
                 </a>
@@ -34,13 +34,13 @@
 
             <div class="align-bottom">
                 <a href="/admin" target="_self">
-                  <li ui-sref="home.grid" ng-show="currentUser.is_admin"><span class="admin">ADMIN</span>
+                  <li ng-show="currentUser.is_admin"><span class="admin">ADMIN</span>
                   <md-tooltip>Admin</md-tooltip>
                   </li>
                 </a>
                 <a ng-href="/profile">
-                  <li ui-sref="home.stats"><i class="sprite sprite-stats"></i>
-                  <md-tooltip>Account</md-tooltip>
+                  <li><i class="sprite sprite-stats"></i>
+                  <md-tooltip>Profile</md-tooltip>
                   </li>
                 </a>
     <!--             <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i>
@@ -50,7 +50,7 @@
                 <md-tooltip>Goals</md-tooltip>
                 </li> -->
 
-                <li ng-click="signOut()"><i class="sprite sprite-logout"></i>
+                <li ng-click="nav.logout()"><i class="sprite sprite-logout"></i>
                 <md-tooltip>Logout</md-tooltip>
                 </li>
             </div>
