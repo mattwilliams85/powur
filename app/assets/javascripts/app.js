@@ -144,7 +144,9 @@
     'angularS3FileUpload',
     'blocks.filters',
     'app.widgets',
-    'templates'
+    'templates',
+    'ngAnimate',
+    'ngMaterial'
   ]).run(init);
 
 })();

@@ -40,16 +40,33 @@
         }        
     }
 
-    // .bottom {
-    //     position: fixed;
-    //     bottom: 10px;
-    // }
+    .align-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 20px;
+    }
+
+    .align-top {
+        position: fixed;
+        top: 20px;
+        left: 16px;
+        width: 40px;
+    }
     
     .sprite {
         background-image: image-url("img/nav-sprite.png");
         background-repeat: no-repeat;
         display: inline-block;
     }
+
+    .sprite-library {
+        background: image-url('img/library-icon.png');
+        background-size: contain;
+        width: 35px;
+        height: 35px;
+        margin-left: 1px;
+    }
+    
     
     .sprite-certs {
         width: 35px;
@@ -61,6 +78,7 @@
         width: 42px;
         height: 40px;
         background-position: -50px -5px;
+        margin-left: -3px;
     }
     
     .sprite-events {
@@ -109,12 +127,14 @@
       width: 35px;
       height: 35px;
       background-position: -403px -5px;
+      margin-left: 2px;
     }
     
     .sprite-invite {
       width: 32px;
       height: 38px;
       background-position: -448px -5px;
+      margin-left: 2px;
     }
 
 }

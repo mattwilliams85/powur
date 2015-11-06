@@ -1,8 +1,72 @@
 <!-- Dashboard Header -->
+<!-- <nav powur-foundation > -->
+
+<div class="nav fill-height">
+    <div class="bg fill-height">
+        <ul class="list fill-height" layout="column" layout-align="start center">
+            <!-- <div ng-click="nav.openMenu(); activeMenu = !activeMenu" class="mobile-menu" hide-gt-md ng-class="{ 'active': nav.isOpen() }"></div> -->
+            <a href="/dashboard" target="_self" class="hover">
+              <li ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard">
+                <i class="sprite sprite-dashboard"></i>
+                <md-tooltip>Dashboard</md-tooltip>
+              </li>
+            </a>
+            <a href="/next/invite/grid" target="_self" >
+              <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }" >
+                <i class="sprite sprite-invite"></i>
+                <md-tooltip>Invite</md-tooltip>
+              </li>
+            </a>
+            <a ng-href="/university">
+              <li ui-sref="home.certs" ng-class="{'active': isMenuLinkActive('/university')}"><i class="sprite sprite-certs"></i>
+              <md-tooltip>Powur U</md-tooltip>
+              </li>
+            </a>
+            <a ng-href="/earnings">
+              <li ui-sref="home.earnings" ng-class="{'active': isMenuLinkActive('/earnings')}" ><i class="sprite sprite-earnings"></i>
+              <md-tooltip>Earnings</md-tooltip>
+              </li>
+            </a>
+            <a ng-href="/library">
+              <li ui-sref="home.library" ng-class="{'active': isMenuLinkActive('/library')}"><i class="sprite sprite-library"></i>
+              <md-tooltip>Library</md-tooltip>
+              </li>
+            </a>
+            <div class="align-bottom">
+              <a href="/admin" target="_self">
+                <li ui-sref="home.grid" ng-show="currentUser.is_admin"><span class="admin">ADMIN</span>
+                <md-tooltip>Admin</md-tooltip>
+                </li>
+              </a>
+              <a ng-href="/profile">
+                <li ui-sref="home.stats"><i class="sprite sprite-stats"></i>
+                <md-tooltip>Profile</md-tooltip>
+                </li>
+              </a>
+  <!--             <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i>
+              <md-tooltip>Events</md-tooltip>
+              </li> -->
+  <!--             <li ui-sref="home.goal" ng-class="{ active: nav.isCurrent('home.goal') }"><i class="sprite sprite-goal"></i>
+              <md-tooltip>Goals</md-tooltip>
+              </li> -->
+              <a ng-click="signOut()">
+                <li ><i class="sprite sprite-logout"></i>
+                <md-tooltip>Logout</md-tooltip>
+                </li>
+              </a>
+            </div>
+        </ul>
+    </div>
+</div>
+
+<!-- </nav> -->
+
+<!-- 
+
 <nav powur-foundation class="powur-header top-bar" data-topbar role="navigation" data-options="is_hover:false">
 
   <ul class="title-area">
-  <!-- Title Area -->
+
     <li class="name main-logo">
       <h1><a href="/"><img src="<%=asset_path('powur-white-logo.png')%>" class="logo-img" /></a></h1>
     </li>
@@ -10,20 +74,20 @@
   </ul>
 
   <section class="top-bar-section">
-    <!-- Left Nav Section -->
+
     <ul class="left">
       <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard">Dashboard</a></li>
-      <!-- <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/earnings')}"ng-href="/earnings">Earnings</a></li> -->
+
       <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/university')}" ng-href="/university">Powur U</a></li>
-      <!-- <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/marketing')}">Marketing</a></li> -->
+
       <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/library')}" ng-href="/library">Library</a></li>
       <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/earnings')}" ng-href="/earnings">Earnings</a></li>
       <li><a class="show-for-large-up" href="/next/invite/grid" target="_self">Invite</a></li>
     </ul>
-    <!-- Right Nav Section -->
+
     <ul class="right">
       <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/upgrade')}" ng-href="/upgrade">Upgrade</a></li>
-      <!-- Account Menu -->
+
       <li class="hide-for-medium-down has-dropdown"><a href>{{currentUser.first_name}}</a>
         <ul class="dropdown">
           <li><label>Account</label></li>
@@ -34,13 +98,13 @@
         </ul>
       </li>
 
-      <!-- For Small Screens, show all menu items in one list for Hamburger Menu -->
+
       <li class="hide-for-large-up" style="padding-left:25px;"><label>Powur</label></li>
       <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/dashboard">Dashboard</a></li>
       <li class="hide-for-large-up" style="padding-left:25px;"><a href="/next/invite/grid" target="_self">Invites</a></li> <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/upgrade">Upgrade</a></li>
-      <!-- <li class="hide-for-large-up"><a ng-href="/earnings">Earnings</a></li> -->
+
       <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/university">Powur U</a></li>
-      <!-- <li class="hide-for-large-up"><a>Marketing</a></li> -->
+
       <li class="hide-for-large-up" style="padding-left:25px;"><a ng-href="/library">Library</a></li>
       <li class="hide-for-large-up" class="divider" style="padding-left:25px;"></li>
       <li class="hide-for-large-up" style="padding-left:25px;"><label>Account</label></li>
@@ -50,4 +114,5 @@
       <li class="hide-for-large-up" style="padding-left:25px;"><a ng-click="signOut()">Sign Out</a></li>
     </ul>
   </section>
-</nav>
+</nav> -->
+

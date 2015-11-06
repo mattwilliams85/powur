@@ -13,9 +13,9 @@ module Powur
     config.action_mailer.smtp_settings = {
       address:              'smtp.mandrillapp.com',
       port:                 587,
-      domain:               'eyecuelab.com',
-      user_name:            'paul.walker@eyecuelab.com',
-      password:             'TrCgMfSpdGnbfztgaiAuvQ',
+      domain:               'powur.com',
+      user_name:            ENV['MANDRILL_USERNAME'],
+      password:             ENV['MANDRILL_API_KEY'],
       authentication:       'plain',
       enable_starttls_auto: true  }
 

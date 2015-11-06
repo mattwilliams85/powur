@@ -1,0 +1,36 @@
+<div class="invite-popup show fill-height">
+  <md-dialog aria-label="Invite" class="dialog">
+    <div class="side-bg"></div>
+    <div layout="column" flex>
+      <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
+      <md-dialog-content layout="column">
+        <div class="full-name">{{dialog.invite.properties.first_name}}<b> {{dialog.invite.properties.last_name}}</b></div>
+        <div class="detail">{{dialog.invite.properties.phone}}</div>
+        <div class="detail">{{dialog.invite.properties.email}}</div>
+        <md-button class="md-primary md-raised" ng-click="dialog.parentCtrl.inviteUpdate($event,dialog.invite)">Edit</md-button>
+        <md-content layout-padding layout="column" class="link-wrap">
+          <div class="header">Invite Link: </div>
+          <input class="link" value="{{dialog.showLink(dialog.invite.properties)}}" readonly>
+        </md-content>
+        <md-content layout-padding layout="row" class="info-wrap">
+          <div layout="column" class="info-box">
+            <div class="icon sent"></div>
+            <div class="header">invitation date</div>
+            <div class="detail">{{dialog.invite.properties.updated_at | date: 'MMM d, yyyy'}}</div>
+          </div>
+          <div layout="column" class="info-box" ng-if="dialog.invite.properties.last_viewed_at">
+            <div class="icon viewed"></div>
+            <div class="header">last viewed</div>
+            <div class="detail">{{(dialog.invite.properties.last_viewed_at | date: 'MMM d, yyyy') || '---'}}</div>
+          </div>
+        </md-content>
+        <md-content layout-padding layout="column" class="status-wrap">
+          <div class="header">status</div>
+          <div class="title">invitation <b>{{ dialog.invite.properties.email_data.state }}</b></div>
+        </md-content>
+        <md-button class="md-primary md-raised" ng-click="dialog.resendInvite()" ng-disabled="dialog.resend.submitting">Resend</md-button>
+        <md-button class="md-warn md-raised" ng-click="dialog.remove()" ng-disabled="dialog.delete.submitting">Delete</md-button>
+      </md-dialog-content>
+    </div>
+  </md-dialog>
+</div>

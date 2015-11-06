@@ -6,7 +6,7 @@
     background-color: #333;
 
     &.bg {
-      z-index: 100; // (added to put text/gray bg on top of .locked overlays)
+      z-index: 19; // (added to put text/gray bg on top of .locked overlays)
       position: absolute;
       left: 0;
       right: 0;

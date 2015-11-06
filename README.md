@@ -29,3 +29,15 @@ This will add test users, reset user passwords to 'solarpower' and emails to 'de
 ```
 rake powur:prepare_data_for_testing
 ```
+
+
+### UNIT TESTS
+```
+//prepare for unit tests
+npm install
+npm install -g gulp-cli
+npm install -g karma-cli
+
+//run unit tests 
+gulp test
+```

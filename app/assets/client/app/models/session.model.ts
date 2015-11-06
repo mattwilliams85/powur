@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='siren.model.ts' />
 
 module powur {
   'use strict';
@@ -13,17 +13,8 @@ module powur {
   }
 
   export class SessionModel extends SirenModel implements ISessionModel {
-    // private _q: ng.IQService;
-
-    // get q(): ng.IQService {
-    //   if (!this._q) {
-    //     this._q = angular.element(document).injector().get('$q');
-    //   }
-    //   return this._q;
-    // }
-
-    constructor(data: any) {
-      super(data);
+    get(): ng.IHttpPromise<any> {
+      return this.http.get('/');
     }
 
     loggedIn(): boolean {
@@ -35,6 +26,7 @@ module powur {
     }
 
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
+      this.removeClass('user');
       return this.action('logout').submit();
     }
 

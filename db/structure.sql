@@ -297,7 +297,9 @@ CREATE TABLE customers (
     notes character varying,
     user_id integer,
     code character varying,
-    status integer DEFAULT 0 NOT NULL
+    status integer DEFAULT 0 NOT NULL,
+    last_viewed_at timestamp without time zone,
+    mandrill_id character varying
 );
 
 
@@ -404,7 +406,9 @@ CREATE TABLE invites (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     sponsor_id integer NOT NULL,
-    user_id integer
+    user_id integer,
+    last_viewed_at timestamp without time zone,
+    mandrill_id character varying
 );
 
 
@@ -2983,4 +2987,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151011213250');
 INSERT INTO schema_migrations (version) VALUES ('20151013222020');
 
 INSERT INTO schema_migrations (version) VALUES ('20151017023317');
+
+INSERT INTO schema_migrations (version) VALUES ('20151022170603');
+
+INSERT INTO schema_migrations (version) VALUES ('20151105193737');
 

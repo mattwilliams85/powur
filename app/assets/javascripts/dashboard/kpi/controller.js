@@ -17,7 +17,6 @@
     $scope.filtered = [];
     $scope.legacyImagePaths = legacyImagePaths;
 
-
     $scope.changeTab = function(section) {
       if ($scope.section === section) {
         $scope.section = false;

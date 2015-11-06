@@ -13,6 +13,15 @@ describe '/customers/:customer_code' do
       expect_props(first_name: customer.first_name)
       expect_actions('validate_zip')
     end
+
+    it 'updates last viewed at field' do
+      customer.update_attribute(:last_viewed_at, Time.zone.now - 1.month)
+      get customer_path(customer.code), format: :json
+
+      expect_200
+      expect(customer.reload.last_viewed_at)
+        .to be_within(1.second).of(Time.zone.now)
+    end
   end
 
   describe '#update' do

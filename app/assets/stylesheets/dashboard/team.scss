@@ -818,14 +818,14 @@
       display: block;
 
       .number {
+        background: image-url('dashboard/grid-invite-available-icon.png');
         position: relative;
         top: 25%;
-        font-size: 40pt;
-        border: 1px dashed #555;
-        border-radius: 50%;
-        width: 80px;
-        height: auto;
+        width: 60px;
+        height: 60px;
         margin: 0 auto;
+        background-size: 100%;
+        background-repeat: no-repeat;
       }
       .info-text {
         position: relative;

@@ -1,0 +1,12 @@
+;
+(function() {
+
+  var assets = {
+    defaultProfileImg: '<%= asset_path('img/default-profile.png') %>'
+  };
+
+  angular
+    .module('powur.constants', [])
+    .constant('assets', assets);
+
+})();

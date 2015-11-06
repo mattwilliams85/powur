@@ -6,12 +6,13 @@ gem 'dotenv-rails', groups:  [ :development, :test ],
 gem 'rails', '4.2.3'
 gem 'pg'
 
-gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jbuilder'
 gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
+gem 'sass-rails'
+gem 'autoprefixer-rails'
 gem 'angular-rails-templates'
 
 gem 'aws-sdk', '< 2.0'
@@ -47,6 +48,7 @@ gem 'twilio-ruby'
 gem 'typescript-rails'
 gem 'foundation-rails'
 gem 'lograge'
+gem 'mandrill-api', require: 'mandrill'
 
 group :development do
   gem 'spring'

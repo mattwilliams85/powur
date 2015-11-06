@@ -163,26 +163,26 @@
             $scope.showModal('This invite has been deleted successfully.');
           }
           $scope.user_invites = item;
-          $scope.user_invites.properties.available_invites = item.properties.available_invites;
+          // $scope.user_invites.properties.available_invites = item.properties.available_invites;
         });
       }
     };
 
     // Update Available Invites Action
-    $scope.invites.updateAvailableInvites = function(item) {
-      var data = {invites: item.properties.available_invites};
-      CommonService.execute({
-        href: '/a/users/' + item.properties.id + '/invites.json',
-        method: 'PATCH',
-      }, data).then(function success(data) {
-        if (data.error) {
-          $scope.showModal('There was an error while updating this user.');
-          return;
-        }
-        $scope.showModal('You\'ve successfully updated this user\'s available invites count.');
-        $anchorScroll();
-      });
-    };
+    // $scope.invites.updateAvailableInvites = function(item) {
+    //   var data = {invites: item.properties.available_invites};
+    //   CommonService.execute({
+    //     href: '/a/users/' + item.properties.id + '/invites.json',
+    //     method: 'PATCH',
+    //   }, data).then(function success(data) {
+    //     if (data.error) {
+    //       $scope.showModal('There was an error while updating this user.');
+    //       return;
+    //     }
+    //     $scope.showModal('You\'ve successfully updated this user\'s available invites count.');
+    //     $anchorScroll();
+    //   });
+    // };
 
     //
     // Overview Actions

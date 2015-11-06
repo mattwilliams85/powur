@@ -3,6 +3,10 @@ html, body {
   font-family: Montserrat, 'Open Sans'
 }
 
+body {
+  padding-left: 70px;
+}
+
 .highlighted {
   color: $pow-color-orange;
 }

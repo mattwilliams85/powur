@@ -18,7 +18,7 @@ describe 'GET /u/product_invites' do
         'current_page' => 1,
         'item_count'   => 1,
         'page_count'   => 1,
-        'page_size'    => 50
+        'page_size'    => 20
       }
     )
     expect_props(sent: 1)

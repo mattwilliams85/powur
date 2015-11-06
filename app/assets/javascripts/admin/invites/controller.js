@@ -39,20 +39,20 @@
       $scope.pagination();
     };
 
-    $scope.updateAvailableInvites = function(item) {
-      $http({
-        method: 'PATCH',
-        url: '/a/users/' + item.properties.id + '/invites.json',
-        data: {
-          invites: item.properties.available_invites
-        }
-      }).success(function(data) {
-        if (data.error) {
-          $scope.showModal('There was an error updating this user\'s available invites.');
-        }
-        item.properties.lifetime_invites_count = data.properties.lifetime_invites_count;
-      });
-    };
+    // $scope.updateAvailableInvites = function(item) {
+    //   $http({
+    //     method: 'PATCH',
+    //     url: '/a/users/' + item.properties.id + '/invites.json',
+    //     data: {
+    //       invites: item.properties.available_invites
+    //     }
+    //   }).success(function(data) {
+    //     if (data.error) {
+    //       $scope.showModal('There was an error updating this user\'s available invites.');
+    //     }
+    //     item.properties.lifetime_invites_count = data.properties.lifetime_invites_count;
+    //   });
+    // };
 
     this.init($scope, $location);
     this.fetch($scope, $rootScope);

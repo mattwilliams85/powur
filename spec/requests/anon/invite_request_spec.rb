@@ -36,7 +36,7 @@ describe '/invite' do
     end
 
     it 'requires certain fields' do
-      patch invite_path(invite.id)
+      patch anon_invite_path(invite.id)
 
       expect_input_error(:first_name)
     end
@@ -60,7 +60,7 @@ describe '/invite' do
 
       it 'registers a user and associates any outstanding invites' do
         VCR.use_cassette('invite_promoter_association') do
-          patch invite_path(id: invite.id, format: :json), user_params
+          patch anon_invite_path(id: invite.id, format: :json), user_params
         end
 
         expect_200
@@ -74,46 +74,47 @@ describe '/invite' do
   end
 end
 
-describe '/invite/validate' do
+describe '/invite/{code}' do
   before do
     DatabaseCleaner.clean
+    allow(ApplicationAgreement).to receive(:current).and_return(agreement)
   end
 
-  describe 'POST' do
-    let(:agreement) { double(dwight: 'schrute', version: '1.0') }
-    let(:sponsor) { create(:certified_user, available_invites: 3) }
-    let(:user) { create(:user) }
-    let(:invite) { create(:invite, user: user, sponsor: sponsor) }
+  let(:agreement) { double(dwight: 'schrute', version: '1.0') }
+  let(:sponsor) { create(:certified_user, available_invites: 3) }
+  let(:user) { create(:user) }
+  let(:redeemed_invite) { create(:invite, user: user, sponsor: sponsor) }
+  let(:invite) { create(:invite, sponsor: sponsor) }
 
-    it 'returns not found if previously redeemed' do
-      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
-      invite = create(:invite, sponsor: sponsor)
-      invite.update_attribute(:user_id,  user.id)
+  it 'returns not found if previously redeemed' do
+    get anon_invite_path(redeemed_invite.id), format: :json
 
-      get invite_path(invite.id), format: :json
+    expect_404
+  end
 
-      expect_404
-    end
+  it 'returns not found if expired' do
+    invite.update_attribute(:expires, (invite.expires -= 2.days))
 
-    it 'returns not found if expired' do
-      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
-      invite = create(:invite, sponsor: sponsor)
-      invite.update_attribute(:expires,  (invite.expires -= 2.days))
+    get anon_invite_path(invite.id), format: :json
 
-      get invite_path(invite.id), format: :json
+    expect_404
+  end
 
-      expect_404
-    end
+  it 'returns an invite when the user has inputted a code' do
+    get anon_invite_path(invite.id), format: :json
 
-    it 'returns an invite when the user has inputted a code' do
-      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
-      invite = create(:invite, sponsor: sponsor)
-      get invite_path(invite.id), format: :json
+    expect_200
+    expect_classes('invite')
+    expect_actions('accept_invite')
+    expect_props latest_terms: agreement.as_json
+  end
 
-      expect_200
-      expect_classes('invite')
-      expect_actions('accept_invite')
-      expect_props latest_terms: agreement.as_json
-    end
+  it 'updates last viewed at field' do
+    invite.update_attribute(:last_viewed_at, Time.zone.now - 1.month)
+    get anon_invite_path(invite.id), format: :json
+
+    expect_200
+    expect(invite.reload.last_viewed_at)
+      .to be_within(1.second).of(Time.zone.now)
   end
 end

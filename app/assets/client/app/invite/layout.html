@@ -3,24 +3,23 @@
     <div class="title">POWUR<b> INVITE</b></div>
     <div class="subtitle">Your journey of the power revolution starts here.</div>
   </div>
-  <ul layout="row" class="tab" layout-align="center center">
+  <ul layout="row" class="tab" layout-align="start end">
 
-    <li class="grid-invites" flex="{{invite.isCurrent('home.invite.grid')?60:40}}" ng-class="{ active: invite.isCurrent('home.invite.grid') }">
-
+    <li class="grid-invites" ng-class="{ active: invite.isCurrent('home.invite.grid') }">
+      <div class="bar"></div>
       <a layout-fill layout="column" layout-align="center center" ui-sref="home.invite.grid" >
         <div flex layout="column" layout-align="center start">
-          <div style="{{invite.isCurrent('home.invite.grid')?'opacity:1':'opacity:.5'}}">
-            <div class="sub">Manage Your</div>
+          <div>
             <div class="title">Grid <b>Invites</b></div>
           </div>
         </div>
       </a>
     </li>
-    <li class="solar-invites" flex="{{invite.isCurrent('home.invite.product')?60:40}}" ng-class="{ active: invite.isCurrent('home.invite.product') }">
+    <li class="solar-invites" ng-class="{ active: invite.isCurrent('home.invite.product') }">
+      <div class="bar"></div>
       <a layout-fill layout="column" layout-align="center center" ui-sref="home.invite.product" >
         <div flex layout="column" layout-align="center start">
-          <div style="{{invite.isCurrent('home.invite.grid')?'opacity:.5':'opacity:1'}}">
-            <div class="sub">Manage Your</div>
+          <div>
             <div class="title">Solar <b>Invites</b></div>
           </div>
         </div>

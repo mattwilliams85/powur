@@ -1,23 +1,21 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../models/session.model.ts' />
 
 module powur {
   'use strict';
 
-  export interface ISessionService {
-    instance: ISessionModel;
+  export interface ISessionService extends ISessionModel {
     refresh(): ng.IPromise<any>;
     login(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
   }
 
-  export class SessionService implements ISessionService {
+  export class SessionService extends SessionModel implements ISessionService {
     static ServiceId = 'SessionService';
-    static $inject = ['sessionData', '$http', '$q'];
+    static $inject = ['sessionData', '$http', '$q', '$state'];
 
-    private _instance: ISessionModel;
-    
     private executeAndRefresh(promise: ng.IPromise<ng.IHttpPromiseCallbackArg<any>>): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
-      var deferred = this.$q.defer<ng.IHttpPromiseCallbackArg<any>>();
+      var deferred = this.q.defer<ng.IHttpPromiseCallbackArg<any>>();
       var success = (r: ng.IHttpPromiseCallbackArg<any>) => {
         this.refresh().then(() => {
           deferred.resolve(r);
@@ -32,35 +30,44 @@ module powur {
       return deferred.promise;
     }
 
-    get instance(): ISessionModel {
-      if (!this._instance) {
-        this._instance = new SessionModel(this.sessionData);
-      }
-      return this._instance;
-    }
-
-    constructor(private sessionData: any,
-                private $http: ng.IHttpService,
-                private $q: ng.IQService) {
+    constructor(sessionData: any,
+                $http: ng.IHttpService,
+                $q: ng.IQService,
+                private $state: ng.ui.IStateService) {
+      super(sessionData, $http, $q);
     }
 
     refresh(): ng.IPromise<any> {
       var afterGet = (response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.sessionData = response.data;
-        appModule.constant('sessionData', this.sessionData);
-        this._instance = null;
+        var data = response.data;
+        angular.module('powur').constant('sessionData', data);
+        this.refreshData(data);
       }
-      return this.$http.get('/').then(afterGet);
+      return this.get().then(afterGet);
     }
 
-    login(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
-      return this.executeAndRefresh(this.instance.login());
+    login(redirect = 'home.invite.grid', redirectParams?: any): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
+      var promise = this.executeAndRefresh(super.login());
+      promise.then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        //(<any>this)._data.class = r.data.class;
+        var data = r.data;
+        angular.module('powur').constant('sessionData', data);
+        this.refreshData(data);
+        this.$state.go(redirect, redirectParams, { reload: true }); 
+      });
+      return promise;
     }
 
-    logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
-      return this.executeAndRefresh(this.instance.logout());
+    logout(redirect = 'login.public', redirectParams?: any): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
+      var promise = this.executeAndRefresh(super.logout());
+      promise.then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$state.go(redirect, redirectParams);
+      });
+      return promise;
     }
   }
 
-  serviceModule.service(SessionService.ServiceId, SessionService);
+  angular
+    .module('powur.services')
+    .service(SessionService.ServiceId, SessionService);
 }

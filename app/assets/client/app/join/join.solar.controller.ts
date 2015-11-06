@@ -1,6 +1,8 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../layout/base.controller.ts' />
 
 module powur {
+  'use strict';
+
   class JoinSolarController extends BaseController {
     static ControllerId = 'JoinSolarController';
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
@@ -25,7 +27,8 @@ module powur {
     }
 
     get termsPath(): string {
-      return this.session.instance.properties.latest_terms.document_path;
+      var terms = this.session.properties.latest_terms || {};
+      return terms.document_path;
     }
 
     constructor(private $mdDialog: ng.material.IDialogService,
@@ -36,12 +39,13 @@ module powur {
 
     validateZip(): void {
       this.validateZipAction.submit().then((response) => {
+        this.leadAction.field('zip').value = this.validateZipAction.field('zip').value;
         this.state.go('join.solar2', { inviteCode: this.params.inviteCode });
       });
     }
 
     get solarInvite(): Action {
-      return this.session.instance.action('solar_invite');
+      return this.session.action('solar_invite');
     }
 
     submitLead(): any {
@@ -72,5 +76,7 @@ module powur {
     }
   }
 
-  controllerModule.controller(JoinSolarController.ControllerId, JoinSolarController);
+  angular
+    .module('powur.join')
+    .controller(JoinSolarController.ControllerId, JoinSolarController);
 }

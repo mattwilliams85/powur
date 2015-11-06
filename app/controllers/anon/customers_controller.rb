@@ -2,6 +2,10 @@ module Anon
   class CustomersController < AnonController
     before_action :fetch_customer, only: [ :show, :update ]
 
+    def show
+      @customer.touch(:last_viewed_at)
+    end
+
     def update
       require_input :first_name, :last_name, :email,
                     :phone, :address, :city, :state, :zip

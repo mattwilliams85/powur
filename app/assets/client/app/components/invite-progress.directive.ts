@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   class InviteProgress {
@@ -47,7 +47,9 @@ module powur {
               ctx.stroke();
 
               var startAngle = - (Math.PI / 2);
-              var endAngle = ((Math.PI * 2 ) * newValue.expiration_progress) - (Math.PI / 2);
+              var inverseProgress = 1 - newValue.expiration_progress;
+              if (inverseProgress < 0) inverseProgress = 0;
+              var endAngle = ((Math.PI * 2 ) * inverseProgress) - (Math.PI / 2);
               ctx.beginPath();
               ctx.arc(x, y, parseInt(circleRadius), startAngle, endAngle, anticlockwise);
               ctx.lineWidth = parseInt(circleWidth);
@@ -60,5 +62,7 @@ module powur {
     } // ctor
   } // class
 
-  directiveModule.directive(InviteProgress.DirectiveId, <any>InviteProgress);
+  angular
+    .module('powur.components')
+    .directive(InviteProgress.DirectiveId, <any>InviteProgress);
 }

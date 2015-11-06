@@ -4,6 +4,10 @@ klass :session, :anonymous
 
 json.properties do
   json.latest_terms ApplicationAgreement.current
+  json.join_grid_step1_youtube_embed_url(
+    SystemSettings.join_grid_step1_youtube_embed_url)
+  json.join_grid_step2_youtube_embed_url(
+    SystemSettings.join_grid_step2_youtube_embed_url)
 end
 
 actions_list = [
@@ -21,7 +25,7 @@ entity_list = [ entity(%w(solar_invite),
                        customer_path('{code}')),
                 entity(%w(grid_invite),
                        'user-solar_invite',
-                       invite_path('{code}')),
+                       anon_invite_path('{code}')),
                 entity(%w(password_token),
                        'user-password_token',
                        reset_token_password_path('{code}')) ]

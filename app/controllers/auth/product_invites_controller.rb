@@ -1,9 +1,9 @@
 module Auth
   class ProductInvitesController < AuthController
     before_action :validate_existence, only: [ :create ]
-    before_action :fetch_invite, only: [ :show ]
+    before_action :fetch_customer, only: [ :show, :update, :destroy, :resend, :email ]
 
-    page
+    page max_limit: 20
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
     filter :status,
@@ -11,7 +11,9 @@ module Auth
            required: false
 
     def index
-      @invites = apply_list_query_options(current_user.customers)
+      invites_scope = current_user.customers.where.not(
+        status: Customer.statuses[:accepted])
+      @invites = apply_list_query_options(invites_scope)
 
       render 'index'
     end
@@ -31,6 +33,25 @@ module Auth
       @customer.delay.send_sms
 
       show
+    end
+
+    def update
+      @customer.update_attributes!(customer_input)
+
+      index
+    end
+
+    def resend
+      PromoterMailer.product_invitation(@customer).deliver_later
+      @customer.touch
+
+      index
+    end
+
+    def destroy
+      @customer.destroy!
+
+      index
     end
 
     private

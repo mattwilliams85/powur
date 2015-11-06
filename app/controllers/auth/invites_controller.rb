@@ -1,11 +1,17 @@
 module Auth
   class InvitesController < AuthController
-    before_action :fetch_invite, only: [ :show, :resend, :delete ]
+    before_action :fetch_invite,
+                  only: [ :show, :update, :resend, :delete, :email ]
     skip_before_action :authenticate!, only: [ :show ]
 
+    page max_limit: 20
+    filter :status,
+           options:  [ :pending, :expired ],
+           required: false
+
     def index
-      current_user.reconcile_invites
-      @invites = list_criteria
+      @invites = apply_list_query_options(
+        current_user.invites.where('user_id is null').order(expires: :asc))
 
       render 'index'
     end
@@ -14,15 +20,12 @@ module Auth
     end
 
     def create
+      error!(:create_invite_not_allowed) unless current_user.partner?
       require_input :first_name, :last_name, :email
-
       validate_email
-      validate_max_invites
 
       @invite = current_user.create_invite(input)
       @invite.delay.send_sms
-
-      current_user.reconcile_invites if current_user.available_invites < 1
 
       render 'show'
     end
@@ -31,7 +34,13 @@ module Auth
       @invite.renew
       current_user.send_invite(@invite)
 
-      render 'show'
+      index
+    end
+
+    def update
+      @invite.update_attributes!(input)
+
+      index
     end
 
     def delete
@@ -59,16 +68,6 @@ module Auth
 
       error!(:you_exist, :email) if input['email'] == current_user.email
       validate_uniq_email
-    end
-
-    def validate_max_invites
-      max_exceeded =
-        current_user.limited_invites? && current_user.available_invites < 1
-      error!(:exceeded_max_invites) if max_exceeded
-    end
-
-    def list_criteria
-      current_user.invites.where('user_id is null').order(created_at: :desc)
     end
 
     def fetch_invite

@@ -18,14 +18,46 @@ md-sidenav.collapsed{
     overflow:visible;
 }
 
+md-dialog {
+    border-radius: 0px !important;
+    display: block !important;
+}
+
+md-backdrop {
+    display: block !important;
+}
+
+md-ink-bar {
+    background-color: #eee !important;
+    color: #eee !important;
+}
+
+md-tab-item:not([disabled]) {
+    color: #eee !important;
+}
+
 .md-sidenav-left{
    transition: all .3s;
    position:relative !important
 }
 
+.md-primary {
+    background-color: rgb(49, 166, 206) !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    span {
+        color: #fff !important;
+    }
+}
+
+button:disabled {
+    background-color: #e5e5e5 !important;
+}
+
 .hud .stat4 .stat md-progress-linear {
     .md-container {
         height: 7px !important;
+        background-color: #fff !important
     }
     .md-bar.md-bar2{
         background: #52DAE2 !important; /* Old browsers */
@@ -54,4 +86,5 @@ md-sidenav.collapsed{
 
 .hud md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar1{
     background-color:#fff !important;
-}  
+}
+

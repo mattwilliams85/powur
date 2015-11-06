@@ -1,4 +1,5 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../layout/base.controller.ts' />
 
 module powur {
   'use strict';
@@ -8,15 +9,15 @@ module powur {
     static $inject = [];
 
     get logout(): Action {
-      return this.session.instance.action('logout');
+      return this.session.action('logout');
     }
 
     logoutSubmit(): void {
-      this.root.$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.root.$state.go('login.public');
-      })
+      this.root.$session.logout();
     }
   }
 
-  controllerModule.controller(LoginPrivateController.ControllerId, LoginPrivateController);
+  angular
+    .module('powur.login')
+    .controller(LoginPrivateController.ControllerId, LoginPrivateController);
 }

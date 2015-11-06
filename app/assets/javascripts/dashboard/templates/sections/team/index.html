@@ -69,16 +69,15 @@
 
       <!-- Invite New Team Member Button -->
       <div class="w20percent small-2 columns">
-        <div class="new-team-member" ng-class="{'accordion': is.accordion(0) , 'invert': activeTab === 'invites'}" ng-click="invitesTab()">
-          <div class="invites-summary">
-            <div class="number">
-              <span>{{invites.available || 0}}</span>
+        <div class="new-team-member" >
+          <a class="show-for-large-up" href="/next/invite/grid" target="_self">
+            <div class="invites-summary">
+              <div class="number"></div>
+              <div class="info-text">
+                <span>Manage Grid Invites</span>
+              </div>
             </div>
-            <div class="info-text">
-              <span>Invites Available</span>
-            </div>
-          </div>
-
+          </a>
         </div>
 
       </div>
@@ -191,8 +190,7 @@
     <ng-include src="'dashboard/templates/sections/team/info.html'"></ng-include>
     <!-- Proposal Info Drilldown -->
     <ng-include src="'dashboard/templates/sections/team/lead.html'"></ng-include>
-    <!-- Proposal Invites Drilldown -->
-    <ng-include src="'dashboard/templates/sections/team/invites.html'"></ng-include>
+
 
   </div>
 </div>

@@ -1,4 +1,5 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../layout/base.controller.ts' />
 
 module powur {
   'use strict';
@@ -6,20 +7,18 @@ module powur {
   class LoginController extends BaseController {
     static ControllerId = 'LoginController';
     static $inject = [];
-    
-    get create(): Action {
-      return this.session.instance.action('create');
-    }
 
     get childState(): string {
-      return this.loggedIn ? 'invite.grid' : 'login.public';
+      return this.loggedIn ? 'home.invite.grid' : 'login.public';
     }
 
     constructor() {
-      super()
+      super();
       this.state.go(this.childState);
     }
   }
 
-  controllerModule.controller(LoginController.ControllerId, LoginController);
+  angular
+    .module('powur.login')
+    .controller(LoginController.ControllerId, LoginController);
 }

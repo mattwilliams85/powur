@@ -17,34 +17,41 @@ class Invite < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
-  validate :max_invites, on: :create, if: :sponsor_limited_invites?
+  # validate :max_invites, on: :create, if: :sponsor_limited_invites?
   validates_with ::Phone::Validator, fields: [:phone],
                                      if:     'phone.present?',
                                      on:     :create
 
-  after_create :subtract_from_available_invites, if: :sponsor_limited_invites?
-  after_destroy :increment_available_invites, if: :sponsor_limited_invites?
-  def sponsor_limited_invites?
-    sponsor.limited_invites?
-  end
+  # after_create :subtract_from_available_invites, if: :sponsor_limited_invites?
+  # after_destroy :increment_available_invites, if: :sponsor_limited_invites?
+  # def sponsor_limited_invites?
+  #   sponsor.limited_invites?
+  # end
 
   before_validation do
-    self.id ||= Invite.generate_code
+    self.id ||= self.class.generate_code
     self.expires ||= expires_timespan
   end
 
   scope :pending, -> { where(user_id: nil).where('expires > ?', Time.zone.now) }
+  scope :expired, -> { where(user_id: nil).where('expires < ?', Time.zone.now) }
   scope :redeemed, -> { where.not(user_id: nil) }
-  scope :expired, lambda {
-    where('expires < ?', Time.zone.now).where('user_id IS NULL')
-  }
+
+  scope :status, ->(s) { send(s) }
+
+  class << self
+    def generate_code(size = 3)
+      code = SecureRandom.hex(size).upcase
+      find_by(id: code) ? generate_code(size) : code
+    end
+  end
 
   def full_name
     "#{first_name} #{last_name}"
   end
 
   def expired?
-    expires < Time.now
+    expires < Time.zone.now
   end
 
   def redeemed?
@@ -92,10 +99,9 @@ class Invite < ActiveRecord::Base
     SystemSettings.invite_valid_days.days.from_now
   end
 
-  def expiration_progress
-    return 0 unless expires
-    time_start = expires - SystemSettings.invite_valid_days.days
-    ((Time.zone.now - time_start) / (expires - time_start)).round(2)
+  def time_left
+    time_left = (expires.in_time_zone - Time.now) * 1000.0
+    time_left <= 0 ? (return 0) : (return time_left)
   end
 
   def send_sms
@@ -114,22 +120,21 @@ class Invite < ActiveRecord::Base
       body: message)
   end
 
-  class << self
-    def generate_code(size = 3)
-      SecureRandom.hex(size).upcase
-    end
+  def mandrill
+    return nil unless mandrill_id
+    @mandrill ||= MandrillMonitor.new(self)
   end
 
-  def max_invites
-    return if sponsor.available_invites > 0
-    errors.add(:sponsor, :exceeded_max_invites)
-  end
+  # def max_invites
+  #   return if sponsor.available_invites > 0
+  #   errors.add(:sponsor, :exceeded_max_invites)
+  # end
 
-  def subtract_from_available_invites
-    sponsor.update_column(:available_invites, sponsor.available_invites - 1)
-  end
+  # def subtract_from_available_invites
+  #   sponsor.update_column(:available_invites, sponsor.available_invites - 1)
+  # end
 
-  def increment_available_invites
-    sponsor.update_column(:available_invites, sponsor.available_invites + 1)
-  end
+  # def increment_available_invites
+  #   sponsor.update_column(:available_invites, sponsor.available_invites + 1)
+  # end
 end

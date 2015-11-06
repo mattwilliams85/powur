@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
   enum EventType {
@@ -63,6 +63,8 @@ module powur {
       this.$log.debug(type, item);
     }
   }
-  
-  controllerModule.controller(EventsController.ControllerId, EventsController);
+
+  angular
+    .module('powur.events', ['powur.core'])
+    .controller(EventsController.ControllerId, EventsController);
 }

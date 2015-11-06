@@ -1,4 +1,5 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../services/session.service.ts' />
 
 module powur {
   export interface IRootController {
@@ -24,5 +25,7 @@ module powur {
     }
   }
 
-  controllerModule.controller(RootController.ControllerId, RootController);
+  angular
+    .module('powur.layout')
+    .controller(RootController.ControllerId, RootController);
 }

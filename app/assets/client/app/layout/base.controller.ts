@@ -1,4 +1,4 @@
-/// <reference path='../_references.ts' />
+/// <reference path='root.controller.ts' />
 
 module powur {
   'use strict';
@@ -11,7 +11,7 @@ module powur {
     }
 
     get loggedIn(): boolean {
-      return this.session.instance.loggedIn();
+      return this.session.loggedIn();
     }
 
     get log(): ng.ILogService {

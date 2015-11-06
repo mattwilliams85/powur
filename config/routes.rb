@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       get '/reset_token/:token', to: 'passwords#reset_token', as: :reset_token
     end
 
-    resources :invites, only: [ :show, :update ] do
+    resources :invites, as: :anon_invites, only: [ :show, :update ] do
     end
 
     resource :zip_validator, only: [ :create ] do
@@ -99,10 +99,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :invites, only: [ :index, :create ] do
+    resources :invites do
       member do
         delete :delete
         post :resend
+        get :email
       end
     end
 
@@ -170,7 +171,12 @@ Rails.application.routes.draw do
 
     resources :resources, only: [:index, :show]
 
-    resources :product_invites, only: [ :index, :create, :show ]
+    resources :product_invites do
+      member do
+        post :resend
+        get :email
+      end
+    end
 
     get 'uploader_config', to: 'uploader_config#show'
   end

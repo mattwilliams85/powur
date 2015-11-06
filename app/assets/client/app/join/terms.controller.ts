@@ -1,9 +1,11 @@
-/// <reference path='../_references.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
+  'use strict';
+
   class TermsDialogController {
-    static ControllerId: string = 'TermsDialogController';
-    static $inject: Array<string> = ['$log', '$mdDialog'];
+    static ControllerId = 'TermsDialogController';
+    static $inject = ['$log', '$mdDialog'];
 
     constructor(private $log: ng.ILogService, private $mdDialog: ng.material.IDialogService) {
       this.$log.debug(TermsDialogController.ControllerId + ':ctor');
@@ -14,5 +16,7 @@ module powur {
     }
   }
 
-  controllerModule.controller(TermsDialogController.ControllerId, TermsDialogController);
+  angular
+    .module('powur.join')
+    .controller(TermsDialogController.ControllerId, TermsDialogController);
 }

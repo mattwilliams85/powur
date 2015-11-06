@@ -1,22 +1,24 @@
 html,body {
-    height: 100%; width: 100%; margin: 0; padding: 0;
-    font-weight: 300;
+  height: 100%; width: 100%; margin: 0; padding: 0;
+  font-weight: 300;
 }
 
+:focus { outline:none; }
+
 .fill-height {
-    flex: 1;
-    flex-direction: column;
-    display: flex;
-    -webkit-flex: 1;
-    -webkit-flex-direction: column;
-    display:-webkit-flex;
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  -webkit-flex: 1;
+  -webkit-flex-direction: column;
+  display:-webkit-flex;
 }
 
 .parent-height {
-    flex-direction: column;
-    display: flex;
-    -webkit-flex-direction: column;
-    display:-webkit-flex;
+  flex-direction: column;
+  display: flex;
+  -webkit-flex-direction: column;
+  display:-webkit-flex;
 }
 
 md-backdrop {
@@ -27,73 +29,73 @@ md-backdrop {
 /* #2c6c8a - bg of profile */
 
 .toolbar-bg {
-    background: #2ba7d9; /* Old browsers */
-    background: -moz-linear-gradient(top, #2ba7d9 0%, #268eb5 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#268eb5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #2ba7d9 0%,#268eb5 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ba7d9', endColorstr='#268eb5',GradientType=0 ); /* IE6-9 */
+  background: #2ba7d9; /* Old browsers */
+  background: -moz-linear-gradient(top, #2ba7d9 0%, #268eb5 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#268eb5)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #2ba7d9 0%,#268eb5 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ba7d9', endColorstr='#268eb5',GradientType=0 ); /* IE6-9 */
 }
 
 *, *:before, *:after
 {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .main .heading {
-    padding: 30px 0 40px 15px;
-    color: #666666;
+  padding: 30px 0 40px 15px;
+  color: #666666;
 
-    .title {
-        font-size: x-large;
-        text-transform: uppercase;
-    }
+  .title {
+    font-size: x-large;
+    text-transform: uppercase;
+  }
 
-    .subtitle {
+  .subtitle {
 
-    }
+  }
 }
 
 form {
-    .border {
-        width: 95%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 1px solid #fff;
-        border-width: 0 1px 1px 1px;
-        margin-top: 40px;
-        height: 10px;
-        pointer-events: none;
-        &.long {
-            width: 97.5%
-        }
+  .border {
+    width: 95%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #fff;
+    border-width: 0 1px 1px 1px;
+    margin-top: 40px;
+    height: 10px;
+    pointer-events: none;
+    &.long {
+      width: 97.5%
     }
+  }
 }
 
 .footer {
-    background-image: image-url('img/join/powur-logo.png');
-    width: 100px;
-    height: 28px;
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+  background-image: image-url('img/join/powur-logo.png');
+  width: 100px;
+  height: 28px;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 
 .semi-bold {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .capitalize {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
