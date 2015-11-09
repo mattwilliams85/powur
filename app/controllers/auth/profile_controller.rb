@@ -87,10 +87,8 @@ module Auth
     def update_mailchimp
       # Mailchimp subscription doesn't allow to change email at the moment
       # so we unsubscribe old email and subscribe new one
-      @user.mailchimp_unsubscribe
-      @user.mailchimp_subscribe
-    rescue Gibbon::MailChimpError => e
-      Airbrake.notify(e)
+      @user.delay.mailchimp_unsubscribe
+      @user.delay.mailchimp_subscribe
     end
   end
 end
