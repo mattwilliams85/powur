@@ -152,7 +152,6 @@ class Lead < ActiveRecord::Base
     if form.error? && !form.dupe?
       fail(form.error.is_a?(Exception) ? form.error : "Lead post error?: #{form.error.inspect}")
     end
-    # fail(form.error) if form.error? && !form.dupe?
 
     if form.dupe?
       Rails.logger.error(

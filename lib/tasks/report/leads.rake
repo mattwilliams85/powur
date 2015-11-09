@@ -46,5 +46,44 @@ namespace :powur do
           lead.sales_status ]
       end
     end
+
+    RELEVANT_STATUSES = [ :submitted, :closed_won, :contracted, :installed ]
+    MONTHLY_LEAD_HEADERS = [
+      :id, :rep, :customer, :submitted,
+      :closed_won, :contracted, :installed ]
+    task :monthly_leads, [ :pay_period_id ] => :environment do |_t, args|
+      lead_ids = RELEVANT_STATUSES.inject([]) do |ids, status|
+        status_ids = Lead
+          .send(status, pay_period_id: args.pay_period_id).pluck(:id)
+        ids.push(*status_ids)
+      end.uniq
+
+      file_name = "#{args.pay_period_id}_leads"
+      leads = Lead
+        .where(id: lead_ids)
+        .includes(:customer).references(:customer)
+        .includes(:user).references(:user)
+      
+      with_csv_iterator(file_name, MONTHLY_LEAD_HEADERS, leads) do |lead|
+        [ lead.id,
+          lead.user.full_name,
+          lead.customer.full_name,
+          lead.submitted_at,
+          lead.closed_won_at,
+          lead.contracted_at,
+          lead.installed_at ]
+      end
+    end
+
+    task missing_submitted: :environment do
+      data = CSV.read('tmp/sc_all_leads.csv')[1..-1]
+      missing = data.each_with_object([]) do |record, ids|
+        next unless record[0]
+        lead_id = record[0].split(':').last.to_i
+        ids << lead_id unless Lead.submitted.where(id: lead_id).exists?
+      end
+
+      binding.pry
+    end
   end
 end
