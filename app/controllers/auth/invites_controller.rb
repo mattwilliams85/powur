@@ -38,7 +38,10 @@ module Auth
     end
 
     def update
+      resend_invite = params.delete(:resend)
       @invite.update_attributes!(input)
+
+      current_user.send_invite(@invite) if resend_invite
 
       index
     end

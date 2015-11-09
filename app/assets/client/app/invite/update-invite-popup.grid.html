@@ -49,6 +49,12 @@
                 <div ng-message="message">{{ dialog.update.field('email').$error.message }}</div>
               </div>
             </md-input-container>
+
+            <md-input-container>
+              <md-checkbox ng-model="dialog.update.field('resend').value">
+                resend ?
+              </md-checkbox>
+            </md-input-container>
           </md-content>
 
           <div class="actions">

@@ -15,6 +15,7 @@ actions << action(:update, :patch, invite_path(invite))
   .field(:first_name, :text, value: invite.first_name)
   .field(:last_name, :text, value: invite.last_name)
   .field(:phone, :text, value: invite.phone)
+  .field(:resend, :boolean, value: false)
 actions << action(:resend, :post, resend_invite_path(invite)) if invite.expired?
 actions << action(:delete, :delete, delete_invite_path(invite))
 actions(*actions)
