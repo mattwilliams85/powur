@@ -309,10 +309,6 @@
       templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminUsersCtrl'
     }).
-    when('/admin/users/:userId/:tab?', {
-      templateUrl: 'admin/users/templates/show.html',
-      controller: 'AdminUsersCtrl'
-    }).
     when('/admin/users/:userId/edit', {
       templateUrl: 'admin/users/templates/edit.html',
       controller: 'AdminUsersCtrl'
@@ -323,6 +319,10 @@
     }).
     when('/admin/users/:userId/place-user', {
       templateUrl: 'admin/users/templates/place-user.html',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/admin/users/:userId/:tab?', {
+      templateUrl: 'admin/users/templates/show.html',
       controller: 'AdminUsersCtrl'
     });
   }
