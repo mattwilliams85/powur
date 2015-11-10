@@ -28,25 +28,38 @@
   </md-tabs>
 
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
-    <a href="javascript:void(0);" ng-click="invite.addInvite($event)">
-      <div class="invite-item">
-        <div class="invite-bg ellipse"></div>
-        <span class="add counter">
-          <i class="sprite sprite-invite"></i>
-          <div class="label hoverable">Click to <b>Invite</b></div>
-        </span>
-      </div>
+    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" flex-sm="100"  class="list-item">
+      <div layout="row">
+        <div class="invite-item">
+          <div class="invite-bg ellipse"></div>
+          <span class="add counter">
+            <i class="sprite sprite-invite"></i>
+            <div class="label hoverable" hide-sm>Click to <b>Invite</b></div>
+          </span>
+        </div>
+        <div class="side-text-box" hide-gt-sm>
+          <div class="label">Tap to <b>Invite</b></div>
+        </div>
+    </div>
     </a>
 
-    <div ng-repeat="item in invite.list">
-      <div class="invite-item solar" ng-click="invite.showInvite($event, item)" id="{{item.properties.id}}">
-        <div class="invite-bg" ng-class="item.properties.status"></div>
-        <div class="text-box" flex layout="column" layout-align="start center">
-          <div class="icon" ng-class="item.properties.status"></div>
-          <div class="full-name">
-            {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+    <div ng-repeat="item in invite.list" flex-sm="100"  class="list-item">
+      <div layout="row">
+        <div class="invite-item solar" ng-click="invite.showInvite($event, item)" id="{{item.properties.id}}">
+          <div class="invite-bg" ng-class="item.properties.status"></div>
+          <div class="text-box" flex layout="column" layout-align="start center" >
+            <div class="icon" ng-class="item.properties.status"></div>
+            <div class="full-name" hide-sm>
+              {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+            </div>
+            <div class="est" hide-sm>EST. {{item.properties.updated_at | date: 'M/d/yy'}}</div>
           </div>
-          <div class="est">EST. {{item.properties.updated_at | date: 'M/d/yy'}}</div>
+        </div>
+        <div class="side-text-box solar" hide-gt-sm>
+          <div class="full-name">
+            {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name}}</b>
+          </div>
+          <div class="full-name">EST. {{item.properties.updated_at | date: 'M/d/yy'}}</div>
         </div>
       </div>
     </div>

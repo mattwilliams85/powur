@@ -23,27 +23,42 @@
   </md-tabs>
 
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
-    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
-      <div class="invite-item">
-        <div class="invite-bg ellipse"></div>
-        <span class="add counter">
-          <i class="sprite sprite-invite"></i>
-          <div class="label hoverable">Click to <b>Invite</b></div>
-        </span>
-      </div>
+    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" flex-sm="100"  class="list-item">
+      <div layout="row">
+        <div class="invite-item">
+          <div class="invite-bg ellipse"></div>
+          <span class="add counter">
+            <i class="sprite sprite-invite"></i>
+            <div class="label hoverable" hide-sm>Click to <b>Invite</b></div>
+          </span>
+        </div>
+        <div class="side-text-box" hide-gt-sm>
+          <div class="label">Tap to <b>Invite</b></div>
+        </div>
+    </div>
     </a>
 
-    <div ng-repeat="item in invite.list track by $index">
-      <div class="invite-item" ng-class="{ 'expired': !item.properties.time_left }" ng-click="invite.showInvite($event, item)">
-        <div class="invite-bg"></div>
-        <div ng-hide="item.properties.time_left" class="warning-bg"></div>
-        <canvas ng-show="item.properties.time_left" id="pie-{{item.properties.id}}" width="170" height="170"></canvas>
-        <div class="text-box" flex layout="column" layout-align="start center">
-          <div ng-show="item.properties.time_left" class="time">{{ invite.dateFormat(item, 'H:mm') }}<span class="superscript">{{ invite.dateFormat(item, 'ss')  }}</span></div>
-          <div class="exp-label">EXPIRED</div>
-          <div class="full-name">
-            {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+    <div ng-repeat="item in invite.list track by $index"  flex-sm="100" class="list-item">
+      <div layout="row">
+        <div class="invite-item" ng-class="{ 'expired': !item.properties.time_left }" ng-click="invite.showInvite($event, item)">
+          <div class="invite-bg"></div>
+          <div ng-hide="item.properties.time_left" class="warning-bg"></div>
+          <canvas ng-show="item.properties.time_left" id="pie-{{item.properties.id}}" width="170" height="170"></canvas>
+          <div class="text-box" flex layout="column" layout-align="start center" hide-sm>
+            <div ng-show="item.properties.time_left" class="time">{{ invite.dateFormat(item, 'H:mm') }}<span class="superscript">{{ invite.dateFormat(item, 'ss')  }}</span></div>
+            <div class="exp-label">EXPIRED</div>
+            <div class="full-name">
+              {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+            </div>
           </div>
+        </div>
+        <div class="side-text-box" hide-gt-sm>
+        <br>
+          <div class="full-name">
+            {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name}}</b>
+          </div>
+          <div ng-show="item.properties.time_left" class="time">{{ invite.dateFormat(item, 'H:mm') }}<span class="superscript">{{ invite.dateFormat(item, 'ss')  }}</span></div>
+          <div class="full-name" ng-show="!item.properties.time_left">EXPIRED</div>
         </div>
       </div>
     </div>

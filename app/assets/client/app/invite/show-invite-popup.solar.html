@@ -24,9 +24,9 @@
             <div class="detail">{{(dialog.invite.properties.last_viewed_at | date: 'MMM d, yyyy') || '---'}}</div>
           </div>
         </md-content>
-        <md-content layout-padding layout="column" class="status-wrap">
+        <md-content layout-padding layout="column" class="status-wrap" >
           <div class="header">status</div>
-          <div class="title">invitation <b>{{ dialog.invite.properties.email_data.state }}</b></div>
+          <div class="title">invitation <b>{{ dialog.invite.properties.email_data.state || 'SENT'}}</b></div>
         </md-content>
         <md-button class="md-primary md-raised" ng-click="dialog.resendInvite()" ng-disabled="dialog.resend.submitting">Resend</md-button>
         <md-button class="md-warn md-raised" ng-click="dialog.remove()" ng-disabled="dialog.delete.submitting">Delete</md-button>

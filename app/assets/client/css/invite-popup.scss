@@ -53,18 +53,9 @@
 
   .dialog {
     max-width: 550px;
-    max-height: 100%;
+    max-height: 370px;
     min-width: 425px;
-    margin: 1em auto;
-
-    @media (max-width: 600px) {
-      max-width: 300px;
-    }
-
-    @media (min-width: 600px) {
-      max-width: 850px;
-    }
-
+    margin: auto auto;
   }
 
   @media #{$gt-md} {
@@ -269,10 +260,61 @@
     height: 22px;
     background-position: -63px -5px;
   }
+}
 
-  @media screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
+  .invite-popup {
+    .dialog {
+      max-width: 90%;
+      max-height: 90%;
+      min-width: 305px;
+    }
+    button {
+      margin: 10px 0 0 0;
+    }
+    .actions {
+      padding: 0px 0 20px 5px;
+    }
+
     .side-bg {
       display: none;
+    }
+    &.show {
+      md-dialog-content {
+        padding: 30px 40px 30px 30px;
+      }
+      .info-wrap {
+        margin-top: 0px;
+      }
+      .status-wrap {
+        padding: 10px 0 0 0;
+      }
+      .full-name {
+        font-size: large;
+        line-height: inherit;
+      }
+      .detail {
+        font-size: small;
+        line-height: inherit;
+      }
+      .header {
+        font-size: x-small;
+        line-height: inherit;
+      }
+      .info-box {
+        padding: 5px 0 10px 0;
+      }
+      .timer {
+        font-size: 12pt;
+        line-height: 4pt;
+        padding: 5px;
+      }
+      .link {
+        font-size: 7pt;
+      }
+      .title {
+        font-size: small;
+      }
     }
   }
 

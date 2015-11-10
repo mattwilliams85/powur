@@ -208,7 +208,7 @@ module powur {
       this.$mdDialog.show({
         controller: 'NewInviteGridDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.grid.html',
-        parent: angular.element('.invite.main'),
+        parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
         locals: {
@@ -233,7 +233,7 @@ module powur {
       this.$mdDialog.show({
         controller: 'UpdateInviteGridDialogController as dialog',
         templateUrl: 'app/invite/show-invite-popup.grid.html',
-        parent: angular.element('.invite.main'),
+        parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
         preserveScope: true,

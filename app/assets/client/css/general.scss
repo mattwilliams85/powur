@@ -6,7 +6,8 @@ html,body {
 :focus { outline:none; }
 
 .main-view {
-  left: 70px;
+  padding-left: 70px;
+  overflow-x: hidden;
   position: relative;
 }
 
