@@ -31,7 +31,7 @@ bonuses:
   -
     id: 3
     type: DifferentialBonus
-    name: PACT
+    name: Differential
     schedule: 2
     contracted_percent: 0.5
     installed_percent: 0.5

@@ -1,6 +1,6 @@
 class RewardBonusChanges < ActiveRecord::Migration
   DEPRECATED_BONUSES = [ 4, 6 ]
-  CHANGED_BONUSES = [ 2 ]
+  CHANGED_BONUSES = [ 3 ]
   NEW_BONUSES = [ 10 ]
 
   def up
