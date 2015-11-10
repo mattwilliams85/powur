@@ -255,7 +255,8 @@ CREATE TABLE bonuses (
     amount numeric(10,2),
     start_date timestamp without time zone,
     distribution_id integer,
-    pay_period_id character varying
+    pay_period_id character varying,
+    end_date date
 );
 
 
@@ -1478,7 +1479,8 @@ CREATE TABLE users (
     image_original_path character varying,
     tos character varying(5),
     available_invites integer DEFAULT 0,
-    login_streak integer DEFAULT 0 NOT NULL
+    login_streak integer DEFAULT 0 NOT NULL,
+    coded_user_id integer
 );
 
 
@@ -2415,6 +2417,14 @@ ALTER TABLE ONLY rank_achievements
 
 
 --
+-- Name: fk_rails_1919e92957; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_1919e92957 FOREIGN KEY (coded_user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_1ac6520b51; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2991,4 +3001,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151017023317');
 INSERT INTO schema_migrations (version) VALUES ('20151022170603');
 
 INSERT INTO schema_migrations (version) VALUES ('20151105193737');
+
+INSERT INTO schema_migrations (version) VALUES ('20151110002117');
+
+INSERT INTO schema_migrations (version) VALUES ('20151110002252');
 

@@ -27,7 +27,7 @@ module UserScopes
     }
 
     scope :monthly_leaders, lambda {
-        select('users.*, COUNT(ml.submitted_at) AS leader_count')
+      select('users.*, COUNT(ml.submitted_at) AS leader_count')
         .joins("INNER JOIN (#{Lead.all.submitted.to_sql}) ml ON users.id = ml.user_id")
         .where('ml.submitted_at >= ?', Time.zone.today.beginning_of_month)
         .group('users.id')
@@ -112,6 +112,10 @@ module UserScopes
     }
 
     scope :with_purchases, -> { joins(:product_receipts) }
+    scope :purchased, lambda { |product_id|
+      joins(:product_receipts)
+        .where(product_receipts: { product_id: product_id })
+    }
 
     scope :advocates, lambda {
       where.not(id: partners.select('users.id'))
@@ -128,8 +132,8 @@ module UserScopes
 
     scope :installations, lambda { |id|
       all_team(id)
-      .joins(:leads)
-      .where.not(leads: { installed_at: nil })
+        .joins(:leads)
+        .where.not(leads: { installed_at: nil })
     }
 
     scope :eligible_parents, lambda { |user|

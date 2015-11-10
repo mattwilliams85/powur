@@ -55,7 +55,7 @@ namespace :powur do
 
     task bonuses: :environment do
       bonus_data['bonuses'].each do |bonus_attrs|
-        create_bonus_from_attrs(bonus_attrs)
+        Bonus.create_or_update_bonus_from_attrs(bonus_attrs)
       end
     end
 
