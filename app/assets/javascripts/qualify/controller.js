@@ -84,10 +84,11 @@
     };
 
     $scope.sendToSignIn = function() {
-      $rootScope.redirectAfterSignIn = {};
-      $rootScope.redirectAfterSignIn.destination = '/qualify';
-      $rootScope.redirectAfterSignIn.properties = {zip: $scope.zip.code};
-      $location.path('/next/login/');
+      // $rootScope.redirectAfterSignIn = {};
+      // $rootScope.redirectAfterSignIn.destination = '/qualify';
+      // $rootScope.redirectAfterSignIn.properties = {zip: $scope.zip.code};
+      // $location.path('/next/login/');
+      window.location = '/next/login/';
     };
 
     $scope.saveProposal = function() {
