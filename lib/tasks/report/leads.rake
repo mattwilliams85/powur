@@ -82,8 +82,6 @@ namespace :powur do
         lead_id = record[0].split(':').last.to_i
         ids << lead_id unless Lead.submitted.where(id: lead_id).exists?
       end
-
-      binding.pry
     end
   end
 end

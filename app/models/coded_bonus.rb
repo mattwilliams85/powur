@@ -100,24 +100,27 @@ class CodedBonus < Bonus
     def calculate_sponsor_codes(user)
       return unless user.sponsor_id?
 
+      if user.sponsor.sponsor_id? && !user.sponsor.coded_user_id?
+        calculate_sponsor_codes(user.sponsor)
+      end
+
       siblings = User
         .where(sponsor_id: user.sponsor_id)
         .purchased(3)
         .order('product_receipts.purchased_at ASC')
         .pluck(:id)
 
+      # binding.pry
       sequence = siblings.index(user.id) || return
-      if sequence.odd?
-        user.update_attributes!(coded_user_id: user.sponsor_id)
-        return
-      end
+      coded_user_id =
+        if (sequence + 1).odd? # keep line
+          user.sponsor_id
+        else # pass line
+          user.sponsor.coded_user_id
+        end
+      return if coded_user_id.nil?
 
-      unless user.sponsor.coded_user_id?
-        return unless user.sponsor.sponsor_id?
-        calculate_sponsor_codes(user.sponsor)
-      end
-
-      user.update_attributes!(coded_user_id: user.sponsor.coded_user_id)
+      user.update_attributes!(coded_user_id: coded_user_id)
     end
   end
 end
