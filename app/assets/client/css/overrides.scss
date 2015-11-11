@@ -1,6 +1,6 @@
-md-sidenav, 
-md-sidenav.md-locked-open, 
-md-sidenav.md-closed.md-locked-open-add-active {
+.left-menu, 
+.left-menu.md-locked-open, 
+.left-menu.md-closed.md-locked-open-add-active {
     z-index:5;
     min-width: 280px !important;
     width: 85vw !important;
@@ -9,7 +9,7 @@ md-sidenav.md-closed.md-locked-open-add-active {
     transition:.2s;
 } 
 
-md-sidenav.collapsed{
+.left-menu.collapsed{
     min-width: 160px !important;
     width: 85vw !important;
     max-width: 160px !important;
@@ -36,9 +36,14 @@ md-tab-item:not([disabled]) {
     color: #eee !important;
 }
 
-.md-sidenav-left{
+.left-menu{
    transition: all .3s;
    position:relative !important
+}
+
+.right-menu {
+    display: flex !important;
+    height: 100vh;
 }
 
 .md-primary {

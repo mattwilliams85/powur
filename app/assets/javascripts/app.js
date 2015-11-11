@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function init($rootScope, $location, $document, $http, $filter, $window, $timeout) {
+  function init($rootScope, $location, $document, $http, $filter, $window, $timeout, $mdSidenav) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
@@ -83,6 +83,10 @@
       return false;
     };
 
+    $rootScope.stateName = function() {
+      return $location.path().substring(1)
+    }
+
     $rootScope.isMobile = function() {
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
        return true;
@@ -90,10 +94,13 @@
     };
 
     $rootScope.signOut = function() {
-      console.log("WOOOOOT");
       $http.delete('/login.json').success(function() {
         window.location = '/next/login';
       });
+    };
+
+    $rootScope.openMenu = function() {
+      $mdSidenav('mobile-left').toggle();
     };
 
     $rootScope.gotoAnchor = function(id) {
@@ -134,7 +141,8 @@
     '$http',
     '$filter',
     '$window',
-    '$timeout'];
+    '$timeout',
+    '$mdSidenav'];
 
   angular.module('powurApp', [
     'ngRoute',

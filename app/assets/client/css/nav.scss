@@ -1,19 +1,21 @@
-.nav .bg {
-    width: 70px;
-    z-index: 20;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    /*height: 1200px;*/
-    background: #29a8dd; /* Old browsers */
-    background: -moz-linear-gradient(top, #29a8dd 0%, #509f9a 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#29a8dd), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
+.nav { 
+    .bg {
+        width: 70px;
+        z-index: 20;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        /*height: 1200px;*/
+        background: #29a8dd; /* Old browsers */
+        background: -moz-linear-gradient(top, #29a8dd 0%, #509f9a 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#29a8dd), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
+    }
 
     a { text-decoration: none; }
 
@@ -76,7 +78,7 @@
     .sprite-library {
         width: 35px;
         height: 43px;
-        background-position: -5px -5px;
+        background-image: image-url("img/library-icon.png");
     }
 
     .sprite-upgrade {
@@ -97,7 +99,7 @@
     .sprite-earnings {
         width: 42px;
         height: 40px;
-        background-position: -50px -5px;
+        background-image: image-url("img/earnings-icon.png");
     }
     
     .sprite-events {
@@ -121,7 +123,7 @@
     .sprite-logout {
         width: 33px;
         height: 26px;
-        background-position: -249px -5px;
+        background-image: image-url("img/logout-icon.png");
     }
     
     .sprite-social {
@@ -133,7 +135,7 @@
     .sprite-stats {
         width: 27px;
         height: 31px;
-        background-position: -335px -5px;
+        background-image: image-url("img/profile-icon.png");
     }
     
     .sprite-strategy {
@@ -145,14 +147,58 @@
     .sprite-dashboard {
       width: 35px;
       height: 35px;
-      background-position: -403px -5px;
+      background-image: image-url("img/dashboard-icon.png");
     }
     
     .sprite-invite {
       width: 32px;
       height: 38px;
-      background-position: -448px -5px;
+      background-image: image-url("img/invite-icon.png");
     }
+}
 
+.nav.mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 59;
+    .bg {
+        width: 100%;
+        height: 50px;
+        background: -moz-linear-gradient(left, #29a8dd 0%, #44A1AE 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#29a8dd), color-stop(100%,#44A1AE)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left, #29a8dd 0%,#44A1AE 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(left, #29a8dd 0%,#44A1AE 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(left, #29a8dd 0%,#44A1AE 100%); /* IE10+ */
+        background: linear-gradient(to right, #29a8dd 0%,#44A1AE 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
+    }
+    .logo {
+        background: image-url('img/logo-icon.png');
+        height: 32px;
+        width: 32px;
+        float: right;
+        margin: 8px 10px;
+        background-size: contain;
+        cursor: pointer;
+    }
+    .menu {
+        background: image-url('img/header-menu-icon.png');
+        height: 24px;
+        width: 27px;
+        float: left;
+        margin: 12px 10px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+    .title {
+        float: left;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 17pt;
+        padding: 0 5px;
+        line-height: 36pt;
+    }
 }
 

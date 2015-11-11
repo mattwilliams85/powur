@@ -20,11 +20,13 @@ module powur {
         url: '/invite',
         templateUrl: 'app/invite/layout.html',
         controller: 'InviteController as invite',
+
       })
       .state('home.invite.product', {
         url: '/solar',
         templateUrl: 'app/invite/invite.product.html',
         controller: 'InviteProductController as invite',
+        params: { title: 'invite' },
         resolve: {
           invites: ['SessionService', productInvites]
         }
@@ -33,6 +35,7 @@ module powur {
         url: '/grid',
         templateUrl: 'app/invite/invite.grid.html',
         controller: 'InviteGridController as invite',
+        params: { title: 'invite' },
         resolve: {
           invites: ['SessionService', userInvites]
         }

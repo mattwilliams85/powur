@@ -743,8 +743,11 @@
 
 
       .warning-bg {
-        height: 70px;
-        width: 70px;
+        background: image-url('img/expired-lt.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 27px;
+        width: 26px;
       }
 
       .text-box {
@@ -791,7 +794,7 @@
 
       &.solar {
         .icon {
-          top: 0;
+          top: 0 !important;
           bottom: 0;
           height: 30px;
           width: 30px;
