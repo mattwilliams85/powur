@@ -24,8 +24,9 @@ module Admin
       product = Product.find(params[:id])
 
       product.complimentary_purchase(@user)
+      Rank.rank_user(@user.id)
 
-      update_mailchimp if product.slug = 'partner'
+      update_mailchimp if product.slug == 'partner'
 
       head 200
     end
