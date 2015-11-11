@@ -8,6 +8,8 @@ json.properties do
     SystemSettings.join_grid_step1_youtube_embed_url)
   json.join_grid_step2_youtube_embed_url(
     SystemSettings.join_grid_step2_youtube_embed_url)
+  json.preview_video_embed_url(
+    SystemSettings.preview_video_embed_url)
 end
 
 actions_list = [

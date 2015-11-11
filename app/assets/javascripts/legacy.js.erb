@@ -98,6 +98,10 @@ var legacyImagePaths = {
   rapidSslIcon: '<%=asset_path("memberships/rapid-ssl-icon.png")%>'
 };
 
+var legacyVideoPaths = {
+  previewVideoEmbedUrl: '<%= SystemSettings.preview_video_embed_url %>'
+};
+
 $.fn.wrapInTag = function(opts) {
   var tag = opts.tag || 'strong'
     , words = opts.words || []
@@ -157,4 +161,3 @@ var legacyMonths = [
   'January', 'February', 'March', 'April', 'May', 'June', 'July',
   'August', 'September', 'October', 'November', 'December'
 ];
-
