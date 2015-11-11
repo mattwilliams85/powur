@@ -168,5 +168,7 @@ module UserScopes
         .joins("LEFT JOIN (#{Lead.user_count.to_sql})
                   lc ON lc.user_id = users.id")
     }
+
+    scope :coded, -> { where('users.coded_user_id IS NOT NULL') }
   end
 end

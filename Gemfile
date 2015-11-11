@@ -49,6 +49,7 @@ gem 'typescript-rails'
 gem 'foundation-rails'
 gem 'lograge'
 gem 'mandrill-api', require: 'mandrill'
+gem 'ruby-graphviz', require: 'graphviz'
 
 group :development do
   gem 'spring'
