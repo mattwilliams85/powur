@@ -65,6 +65,8 @@ en:
     create_invite_not_allowed: Please upgrade to a partner to create invites
     zip_api: The Solar City Zip Code Validation API is not responding right now. Please try again later.
     solarcity_api: The Solar City Lead Submission API is not responding. Please try again later.
+    update_sponsor_self: User cannot be own sponsor
+    update_sponsor_not_in_upline: "New sponsor has to be in user's upline"
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

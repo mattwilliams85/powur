@@ -4,6 +4,10 @@ users_json.item_init
 
 users_json.detail_properties
 
+json.properties do
+  json.sponsor_id @user.sponsor_id
+end
+
 if params[:user_totals]
   json.properties do
     json.totals do
@@ -28,15 +32,25 @@ end
 
 users_json.admin_entities
 
-actions \
-  users_json.update_action(admin_user_path(@user)),
-  action(:eligible_parents, :get, eligible_parents_admin_user_path(@user)),
-  action(:move, :post, move_admin_user_path(@user))
-  .field(:parent_id,
-         :select,
-         required:  true,
-         reference: { url:  eligible_parents_admin_user_path(@user),
-                      id:   :id,
-                      name: :full_name })
+action_list = []
+
+action_list << users_json.update_action(admin_user_path(@user))
+action_list << action(:eligible_parents,
+                      :get,
+                      eligible_parents_admin_user_path(@user))
+action_list << action(:move,
+                      :post,
+                      move_admin_user_path(@user)).field(
+                        :parent_id, :select, required:  true, reference: {
+                          url:  eligible_parents_admin_user_path(@user),
+                          id:   :id,
+                          name: :full_name })
+action_list << action(:update_sponsor,
+                      :patch,
+                      update_sponsor_admin_user_path(@user)).field(
+                        :sponsor_id,
+                        :number)
+
+actions(*action_list)
 
 self_link admin_user_path(@user)
