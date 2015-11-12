@@ -50,9 +50,9 @@ module powur {
       var promise = this.executeAndRefresh(super.login());
       promise.then((r: ng.IHttpPromiseCallbackArg<any>) => {
         //(<any>this)._data.class = r.data.class;
-        var data = r.data;
-        angular.module('powur').constant('sessionData', data);
-        this.refreshData(data);
+        //var data = r.data;
+        //angular.module('powur').constant('sessionData', data);
+        //this.refreshData(data);
         this.$state.go(redirect, redirectParams, { reload: true }); 
       });
       return promise;
