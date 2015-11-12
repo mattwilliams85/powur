@@ -4,7 +4,9 @@ html, body {
 }
 
 body {
-  padding-left: 70px;
+  &.signed-in {
+    padding-left: 70px;
+  }
 }
 
 .highlighted {

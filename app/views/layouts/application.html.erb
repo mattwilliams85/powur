@@ -27,7 +27,7 @@
   <%= csrf_meta_tags %>
   <%= javascript_include_tag "modernizr/modernizr" %>
 </head>
-<body>
+<body class="<%= current_user ? 'signed-in' : '' %>">
 
   <%= yield %>
 
