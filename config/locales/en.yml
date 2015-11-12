@@ -16,6 +16,14 @@ en:
     validations:
       email:
         invalid: Please use a valid email address
+  mandrill_states:
+    sent: Email has been sent successfully
+    bounced: Email has hard bounced
+    opened: Recipient opened an email
+    rejected: Email was rejected
+    delayed: Email has been sent
+    soft-bounced: Email has soft bounced
+    clicked: Recipient clicked a link in an email
   errors:
     format: "%{message}"
     required: "%{input} is required"

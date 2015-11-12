@@ -19,6 +19,11 @@ class MandrillMonitor
     message && message['state']
   end
 
+  def state_description
+    return '' unless state.present?
+    I18n.t('mandrill_states.' + state)
+  end
+
   private
 
   def message
