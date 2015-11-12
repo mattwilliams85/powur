@@ -6,6 +6,7 @@ html, body {
 body {
   &.signed-in {
     padding-left: 70px;
+    overflow-x: hidden;
   }
 }
 

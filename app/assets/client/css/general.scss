@@ -111,7 +111,7 @@ form {
   text-transform: capitalize;
 }
 
-.nav.mobile {
+.nav.mobile, .nav.goals {
   display: none;
 }
 
@@ -122,7 +122,7 @@ form {
   }
   .nav {
     display: none;
-    &.mobile {
+    &.mobile, &.goals {
       display: block;
     }
   }

@@ -1,4 +1,5 @@
 .nav { 
+    z-index: 59;
     .bg {
         width: 70px;
         z-index: 20;
@@ -161,10 +162,10 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 59;
     .bg {
         width: 100%;
         height: 50px;
+        box-shadow: 0px 0px 4px 2px rgba(0,0,0,.15);
         background: -moz-linear-gradient(left, #29a8dd 0%, #44A1AE 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, right top, color-stop(0%,#29a8dd), color-stop(100%,#44A1AE)); /* Chrome,Safari4+ */
         background: -webkit-linear-gradient(left, #29a8dd 0%,#44A1AE 100%); /* Chrome10+,Safari5.1+ */
@@ -199,6 +200,53 @@
         font-size: 17pt;
         padding: 0 5px;
         line-height: 36pt;
+    }
+}
+
+.nav.goals {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+
+    .bar {
+        height: 32px;
+        width: 100%;
+        background-color: #2C6C8A;
+        box-shadow: 0px 0px 2px 1px rgba(0,0,0,.15);
+    }
+
+
+    span {
+        font-size: 7pt;
+        color: #fff;
+        text-transform: uppercase;
+        vertical-align: middle;
+    }
+
+    .number {
+        font-size: 10pt;
+
+        letter-spacing: .05em;
+        font-weight: 600;
+    }
+    sup {
+        font-size: 7pt;
+    }
+    .icon {
+        background: image-url('img/proposal-icon.png');
+        background-size: contain;
+        height: 10px;
+        width: 10px;
+        display: inline-block;
+        &.medal {
+            background: image-url('img/medal-icon.png');
+            height: 12px;
+            width: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-bottom: -1px;
+        }
     }
 }
 
