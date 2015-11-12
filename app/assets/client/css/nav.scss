@@ -164,7 +164,7 @@
     left: 0;
     .bg {
         width: 100%;
-        height: 50px;
+        height: 40px;
         box-shadow: 0px 0px 4px 2px rgba(0,0,0,.15);
         background: -moz-linear-gradient(left, #29a8dd 0%, #44A1AE 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, right top, color-stop(0%,#29a8dd), color-stop(100%,#44A1AE)); /* Chrome,Safari4+ */
@@ -176,19 +176,19 @@
     }
     .logo {
         background: image-url('img/logo-icon.png');
-        height: 32px;
-        width: 32px;
+        height: 25px;
+        width: 25px;
         float: right;
-        margin: 8px 10px;
+        margin: 7px 10px;
         background-size: contain;
         cursor: pointer;
     }
     .menu {
         background: image-url('img/header-menu-icon.png');
-        height: 24px;
-        width: 27px;
+        height: 20px;
+        width: 20px;
         float: left;
-        margin: 12px 10px;
+        margin: 11px 5px;
         background-size: contain;
         background-repeat: no-repeat;
         cursor: pointer;
@@ -197,9 +197,9 @@
         float: left;
         color: #fff;
         text-transform: uppercase;
-        font-size: 17pt;
+        font-size: 16pt;
         padding: 0 5px;
-        line-height: 36pt;
+        line-height: 29pt;
     }
 }
 

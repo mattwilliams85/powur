@@ -184,7 +184,7 @@
 
     .label.kpi{
       color:#666;
-      padding-top: 4px;
+      padding-top: 10px;
 
       @media (max-width: 600px) {
         font-size:x-small;
@@ -698,7 +698,7 @@
     }
     
     .counter {
-      height:100px;
+      height: 80px;
 
       &.add {
         top: 25px;

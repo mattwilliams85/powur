@@ -132,6 +132,8 @@ form {
     max-width: 70vw !important;
     min-width: 70vw !important;
     width: 70vw !important;
+    height: 100vh !important;
+    position: fixed;
     background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
