@@ -225,3 +225,10 @@ bonuses:
           - 100.0
           - 25.0
           - 25.0
+  -
+    id: 11
+    type: MatchingBonus
+    name: Leader Matching
+    schedule: 2
+    matching_bonus_id: 10
+    matching_percentage: 0.5

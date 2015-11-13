@@ -27,13 +27,17 @@ class BonusCalculator
 
   def status_leads(status)
     leads[status] ||= begin
-      Lead.send(status, pay_period_id: pay_period.id)
+      Lead
+        .send(status, pay_period_id: pay_period.id)
         .preload(:user, user: :product_receipts)
     end
   end
 
   def bonuses
-    @bonuses ||= Bonus.pay_period(pay_period).preload(:bonus_amounts)
+    @bonuses ||= Bonus
+      .pay_period(pay_period)
+      .preload(:bonus_amounts)
+      .order(:id)
   end
 
   def users
