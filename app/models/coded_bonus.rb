@@ -162,28 +162,6 @@ class CodedBonus < Bonus
   end
 
   class << self
-    # def calculate_and_report(pay_period_id)
-    #   results = first.create_payments!(BonusCalculator.new(pay_period_id))
-
-    #   CSV.open("/tmp/coded_bonus_leads-#{pay_period_id}.csv", 'w') do |csv|
-    #     csv << %w(id converted user sponsor coded_to status lead_number)
-    #     results[:converted].each do |lead, result|
-    #       user = "#{lead.user.full_name} (#{lead.user.id})"
-    #       if lead.user.sponsor_id
-    #         sponsor = "#{lead.user.sponsor.full_name} (#{lead.user.sponsor_id})"
-    #       end
-    #       row = [ lead.id, lead.converted_at, user,
-    #               sponsor, lead.user.coded_user_id ]
-    #       if result.is_a?(BonusPayment)
-    #         row.push(result.amount, result.lead_number)
-    #       else
-    #         row.push(result, nil)
-    #       end
-    #       csv << row
-    #     end
-    #   end
-    # end
-
     # def user_node_name(user)
     #   "#{user.full_name} (#{user.id})"
     # end
