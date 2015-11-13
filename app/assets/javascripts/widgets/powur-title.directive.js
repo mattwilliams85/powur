@@ -10,7 +10,7 @@
 
        var listener = function(event) {
         var title = $location.$$url.substring(1);
-        title = capitalizeFirstLetter(title);
+        title = 'Powur ' + capitalizeFirstLetter(title);
         
         $timeout(function() {
           element.text(title);

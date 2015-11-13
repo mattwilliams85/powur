@@ -12,20 +12,21 @@ module powur {
             }
 
             return <any>{
-                link: function(scope: ng.IScope, element: JQuery) {
-                   var listener = function(event, toState) {
+              link: function(scope: ng.IScope, element: JQuery) {
+                var listener = function(event, toState) {
 
                     var title = 'Welcome to Powur';
-                    if (toState.params && toState.params.title) title = toState.params.title;
+                    if (toState.params && toState.params.title) {
+                        title = 'Powur ' + capitalizeFirstLetter(toState.params.title);
+                    }
 
-                    title = capitalizeFirstLetter(title);
                     $timeout(function() {
-                      element.text(title);
+                        element.text(title);
                     }, 0, false);
-                  };
+                };
 
-                  $rootScope.$on('$stateChangeSuccess', listener);
-                }
+                $rootScope.$on('$stateChangeSuccess', listener);
+              }
             }; // return
         } // ctor
     } // class
