@@ -63,6 +63,5 @@ module Powur
     Typescript::Rails::Compiler.default_options = ['--target', 'ES5']
     # Typescript::Rails::Compiler
     #   .default_options.push('--suppressImplicitAnyIndexErrors')
-    # binding.pry
   end
 end

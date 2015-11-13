@@ -14,7 +14,7 @@
       background-color: #333;
     }
     .quote {
-      z-index: 101; // (added to put text/gray bg on top of .locked overlays)
+      z-index: 20; // (added to put text/gray bg on top of .locked overlays)
 
       .share-this {
         padding-top: 20px;

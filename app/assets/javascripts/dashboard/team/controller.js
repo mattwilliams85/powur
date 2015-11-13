@@ -622,7 +622,7 @@
     var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
     if (startDate < betaStart) startDate = betaStart;
     startDate = startDate.addDays(60);
-    return startDate.getMonth() + '/' +
+    return (startDate.getMonth() + 1) + '/' +
            startDate.getDate() + '/' +
            startDate.getFullYear();
   };

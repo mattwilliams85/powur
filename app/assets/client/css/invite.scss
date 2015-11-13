@@ -4,6 +4,13 @@
     text-decoration: none;
   }
 
+  .superscript {
+    vertical-align: super;
+    font-size: medium;
+    margin-left: 1px;
+    font-weight: normal;
+  }
+
   .tab {
     list-style: none;
     margin: 0;
@@ -177,7 +184,7 @@
 
     .label.kpi{
       color:#666;
-      padding-top: 4px;
+      padding-top: 10px;
 
       @media (max-width: 600px) {
         font-size:x-small;
@@ -262,6 +269,39 @@
     padding: 20px 20px;
     overflow: hidden;
     max-width: 1200px;
+  }
+
+  .side-text-box {
+    padding: 0px 5px;
+
+    &.solar {
+      padding: 20px 5px;
+    }
+
+    .label {
+      color: #444;
+      text-transform: uppercase;
+      font-size: medium;
+      line-height: 70pt;
+    }
+
+    .full-name {
+      font-size: medium;
+      text-transform: uppercase;
+      color: #444;
+      line-height: 18pt;
+      margin-top: 6px;
+      b {
+        font-weight: 600;
+        color: #444;
+      }
+    }
+
+    .time {
+      font-size: 20pt;
+      font-weight: 400;
+      color: #444;
+    }
   }
 
   .invite-item {
@@ -368,13 +408,6 @@
       border-bottom: 1px solid rgba(255,255,255,0.8);
       width: 68%;
       padding-bottom: 5px;
-
-      .superscript {
-        vertical-align: super;
-        font-size: medium;
-        margin-left: 1px;
-        font-weight: normal;
-      }
     }
 
     &.solar {
@@ -626,15 +659,60 @@
   }
 }
 
-@media screen and (max-width : 720px) {
-  .invite {
-    .counter {
-      height:120px;
+@media screen and (max-width : 600px) {
 
+  .list-item {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0px;
+    &:last-of-type {
+      border-bottom: 0px;
+    }
+    &:first-of-type {
+      border-bottom: 1px solid #ccc;;
+    }
+  }
+
+  .md-tab {
+    font-size: 7pt;
+  }
+
+  .invite {
+    .tab {
+      .title {
+        font-size: medium;
+      }
+      li {
+        display: inline-block;
+        margin: 0;
+        padding: 0 10px;
+        box-sizing: border-box;
+        height: 50px;
+      }
+    }
+    md-tabs {
+      padding-left: 0px !important;
+    }
+    .invite-list {
+      padding: 10px;
+
+    }
+    
+    .counter {
+      height: 80px;
+
+      &.add {
+        top: 25px;
+      }
       .sprite {
         display: none;
       }
-
+      .sprite-invite {
+        display: block;
+        background: image-url('img/plus.png');
+        width: 20px;
+        height: 20px;
+        background-size: cover !important;
+      }
       .count {
         font-size:2em;
       }
@@ -642,15 +720,15 @@
 
     .ellipse {
       .sprite-ellipse-invite {
-        width: 140px;
-        height: 140px;
+        width: 100px;
+        height: 100px;
         background-position: -140px -5px;
         margin-top: 36px;
         background-size: 420px 140px;
       }
       .border-fill {
-        width: 130px;
-        height: 130px;
+        width: 100px;
+        height: 100px;
         border: 5px solid;
         display: block;
         border-radius: 50%;
@@ -658,10 +736,16 @@
     }
 
     .invite-item {
-      padding:0px;
-      height: 130px;
-      width: 130px;
-      margin: 30px 15px;
+      padding: 0px;
+      height: 70px;
+      width: 70px;
+      margin: 15px 10px;
+
+
+      .warning-bg {
+        height: 70px;
+        width: 70px;
+      }
 
       .text-box {
         top: 0px
@@ -707,16 +791,10 @@
 
       &.solar {
         .icon {
-          top: 20px;
-        }
-        .full-name {
-          top: 55px;
-        }
-        .status-icons {
-          bottom: 74px;
-        }
-        .date {
-          top: 84px;
+          top: 0 !important;
+          bottom: 0;
+          height: 30px;
+          width: 30px;
         }
         .est {
           top: 82px;

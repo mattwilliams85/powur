@@ -1,37 +1,34 @@
 <div class="join step1" flex layout="column" layout-align="start center">
-    <div class="bg-img s1"></div>
-    <div class="trailer-box">
-      <div class="intro" flex>
-        <iframe src="https://player.vimeo.com/video/142662280?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
-      </div>
+  <div class="bg-img s1"></div>
+  <div class="trailer-box">
+    <div class="intro" flex>
+      <iframe src="https://player.vimeo.com/video/142662280?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
     </div>
-    <div class="invalid messages key-box" layout-padding ng-hide="join.customer.properties">
-      This solar invite is invalid, please get in contact with the person who invited you.
+  </div>
+  <div class="invalid messages key-box" layout-padding ng-hide="join.customer.properties">
+    This solar invite is invalid, please get in contact with the person who invited you.
+  </div>
+  <div class="key-box" layout-padding ng-show="join.customer.properties">
+    <div class="who">
+      <span class="greeting">Hello, </span>
+      <span class="full-name" >{{ join.customer.properties.first_name }} <b>{{ join.customer.properties.last_name }}</b></span>
+      <div class="detail">{{join.customer.properties.sponsor}} invited you here because there is a smarter way to get electricity.</div>
     </div>
-    <div class="key-box" layout-padding ng-show="join.customer.properties">
-      <div class="who">
-        <div class="greeting">Hello, </div>
-        <div class="full-name" >{{ join.customer.properties.first_name }} <b>{{ join.customer.properties.last_name }}</b></div>
-        <div class="detail">{{join.customer.properties.sponsor}} invited you here because there is a smarter way to get electricity.</div>
-      </div>
-      <div class="key">
+    <div class="key">
       <label>Enter your <b>zipcode</b> to continue...</label>
-        <form name="zipForm">
-          <div layout="row">
-              <input name="zip"
-                   type="text"
-                   ng-model="join.validateZipAction.field('zip').value">
-
-            <button ng-click="join.validateZip()">Continue</button>
-          </div>
-        </form>
-      </div>
-      <div ng-messages="join.validateZipAction.field('zip').$error" >
-        <div ng-message="message" class="messages">{{ join.validateZipAction.field('zip').$error.message }}</div>
-      </div>
-      <div ng-messages="join.validateZipAction.$error" >
-        <div ng-message="message" class="messages">{{ join.validateZipAction.$error.message }}</div>
-      </div>
+      <form name="zipForm">
+        <div layout="row">
+          <input name="zip" type="text" ng-model="join.validateZipAction.field('zip').value">
+          <button ng-click="join.validateZip()">Continue</button>
+        </div>
+      </form>
     </div>
-    <a href="/"><div class="footer"></div></a>
+    <div ng-messages="join.validateZipAction.field('zip').$error" >
+      <div ng-message="message" class="messages">{{ join.validateZipAction.field('zip').$error.message }}</div>
+    </div>
+    <div ng-messages="join.validateZipAction.$error" >
+      <div ng-message="message" class="messages">{{ join.validateZipAction.$error.message }}</div>
+    </div>
+  </div>
+  <a href="/"><div class="footer"></div></a>
 </div>

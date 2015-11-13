@@ -1,6 +1,6 @@
 <div class="invite-popup">
   <md-dialog aria-label="Invite" class="dialog">
-    <form layout="row" ng-submit="dialog.updateInvite()" name="updateInviteForm" novalidate autocomplete="off">
+    <form ng-submit="dialog.updateInvite()" name="updateInviteForm" novalidate autocomplete="off">
       <div class="side-bg"></div>
       <div layout="column" flex>
         <div class="banner grid" hide-sm>
@@ -48,6 +48,12 @@
               <div ng-messages="dialog.update.field('email').$error" class="messages">
                 <div ng-message="message">{{ dialog.update.field('email').$error.message }}</div>
               </div>
+            </md-input-container>
+
+            <md-input-container>
+              <md-checkbox ng-model="dialog.update.field('resend').value">
+                resend ?
+              </md-checkbox>
             </md-input-container>
           </md-content>
 

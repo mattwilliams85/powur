@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_one :accepted_invite, class_name:  'Invite',
                             foreign_key: :user_id,
                             dependent:   :destroy
+  belongs_to :coded_user, class_name: 'User',
+                          dependent:  :delete
 
   store_accessor :contact,
                  :address, :city, :state, :country, :zip, :phone, :valid_phone

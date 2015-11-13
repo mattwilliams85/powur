@@ -31,7 +31,7 @@ bonuses:
   -
     id: 3
     type: DifferentialBonus
-    name: PACT
+    name: Differential
     schedule: 2
     contracted_percent: 0.5
     installed_percent: 0.5
@@ -63,6 +63,7 @@ bonuses:
     nth_proposal: 3
     after_purchase: 3
     start_date: 2015-07-01
+    end_date: 2015-10-01
     bonus_amounts:
       -
         amounts:
@@ -108,6 +109,7 @@ bonuses:
     first_n: 3
     after_purchase: 3
     start_date: 2015-07-01
+    end_date: 2015-10-26
     bonus_amounts:
       -
         amounts:
@@ -207,3 +209,26 @@ bonuses:
           - 10.0
           - 10.0
           - 10.0
+  -
+    id: 10
+    type: CodedBonus
+    name: Team Leader
+    schedule: 2
+    upline: sponsor
+    converted_percent: 1.0
+    available_amount: 150.00
+    first_n: 3
+    after_purchase: 3
+    bonus_amounts:
+      -
+        amounts:
+          - 100.0
+          - 25.0
+          - 25.0
+  -
+    id: 11
+    type: MatchingBonus
+    name: Leader Matching
+    schedule: 2
+    matching_bonus_id: 10
+    matching_percentage: 0.5

@@ -26,7 +26,7 @@ module powur {
     isOpen() { return this.$mdSidenav('left').isOpen(); };
 
     openMenu() {
-      this.$mdSidenav('left').toggle();
+      this.$mdSidenav('mobile-left').toggle();
     }
 
     logout() {

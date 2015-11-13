@@ -30,10 +30,7 @@ module Auth
 
         if user_params[:email] && user_params[:email].downcase != old_email
           return show if user_params[:email].include? 'development+'
-          # Mailchimp subscription doesn't allow to change email at the moment
-          # so we unsubscribe old email and subscribe new one
-          @user.mailchimp_unsubscribe
-          @user.mailchimp_subscribe
+          update_mailchimp
         end
       end
 
@@ -85,6 +82,13 @@ module Auth
 
     def fetch_user
       @user = current_user
+    end
+
+    def update_mailchimp
+      # Mailchimp subscription doesn't allow to change email at the moment
+      # so we unsubscribe old email and subscribe new one
+      @user.delay.mailchimp_unsubscribe
+      @user.delay.mailchimp_subscribe
     end
   end
 end

@@ -7,23 +7,10 @@
   <ul>
     <div class="first-menu">
       <li><a ng-href="/home" ng-class="{'active': isMenuLinkActive('/home')}"><i class="fa fa-home" ng-class="{'active': isMenuLinkActive('/home')}"></i>HOME</a></li>
-      <li><a ng-href="/create-energy" ng-class="{'active': isMenuLinkActive('/create-energy')}">ENERGY</a></li>
-      <li><a ng-href="/create-wealth" ng-class="{'active': isMenuLinkActive('/create-wealth')}" class="bottom-link">WEALTH</a></li>
     </div>
 
     <div class="second-menu">
-      <li class="sub-parent" ng-class="{'active': showMenuLearnMore}"><a ng-click="showMenuLearnMore = !showMenuLearnMore">Learn More</a></li>
-      <div class="sub-menu" ng-if="showMenuLearnMore">
-        <li><a ng-href="/why-solar" ng-class="{'active': isMenuLinkActive('/why-solar')}">Why solar?</a></li>
-        <li><a ng-href="/why-powur" ng-class="{'active': isMenuLinkActive('/why-powur')}">Why powur?</a></li>
-        <li><a ng-href="/why-direct-marketing" ng-class="{'active': isMenuLinkActive('/why-direct-marketing')}">Why peer to peer?</a></li>
-        <li><a ng-href="/why-you" ng-class="{'active': isMenuLinkActive('/why-you')}">Why you?</a></li>
-      </div>
-
       <ul>
-        <li><a ng-href="/our-origin" ng-class="{'active': isMenuLinkActive('/our-origin')}">Our Origin</a></li>
-        <li><a ng-href="/our-team" ng-class="{'active': isMenuLinkActive('/our-team')}">Our Team</a></li>
-        <li><a ng-href="/our-dna" ng-class="{'active': isMenuLinkActive('/our-dna')}">Our DNA</a></li>
         <li><a ng-href="/customer-faq" ng-class="{'active': isMenuLinkActive('/customer-faq')}">Customer FAQ</a></li>
         <li><a ng-href="/advocate-faq" ng-class="{'active': isMenuLinkActive('/advocate-faq')}">Advocate FAQ</a></li>
       </ul>

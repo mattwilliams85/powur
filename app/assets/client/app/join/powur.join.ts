@@ -11,9 +11,6 @@ module powur {
         url: '/join',
         template: '<div ui-view></div>',
         abstract: true
-      }).state('join.invalid', {
-        url: '',
-        templateUrl: 'app/join/invalid.html',
       })
       .state('join.grid', {
         url: '/grid/{inviteCode}',

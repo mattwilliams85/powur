@@ -225,12 +225,27 @@ and (max-device-width : 960px) {
         display: inline-block;
     }
     
-    .sprite-certs {
+    .sprite-library {
         width: 35px;
         height: 43px;
         background-position: -5px -5px;
     }
+
+    .sprite-upgrade {
+        background: image-url('img/upgrade-icon.png');
+        background-size: contain;
+        width: 35px;
+        height: 35px;
+        margin-left: -3px;
+    }
     
+    .sprite-certs {
+        background: image-url('img/powur-u-icon.png');
+        background-size: contain;
+        width: 35px;
+        height: 35px;
+        margin-left: 1px;
+    }
     .sprite-earnings {
         width: 42px;
         height: 40px;
@@ -271,13 +286,6 @@ and (max-device-width : 960px) {
         width: 27px;
         height: 31px;
         background-position: -335px -5px;
-    }
-
-    .sprite-library {
-        background: image-url('dashboard/library-icon.png');
-        background-size: contain;
-        width: 35px;
-        height: 35px;
     }
     
     .sprite-strategy {

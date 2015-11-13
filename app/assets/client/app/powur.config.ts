@@ -15,6 +15,11 @@ module powur {
       $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
+      // disable cache for http on old browsers and ie
+      $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
+      $httpProvider.defaults.headers.common['Pragma'] = 'no-cache';
+      $httpProvider.defaults.headers.common['If-Modified-Since'] = '0';
+
       $urlRouterProvider.when('/invite', '/invite/grid');
       $urlRouterProvider.otherwise('/login');
 

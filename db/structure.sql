@@ -255,7 +255,8 @@ CREATE TABLE bonuses (
     amount numeric(10,2),
     start_date timestamp without time zone,
     distribution_id integer,
-    pay_period_id character varying
+    pay_period_id character varying,
+    end_date date
 );
 
 
@@ -1344,6 +1345,38 @@ ALTER SEQUENCE user_activities_id_seq OWNED BY user_activities.id;
 
 
 --
+-- Name: user_codes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_codes (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    bonus_id integer NOT NULL,
+    coded_to integer NOT NULL,
+    sponsor_sequence integer NOT NULL
+);
+
+
+--
+-- Name: user_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_codes_id_seq OWNED BY user_codes.id;
+
+
+--
 -- Name: user_group_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1736,6 +1769,13 @@ ALTER TABLE ONLY user_activities ALTER COLUMN id SET DEFAULT nextval('user_activ
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY user_codes ALTER COLUMN id SET DEFAULT nextval('user_codes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY user_group_requirements ALTER COLUMN id SET DEFAULT nextval('user_group_requirements_id_seq'::regclass);
 
 
@@ -2066,6 +2106,14 @@ ALTER TABLE ONLY user_activities
 
 
 --
+-- Name: user_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_codes
+    ADD CONSTRAINT user_codes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: user_group_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2302,6 +2350,13 @@ CREATE UNIQUE INDEX index_settings_on_thing_type_and_thing_id_and_var ON setting
 
 
 --
+-- Name: index_user_codes_on_user_id_and_bonus_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_user_codes_on_user_id_and_bonus_id ON user_codes USING btree (user_id, bonus_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2463,6 +2518,14 @@ ALTER TABLE ONLY bonus_payments
 
 
 --
+-- Name: fk_rails_3bd3e01437; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_codes
+    ADD CONSTRAINT fk_rails_3bd3e01437 FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
 -- Name: fk_rails_3dad120da9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2607,6 +2670,14 @@ ALTER TABLE ONLY rank_requirements
 
 
 --
+-- Name: fk_rails_ae54c9359d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_codes
+    ADD CONSTRAINT fk_rails_ae54c9359d FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_b152dd356e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2700,6 +2771,14 @@ ALTER TABLE ONLY user_user_groups
 
 ALTER TABLE ONLY bonus_payments
     ADD CONSTRAINT fk_rails_eddfc85f73 FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: fk_rails_f0e0da81a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_codes
+    ADD CONSTRAINT fk_rails_f0e0da81a6 FOREIGN KEY (coded_to) REFERENCES users(id);
 
 
 --
@@ -2991,4 +3070,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151017023317');
 INSERT INTO schema_migrations (version) VALUES ('20151022170603');
 
 INSERT INTO schema_migrations (version) VALUES ('20151105193737');
+
+INSERT INTO schema_migrations (version) VALUES ('20151110002117');
+
+INSERT INTO schema_migrations (version) VALUES ('20151110002252');
 

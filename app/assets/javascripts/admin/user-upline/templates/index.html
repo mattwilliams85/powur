@@ -32,6 +32,7 @@
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Level</th>
+                  <th>&nbsp;</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,6 +42,10 @@
                   <td>{{ item.properties.email }}</td>
                   <td>{{ item.properties.phone }}</td>
                   <td>{{ item.properties.level }}</td>
+                  <td>
+                    <span ng-if="isSponsor(item)">sponsor</span>
+                    <a ng-if="!isSponsor(item)" ng-click="makeASponsor(item)">make a sponsor</a>
+                  </td>
                 </tr>
               </tbody>
             </table>

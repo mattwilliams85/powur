@@ -3,23 +3,36 @@
 <div class="pow-user-static-content exclusive" ng-class="{'active': leftMenu.isActive}" >
   <ng-include src="'shared/header-signed-out.html'"></ng-include>
   <div class="exclusive-webinar">
-    <div class="timer-box video-box" ng-show="timer == '00:00'">
-      <!-- <video poster="{{legacyImagePaths.spinner}}" class="video" id="video-1" ng-src="{{legacyImagePaths.betaVideo}}" preload controls>
-        Your browser does not support the <code>video</code> element.
-      </video> -->
-      <!-- <iframe width="900" height="509" src="https://www.youtube.com/embed/hYWoLpIXWxU" frameborder="0" allowfullscreen></iframe> -->
+    <div id="timer_box" class="timer-box video-box" ng-show="timer == '00:00'" data-url="{{ legacyVideoPaths.previewVideoEmbedUrl }}">
 
       <div id="player"></div>
+
       <script>
-        var tag = document.createElement('script');
+        var videoUrl;
+        $(window).load(function() {
+          videoUrl = $('#timer_box').data('url');
+          if (/youtu/g.exec(videoUrl)) {
+            useYoutube();
+          } else if (/vimeo/g.exec(videoUrl)) {
+            useVimeo();
+          }
+        });
 
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        function useVimeo() {
+          setTimeout(function() {
+            $('#timer_box').prepend('<iframe id="vimeo_frame" src="' + videoUrl + '" width="900" height="509" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+          }, 8000);
+        }
 
-        var player;
+        function useYoutube() {
+          var tag = document.createElement('script');
+          tag.src = "https://www.youtube.com/iframe_api";
+          var firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
         function onYouTubeIframeAPIReady() {
-          player = new YT.Player('player', {
+          new YT.Player('player', {
             height: '509',
             width: '900',
             videoId: 'hYWoLpIXWxU',

@@ -2,7 +2,7 @@ module Admin
   class UsersController < AdminController
     before_action :fetch_user,
                   only: [ :downline, :upline, :show, :update,
-                          :sponsors, :eligible_parents, :move ]
+                          :sponsors, :eligible_parents, :move, :update_sponsor ]
 
     page max_limit: 25
     sort id_desc:         { id: :desc },
@@ -86,6 +86,15 @@ module Admin
       @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact
 
       render 'sponsors'
+    end
+
+    def update_sponsor
+      sponsor_id = params[:sponsor_id]
+      error!(:update_sponsor_self) if @user.id == sponsor_id
+      error!(:update_sponsor_not_in_upline) unless @user.ancestor?(sponsor_id)
+
+      @user.update_attribute(:sponsor_id, sponsor_id)
+      head :ok
     end
 
     def move

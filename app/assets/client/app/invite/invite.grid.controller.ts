@@ -96,7 +96,7 @@ module powur {
 
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
-    static $inject = ['invites', '$mdDialog', '$interval', '$timeout'];
+    static $inject = ['invites', '$mdDialog', '$interval', '$timeout', '$window', '$scope'];
 
     get pending(): number {
       return this.invites.properties.pending_count;
@@ -114,19 +114,27 @@ module powur {
       return this.invites.entities;
     }
 
+    get listProps(): any {
+      return this.invites.properties;
+    }
+
     get showFilters(): boolean {
       return !!(this.pending || this.expired);
     }
 
     filters: any = {};
+    activePies: string[];
 
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
                 private $interval: ng.IIntervalService,
-                private $timeout: ng.ITimeoutService) {
+                private $timeout: ng.ITimeoutService,
+                private $window: ng.IWindowService,
+                private $scope: ng.IScope) {
       super();
 
       this.$interval.cancel(this.invites.properties.pieTimer);
+      this.activePies = [];
 
       this.$timeout(() => {
         this.invites.properties.pieTimer = this.$interval(() => {
@@ -134,6 +142,14 @@ module powur {
         }, 1000)
         this.buildPies();
       });
+
+      $scope.$watch(function(){
+           return $window.innerWidth;
+        }, () => {
+          this.$timeout(() => {
+           this.buildPies();
+          });
+       });
     }
 
     progress(item): number {
@@ -170,9 +186,12 @@ module powur {
             label: "Incomplete"
           }
         ]
+        
+        if (this.activePies.indexOf(id) > -1) continue;
         var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
         var ctx = canvas.getContext('2d');
         var myPieChart = new Chart(ctx).Pie(data, options);
+        this.activePies.push(id)
         // this.updatePie(myPieChart, i);
       }
     }
@@ -199,7 +218,7 @@ module powur {
       this.$mdDialog.show({
         controller: 'NewInviteGridDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.grid.html',
-        parent: angular.element('.invite.main'),
+        parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
         locals: {
@@ -208,8 +227,9 @@ module powur {
         }
       }).then((data: any) => {
         // ok
-        this.invites.entities.unshift(new SirenModel(data));
+        this.invites.entities.push(new SirenModel(data));
         this.invites.properties.pending_count += 1;
+
         setTimeout(() => {
           this.buildPies();
         });
@@ -223,7 +243,7 @@ module powur {
       this.$mdDialog.show({
         controller: 'UpdateInviteGridDialogController as dialog',
         templateUrl: 'app/invite/show-invite-popup.grid.html',
-        parent: angular.element('.invite.main'),
+        parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
         preserveScope: true,
@@ -266,18 +286,18 @@ module powur {
     }
 
     filter(name: string) {
-      var opts = { page: 1 };
-      this.filters.status = this.filters.status == name ? '' : name;
+      var opts = {
+        page: 1,
+        status: name
+      };
 
-      for (var key in this.filters) {
-        opts[key] = this.filters[key];
-      }
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
           this.invites.entities = data.entities;
           var pieTimer = this.invites.properties.pieTimer;
           this.invites.properties = data.properties;
           this.invites.properties.pieTimer = pieTimer;
+          this.activePies = [];
           setTimeout(() => {
             this.buildPies();
           });

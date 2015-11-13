@@ -46,6 +46,30 @@
       return user.properties.first_name + ' ' + user.properties.last_name;
     };
 
+    $scope.isSponsor = function(user) {
+      return $scope.user.properties.sponsor_id === user.properties.id;
+    }
+
+    $scope.makeASponsor = function(user) {
+      var sponsor_id = user.properties.id,
+          action = Utility.findBranch($scope.actions, {'name': 'update_sponsor'});
+      if (!action) return;
+
+      $http({
+        method: action.method,
+        url: action.href,
+        data: {
+          sponsor_id: sponsor_id
+        }
+      }).success(function success(data) {
+        if (data.error) {
+          alert(data.error.message);
+        } else {
+          $scope.user.properties.sponsor_id = sponsor_id;
+        }
+      });
+    }
+
     function getUser(userId, cb) {
       $http({
         url: '/a/users/' + userId

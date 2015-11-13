@@ -37,13 +37,19 @@ namespace :powur do
 
       data.each do |record|
         lead = Lead.find(record[0].to_i)
+        attrs = customer_attrs(record)
         vars = email_vars(record).merge(REP_FULL_NAME: lead.user.full_name)
-        lead.customer.update_attributes!(customer_attrs(record))
+        to = record[7]
 
-        testing_to = 'paul.walker@eyecuelab.com'
+        lead.customer.update_attributes!(attrs)
         PromoterMailer
-          .lead_mistmatch(testing_to, vars)
+          .lead_mistmatch(to, vars)
           .deliver_later
+
+        puts "updated mismatched lead: #{lead.id}"
+        # puts attrs.inspect
+        # puts vars.inspect
+        # puts to
       end
     end
   end

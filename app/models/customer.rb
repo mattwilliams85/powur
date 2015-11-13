@@ -12,8 +12,8 @@ class Customer < ActiveRecord::Base
   validates_length_of :first_name, maximum: 40
   validates_length_of :last_name, maximum: 40
   validates :email, presence:   true,
-                    email:      true,
-                    uniqueness: true, if: :email_present?
+                    email:      true, if: :email_present?
+                    # uniqueness: true, if: :email_present?
   def email_present?
     email?
   end

@@ -24,7 +24,7 @@
           </div>
         </md-content>
         <md-content layout-padding layout="column" class="status-wrap">
-          <div ng-if="dialog.invite.properties.email_data">{{ dialog.invite.properties.email_data.state }}</div>
+          <div ng-if="dialog.invite.properties.email_data">{{ dialog.invite.properties.email_data.state_description }}</div>
           <div class="header">Time Remaining</div>
           <div ng-if="dialog.invite.properties.time_left" class="timer">{{ dialog.parentCtrl.dateFormat(dialog.invite, 'H') }} hours : {{ dialog.parentCtrl.dateFormat(dialog.invite, 'mm') }} minutes</div>
           <div ng-if="!dialog.invite.properties.time_left" class="timer expired">expired</div>

@@ -55,6 +55,7 @@ class Lead < ActiveRecord::Base
 
   before_create :validate_data_status
   before_update :validate_data_status
+  before_destroy { |record| !record.submitted? }
 
   def submit!
     fail 'Lead is not ready for submission' unless ready_to_submit?
@@ -151,7 +152,6 @@ class Lead < ActiveRecord::Base
     if form.error? && !form.dupe?
       fail(form.error.is_a?(Exception) ? form.error : "Lead post error?: #{form.error.inspect}")
     end
-    # fail(form.error) if form.error? && !form.dupe?
 
     if form.dupe?
       Rails.logger.error(

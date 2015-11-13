@@ -1,6 +1,8 @@
 class BonusPayment < ActiveRecord::Base
   enum status: { pending: 1, paid: 2, cancelled: 3, breakage: 4 }
 
+  store_accessor :bonus_data, :lead_number
+
   belongs_to :pay_period
   belongs_to :bonus
   belongs_to :user
@@ -20,4 +22,8 @@ class BonusPayment < ActiveRecord::Base
       .group(:bonus_id)
       .where('pay_period_id = ?', pay_period.id)
   }
+
+  def lead_number
+    super && super.to_i
+  end
 end

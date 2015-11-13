@@ -24,6 +24,7 @@ module powur {
           opts,
           true
         ).then((data: any) => {
+          if (!data.entities.length) return;
           entity.entities = entity.entities.concat(data.entities);
           entity.properties = data.properties;
           setTimeout(function() {

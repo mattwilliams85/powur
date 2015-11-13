@@ -15,7 +15,7 @@
   production of energy.">
   <meta property="og:image" content="https://www.powur.com<%= asset_path("landing/bg-3.jpg") %>">
 
-  <title>Welcome to Powur</title>
+  <title powur-title>Powur</title>
   <base href="/">
   <link rel="icon" type="image/png" href="<%=asset_path('powur-ico.png') %>">
   <link href="<%=asset_path('powur-ico.png') %>" rel="apple-touch-icon">
@@ -27,7 +27,7 @@
   <%= csrf_meta_tags %>
   <%= javascript_include_tag "modernizr/modernizr" %>
 </head>
-<body>
+<body class="<%= current_user ? 'signed-in' : '' %>">
 
   <%= yield %>
 
