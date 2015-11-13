@@ -65,7 +65,7 @@ class UserCode < ActiveRecord::Base
     end
 
     def get_code(user)
-      return false unless user.sponsor_id
+      return false unless user.sponsor_id?
 
       if codes[user.id].nil?
         codes[user.id] = (fetch_or_calc_code(user) || false)

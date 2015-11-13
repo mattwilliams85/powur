@@ -6,6 +6,7 @@ class Bonus < ActiveRecord::Base
            foreign_key: :bonus_id,
            dependent:   :destroy
   has_many :bonus_payments
+  has_many :bonus_payment_leads, through: :bonus_payments
   belongs_to :distribution
   belongs_to :pay_period
 

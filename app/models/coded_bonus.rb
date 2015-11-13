@@ -5,6 +5,48 @@ class CodedBonus < Bonus
                  :after_purchase, :upline, :include_user, :available_amount
 
   def create_payments!(calculator)
+    reset!(calculator.pay_period.id)
+
+    results = generate_bonus_payments(calculator)
+    results.each do |status, status_results|
+      status_results.each do |lead, result|
+        next unless result.is_a?(BonusPayment)
+        result.save!
+        result.bonus_payment_leads.create!(lead_id: lead.id, status: status)
+      end
+    end
+  end
+
+  def report_payments(calculator)
+    results = generate_bonus_payments(calculator)
+
+    filename = name.gsub(/ /, '').underscore
+    filename = "#{filename}-#{calculator.pay_period.id}"
+    CSV.open("/tmp/#{filename}.csv", 'w') do |csv|
+      csv << %w(id converted user sponsor coded_to status lead_number)
+
+      results.each do |_status, status_results|
+        status_results.each do |lead, result|
+          user = "#{lead.user.full_name} (#{lead.user.id})"
+          if lead.user.sponsor_id?
+            sponsor = "#{lead.user.sponsor.full_name} (#{lead.user.sponsor_id})"
+          end
+          code = user_code(lead.user_id)
+          row = [
+            lead.id, lead.converted_at, user,
+            sponsor, code && code.coded_to ]
+          if result.is_a?(BonusPayment)
+            row.push(result.amount, result.lead_number)
+          else
+            row.push(result, nil)
+          end
+          csv << row
+        end
+      end
+    end
+  end
+
+  def generate_bonus_payments(calculator)
     UserCode.code_all(id)
 
     relevant_lead_statuses.each_with_object({}) do |status, report|
@@ -57,6 +99,10 @@ class CodedBonus < Bonus
   end
 
   private
+
+  def reset!(pay_period_id)
+    bonus_payments.where(pay_period_id: pay_period_id).destroy_all
+  end
 
   def percent_allocated(status)
     meta_data["#{status}_percent"] && meta_data["#{status}_percent"].to_f
@@ -112,8 +158,6 @@ class CodedBonus < Bonus
     end
     payment.amount = lead_payment_amount(status, payment.lead_number)
 
-    payment.save!
-    payment.bonus_payment_leads.create!(lead_id: lead.id, status: :converted)
     payment
   end
 

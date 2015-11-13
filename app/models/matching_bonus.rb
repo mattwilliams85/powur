@@ -10,7 +10,27 @@ class MatchingBonus < Bonus
   end
 
   def report_payments(calculator)
-    generate_bonus_payments(calculator)
+    results = generate_bonus_payments(calculator)
+
+    filename = name.gsub(/ /, '').underscore
+    filename = "#{filename}-#{calculator.pay_period.id}"
+
+    CSV.open("/tmp/#{filename}.csv", 'w') do |csv|
+      csv << %w(matched_user sponsor status)
+
+      results.each do |user, result|
+        matched_user = "#{user.full_name} (#{user.id})"
+        if user.sponsor_id?
+          sponsor = "#{user.sponsor.full_name} (#{user.sponsor_id})"
+        end
+
+        row = [ matched_user, sponsor ]
+        status = result.is_a?(BonusPayment) ? result.amount : result
+        row.push(status)
+
+        csv << row
+      end
+    end
   end
 
   def generate_bonus_payments(calculator)
@@ -66,9 +86,12 @@ class MatchingBonus < Bonus
     sponsor = sponsors[user.sponsor_id]
     return :unqualified_sponsor if sponsor.nil?
 
+    bonus_data = { matched_user: user.id }
+
     bonus_payments.new(
       pay_period_id: calculator.pay_period.id,
       user_id:       sponsor.id,
-      amount:        user.bonus_amount * matching_percentage)
+      amount:        user.bonus_amount * matching_percentage,
+      bonus_data:    bonus_data)
   end
 end
