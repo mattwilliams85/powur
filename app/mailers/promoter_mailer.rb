@@ -2,10 +2,15 @@ class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = invite.name_and_email
     url = URI.join(root_url, 'sign-up/', invite.id)
+    sponsor = User.find(invite.sponsor_id)
     merge_vars = {
-      code:       invite.id,
-      invite_url: url,
-      sponsor:    User.find(invite.sponsor_id).full_name }
+      # Old vars
+      sponsor: sponsor.full_name,
+      # New vars
+      sponsor_full_name: sponsor.full_name,
+      sponsor_photo: sponsor.avatar.url(:thumb),
+      code: invite.id,
+      invite_url: url }
 
     mail_chimp to, 'invite', merge_vars
   end
@@ -18,7 +23,8 @@ class PromoterMailer < ActionMailer::Base
       sponsor_first_name: invite.sponsor.first_name,
       sponsor_full_name:  invite.sponsor.full_name,
       sponsee_first_name: invite.first_name,
-      sponsee_full_name:  invite.full_name }
+      sponsee_full_name:  invite.full_name,
+      sponsor_photo:      invite.sponsor.avatar.url(:thumb) }
 
     result = mandrill(invite.email, invite.full_name, 'grid-invite', merge_vars)
     invite.update_column(:mandrill_id, result.first['_id'])
@@ -29,6 +35,7 @@ class PromoterMailer < ActionMailer::Base
     sponsor = User.find(customer.user_id)
     merge_vars = { invite_url:          url,
                    sponsor_full_name:   sponsor.full_name,
+                   sponsor_photo:       sponsor.avatar.url(:thumb),
                    customer_first_name: customer.first_name,
                    customer_full_name:  customer.full_name }
 
@@ -52,6 +59,7 @@ class PromoterMailer < ActionMailer::Base
     merge_vars = {
       customer_full_name: lead.customer.full_name,
       sponsor_full_name:  lead.user.full_name,
+      sponsor_photo:      lead.user.avatar.url(:thumb),
       solar_guide_url:    pdf_url }
 
     mail_chimp to, 'customer-onboard-1', merge_vars
@@ -74,7 +82,8 @@ class PromoterMailer < ActionMailer::Base
     merge_vars = {
       powur_path_url:    "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-path.pdf",
       sponsor_full_name: user.sponsor.full_name,
-      sponsor_phone:     user.sponsor.phone }
+      sponsor_phone:     user.sponsor.phone,
+      sponsor_photo:     user.sponsor.avatar.url(:thumb) }
 
     mail_chimp to, 'welcome-new-user', merge_vars
   end
@@ -110,7 +119,10 @@ class PromoterMailer < ActionMailer::Base
   end
 
   def mail_chimp(to, template, merge_vars = {})
-    merge_vars[:logo_url] = logo_url
+    merge_vars.merge!({
+      current_year: Date.today.year,
+      logo_url: logo_url })
+
     headers['X-MC-Template'] = template
     headers['X-MC-Tags'] = template
     headers['X-MC-MergeVars'] = merge_vars.to_json
@@ -122,6 +134,10 @@ class PromoterMailer < ActionMailer::Base
   end
 
   def mandrill(email, name, template, merge_vars = {})
+    merge_vars.merge!({
+      current_year: Date.today.year,
+      logo_url: logo_url })
+
     mandrill = Mandrill::API.new(ENV['MANDRILL_API_KEY'])
     merge_vars = merge_vars.map { |k, v| { 'name' => k.to_s.upcase, 'content' => v } }
     template_content = []
