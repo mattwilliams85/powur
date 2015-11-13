@@ -82,6 +82,24 @@ class Rank < ActiveRecord::Base
   end
 
   class << self
+    def from_attrs(attrs)
+      id = attrs.delete('id').to_i
+      requirements = attrs.delete('requirements')
+      rank = Rank.where(id: id).first
+      if rank
+        rank.update_attributes!(attrs)
+      else
+        rank = Rank.create!(attrs)
+      end
+
+      rank.requirements.destroy_all
+      if requirements
+        requirements.each { |req_attrs| rank.requirements.create!(req_attrs) }
+      end
+
+      rank
+    end
+
     def rank_range
       return nil unless Rank.count > 0
       (Rank.order(:id).first.id..Rank.order(:id).last.id)

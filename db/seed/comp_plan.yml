@@ -4,141 +4,130 @@ ranks:
     welcome_message: Welcome to Powur.
   - id: 1
     title: Partner
-    welcome_message: Congratulations on passing the FIT test. To go big in this business, you'll need a team behind you.  Powur Certification will give you the tools you need to make a huge impact!
-  - id: 2
-    title: L1 Partner
-    welcome_message: Certificaiton Rocks! You are on your way to building an awesome Solar business.  Submit some proposals to earn Team invites.
-  - id: 3
-    title: L2 Partner
-  - id: 4
-    title: L3 Partner
-  - id: 5
-    title: Game Changer
-  - id: 6
-    title: L1 Game Changer
-  - id: 7
-    title: L2 Game Changer
-  - id: 8
-    title: L3 Game Changer
-  - id: 9
-    title: Hero
-groups:
-  - id: rank_1_users
-    title: Qualified Partners
-    description: You have taken the Certification training.
-    rank_id: 1
+    welcome_message:
     requirements:
       - event_type: :purchase
         product_id: 3
-  - id: rank_2_users
-    title: L1 Partners
-    description: Level 1 Partners
-    rank_id: 2
+        time_span: :lifetime
+        type: PurchaseRequirement
+  - id: 2
+    title: Qualified Partner
+    welcome_message:
     requirements:
       - event_type: :personal_proposals
         product_id: 1
         quantity: 3
         time_span: :lifetime
+        type: LeadRequirement
+  - id: 3
+    title: L1 Partner
+    requirements:
+      - event_type: :personal_proposals
+        product_id: 1
+        quantity: 5
+        time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_proposals
         product_id: 1
         quantity: 9
         time_span: :monthly
         max_leg: 50
-  - id: rank_3_users
-    title: L2 Partners
-    description: Level 2 Partners
-    rank_id: 3
+        type: LeadRequirement
+  - id: 4
+    title: L2 Partner
     requirements:
       - event_type: :personal_proposals
         product_id: 1
         quantity: 7
         time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_proposals
         product_id: 1
         quantity: 25
         time_span: :monthly
         max_leg: 50
-  - id: rank_4_users
-    title: L3 Partners
-    description: Level 3 Partners
-    rank_id: 4
+        type: LeadRequirement
+  - id: 5
+    title: L3 Partner
     requirements:
       - event_type: :personal_proposals
         product_id: 1
         quantity: 10
         time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_proposals
         product_id: 1
         quantity: 75
         time_span: :monthly
         max_leg: 50
-  - id: rank_5_users
-    title: Game Changers
-    description: Game Changing users
-    rank_id: 5
+        type: LeadRequirement
+  - id: 6
+    title: Game Changer
     requirements:
       - event_type: :personal_sales
         product_id: 1
         quantity: 5
         time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_sales
         product_id: 1
         quantity: 75
         time_span: :monthly
         max_leg: 50
-  - id: rank_6_users
-    title: L1 Game Changers
-    description: Level 1 Game Changers
-    rank_id: 6
+        type: LeadRequirement
+  - id: 7
+    title: L1 Game Changer
     requirements:
       - event_type: :personal_sales
         product_id: 1
         quantity: 7
         time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_sales
         product_id: 1
         quantity: 200
         time_span: :monthly
         max_leg: 50
-  - id: rank_7_users
-    title: L2 Game Changers
-    description: Level 2 Game Changers
-    rank_id: 7
+        type: LeadRequirement
+  - id: 8
+    title: L2 Game Changer
     requirements:
       - event_type: :personal_sales
         product_id: 1
         quantity: 10
         time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_sales
         product_id: 1
         quantity: 500
         time_span: :monthly
         max_leg: 50
-  - id: rank_8_users
-    title: L3 Game Changers
-    description: Level 3 Game Changers
-    rank_id: 8
+        type: LeadRequirement
+  - id: 9
+    title: L3 Game Changer
     requirements:
       - event_type: :personal_sales
         product_id: 1
         quantity: 12
         time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_sales
         product_id: 1
         quantity: 1000
         time_span: :monthly
         max_leg: 50
-  - id: rank_9_users
-    title: Heroes
-    description: Heroes!
-    rank_id: 9
+        type: LeadRequirement
+  - id: 10
+    title: Hero
     requirements:
       - event_type: :personal_sales
         product_id: 1
         quantity: 15
         time_span: :lifetime
+        type: LeadRequirement
       - event_type: :grid_sales
         product_id: 1
         quantity: 2000
         time_span: :monthly
         max_leg: 50
+        type: LeadRequirement
