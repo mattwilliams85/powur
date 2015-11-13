@@ -5,7 +5,8 @@
     'widgets.powurFoundation',
     'widgets.powurLeftMenu',
     'widgets.powurPagePiler',
-    'widgets.powurShare'
+    'widgets.powurShare',
+    'widgets.powurTitle'
   ];
 
   angular
