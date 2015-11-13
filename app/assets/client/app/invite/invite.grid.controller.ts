@@ -96,7 +96,7 @@ module powur {
 
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
-    static $inject = ['invites', '$mdDialog', '$interval', '$timeout'];
+    static $inject = ['invites', '$mdDialog', '$interval', '$timeout', '$window', '$scope'];
 
     get pending(): number {
       return this.invites.properties.pending_count;
@@ -128,7 +128,9 @@ module powur {
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
                 private $interval: ng.IIntervalService,
-                private $timeout: ng.ITimeoutService) {
+                private $timeout: ng.ITimeoutService,
+                private $window: ng.IWindowService,
+                private $scope: ng.IScope) {
       super();
 
       this.$interval.cancel(this.invites.properties.pieTimer);
@@ -140,6 +142,14 @@ module powur {
         }, 1000)
         this.buildPies();
       });
+
+      $scope.$watch(function(){
+           return $window.innerWidth;
+        }, () => {
+          this.$timeout(() => {
+           this.buildPies();
+          });
+       });
     }
 
     progress(item): number {
