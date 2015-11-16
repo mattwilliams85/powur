@@ -192,18 +192,8 @@ module powur {
         var ctx = canvas.getContext('2d');
         var myPieChart = new Chart(ctx).Pie(data, options);
         this.activePies.push(id)
-        // this.updatePie(myPieChart, i);
       }
     }
-
-    // updatePie(chart, i): void {
-    //   this.$interval(() => {
-    //     var progress = this.progress(this.list[i]);
-    //     chart.segments[0].value = progress;
-    //     chart.segments[1].value = 1 - progress;
-    //     chart.update();
-    //   }, 1000)
-    // }
 
     updateTimers(): void {
       for (var i = 0; i < this.list.length; i++) {
@@ -286,6 +276,8 @@ module powur {
     }
 
     filter(name: string) {
+      if (!name) return;
+      
       var opts = {
         page: 1,
         status: name
@@ -294,6 +286,7 @@ module powur {
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
           this.invites.entities = data.entities;
+
           var pieTimer = this.invites.properties.pieTimer;
           this.invites.properties = data.properties;
           this.invites.properties.pieTimer = pieTimer;
