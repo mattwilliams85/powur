@@ -170,11 +170,9 @@ module powur {
     }
 
     filter(name: string) {
-      if (!name) return;
-      
       var opts = {
         page: 1,
-        status: name
+        status: name || ''
       };
 
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
