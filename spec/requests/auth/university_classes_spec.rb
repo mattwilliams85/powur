@@ -100,6 +100,7 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
         create(:product_receipt,
                user:    current_user,
                product: certifiable_product)
+        current_user.update_attribute(:mailchimp_id, 'abc')
       end
 
       it 'should move user to Partner group' do
