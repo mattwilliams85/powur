@@ -99,7 +99,7 @@ var legacyImagePaths = {
 };
 
 var legacyVideoPaths = {
-  previewVideoEmbedUrl: '<%= SystemSettings.preview_video_embed_url %>'
+  previewVideoEmbedUrl: '<%= SystemSettings.get!("preview_video_embed_url") %>'
 };
 
 $.fn.wrapInTag = function(opts) {
