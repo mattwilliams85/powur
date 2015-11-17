@@ -3,7 +3,7 @@
 <div class="pow-user-static-content exclusive" ng-class="{'active': leftMenu.isActive}" >
   <ng-include src="'shared/header-signed-out.html'"></ng-include>
   <div class="exclusive-webinar">
-    <div id="timer_box" class="timer-box video-box" ng-show="timer == '00:00'" data-url="{{ legacyVideoPaths.previewVideoEmbedUrl }}">
+    <div id="timer_box" class="timer-box video-box" ng-show="timer == '00:00'" data-url="{{ currentUser.preview_video_embed_url }}">
 
       <div id="player"></div>
 

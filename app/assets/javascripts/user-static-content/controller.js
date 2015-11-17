@@ -5,7 +5,6 @@
     $scope.leftMenu = {};
 
     $scope.legacyImagePaths = legacyImagePaths;
-    $scope.legacyVideoPaths = legacyVideoPaths;
 
     if ($rootScope.isSignedIn) {
       UserProfile.get().then(function(data) {
