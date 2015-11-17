@@ -17,7 +17,7 @@ describe 'index' do
   context 'when signed in' do
     before do
       expect_any_instance_of(User)
-        .to receive(:update_login_streak).once
+        .to receive(:update_login_streak!).once
       login_user
       get root_path, format: :json
     end

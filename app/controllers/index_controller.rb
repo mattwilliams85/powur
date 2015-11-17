@@ -3,7 +3,7 @@ class IndexController < AnonController
     respond_to do |format|
       format.html
       format.json do
-        current_user.update_login_streak(Time.now.utc) if logged_in?
+        current_user.update_login_streak!(Time.now.utc) if logged_in?
         render "anon/session/#{json_template}"
       end
     end

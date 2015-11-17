@@ -10,7 +10,7 @@ module Anon
       error!(:credentials, :email) unless @user
 
       login_user(@user, params[:remember_me] == true)
-      @user.update_login_streak(Time.now.utc)
+      @user.update_login_streak!(Time.now.utc)
 
       respond_to do |format|
         format.html { render 'index/index' }

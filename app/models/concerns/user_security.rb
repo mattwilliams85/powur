@@ -74,9 +74,9 @@ module UserSecurity
       last_sign_in_at.day == yesterday.day
   end
 
-  def update_login_streak(timestamp)
+  def update_login_streak!(timestamp)
     streaking = last_sign_in_yesterday?(timestamp)
-    self.login_streak = streaking ? login_streak + 1 : 1
+    update_column(:login_streak, streaking ? login_streak + 1 : 1)
   end
 
   private
