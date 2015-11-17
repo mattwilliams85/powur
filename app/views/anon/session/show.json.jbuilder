@@ -28,6 +28,9 @@ json.properties do
     json.call(current_user.metrics,
               :team_count, :earnings, :co2_saved, :login_streak)
   end
+
+  json.preview_video_embed_url(
+    SystemSettings.get!('preview_video_embed_url'))
 end
 
 actions_list = [
