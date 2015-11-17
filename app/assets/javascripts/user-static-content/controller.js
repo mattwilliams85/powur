@@ -6,11 +6,13 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
-    if ($rootScope.isSignedIn) {
-      UserProfile.get().then(function(data) {
-        $rootScope.currentUser = data.properties;
-      });
-    }
+    $http({
+      method: 'GET',
+      url: '/index.json'
+    }).success(function(res) {
+      if (res.properties.id) $rootScope.currentUser = res.properties;
+      $scope.previewVideoEmbedUrl = res.properties.preview_video_embed_url;
+    });
 
     // getSponsors is used on /contact page to retrieve Team Leader and Coach users
     $scope.getSponsors = function() {
