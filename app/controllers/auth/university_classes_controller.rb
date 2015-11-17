@@ -25,8 +25,13 @@ module Auth
 
     def enroll
       validate_class_enrollable
-      current_user.smarteru.ensure_account
-      current_user.smarteru.enroll(@university_class)
+
+      begin
+        current_user.smarteru.ensure_account
+        current_user.smarteru.enroll(@university_class)
+      rescue Net::HTTPFatalError
+        error!(:smarteru_unavailable)
+      end
 
       redirect_url = current_user.smarteru.signin
       render json: { redirect_to: redirect_url }

@@ -1,3 +1,5 @@
+require 'valid_email'
+
 class User < ActiveRecord::Base
   include UserSecurity
   include UserInvites
@@ -36,13 +38,11 @@ class User < ActiveRecord::Base
                  :notifications_read_at,
                  :ewallet_username, :mailchimp_id
 
-  # No extra email validation needed,
-  # email validation and confirmation happens with Invite
-  # PW: update happens in profile edit correct?
   EMAIL_UNIQUE = { message: 'This email is taken', case_sensitive: false }
   validates :email,
-            uniqueness: EMAIL_UNIQUE,
-            presence:   true
+            presence:   true,
+            email:      true,
+            uniqueness: EMAIL_UNIQUE
   validates :encrypted_password, presence: true, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true

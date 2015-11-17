@@ -131,3 +131,4 @@ ranks:
         time_span: :monthly
         max_leg: 50
         type: LeadRequirement
+groups:

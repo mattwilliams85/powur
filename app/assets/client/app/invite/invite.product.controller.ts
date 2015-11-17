@@ -172,7 +172,7 @@ module powur {
     filter(name: string) {
       var opts = {
         page: 1,
-        status: name
+        status: name || ''
       };
 
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)

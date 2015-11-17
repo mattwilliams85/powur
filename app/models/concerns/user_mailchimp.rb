@@ -46,6 +46,7 @@ module UserMailchimp
 
   def mailchimp_update_subscription
     return unless mailchimp_enabled?
+    return if mailchimp_id.nil?
 
     mailchimp_client
       .lists(MAILCHIMP_LISTS[:all_users])

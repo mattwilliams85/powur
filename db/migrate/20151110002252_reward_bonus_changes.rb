@@ -1,13 +1,13 @@
 class RewardBonusChanges < ActiveRecord::Migration
-  DEPRECATED_BONUSES = [ 4, 6 ]
-  CHANGED_BONUSES = [ 3 ]
-  NEW_BONUSES = [ 10, 11 ]
+  # DEPRECATED_BONUSES = [ 4, 6 ]
+  # CHANGED_BONUSES = [ 3 ]
+  # NEW_BONUSES = [ 10, 11 ]
 
   def up
-    ids = DEPRECATED_BONUSES + CHANGED_BONUSES + NEW_BONUSES
-    Bonus.update_attrs! do |attrs|
-      ids.include?(attrs['id'])
-    end
+    # ids = DEPRECATED_BONUSES + CHANGED_BONUSES + NEW_BONUSES
+    # Bonus.update_attrs! do |attrs|
+    #   ids.include?(attrs['id'])
+    # end
 
     create_table :user_codes do |t|
       t.references :user, null: false, foreign_key: true
@@ -23,10 +23,10 @@ class RewardBonusChanges < ActiveRecord::Migration
   def down
     drop_table :user_codes
 
-    Bonus
-      .where(id: DEPRECATED_BONUSES)
-      .update_all(end_date: nil)
-
-    Bonus.where(id: NEW_BONUSES).destroy_all
+    # Bonus
+    #   .where(id: DEPRECATED_BONUSES)
+    #   .update_all(end_date: nil)
+    #
+    # Bonus.where(id: NEW_BONUSES).destroy_all
   end
 end

@@ -508,22 +508,22 @@
       $scope.error = {};
     };
 
-    function fetchInvites() {
-      CommonService.execute({href: '/u/invites.json'}).then(function(data){
-        $scope.invites = data.entities;
-        $scope.invites.available = data.properties.available_count;
-        $scope.invites.redeemed = data.properties.accepted_count;
-        $scope.inviteFormAction = getAction(data.actions, 'create');
-        $scope.noInvitesAvailable = false;
-        if (!$scope.invites.available) {
-          $scope.noInvitesAvailable = true;
-        }
-        destroyCarousel('#invites');
-        $timeout(function(){
-          initCarousel($('#invites'));
-        });
-      });
-    }
+    // function fetchInvites() {
+    //   CommonService.execute({href: '/u/invites.json'}).then(function(data){
+    //     $scope.invites = data.entities;
+    //     $scope.invites.available = data.properties.available_count;
+    //     $scope.invites.redeemed = data.properties.accepted_count;
+    //     $scope.inviteFormAction = getAction(data.actions, 'create');
+    //     $scope.noInvitesAvailable = false;
+    //     if (!$scope.invites.available) {
+    //       $scope.noInvitesAvailable = true;
+    //     }
+    //     destroyCarousel('#invites');
+    //     $timeout(function(){
+    //       initCarousel($('#invites'));
+    //     });
+    //   });
+    // }
 
     $scope.sendNewInvite = function() {
       if ($scope.newInviteFields) {
@@ -635,9 +635,9 @@
       immediateDownline(data);
     });
 
-    $timeout(function() {
-      fetchInvites();
-    });
+    // $timeout(function() {
+    //   fetchInvites();
+    // });
 
     function immediateDownline(data){
       if (!data) data = $scope.currentUser;

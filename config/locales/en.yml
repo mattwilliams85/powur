@@ -55,6 +55,7 @@ en:
     already_completed: You have already completed this course
     smarteru_user: Your account is inaccessible via the SmarterU API
     smarteru_incomplete_enrollment: Your class enrollment is not complete
+    smarteru_unavailable: SmarterU is unavailable at this time
     notification_locked: This notification is locked. Please create another one
     forgot_password_email_not_found: Email not found
     product_invite_exist: An invitation for this email already exist

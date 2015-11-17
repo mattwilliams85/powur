@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe User, type: :model do
+  describe '.create' do
+    it 'should validate email format' do
+      expect { create(:user, email: 'wrong') }.to raise_error(
+        ActiveRecord::RecordInvalid, 'Please use a valid email address')
+    end
+  end
+
   describe '@authenticate' do
     let(:password) { 'password123' }
 

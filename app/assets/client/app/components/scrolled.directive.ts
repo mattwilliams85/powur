@@ -6,12 +6,18 @@ module powur {
     static $inject: Array<string> = ['$log', '$window'];
 
     root: IRootController;
+    history: any;
 
     constructor($log: ng.ILogService, $window: any) {
       this.root = RootController.get();
+      this.history = {};
 
       function loadMore(entity, scope) {
-        var opts = { page: entity.properties.paging.current_page + 1 };
+        var pg = entity.properties.paging.current_page;
+
+        if (pg === this.history.page && entity.rel === this.history.rel) return;
+        this.history = { page: pg, rel: entity.rel[0] };
+        var opts = { page: pg + 1 };
         if (entity.properties.filters) {
           for (var key in entity.properties.filters) {
             opts[key] = entity.properties.filters[key];
