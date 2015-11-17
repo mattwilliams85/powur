@@ -14,14 +14,14 @@
           <!--  -->
           <div class="heading"><div class="title">contact<b> name</b></div></div>
           <md-content layout-padding layout="row">
-            <md-input-container flex>
+            <md-input-container flex="50">
               <label>first name</label>
               <input ng-model="dialog.update.field('first_name').value" autocomplete="off">
               <div ng-messages="dialog.update.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.update.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container flex>
+            <md-input-container flex="50">
               <label>last name</label>
               <input ng-model="dialog.update.field('last_name').value" autocomplete="off">
               <div ng-messages="dialog.update.field('last_name').$error" class="messages">
