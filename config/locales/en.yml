@@ -67,7 +67,8 @@ en:
     zip_api: The Solar City Zip Code Validation API is not responding right now. Please try again later.
     solarcity_api: The Solar City Lead Submission API is not responding. Please try again later.
     update_sponsor_self: User cannot be own sponsor
-    update_sponsor_not_in_upline: "New sponsor has to be in user's upline"
+    update_sponsor_no_sponsor: "This user can't have a sponsor"
+    update_sponsor_in_downline: "User can't have someone from their downline as a sponsor"
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

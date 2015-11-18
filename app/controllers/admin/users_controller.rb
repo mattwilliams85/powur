@@ -91,7 +91,10 @@ module Admin
     def update_sponsor
       sponsor_id = params[:sponsor_id]
       error!(:update_sponsor_self) if @user.id == sponsor_id
-      error!(:update_sponsor_not_in_upline) unless @user.ancestor?(sponsor_id)
+      error!(:update_sponsor_no_sponsor) if @user.sponsor_id.nil?
+      if User.all_team(@user.id).find_by(id: sponsor_id)
+        error!(:update_sponsor_in_downline)
+      end
 
       @user.update_attribute(:sponsor_id, sponsor_id)
       head :ok
