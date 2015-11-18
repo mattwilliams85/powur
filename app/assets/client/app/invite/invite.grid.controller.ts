@@ -5,122 +5,16 @@
 module powur {
   'use strict';
 
-  class NewInviteGridDialogController extends NewInviteDialogController {
-    static ControllerId = 'NewInviteGridDialogController';
-    static $inject = ['$log', '$mdDialog', 'invites', 'invite'];
-
-    constructor($log: ng.ILogService,
-                $mdDialog: ng.material.IDialogService,
-                private invites: ISirenModel,
-                public invite: ISirenModel) {
-      super($log, $mdDialog);
-
-      if (this.create) {
-        this.create.field('first_name').value = null;
-        this.create.field('last_name').value = null;
-        this.create.field('email').value = null;
-        this.create.field('phone').value = null;
-        this.create.field('first_name').$error = null;
-        this.create.field('last_name').$error = null;
-        this.create.field('email').$error = null;
-        this.create.field('phone').$error = null;
-      }
-    }
-
-    send() {
-      this.create.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$mdDialog.hide(response.data);
-        this.create.clearValues();
-      });
-    }
-
-    get create(): Action {
-      return this.invites.action('create');
-    }
-  }
-
-  class UpdateInviteGridDialogController extends NewInviteDialogController {
-    static ControllerId = 'UpdateInviteGridDialogController';
-    static $inject = ['$log', '$mdDialog', 'parentCtrl', 'invite'];
-
-    constructor($log: ng.ILogService,
-                $mdDialog: ng.material.IDialogService,
-                private parentCtrl: ng.IScope,
-                public invite: any) {
-      super($log, $mdDialog);
-
-      this.update.field('first_name').value = this.invite.properties.first_name;
-      this.update.field('last_name').value = this.invite.properties.last_name;
-      this.update.field('email').value = this.invite.properties.email;
-      this.update.field('phone').value = this.invite.properties.phone;
-
-      this.invite.entity('invite-email').get((email_data: any) => {
-        this.invite.properties.email_data = email_data.properties;
-      });
-    }
-
-    remove() {
-      this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$mdDialog.hide(response.data);
-      });
-    }
-
-    resendInvite() {
-      this.resend.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$mdDialog.hide(response.data);
-      });
-    }
-
-    updateInvite() {
-      this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$mdDialog.hide(response.data);
-      });
-    }
-
-    showLink(invite): string {
-      return 'https://powur.com/next/join/grid/' + invite.id;
-    }
-
-    get delete(): Action {
-      return this.invite.action('delete');
-    }
-
-    get resend(): Action {
-      return this.invite.action('resend');
-    }
-
-    get update(): Action {
-      return this.invite.action('update');
-    }
-  }
-
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
     static $inject = ['invites', '$mdDialog', '$interval', '$timeout', '$window', '$scope'];
 
-    get pending(): number {
-      return this.invites.properties.pending_count;
-    }
-
-    get accepted(): number {
-      return this.invites.properties.accepted_count;
-    }
-
-    get expired(): number {
-      return this.invites.properties.expired_count;
-    }
-
-    get list(): any[] {
-      return this.invites.entities;
-    }
-
-    get listProps(): any {
-      return this.invites.properties;
-    }
-
-    get showFilters(): boolean {
-      return !!(this.pending || this.expired);
-    }
+    get pending():  number     { return this.invites.properties.pending_count }
+    get accepted(): number     { return this.invites.properties.accepted_count }
+    get expired():  number     { return this.invites.properties.expired_count }
+    get list(): any[]          { return this.invites.entities }
+    get listProps(): any       { return this.invites.properties }
+    get showFilters(): boolean { return !!(this.pending || this.expired) }
 
     activePies: string[];
 
@@ -137,17 +31,16 @@ module powur {
 
       this.$timeout(() => {
         this.invites.properties.pieTimer = this.$interval(() => {
-            this.updateTimers();
+            this.startTimers();
         }, 1000)
         this.buildPies();
       });
 
+      //Redraws canvases on resize
       $scope.$watch(function(){
            return $window.innerWidth;
         }, () => {
-          this.$timeout(() => {
            this.buildPies();
-          });
        });
     }
 
@@ -156,45 +49,47 @@ module powur {
       return Math.ceil(prog * 50) / 50;
     }
 
-    // TODO: move this to an angular custom filter (might already exist as angular-moment?)
     dateFormat(item, format): string {
       if (!item.properties.time_left) return 'expired';
       return moment.utc(item.properties.time_left).format(format);
     }
 
     buildPies(): void {
-      var options = {
-        segmentShowStroke: false,
-        showTooltips: false,
-        responsive: true
-      }
-      for (var i = 0; i < this.list.length; i++) {
-        if (this.list[i].properties.status === 'expired') continue;
-        var id = this.list[i].properties.id;
-        var progress = this.progress(this.list[i]);
-        var data = [
-          {
-            value: progress,
-            color: "#2583a8",
-            highlight: "#2583a8",
-            label: "Complete"
-          },
-          {
-            value: 1 - progress,
-            color: "#c5c5c5",
-            label: "Incomplete"
-          }
-        ]
-        
-        if (this.activePies.indexOf(id) > -1) continue;
-        var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
-        var ctx = canvas.getContext('2d');
-        var myPieChart = new Chart(ctx).Pie(data, options);
-        this.activePies.push(id)
-      }
+      this.$timeout(() => {
+        var options = {
+          segmentShowStroke: false,
+          showTooltips: false,
+          responsive: true
+        }
+        for (var i = 0; i < this.list.length; i++) {
+          var id = this.list[i].properties.id;
+
+          if (this.activePies.indexOf(id) > -1 || 
+              this.list[i].properties.status === 'expired') continue;
+
+          var progress = this.progress(this.list[i]);
+          var data = [
+            {
+              value: progress,
+              color: "#2583a8",
+              highlight: "#2583a8",
+              label: "Complete"
+            },
+            {
+              value: 1 - progress,
+              color: "#c5c5c5",
+              label: "Incomplete"
+            }
+          ]
+          var canvas = <HTMLCanvasElement>document.getElementById('pie-' + id);
+          var ctx = canvas.getContext('2d');
+          var myPieChart = new Chart(ctx).Pie(data, options);
+          this.activePies.push(id)
+        }
+      })
     }
 
-    updateTimers(): void {
+    startTimers(): void {
       for (var i = 0; i < this.list.length; i++) {
         this.list[i].properties.time_left -= 1000;
         if (this.list[i].properties.time_left <= 0) {
@@ -205,37 +100,29 @@ module powur {
 
     addInvite(e: MouseEvent) {
       this.$mdDialog.show({
-        controller: 'NewInviteGridDialogController as dialog',
+        controller: 'NewInviteDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.grid.html',
         parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
         locals: {
-          invite: {},
           invites: this.invites
         }
       }).then((data: any) => {
-        // ok
         this.invites.entities.push(new SirenModel(data));
         this.invites.properties.pending_count += 1;
 
-        setTimeout(() => {
-          this.buildPies();
-        });
-      }, () => {
-        // cancel
-        this.root.$log.debug('cancel');
+        this.buildPies();
       });
     }
 
     showInvite(e: MouseEvent, invite) {
       this.$mdDialog.show({
-        controller: 'UpdateInviteGridDialogController as dialog',
+        controller: 'UpdateInviteDialogController as dialog',
         templateUrl: 'app/invite/show-invite-popup.grid.html',
         parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
-        preserveScope: true,
         locals: {
           parentCtrl: this,
           invite: invite
@@ -243,21 +130,16 @@ module powur {
       }).then((data: any) => {
         if (data) {
           this.invites.entities = new SirenModel(data).entities;
-          setTimeout(() => {
-            this.buildPies();
-          });
+          this.buildPies();
         }
-      }, () => {
-        // cancel
-        this.root.$log.debug('cancel');
       });
     }
 
     inviteUpdate(e: MouseEvent, invite) {
       this.$mdDialog.show({
-        controller: 'UpdateInviteGridDialogController as dialog',
+        controller: 'UpdateInviteDialogController as dialog',
         templateUrl: 'app/invite/update-invite-popup.grid.html',
-        parent: angular.element('.invite.main'),
+        parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
         locals: {
@@ -266,11 +148,7 @@ module powur {
         }
       }).then((data: any) => {
          this.invites.entities = new SirenModel(data).entities;
-         setTimeout(() => {
-           this.buildPies();
-         });
-      }, () => {
-        // cancel
+         this.buildPies();
       });
     }
 
@@ -282,22 +160,19 @@ module powur {
 
       this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
         .then((data: any) => {
-          this.invites.entities = data.entities;
+          data.properties.pieTimer = this.invites.properties.pieTimer;
 
-          var pieTimer = this.invites.properties.pieTimer;
+          this.invites.entities = data.entities;
           this.invites.properties = data.properties;
-          this.invites.properties.pieTimer = pieTimer;
           this.activePies = [];
-          setTimeout(() => {
-            this.buildPies();
-          });
+          this.buildPies();
       });
     }
   }
 
   angular
     .module('powur.invite')
-    .controller(NewInviteGridDialogController.ControllerId, NewInviteGridDialogController)
-    .controller(UpdateInviteGridDialogController.ControllerId, UpdateInviteGridDialogController)
+    .controller(NewInviteDialogController.ControllerId, NewInviteDialogController)
+    .controller(UpdateInviteDialogController.ControllerId, UpdateInviteDialogController)
     .controller(InviteGridController.ControllerId, InviteGridController);
 }
