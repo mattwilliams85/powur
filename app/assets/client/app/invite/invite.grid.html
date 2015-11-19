@@ -8,7 +8,7 @@
       <div class="label kpi">expired</div>
       <div layout="row" layout-align="center center"><i class="sprite sprite-expired"></i><span class="count">{{ invite.expired }}</span></div>
     </li>
-    <li flex="34" layout="column" layout-align="center center">
+    <li flex="33" layout="column" layout-align="center center">
       <div class="label kpi">accepted</div>
       <div layout="row" layout-align="center center"><i class="sprite sprite-accepted"></i><span class="count">{{ invite.accepted }}</span></div>
     </li>
@@ -20,8 +20,8 @@
     <md-tab md-active="!invite.listProps.filters.status">
       <div ng-click="invite.filter('', invite.filterSuccess)"></div>All
     </md-tab>
-    <md-tab md-active="invite.listProps.filters.status === 'pending'">
-      <div ng-click="invite.filter('pending', invite.filterSuccess)" ng-if="invite.pending"></div>Pending
+    <md-tab md-active="invite.listProps.filters.status === 'pending'" ng-if="invite.pending !== 0">
+      <div ng-click="invite.filter('pending', invite.filterSuccess)"></div>Pending
     </md-tab>
     <md-tab md-active="invite.listProps.filters.status === 'expired'" ng-if="invite.expired">
       <div ng-click="invite.filter('expired', invite.filterSuccess)"></div>Expired

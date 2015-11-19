@@ -10,6 +10,28 @@ module powur {
     input: string;
   }
 
+  export class InviteController extends AuthController {
+    static ControllerId = 'InviteController';
+
+    invites: ISirenModel;
+
+    isCurrent(state: string): boolean {
+      return this.state.current.name == state;
+    }
+
+    filter(name: string, success) {
+      var opts = {
+        page: 1,
+        status: name || ''
+      };
+
+      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
+        .then((data: any) => {
+          success(data, this);
+        });
+    }
+  }
+
   export class NewInviteDialogController {
     static ControllerId = 'NewInviteDialogController';
     static $inject = ['$log', '$mdDialog', 'invites'];
@@ -104,27 +126,6 @@ module powur {
     get resend(): Action { return this.invite.action('resend') }
     get update(): Action { return this.invite.action('update') }
     get fields(): any    { return this.update.fields }
-  }
-
-  export class InviteController extends AuthController {
-    static ControllerId = 'InviteController';
-
-    invites: ISirenModel;
-
-    isCurrent(state: string): boolean {
-      return this.state.current.name == state;
-    }
-
-    filter(name: string, success) {
-      var opts = {
-        page: 1,
-        status: name || ''
-      };
-      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
-        .then((data: any) => {
-          success(data, this);
-        });
-    }
   }
 
   angular

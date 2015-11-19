@@ -15,14 +15,14 @@
           <!--  -->
           <div class="heading"><div class="title">contact<b> name</b></div></div>
           <md-content layout-padding layout="row">
-            <md-input-container flex>
+            <md-input-container flex="50">
               <label>first name</label>
               <input ng-model="dialog.create.field('first_name').value" autocomplete="off" md-autofocus>
               <div ng-messages="dialog.create.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container flex>
+            <md-input-container flex="50">
               <label>last name</label>
               <input ng-model="dialog.create.field('last_name').value" autocomplete="off">
               <div ng-messages="dialog.create.field('last_name').$error" class="messages">
@@ -36,14 +36,14 @@
             <div ng-messages="dialog.create.$error" class="messages">
               <div ng-message="message">{{ dialog.create.$error.message }}</div>
             </div>
-            <md-input-container>
+            <md-input-container flex="100">
               <label>phone number</label>
               <input ng-model="dialog.create.field('phone').value" type="tel">
               <div ng-messages="dialog.create.field('phone').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('phone').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container>
+            <md-input-container flex="100">
               <label>email</label>
               <input ng-model="dialog.create.field('email').value" type="text" autocomplete="off" autocapitalize="off">
               <div ng-messages="dialog.create.field('email').$error" class="messages">
@@ -53,7 +53,7 @@
           </md-content>
 
           <div class="actions">
-            <md-button ng-disabled="dialog.create.submitting" class="md-primary">Send Invitation</md-button>
+            <md-button type="submit" ng-disabled="dialog.create.submitting" class="md-primary">Send Invitation</md-button>
           </div>
         </md-dialog-content>
 
