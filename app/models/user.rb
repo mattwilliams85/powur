@@ -268,6 +268,12 @@ class User < ActiveRecord::Base
       @team_leads ||= Lead.team_count(user_id: user.id, query: Lead.submitted)
     end
 
+    def leads_count(scope, days = nil)
+      Lead.team_count(
+        user_id: user.id,
+        query:   Lead.send(scope.to_sym, from: days.to_i.days.ago))
+    end
+
     def login_streak
       user.login_streak
     end

@@ -124,7 +124,11 @@ Rails.application.routes.draw do
         get :leaderboard
       end
 
-      resources :leads, only: [ :index ]
+      resources :leads, only: [ :index ] do
+        collection do
+          get :summary
+        end
+      end
       resource :goals, only: [ :show ]
       resources :order_totals, only: [ :index ]
       resources :user_activities, only:       [ :index, :show ],

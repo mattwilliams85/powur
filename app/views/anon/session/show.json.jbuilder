@@ -53,6 +53,10 @@ entity_list << entity(%w(list product_invites),
 entity_list << entity(%w(list users), 'user-users', users_path)
 entity_list << entity(%w(list leads), 'user-leads', leads_path(current_user))
 entity_list << entity(%w(user), 'user-profile', profile_path)
+entity_list << entity(%w(summary leads),
+                      'user-leads_summary',
+                      summary_user_leads_path(current_user, days: '{days}'))
+
 link_list << link(:index, dashboard_path)
 
 # if current_user.accepted_latest_terms?
