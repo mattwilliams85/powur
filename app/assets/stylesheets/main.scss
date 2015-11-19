@@ -1,17 +1,15 @@
 html, body {
   height: 100%;
-  font-family: Montserrat, 'Open Sans'
-}
+  font-family: Montserrat, 'Open Sans';
 
-md-backdrop {
-  position: fixed;
-}
-
-body {
   &.signed-in {
     padding-left: 70px;
     overflow-x: hidden;
   }
+}
+
+md-backdrop {
+  position: fixed;
 }
 
 .highlighted {

@@ -164,7 +164,8 @@
     left: 0;
     .bg {
         width: 100%;
-        height: 40px;
+        height: 50px;
+        padding: 15px 15px;
         box-shadow: 0px 0px 4px 2px rgba(0,0,0,.15);
         background: -moz-linear-gradient(left, #29a8dd 0%, #44A1AE 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, right top, color-stop(0%,#29a8dd), color-stop(100%,#44A1AE)); /* Chrome,Safari4+ */
@@ -174,21 +175,15 @@
         background: linear-gradient(to right, #29a8dd 0%,#44A1AE 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
     }
-    .logo {
-        background: image-url('img/logo-icon.png');
-        height: 25px;
-        width: 25px;
-        float: right;
-        margin: 7px 10px;
-        background-size: contain;
-        cursor: pointer;
-    }
     .menu {
         background: image-url('img/header-menu-icon.png');
-        height: 20px;
-        width: 20px;
+        height: 25px;
+        width: 25px;
         float: left;
+<<<<<<< 8dd90f5e21203d49491ba94a4ad20a6d3fe4a236
         margin: 11px 5px 11px 11px;
+=======
+>>>>>>> improves mobile menu sizing
         background-size: contain;
         background-repeat: no-repeat;
         cursor: pointer;
@@ -198,8 +193,8 @@
         color: #fff;
         text-transform: uppercase;
         font-size: 16pt;
-        padding: 0 5px;
-        line-height: 29pt;
+        padding: 0 15px;
+        line-height: 15pt;
     }
 }
 
