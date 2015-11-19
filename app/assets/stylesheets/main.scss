@@ -521,7 +521,7 @@ select::-ms-expand {
       height: 23vh;
       text-transform: uppercase;
       color: #fff;
-      background-image: url(/assets/img/menu-banner.png);
+      background-image: image-url('img/menu-banner.png');
       padding: 0 20%;
       min-height: 120px;
       background-size: cover;
