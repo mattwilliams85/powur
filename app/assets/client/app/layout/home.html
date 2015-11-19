@@ -1,71 +1,70 @@
 <div layout="row" ng-controller="NavController as nav">
   <div class="parent-height" pw-nav="home"></div>
 
-  <!-- MOBILE SIDE NAV -->
-  <md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left" hide-gt-sm>
-    <div class="banner" layout="column" layout-align="center start">
-      <div class="logo"></div>
-      <div class="motto">Disrupt & <b>Decentralize</b></div>
-    </div>
-    <div layout-align="center center" class="link-wrap">
-      <a href="/dashboard" target="_self">
-        <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/dashboard')}">
-          <i class="sprite sprite-dashboard"></i><span>Dashboard</span>
-        </div>
-      </a>
-      <md-divider></md-divider>
-      <a href="/next/invite/grid" target="_self">
-        <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
-          <i class="sprite sprite-invite"></i><span>Invite</span>
-        </div>
-      </a>
-      <md-divider></md-divider>
-      <a href="/earnings" target="_self">
-        <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/earnings')}">
-          <i class="sprite sprite-earnings"></i><span>Earnings</span>
-        </div>
-      </a>
-      <md-divider></md-divider>
-      <a href="/university" target="_self">
-        <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/university')}">
-          <i class="sprite sprite-certs"></i><span>Powur U</span>
-        </div>
-      </a>
-      <md-divider></md-divider>
-      <a href="/library" target="_self">
-      <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/library')}">
-       <i class="sprite sprite-library"></i><span>Library</span>
-      </div>
-      </a>
-      <md-divider></md-divider>
-      <a href="/upgrade" target="_self">
-        <div layout="row" layout-align="start center" class="link-item" ng-hide="nav.home.userData['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
-          <i class="sprite sprite-upgrade"></i><span>Upgrade</span>
-        </div>
-      </a>
-      <a href="/admin" target="_self">
-        <div layout="row" layout-align="start center" class="link-item" ng-show="nav.home.userData.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
-          <i class="sprite sprite-admin"></i><span>Admin</span>
-        </div>
-      </a>
-      <md-divider></md-divider>
-      <a href="/profile" target="_self">
-        <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
-          <i class="sprite sprite-stats"></i><span>Profile</span>
-        </div>
-      </a>
-      <md-divider></md-divider>
-      <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()">
-        <i class="sprite sprite-logout"></i><span>Logout</span>
-      </div>
-    </div>
-  </md-sidenav>
-
-  <!-- HOME SIDE NAV -->
   <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 left-menu" layout="row">
     <div class="parent-height" pw-hud="home"></div>
   </md-sidenav>
   <div flex layout="column" class="main-view">
     <div ui-view></div>
+
+    <!-- MOBILE SIDE NAV -->
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
+      <div class="banner" layout="column" layout-align="center start">
+        <div class="logo"></div>
+        <div class="motto">Disrupt & <b>Decentralize</b></div>
+      </div>
+      <div layout-align="center center" class="link-wrap">
+        <a href="/dashboard" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/dashboard')}">
+            <i class="sprite sprite-dashboard"></i><span>Dashboard</span>
+          </div>
+        </a>
+        <md-divider></md-divider>
+        <a href="/next/invite/grid" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
+            <i class="sprite sprite-invite"></i><span>Invite</span>
+          </div>
+        </a>
+        <md-divider></md-divider>
+        <a href="/earnings" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/earnings')}">
+            <i class="sprite sprite-earnings"></i><span>Earnings</span>
+          </div>
+        </a>
+        <md-divider></md-divider>
+        <a href="/university" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/university')}">
+            <i class="sprite sprite-certs"></i><span>Powur U</span>
+          </div>
+        </a>
+        <md-divider></md-divider>
+        <a href="/library" target="_self">
+        <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/library')}">
+         <i class="sprite sprite-library"></i><span>Library</span>
+        </div>
+        </a>
+        <md-divider></md-divider>
+        <a href="/upgrade" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-hide="nav.home.userData['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
+            <i class="sprite sprite-upgrade"></i><span>Upgrade</span>
+          </div>
+        </a>
+        <a href="/admin" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="nav.home.userData.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
+            <i class="sprite sprite-admin"></i><span>Admin</span>
+          </div>
+        </a>
+        <md-divider></md-divider>
+        <a href="/profile" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
+            <i class="sprite sprite-stats"></i><span>Profile</span>
+          </div>
+        </a>
+        <md-divider></md-divider>
+        <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()">
+          <i class="sprite sprite-logout"></i><span>Logout</span>
+        </div>
+      </div>
+    </md-sidenav>
   </div>
 </div>
