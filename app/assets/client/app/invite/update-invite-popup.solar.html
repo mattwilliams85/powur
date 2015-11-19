@@ -35,14 +35,14 @@
             <div ng-messages="dialog.update.$error" class="messages">
               <div ng-message="message">{{ dialog.update.$error.message }}</div>
             </div>
-            <md-input-container>
+            <md-input-container flex="100">
               <label>phone number</label>
               <input ng-model="dialog.update.field('phone').value" type="tel">
               <div ng-messages="dialog.update.field('phone').$error" class="messages">
                 <div ng-message="message">{{ dialog.update.field('phone').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container>
+            <md-input-container flex="100">
               <label>email</label>
               <input ng-model="dialog.update.field('email').value" type="text" autocomplete="off" autocapitalize="off">
               <div ng-messages="dialog.update.field('email').$error" class="messages">
@@ -52,7 +52,7 @@
           </md-content>
 
           <div class="actions">
-            <md-button ng-disabled="dialog.update.submitting" class="md-primary">Update Customer</md-button>
+            <md-button type="submit" ng-disabled="dialog.update.submitting" class="md-primary">Update Customer</md-button>
           </div>
         </md-dialog-content>
       </div>

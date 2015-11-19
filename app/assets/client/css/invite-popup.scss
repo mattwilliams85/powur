@@ -78,11 +78,17 @@
   }
 
   .heading {
-    padding: 0px 0 0 10px;
-
     .title {
       font-size: large;
       text-transform: uppercase;
+    }
+  }
+
+  .resend {
+    margin: 0;
+    span {
+      font-size: 10pt;
+      line-height: 22pt;
     }
   }
 
