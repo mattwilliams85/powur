@@ -1,13 +1,14 @@
 <div layout="row" ng-controller="NavController as nav">
   <div class="parent-height" pw-nav="home"></div>
-  <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-sidenav-left md-whiteframe-z2 left-menu" layout="row">
+
+  <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 left-menu" layout="row">
     <div class="parent-height" pw-hud="home"></div>
   </md-sidenav>
   <div flex layout="column" class="main-view">
     <div ui-view></div>
 
     <!-- MOBILE SIDE NAV -->
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left" hide-gt-sm>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
       <div class="banner" layout="column" layout-align="center start">
         <div class="logo"></div>
         <div class="motto">Disrupt & <b>Decentralize</b></div>

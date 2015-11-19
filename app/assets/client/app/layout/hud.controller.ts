@@ -4,7 +4,7 @@ module powur {
   interface IHudScope extends ng.IScope {
     home: any;
   }
-  
+
   class HudController {
     static ControllerId = 'HudController';
     static $inject = ['$scope', '$log'];
@@ -12,14 +12,6 @@ module powur {
 
     get home(): any {
       return this.$scope.home;
-    }
-
-    toggleHud(): void{
-      if($("md-sidenav").hasClass("collapsed")) {
-        $("md-sidenav").removeClass("collapsed");
-      }else{
-        $("md-sidenav").addClass("collapsed");
-      }
     }
 
     get userData(): any {
@@ -47,7 +39,7 @@ module powur {
     get goalRequirements(): ISirenModel[] {
       return this.home.requirements.entities;
     }
-    
+
     constructor(private $scope: IHudScope,
                 private $log: ng.ILogService) {
     }

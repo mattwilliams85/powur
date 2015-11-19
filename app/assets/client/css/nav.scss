@@ -1,4 +1,4 @@
-.nav { 
+.nav {
     z-index: 59;
     .bg {
         width: 70px;
@@ -34,7 +34,7 @@
       right: 0;
       margin: 0 auto;
     }
-    
+
     .mobile-menu {
         background: image-url('img/hud-icon-disabled.png');
         height: 38px;
@@ -51,31 +51,31 @@
     .list {
         list-style-type: none;
         padding: 30px 15px 0 15px;
-        margin: 0;        
+        margin: 0;
         text-align: center;
-            
+
         li {
             margin-bottom: 40px;
         }
-        
+
         li:hover, li.active {
             -webkit-filter: brightness(0) invert(1);
             filter: brightness(0) invert(1);
             cursor: pointer;
-        }        
+        }
     }
 
     // .bottom {
     //     position: fixed;
     //     bottom: 10px;
     // }
-    
+
     .sprite {
         background-image: image-url("img/nav-sprite.png");
         background-repeat: no-repeat;
         display: inline-block;
     }
-    
+
     .sprite-library {
         width: 35px;
         height: 43px;
@@ -89,7 +89,7 @@
         height: 35px;
         margin-left: -3px;
     }
-    
+
     .sprite-certs {
         background: image-url('img/powur-u-icon.png');
         background-size: contain;
@@ -102,55 +102,55 @@
         height: 40px;
         background-image: image-url("img/earnings-icon.png");
     }
-    
+
     .sprite-events {
         width: 33px;
         height: 33px;
         background-position: -102px -5px;
     }
-    
+
     .sprite-goal {
         width: 42px;
         height: 40px;
         background-position: -145px -5px;
     }
-    
+
     .sprite-grid {
         width: 42px;
         height: 40px;
         background-position: -197px -5px;
     }
-    
+
     .sprite-logout {
         width: 33px;
         height: 26px;
         background-image: image-url("img/logout-icon.png");
     }
-    
+
     .sprite-social {
         width: 33px;
         height: 29px;
         background-position: -292px -5px;
     }
-    
+
     .sprite-stats {
         width: 27px;
         height: 31px;
         background-image: image-url("img/profile-icon.png");
     }
-    
+
     .sprite-strategy {
         width: 21px;
         height: 37px;
         background-position: -372px -5px;
     }
-    
+
     .sprite-dashboard {
       width: 35px;
       height: 35px;
       background-image: image-url("img/dashboard-icon.png");
     }
-    
+
     .sprite-invite {
       width: 32px;
       height: 38px;
@@ -158,7 +158,7 @@
     }
 }
 
-.nav.mobile {
+.nav.top-menu {
     position: fixed;
     top: 0;
     left: 0;
@@ -188,7 +188,7 @@
         height: 20px;
         width: 20px;
         float: left;
-        margin: 11px 5px;
+        margin: 11px 5px 11px 11px;
         background-size: contain;
         background-repeat: no-repeat;
         cursor: pointer;
@@ -249,4 +249,3 @@
         }
     }
 }
-
