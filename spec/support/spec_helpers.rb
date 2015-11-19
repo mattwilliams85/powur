@@ -35,6 +35,14 @@ module SpecHelpers
     expect(response.status).to eq(404)
   end
 
+  def expect_input_warning(input)
+    expect(json_body['warning']).to_not(
+      be_nil,
+      "expected warning json, got json keys: [#{json_body.keys.join(',')}]")
+
+    expect(json_body['warning']['input']).to eq(input.to_s)
+  end
+
   def expect_input_error(input)
     expect(json_body['error']).to_not(
       be_nil,

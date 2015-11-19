@@ -16,7 +16,8 @@ actions << action(:create, :post, request.path)
   .field(:email, :email)
   .field(:first_name, :text)
   .field(:last_name, :text)
-  .field(:phone, :text) if current_user.partner?
+  .field(:phone, :text)
+  .field(:confirm_existing_email, :boolean) if current_user.partner?
 
 actions(*actions)
 

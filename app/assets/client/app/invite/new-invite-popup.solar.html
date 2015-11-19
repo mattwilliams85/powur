@@ -1,6 +1,6 @@
 <div class="invite-popup fill-height">
   <md-dialog aria-label="Invite" class="dialog">
-  
+
     <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate autocomplete="off">
       <div class="side-bg"></div>
       <div layout="column" flex>
@@ -8,7 +8,7 @@
           <span class="title">Send a<br>new Solar<b> Invite</b></span>
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
-        <md-dialog-content layout="column">
+        <md-dialog-content ng-if="!dialog.warning" layout="column">
           <!-- TODO: this is what happens when you code for 16 hours straight -->
           <br hide-gt-sm>
           <br hide-gt-sm>
@@ -54,6 +54,16 @@
 
           <div class="actions">
             <md-button ng-disabled="dialog.create.submitting" class="md-primary">Send Invitation</md-button>
+          </div>
+        </md-dialog-content>
+
+        <md-dialog-content ng-if="dialog.warning" layout="column">
+          <br hide-gt-sm>
+          <br hide-gt-sm>
+          <h5>{{ dialog.warning.message }}</h5>
+
+          <div class="actions">
+            <md-button ng-click="dialog.confirm()" ng-disabled="dialog.create.submitting" class="md-primary">Confirm</md-button>
           </div>
         </md-dialog-content>
       </div>
