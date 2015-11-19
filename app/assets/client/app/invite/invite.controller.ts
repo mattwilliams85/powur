@@ -90,11 +90,24 @@ module powur {
     get fields(): any    { return this.update.fields }
   }
 
-  class InviteController extends AuthController {
+  export class InviteController extends AuthController {
     static ControllerId = 'InviteController';
+
+    invites: ISirenModel;
 
     isCurrent(state: string): boolean {
       return this.state.current.name == state;
+    }
+
+    filter(name: string, success) {
+      var opts = {
+        page: 1,
+        status: name || ''
+      };
+      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
+        .then((data: any) => {
+          success(data, this);
+        });
     }
   }
 

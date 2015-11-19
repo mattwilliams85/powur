@@ -47,8 +47,8 @@ entity_list << entity(%w(goals), 'user-kpis', kpi_metrics_path)
 entity_list << entity(%w(list invites),
                       'user-invites',
                       invites_path(page: '{page}', status: '{status}'))
-entity_list << entity(%w(list product_invites),
-                      'user-product_invites',
+entity_list << entity(%w(list solar_invites),
+                      'user-solar_invites',
                       product_invites_path(page: '{page}', status: '{status}'))
 entity_list << entity(%w(list users), 'user-users', users_path)
 entity_list << entity(%w(list leads), 'user-leads', leads_path(current_user))
