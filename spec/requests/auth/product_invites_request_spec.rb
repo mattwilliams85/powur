@@ -59,7 +59,7 @@ describe 'POST /u/product_invites' do
 
     it 'should create a new customer if warning confirmed' do
       post(product_invites_path,
-           payload.merge(confirm_existing_email: true),
+           payload.merge(confirm_existing_email: '1'),
            format: :json)
 
       expect_props(

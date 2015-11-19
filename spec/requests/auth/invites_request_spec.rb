@@ -26,7 +26,7 @@ describe 'POST /u/invites' do
 
     it 'should create a new invite if warning confirmed' do
       post(invites_path,
-           payload.merge(confirm_existing_email: true),
+           payload.merge(confirm_existing_email: '1'),
            format: :json)
 
       expect_props(
