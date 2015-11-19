@@ -25,7 +25,7 @@
     "angular-aria": "~1.4.x",
     "angular-messages": "~1.4.x",
     "angular-ui-router": "~0.2.x",
-    "angular-material": "~0.11.x",
+    "angular-material": "~1.0.0-rc4",
     "angular-chart.js": "~0.8.x",
     "angular-scroll": "~0.7.x",
     "angular-ui-slider": "~0.1.1",
