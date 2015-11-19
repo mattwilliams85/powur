@@ -18,13 +18,13 @@
 <div class="invite-list-bg">
   <md-tabs ng-show="invite.showFilters" class="md-accent">
     <md-tab md-active="!invite.listProps.filters.status">
-      <div ng-click="invite.filter('')"></div>All
+      <div ng-click="invite.filter('', invite.filterSuccess)"></div>All
     </md-tab>
     <md-tab md-active="invite.listProps.filters.status === 'pending'">
-      <div ng-click="invite.filter('pending')" ng-if="invite.pending"></div>Pending
+      <div ng-click="invite.filter('pending', invite.filterSuccess)" ng-if="invite.pending"></div>Pending
     </md-tab>
     <md-tab md-active="invite.listProps.filters.status === 'expired'" ng-if="invite.expired">
-      <div ng-click="invite.filter('expired')"></div>Expired
+      <div ng-click="invite.filter('expired', invite.filterSuccess)"></div>Expired
     </md-tab>
   </md-tabs>
 

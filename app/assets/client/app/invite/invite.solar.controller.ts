@@ -3,8 +3,8 @@
 module powur {
   'use strict';
 
-  class InviteProductController extends AuthController {
-    static ControllerId = 'InviteProductController';
+  class InviteSolarController extends InviteController {
+    static ControllerId = 'InviteSolarController';
     static $inject = ['invites', '$mdDialog', '$timeout'];
 
     get list(): any[] {
@@ -21,7 +21,9 @@ module powur {
                 this.listProps.initiated);
     }
 
-    constructor(private invites: ISirenModel, public $mdDialog: ng.material.IDialogService, public $timeout: ng.ITimeoutService) {
+    constructor(public invites: ISirenModel, 
+                public $mdDialog: ng.material.IDialogService, 
+                public $timeout: ng.ITimeoutService) {
       super();
     }
 
@@ -74,17 +76,9 @@ module powur {
       });
     }
 
-    filter(name: string) {
-      var opts = {
-        page: 1,
-        status: name || ''
-      };
-
-      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
-        .then((data: any) => {
-          this.invites.entities = data.entities;
-          this.invites.properties = data.properties;
-      });
+    filterSuccess(data, scope) {
+      scope.invites.entities = data.entities;
+      scope.invites.properties = data.properties;
     }
   }
 
@@ -92,5 +86,6 @@ module powur {
     .module('powur.invite')
     .controller(NewInviteDialogController.ControllerId, NewInviteDialogController)
     .controller(UpdateInviteDialogController.ControllerId, UpdateInviteDialogController)
-    .controller(InviteProductController.ControllerId, InviteProductController);
+    .controller(InviteController.ControllerId, InviteController)
+    .controller(InviteSolarController.ControllerId, InviteSolarController);
 }

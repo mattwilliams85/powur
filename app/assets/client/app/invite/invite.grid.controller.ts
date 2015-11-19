@@ -5,7 +5,7 @@
 module powur {
   'use strict';
 
-  class InviteGridController extends AuthController {
+  class InviteGridController extends InviteController {
     static ControllerId = 'InviteGridController';
     static $inject = ['invites', '$mdDialog', '$interval', '$timeout', '$window', '$scope'];
 
@@ -18,14 +18,14 @@ module powur {
 
     activePies: string[];
 
-    constructor(private invites: ISirenModel,
+    constructor(public invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
                 private $interval: ng.IIntervalService,
                 private $timeout: ng.ITimeoutService,
                 private $window: ng.IWindowService,
                 private $scope: ng.IScope) {
-      super();
-
+      super();  
+      
       this.$interval.cancel(this.invites.properties.pieTimer);
       this.activePies = [];
 
@@ -152,21 +152,12 @@ module powur {
       });
     }
 
-    filter(name: string) {
-      var opts = {
-        page: 1,
-        status: name || ''
-      };
-
-      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
-        .then((data: any) => {
-          data.properties.pieTimer = this.invites.properties.pieTimer;
-
-          this.invites.entities = data.entities;
-          this.invites.properties = data.properties;
-          this.activePies = [];
-          this.buildPies();
-      });
+    filterSuccess(data, scope) {
+      data.properties.pieTimer = scope.invites.properties.pieTimer;
+      scope.invites.entities = data.entities;
+      scope.invites.properties = data.properties;
+      scope.activePies = [];
+      scope.buildPies();
     }
   }
 
@@ -174,5 +165,6 @@ module powur {
     .module('powur.invite')
     .controller(NewInviteDialogController.ControllerId, NewInviteDialogController)
     .controller(UpdateInviteDialogController.ControllerId, UpdateInviteDialogController)
+    .controller(InviteController.ControllerId, InviteController)
     .controller(InviteGridController.ControllerId, InviteGridController);
 }
