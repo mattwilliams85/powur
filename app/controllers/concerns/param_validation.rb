@@ -4,6 +4,7 @@ module ParamValidation
   included do
     rescue_from ActiveRecord::RecordInvalid, with: :active_record_error
     rescue_from ::Errors::InputError,
+                ::Errors::InputWarning,
                 ::Errors::AlertError,
                 with: :render_json_error
   end
@@ -44,6 +45,13 @@ module ParamValidation
     else
       fail ::Errors::AlertError, msg
     end
+  end
+
+  def warn!(msg, field = nil, opts = {})
+    opts = field if field.is_a?(Hash)
+
+    msg = t("warnings.#{msg}", opts)
+    fail ::Errors::InputWarning.new(field), msg
   end
 
   def not_found!(entity, id = params[:id])

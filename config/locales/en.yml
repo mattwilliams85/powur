@@ -58,7 +58,6 @@ en:
     smarteru_unavailable: SmarterU is unavailable at this time
     notification_locked: This notification is locked. Please create another one
     forgot_password_email_not_found: Email not found
-    product_invite_exist: An invitation for this email already exist
     invalid_zip: Zip code is invalid
     unqualified_zip: Your zip code is outside the serviceable area
     either_email_or_phone: Either email or phone is required
@@ -89,6 +88,8 @@ en:
     attributes:
       email:
         blank: Please input an email address
+  warnings:
+    invite_exists: "The email address '%{email}' already exists as a lead owned by %{sponsor}. Are you sure you want to create these lead/invite?"
   confirms:
     delete: "%{entity} successfully deleted"
     update: "%{entity} successfully updated"

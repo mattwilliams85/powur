@@ -21,7 +21,7 @@
           </div>
         </md-dialog-content>
 
-        <md-dialog-content ng-if="dialog.create" layout="column">
+        <md-dialog-content ng-if="dialog.create && !dialog.warning" layout="column">
           <!-- TODO: this is what happens when you code for 16 hours straight -->
           <br hide-gt-sm>
           <br hide-gt-sm>
@@ -67,6 +67,16 @@
 
           <div class="actions">
             <md-button ng-disabled="dialog.create.submitting" class="md-primary">Send Invitation</md-button>
+          </div>
+        </md-dialog-content>
+
+        <md-dialog-content ng-if="dialog.create && dialog.warning" layout="column">
+          <br hide-gt-sm>
+          <br hide-gt-sm>
+          <h5>{{ dialog.warning.message }}</h5>
+
+          <div class="actions">
+            <md-button ng-click="dialog.confirm()" ng-disabled="dialog.create.submitting" class="md-primary">Confirm</md-button>
           </div>
         </md-dialog-content>
       </div>

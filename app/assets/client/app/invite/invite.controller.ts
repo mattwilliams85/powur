@@ -4,11 +4,18 @@
 module powur {
   'use strict';
 
+  interface Warning {
+    type: string;
+    message: string;
+    input: string;
+  }
+
   export class NewInviteDialogController {
     static ControllerId = 'NewInviteDialogController';
     static $inject = ['$log', '$mdDialog', 'invites'];
 
     invites: ISirenModel;
+    warning: Warning;
 
     constructor(private $log: ng.ILogService, public $mdDialog: ng.material.IDialogService, invites: ISirenModel) {
       this.invites = invites;
@@ -21,9 +28,18 @@ module powur {
 
     send() {
       this.create.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$mdDialog.hide(response.data);
-        this.create.clearValues();
+        if (response.data.warning) {
+          this.warning = response.data.warning;
+        } else {
+          this.$mdDialog.hide(response.data);
+          this.create.clearValues();
+        }
       });
+    }
+
+    confirm() {
+      this.create.field('confirm_existing_email').value = '1';
+      this.send();
     }
 
     cancel() {
@@ -41,8 +57,8 @@ module powur {
     parentCtrl: any;
     invite: any;
 
-    constructor(private $log: ng.ILogService, 
-                public $mdDialog: ng.material.IDialogService, 
+    constructor(private $log: ng.ILogService,
+                public $mdDialog: ng.material.IDialogService,
                 parentCtrl: ng.IScope,
                 invite: any) {
 

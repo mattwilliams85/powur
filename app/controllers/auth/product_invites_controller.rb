@@ -1,7 +1,8 @@
 module Auth
   class ProductInvitesController < AuthController
     before_action :validate_existence, only: [ :create ]
-    before_action :fetch_customer, only: [ :show, :update, :destroy, :resend, :email ]
+    before_action :fetch_customer, only: [
+      :show, :update, :destroy, :resend, :email ]
 
     page max_limit: 20
     sort created:  { created_at: :desc },
@@ -62,9 +63,12 @@ module Auth
     end
 
     def validate_existence
-      return unless params[:email].present?
+      if !params[:email].present? || params[:confirm_existing_email].to_i == 1
+        return
+      end
       customer = Customer.find_by(email: customer_input['email'])
-      error!(:product_invite_exist, :email) if customer
+      warn!(:invite_exists, :email,
+            sponsor: customer.user.full_name, email: customer.email) if customer
     end
 
     def fetch_customer

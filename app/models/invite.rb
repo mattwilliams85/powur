@@ -8,9 +8,8 @@ class Invite < ActiveRecord::Base
   belongs_to :sponsor, class_name: 'User'
 
   # Validates with https://github.com/hallelujah/valid_email
-  validates :email, presence:   true,
-                    email:      true,
-                    uniqueness: true, if: :email_present?
+  validates :email, presence: true,
+                    email:    true
   def email_present?
     email?
   end
