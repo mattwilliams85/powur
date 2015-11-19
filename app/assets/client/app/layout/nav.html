@@ -9,13 +9,13 @@
 <div class="nav goals" ng-controller="HudController as hud">
   <div ng-if="hud.rank > 0" layout="row" layout-align="space-around center" layout-fill class="bar">
     <div layout-align="center center">
-      <span>Rank</span> 
+      <span>Rank</span>
       <span class="number">{{ hud.rank }}<sup>/{{ hud.rankTotal }}</sup></span>
       <div class="medal icon"></div>
     </div>
     <div ng-repeat="req in hud.goalRequirements">
-      <span ng-if="req.properties.event_type === 'grid_proposals'">Personal</span>
-      <span ng-if="req.properties.event_type === 'personal_proposals'">Grid</span>
+      <span ng-if="req.properties.event_type === 'grid_proposals'">Grid</span>
+      <span ng-if="req.properties.event_type === 'personal_proposals'">Personal</span>
       <span class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
       <div class="icon"></div>
     </div>
