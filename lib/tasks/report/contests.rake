@@ -9,8 +9,9 @@ namespace :powur do
 
     NOV_DEC_2015_HEADERS = %w(id name email qualified_leads
                               sponsored_partners points)
+    FROM = Date.parse('2015-11-01')
     task nov_dec_2015: :environment do
-      leads = Lead.converted(from: '2015-11-01')
+      leads = Lead.converted(from: FROM)
         .references(:user).includes(:user)
 
       rows = leads.each_with_object({}) do |lead, users|
@@ -22,10 +23,10 @@ namespace :powur do
         end
       end
 
-      sponsees = User
-        .where('users.created_at >= ?', Date.parse('2015-11-01'))
-        .where('users.lifetime_rank > 0')
-        .references(:sponsor).includes(:sponsor)
+      sponsees = ProductReceipt
+        .where(product_id: 3)
+        .where('purchased_at >= ?', FROM)
+        .references(:user).includes(:user).map(&:user)
 
       sponsees.each do |user|
         if rows[user.sponsor_id].nil?
