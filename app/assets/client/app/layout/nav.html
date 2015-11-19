@@ -14,8 +14,8 @@
       <div class="medal icon"></div>
     </div>
     <div ng-repeat="req in hud.goalRequirements">
-      <span ng-if="req.properties.event_type === 'grid_proposals'">Personal</span>
-      <span ng-if="req.properties.event_type === 'personal_proposals'">Grid</span>
+      <span ng-if="req.properties.event_type === 'grid_proposals'">Grid</span>
+      <span ng-if="req.properties.event_type === 'personal_proposals'">Personal</span>
       <span class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
       <div class="icon"></div>
     </div>
