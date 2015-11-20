@@ -89,7 +89,10 @@ class Invite < ActiveRecord::Base
       return user
     end
 
-    Invite.where(id: id).update_all(user_id: user.id) if user.save!
+    if user.save!
+      Invite.where(['id = ? OR email = ?', id, email])
+        .update_all(user_id: user.id)
+    end
 
     user
   end
