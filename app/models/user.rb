@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
                  :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
                  :notifications_read_at,
-                 :ewallet_username, :mailchimp_id
+                 :ewallet_username, :mailchimp_id, :last_login_streak_at
 
   EMAIL_UNIQUE = { message: 'This email is taken', case_sensitive: false }
   validates :email,
