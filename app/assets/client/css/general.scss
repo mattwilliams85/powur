@@ -121,9 +121,8 @@ form {
 .mobile-side-nav {
   display: block;
   background: #2ba7d9; /* Old browsers */
-  max-width: 70vw !important;
-  min-width: 70vw !important;
-  width: 70vw !important;
+  max-width: 400px;
+  min-width: 400px;
   height: 100vh !important;
   position: fixed;
   background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
@@ -133,12 +132,6 @@ form {
   background: -ms-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* IE10+ */
   background: linear-gradient(to bottom, #2ba7d9 0%,#509f9a 100%); /* W3C */
   background-size: cover;
-
-  @media screen and (min-width : 601px) {
-    max-width: initial !important;
-    min-width: initial !important;
-    width: 300px !important;
-  }
 
   &.md-closed {
     display: block !important;
@@ -150,44 +143,68 @@ form {
 
   .sprite {
     &.sprite-dashboard {
-      width: 29px;
-      height: 20px;
+      background: image-url('img/dashboard-icon.png');
+      width: 39px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-invite {
-      width: 30px;
-      height: 23px;
+      background: image-url('img/invite-icon.png');
+      width: 40px;
+      height: 33px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-earnings {
-      width: 30px;
-      height: 19px;
+      background: image-url('img/earnings-icon.png');
+      width: 40px;
+      height: 29px;
       margin: 0 0px 0 -1px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-library {
-      width: 29px;
-      height: 22px;
+      background: image-url('img/library-icon.png');
+      width: 39px;
+      height: 32px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-certs {
-      width: 19px;
-      height: 19px;
+      background: image-url('img/powur-u-icon.png');
+      width: 29px;
+      height: 29px;
       margin-right: 9px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-upgrade {
-      width: 30px;
-      height: 19px;
-      margin-right: 8px;
+      background: image-url('img/upgrade-icon.png');
+      width: 40px;
+      height: 29px;
+      margin-right: -2px;
       margin-left: 0px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-stats {
-      width: 30px;
-      height: 16px;
+      background: image-url('img/profile-icon.png');
+      width: 40px;
+      height: 26px;
       margin-left: 2px;
       margin-right: -2px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-logout {
-      width: 30px;
-      height: 13px;
+      background: image-url('img/logout-icon.png');
+      width: 40px;
+      height: 23px;
       margin-left: 2px;
       margin-right: -2px;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     &.sprite-admin {
       background: image-url('img/hud-icon-disabled.png');
@@ -195,11 +212,12 @@ form {
       height: 19px;
       margin-right: 11px;
       background-size: contain;
+      background-repeat: no-repeat;
     }
-    background-size: contain;
+      background-size: contain;
   }
   .link-wrap {
-    padding: 5% 20px;
+    padding: 5% 10%;
 
     .link-item {
       padding: 0 10px;
@@ -222,7 +240,7 @@ form {
 
   .banner {
     width: 100%;
-    height: 23vh;
+    height: 212px;
     text-transform: uppercase;
     color: #fff;
     background-image: image-url('img/menu-banner.png');
@@ -232,18 +250,91 @@ form {
 
     .logo {
       background: image-url('img/powur-logo-white.png');
-      height: 30px;
-      width: 104px;
-      margin: 0 0 5px -26px;
+      height: 53px;
+      width: 183px;
+      margin: 0 0 5px -46px;
       background-size: contain;
       cursor: pointer;
     }
     .motto {
-      font-size: 8pt;
+      font-size: 11pt;
     }
   }
 
   md-toolbar {
     background-color: transparent;
+  }
+}
+
+@media screen and (max-width : 700px) {
+  .mobile-side-nav {
+    max-width: 70vw !important;
+    min-width: 70vw !important;
+
+    .sprite {
+      &.sprite-dashboard {
+        width: 29px;
+        height: 20px;
+      }
+      &.sprite-invite {
+        width: 30px;
+        height: 23px;
+      }
+      &.sprite-earnings {
+        width: 30px;
+        height: 19px;
+        margin: 0 0px 0 -1px;
+      }
+      &.sprite-library {
+        width: 29px;
+        height: 22px;
+      }
+      &.sprite-certs {
+        width: 19px;
+        height: 19px;
+        margin-right: 9px;
+      }
+      &.sprite-upgrade {
+        width: 30px;
+        height: 19px;
+        margin-right: 8px;
+        margin-left: 0px;
+      }
+      &.sprite-stats {
+        width: 30px;
+        height: 16px;
+        margin-left: 2px;
+        margin-right: -2px;
+      }
+      &.sprite-logout {
+        width: 30px;
+        height: 13px;
+        margin-left: 2px;
+        margin-right: -2px;
+      }
+      &.sprite-admin {
+        background: image-url('img/hud-icon-disabled.png');
+        width: 19px;
+        height: 19px;
+        margin-right: 11px;
+        background-size: contain;
+      }
+      background-size: contain;
+    }
+
+    .banner {
+      height: 23vh;
+      .logo {
+        background: image-url('img/powur-logo-white.png');
+        height: 30px;
+        width: 104px;
+        margin: 0 0 5px -26px;
+        background-size: contain;
+        cursor: pointer;
+      }
+      .motto {
+        font-size: 8pt;
+      }
+    }
   }
 }
