@@ -64,7 +64,7 @@ module powur {
         for (var i = 0; i < this.list.length; i++) {
           var id = this.list[i].properties.id;
 
-          if (this.activePies.indexOf(id) > -1 || 
+          if (this.activePies.indexOf(id) > -1 ||
               this.list[i].properties.status === 'expired') continue;
 
           var progress = this.progress(this.list[i]);
@@ -129,7 +129,7 @@ module powur {
         }
       }).then((data: any) => {
         if (data) {
-          this.invites.entities = new SirenModel(data).entities;
+          this.invites = new SirenModel(data);
           this.buildPies();
         }
       });

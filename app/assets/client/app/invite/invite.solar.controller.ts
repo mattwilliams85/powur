@@ -56,7 +56,7 @@ module powur {
           invite: invite
         }
       }).then((data: any) => {
-        if (data) this.invites.entities = new SirenModel(data).entities;
+        if (data) this.invites = new SirenModel(data);
       });
     }
 

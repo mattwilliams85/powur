@@ -55,6 +55,97 @@
     <a href="/library" target="_self">
     <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/library')}">
      <i class="sprite sprite-library"></i><span>Library</span>
+<<<<<<< HEAD
+=======
+    </div>
+    </a>
+    <md-divider></md-divider>
+    <a href="/upgrade" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-hide="nav.home.userData['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
+        <i class="sprite sprite-upgrade"></i><span>Upgrade</span>
+      </div>
+    </a>
+    <a href="/admin" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-show="nav.home.userData.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
+        <i class="sprite sprite-admin"></i><span>Admin</span>
+      </div>
+    </a>
+    <md-divider></md-divider>
+    <a href="/profile" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
+        <i class="sprite sprite-stats"></i><span>Profile</span>
+      </div>
+    </a>
+    <md-divider></md-divider>
+    <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()">
+      <i class="sprite sprite-logout"></i><span>Logout</span>
+    </div>
+  </div>
+</md-sidenav>
+
+<div class="nav fill-height">
+    <div class="bg fill-height">
+        <ul class="list fill-height" layout="column" layout-align="start center">
+            <!-- <div ng-click="nav.openMenu(); activeMenu = !activeMenu" class="mobile-menu" hide-gt-md ng-class="{ 'active': nav.isOpen() }"></div> -->
+            <div class="align-top">
+                <a href="/dashboard" target="_self">
+                  <li ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard" target="_self">
+                    <i class="sprite sprite-dashboard"></i>
+                    <md-tooltip>Dashboard</md-tooltip>
+                  </li>
+                </a>
+                <a href="/next/invite/grid" target="_self">
+                  <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }">
+                  <i class="sprite sprite-invite"></i>
+                  <md-tooltip>Invite</md-tooltip>
+                  </li>
+                </a>
+                <a ng-href="/earnings" target="_self">
+                  <li ng-class="{'active': isMenuLinkActive('/earnings')}" ><i class="sprite sprite-earnings"></i>
+                  <md-tooltip>Earnings</md-tooltip>
+                  </li>
+                </a>
+                <a ng-href="/university" target="_self">
+                  <li ng-class="{'active': isMenuLinkActive('/university')}"><i class="sprite sprite-certs"></i>
+                  <md-tooltip>Powur U</md-tooltip>
+                  </li>
+                </a>
+                <a ng-href="/library" target="_self">
+                  <li ng-class="{'active': isMenuLinkActive('/library')}"><i class="sprite sprite-library"></i>
+                  <md-tooltip>Library</md-tooltip>
+                  </li>
+                </a>
+            </div>
+
+            <div class="align-bottom">
+                <a ng-href="/upgrade" ng-hide="nav.home.userData['partner?']" target="_self">
+                  <li ng-class="{'active': isMenuLinkActive('/upgrade')}"><i class="sprite sprite-upgrade"></i>
+                  <md-tooltip>Upgrade</md-tooltip>
+                  </li>
+                </a>
+                <a href="/admin" target="_self">
+                  <li ng-show="nav.home.userData.is_admin"><span class="admin">ADMIN</span>
+                  <md-tooltip>Admin</md-tooltip>
+                  </li>
+                </a>
+                <a ng-href="/profile" target="_self">
+                  <li><i class="sprite sprite-stats"></i>
+                  <md-tooltip>Profile</md-tooltip>
+                  </li>
+                </a>
+    <!--             <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i>
+                <md-tooltip>Events</md-tooltip>
+                </li> -->
+    <!--             <li ui-sref="home.goal" ng-class="{ active: nav.isCurrent('home.goal') }"><i class="sprite sprite-goal"></i>
+                <md-tooltip>Goals</md-tooltip>
+                </li> -->
+
+                <li ng-click="nav.logout()"><i class="sprite sprite-logout"></i>
+                <md-tooltip>Logout</md-tooltip>
+                </li>
+            </div>
+        </ul>
+>>>>>>> develop
     </div>
     </a>
     <md-divider></md-divider>
