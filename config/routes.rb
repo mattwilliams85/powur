@@ -124,6 +124,16 @@ Rails.application.routes.draw do
         get :leaderboard
       end
 
+      member do
+        get :downline
+        get :full_downline
+        get :upline
+        post :move
+        get :eligible_parents
+        get :sponsors
+        get :team_metrics
+      end
+
       resources :leads, only: [ :index ] do
         collection do
           get :summary
@@ -135,15 +145,6 @@ Rails.application.routes.draw do
                                   controller: :user_activities
       resources :pay_periods, only:       [ :index, :show ],
                               controller: :user_pay_periods
-
-      member do
-        get :downline
-        get :full_downline
-        get :upline
-        post :move
-        get :eligible_parents
-        get :sponsors
-      end
     end
 
     resources :earnings,

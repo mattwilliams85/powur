@@ -4,13 +4,13 @@ module Auth
     before_action :fetch_user,
                   only: [ :show, :downline, :upline,
                           :full_downline, :move, :eligible_parents,
-                          :sponsors ]
+                          :sponsors, :team_metrics ]
 
     page max_limit: 500
-    sort newest:     { created_at: :desc },
-         name:       'users.last_name asc, users.first_name asc',
-         lead_count: 'lc.lead_count desc nulls last',
-         team_count: 'tc.team_count desc nulls last',
+    sort newest:       { created_at: :desc },
+         name:         'users.last_name asc, users.first_name asc',
+         lead_count:   'lc.lead_count desc nulls last',
+         team_count:   'tc.team_count desc nulls last',
          leader_count: 'leader_count desc'
     item_totals :lead_count, :team_count
 

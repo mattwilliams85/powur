@@ -56,6 +56,9 @@ entity_list << entity(%w(user), 'user-profile', profile_path)
 entity_list << entity(%w(summary leads),
                       'user-leads_summary',
                       summary_user_leads_path(current_user, days: '{days}'))
+entity_list << entity(%w(team_metrics user),
+                      'user-team_metrics',
+                      team_metrics_user_path(current_user))
 
 link_list << link(:index, dashboard_path)
 
