@@ -21,8 +21,8 @@ module powur {
                 this.listProps.initiated);
     }
 
-    constructor(public invites: ISirenModel, 
-                public $mdDialog: ng.material.IDialogService, 
+    constructor(public invites: ISirenModel,
+                public $mdDialog: ng.material.IDialogService,
                 public $timeout: ng.ITimeoutService) {
       super();
     }
@@ -56,7 +56,7 @@ module powur {
           invite: invite
         }
       }).then((data: any) => {
-        if (data) this.invites.entities = new SirenModel(data).entities;
+        if (data) this.invites = new SirenModel(data);
       });
     }
 
