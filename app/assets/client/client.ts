@@ -78,6 +78,7 @@
 /// <reference path='app/components/powur.components.ts' />
 /// <reference path='app/components/invite-progress.directive.ts' />
 /// <reference path='app/components/scrolled.directive.ts' />
+/// <reference path='app/components/focus.directive.ts' />
 /// <reference path='app/components/title.directive.ts' />
 /// <reference path='app/components/activity.controller.ts' />
 /// <reference path='app/components/activity.directive.ts' />

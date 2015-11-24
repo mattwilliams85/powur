@@ -1,1 +1,102 @@
-<h3>Coming soon ...</h3>
+<div class="pw-grid solar">
+  <md-button class="md-secondary">SUBMIT A SOLAR PROPOSAL</md-button>
+  <div class="accordion" ng-click="hideInsight = !hideInsight" layout="row" layout-align="space-between-center">
+    <span>
+      <span class="toggle" ng-class="{'closed': hideInsight }"></span>
+      GRID <b>INSIGHT</b> 
+    </span>
+    <span>
+      LAST 60 DAYS
+    </span>
+  </div>
+  <div class="insight" layout="row" layout-align="space-around" ng-hide="hideInsight">
+    <div layout="column" layout-align="space-around">
+      <div class="label">LEADS</div>
+      <div class="count">114</div>
+    </div>
+    <div layout="column" layout-align="space-around">
+      <div class="label">PROPOSALS</div>
+      <div class="count">4</div>
+    </div>
+    <div layout="column" layout-align="space-around">
+      <div class="label">CLOSED WON</div>
+      <div class="count">78</div>
+    </div>
+    <div layout="column" layout-align="space-around">
+      <div class="label">COMPLETED</div>
+      <div class="count">2</div>
+    </div>
+  </div>
+
+ <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
+   <span class="toggle" ng-class="{'closed': hideGeo }"></span>
+   <span>GEO <b>SUMMARY</b></span>
+   <span>LAST 60 DAYS</span>
+ </div>
+  <div class="summary geo" ng-hide="hideGeo">
+    <div class="header-row" layout="row" layout-align="start center">
+      <span class="label left" flex="50">TERRITORY</span>
+      <span class="label" flex="25">GRID SIZE</span>
+      <span class="label" flex="25">PARTNERS</span>
+    </div>
+    <div class="grid-row-wrap" ng-repeat="i in [1,2,3,4,5,6]">
+      <div class="grid-row" layout="row" layout-align="start center">
+        <span class="left" flex="50">CALIFORNIA</span>
+        <span class="count" flex="25">4</span>
+        <span class="count" flex="25">12</span>
+      </div>
+      <md-divider></md-divider>
+    </div>
+    <div class="co2">
+      <span></span>
+      <span>You have sequestered <b>1,499 TONS</b> of CO<sup>2</sup></span>
+    </div>
+  </div>
+
+  <div class="accordion" ng-click="hideGrid = !hideGrid" layout="row" layout-align="space-between-center">
+    <span>
+      <span class="toggle" ng-class="{'closed': hideGrid }"></span>
+      GRID <b>SUMMARY</b> 
+    </span>
+    <span>
+      LAST 60 DAYS
+    </span>
+  </div>
+  <div class="grid" ng-hide="hideGrid">
+    <md-tabs>
+      <md-tab ng-click="search = null">ALL LEADS</md-tab>
+      <md-tab ng-click="search = null">PERSONAL</md-tab>
+      <md-tab ng-click="search = null">GRID</md-tab>
+      <md-tab ng-click="search = !search">SEARCH</md-tab>
+    </md-tabs>
+    <input type="text" class="search" placeholder="SEARCH" ng-show="search" pw-focus-on-show>
+
+    <div class="summary">
+      <br ng-show="search">
+      <br ng-show="search">
+      <div class="header-row" layout="row" layout-align="start center">
+        <span class="label left" flex="50">CONTACT INFO</span>
+        <span class="label right" flex="50">PROGRESS</span>
+      </div>
+      <div class="grid-row-wrap" ng-repeat="i in [1,2,3,4,5,6]">
+        <div class="grid-row" layout="row">
+          <div class="left" flex="50" layout="row" layout-align="start center">
+          <div class="circle" layout-align="center center" layout="row">
+            <span>WM</span>
+          </div>
+          <div class="detail">
+            <div class="uppercase text-lg">wing <b>manchester</b></div>
+            <div class="uppercase text-sm">houston, tx</div>
+          </div>
+          </div>
+          <div class="uppercase right" flex="50" layout="column" layout-align="center center">
+            <div class="icon"></div>
+            <div class="uppercase text-sm">invitation sent: email opened</div>
+          </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+    </div>
+  </div>
+  <md-button class="md-secondary">SUBMIT A SOLAR PROPOSAL</md-button>
+</div>

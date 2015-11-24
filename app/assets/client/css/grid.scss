@@ -1,0 +1,157 @@
+.pw-grid {
+  padding: 20px 0 50px 0;
+  text-align: center;
+  color: #666;
+
+  .md-secondary {
+    width: 80%;
+    max-width: 400px;
+    padding: 5px 15px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+
+  .accordion {
+    text-align: left;
+    background: #5A5A5A;
+    padding: 10px 10px 10px 20px;
+    margin-top: 5px;
+    color: #fff;
+    font-size: 10pt;
+    line-height: 10pt;
+    cursor: pointer;
+    user-select: none;
+
+    .toggle {
+      font-size: 16pt;
+      line-height: 7pt;
+      font-weight: 500;
+      position: absolute;
+      margin-left: -13px;
+
+      &:after { 
+        content: '-' 
+      }
+      &.closed {
+        font-size: 12pt;
+        &:after { 
+          content: '+' 
+        }
+      }
+    }
+  }
+
+
+  .label {
+    font-size: 6pt;
+  }
+
+  .left {
+    text-align: left;
+    padding-left: 5%
+  }
+
+  .right {
+    text-align: right;
+    padding-right: 5%
+  }
+
+  .insight {
+    height: 50px;
+    margin: 20px 0; 
+
+    .count {
+      font-size: 20pt;
+      color: #01B598;
+    }
+  }
+
+  .summary {
+    margin: 20px auto;
+    max-width: 600px;
+
+    .header {
+      height: 20px;
+    }
+    .count {
+      text-align: center;
+    }
+
+    .header-row {
+      margin-bottom: 10px;
+    }
+
+    .grid-row-wrap:last-child md-divider {
+      display: none
+    }
+
+    .grid-row {
+      height: 60px;
+      background: #EFEFEF;
+      width: 100%;
+      .count {
+        margin: 0 auto;
+      }
+    }
+
+    .co2 {
+      font-size: 9pt;
+      margin-top: 12px;
+      b {
+        color: #01B598;
+      }
+    }
+
+    .text-lg {
+      font-size: 7pt;
+      line-height: 10pt;
+    }
+
+    .text-sm {
+      font-size: 6pt;
+    }
+
+    &.geo .grid-row-wrap {
+      color: #01B598;
+    }
+  }
+
+  .icon {
+    height: 7pt;
+  }
+
+  .circle {
+    min-height: 40px;
+    min-width: 40px;
+    float: left;
+    background-color: #01B598;
+    border-radius: 50%;
+    color: #fff;
+    margin-right: 10px;
+  }
+
+  md-tabs {
+    background: #cfcfcf;
+    md-tab-item {
+      &.md-active span {
+        color: #666 !important;
+        transition: color .2s;
+      }
+    }
+    md-ink-bar {
+      background-color: #666 !important;
+      color: #666 !important;
+    }
+  }
+
+  .search {
+    display: block;
+    background: #EFEFEF;
+    padding: 10px 20px;
+    height: 40px;
+    border: 0;
+    width: 100%;
+    float: left;
+  }
+
+}
