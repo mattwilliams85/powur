@@ -131,7 +131,7 @@ Rails.application.routes.draw do
         post :move
         get :eligible_parents
         get :sponsors
-        get :team_metrics
+        get :grid_summary
       end
 
       resources :leads, only: [ :index ] do

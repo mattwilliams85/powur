@@ -9,7 +9,7 @@ module powur {
   }
 
   function userTeamSummary(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-team_metrics', { days: 30 });
+    return session.getEntity(SirenModel, 'user-grid_summary', { days: 30 });
   }
 
   inviteConfig.$inject = ['$stateProvider'];
