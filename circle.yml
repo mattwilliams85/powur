@@ -27,4 +27,5 @@ deployment:
 test:
   override:
     - bundle exec rspec spec
+      parallel: true
     - gulp test
