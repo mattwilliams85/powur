@@ -3,36 +3,38 @@
   <div class="accordion" ng-click="hideInsight = !hideInsight" layout="row" layout-align="space-between-center">
     <span>
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
-      GRID <b>INSIGHT</b> 
+      GRID <b>INSIGHT</b>
     </span>
     <span>
       LAST 60 DAYS
     </span>
   </div>
+
   <div class="insight" layout="row" layout-align="space-around" ng-hide="hideInsight">
     <div layout="column" layout-align="space-around">
       <div class="label">LEADS</div>
-      <div class="count">114</div>
+      <div class="count">{{ grid.insight.leads }}</div>
     </div>
     <div layout="column" layout-align="space-around">
       <div class="label">PROPOSALS</div>
-      <div class="count">4</div>
+      <div class="count">{{ grid.insight.proposals }}</div>
     </div>
     <div layout="column" layout-align="space-around">
       <div class="label">CLOSED WON</div>
-      <div class="count">78</div>
+      <div class="count">{{ grid.insight.closed }}</div>
     </div>
     <div layout="column" layout-align="space-around">
       <div class="label">COMPLETED</div>
-      <div class="count">2</div>
+      <div class="count">{{ grid.insight.contracts }}</div>
     </div>
   </div>
 
- <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
-   <span class="toggle" ng-class="{'closed': hideGeo }"></span>
-   <span>GEO <b>SUMMARY</b></span>
-   <span>LAST 60 DAYS</span>
- </div>
+  <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
+    <span class="toggle" ng-class="{'closed': hideGeo }"></span>
+    <span>GEO <b>SUMMARY</b></span>
+    <span>LAST 60 DAYS</span>
+  </div>
+
   <div class="summary geo" ng-hide="hideGeo">
     <div class="header-row" layout="row" layout-align="start center">
       <span class="label left" flex="50">TERRITORY</span>
@@ -56,12 +58,13 @@
   <div class="accordion" ng-click="hideGrid = !hideGrid" layout="row" layout-align="space-between-center">
     <span>
       <span class="toggle" ng-class="{'closed': hideGrid }"></span>
-      GRID <b>SUMMARY</b> 
+      GRID <b>SUMMARY</b>
     </span>
     <span>
       LAST 60 DAYS
     </span>
   </div>
+
   <div class="grid" ng-hide="hideGrid">
     <md-tabs>
       <md-tab ng-click="search = null">ALL LEADS</md-tab>

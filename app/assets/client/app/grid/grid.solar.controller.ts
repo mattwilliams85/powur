@@ -6,9 +6,13 @@ module powur {
 
   class GridSolarController extends AuthController {
     static ControllerId = 'GridSolarController';
-    static $inject = ['$timeout'];
+    static $inject = ['leadsSummary', '$timeout'];
 
-    constructor(public $timeout: ng.ITimeoutService) {
+    get insight(): any {
+      return this.leadsSummary.properties;
+    }
+
+    constructor(public leadsSummary: ISirenModel, public $timeout: ng.ITimeoutService) {
       super();
     }
   }
