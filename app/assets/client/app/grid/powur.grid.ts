@@ -8,6 +8,10 @@ module powur {
     return session.getEntity(SirenModel, 'user-leads_summary', { days: 30 });
   }
 
+  function userTeamSummary(session: ISessionService) {
+    return session.getEntity(SirenModel, 'user-grid_summary', { days: 30 });
+  }
+
   inviteConfig.$inject = ['$stateProvider'];
 
   function inviteConfig($stateProvider: ng.ui.IStateProvider) {
@@ -28,7 +32,10 @@ module powur {
       .state('home.grid.powur', {
         url: '/powur',
         templateUrl: 'app/grid/grid.powur.html',
-        controller: 'GridPowurController as grid'
+        controller: 'GridPowurController as grid',
+        resolve: {
+          teamSummary: ['SessionService', userTeamSummary]
+        }
       });
   }
 

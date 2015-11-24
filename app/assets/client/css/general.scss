@@ -216,6 +216,7 @@ form {
     }
       background-size: contain;
   }
+
   .link-wrap {
     padding: 5% 10%;
 
@@ -247,6 +248,9 @@ form {
     padding: 0 18%;
     min-height: 120px;
     background-size: cover;
+    &.md-closed {
+      display: block !important;
+    }
 
     .logo {
       background: image-url('img/powur-logo-white.png');
@@ -324,6 +328,7 @@ form {
 
     .banner {
       height: 23vh;
+
       .logo {
         background: image-url('img/powur-logo-white.png');
         height: 30px;

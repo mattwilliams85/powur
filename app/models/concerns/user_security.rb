@@ -67,16 +67,27 @@ module UserSecurity
       (session_expires_at.nil? || session_expires_at < Time.current)
   end
 
-  def last_sign_in_yesterday?(timestamp)
-    yesterday = timestamp.yesterday
-    !last_sign_in_at.nil? &&
-      last_sign_in_at.year == yesterday.year &&
-      last_sign_in_at.day == yesterday.day
-  end
-
   def update_login_streak!(timestamp)
-    streaking = last_sign_in_yesterday?(timestamp)
-    update_column(:login_streak, streaking ? login_streak + 1 : 1)
+    unless last_login_streak_at
+      update_attributes(
+        last_login_streak_at: timestamp.to_date.to_s(:db),
+        login_streak:         1)
+      return
+    end
+
+    yesterday_date = timestamp.yesterday.to_date
+    last_streak_date = Time.zone.parse(last_login_streak_at).to_date
+    streak = login_streak
+
+    if yesterday_date == last_streak_date
+      streak += 1
+    elsif yesterday_date >= last_streak_date
+      streak = 1
+    end
+
+    update_attributes(
+      last_login_streak_at: timestamp.to_date.to_s(:db),
+      login_streak:         streak)
   end
 
   private

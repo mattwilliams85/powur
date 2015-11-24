@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
                  :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
                  :notifications_read_at,
-                 :ewallet_username, :mailchimp_id
+                 :ewallet_username, :mailchimp_id, :last_login_streak_at
 
   EMAIL_UNIQUE = { message: 'This email is taken', case_sensitive: false }
   validates :email,
@@ -245,8 +245,13 @@ class User < ActiveRecord::Base
       @user = user
     end
 
-    def team_count
-      @team_count ||= User.with_ancestor(user.id).count
+    def team_count(days: nil, partners: nil)
+      users = User.with_ancestor(user.id)
+      users = users.with_purchases if partners
+      users = users.within_date_range(
+        days.to_i.days.ago,
+        Time.zone.now) if days
+      users.count
     end
 
     def earnings

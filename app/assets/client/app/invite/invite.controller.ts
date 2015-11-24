@@ -42,9 +42,11 @@ module powur {
     constructor(private $log: ng.ILogService, public $mdDialog: ng.material.IDialogService, invites: ISirenModel) {
       this.invites = invites;
 
-      for (var i = 0; i < this.create.fields.length; i++) {
-        this.fields[i].value = null;
-        this.fields[i].$error = null;
+      if (this.create) {
+        for (var i = 0; i < this.create.fields.length; i++) {
+          this.fields[i].value = null;
+          this.fields[i].$error = null;
+        }
       }
     }
 
