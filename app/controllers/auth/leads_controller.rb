@@ -1,7 +1,7 @@
 module Auth
   class LeadsController < AuthController
     before_action :fetch_user!
-    before_action :fetch_leads, only: [ :index, :team ]
+    before_action :fetch_leads, only: [ :index, :team, :grid ]
     before_action :fetch_lead,
                   only: [ :show, :update, :destroy, :resend, :submit ]
 
@@ -25,9 +25,15 @@ module Auth
     end
 
     def team
-      scope = Lead.team_leads(user_id: current_user.id, query: @leads)
-      scope = scope.merge(Customer.search(params[:search])) if params[:search]
-      @leads = apply_list_query_options(scope)
+      @leads = apply_list_query_options(
+        Lead.team_leads(user_id: current_user.id, query: @leads))
+
+      render 'index'
+    end
+
+    def grid
+      @leads = apply_list_query_options(
+        Lead.grid_leads(user_id: current_user.id, query: @leads))
 
       render 'index'
     end
