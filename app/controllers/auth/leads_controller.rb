@@ -96,6 +96,8 @@ module Auth
         .references(:customer, :user, :product)
         .joins(:customer)
       scope = scope.where(user_id: @user.id) if @user
+      scope = scope.where(
+        'leads.created_at > ?', params[:days].to_i.days.ago) if params[:days]
       scope = scope.merge(Customer.search(params[:search])) if params[:search]
       @leads = scope
     end
