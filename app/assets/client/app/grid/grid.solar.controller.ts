@@ -9,6 +9,7 @@ module powur {
     static $inject = ['leadsSummary', 'leads', '$timeout'];
 
     searchQuery: string;
+    showSearch: boolean;
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -27,8 +28,9 @@ module powur {
         });
     }
 
-    showAllLeads() {
-      this.session.getEntity(SirenModel, 'user-team_leads',
+    showLeads(entityType: string) {
+      this.showSearch = false;
+      this.session.getEntity(SirenModel, entityType,
         { days: 60 }, true).then((data: ISirenModel) => {
           this.leads = data;
         });
