@@ -25,8 +25,9 @@ module Auth
     end
 
     def team
-      @leads = apply_list_query_options(
-        Lead.team_leads(user_id: current_user.id, query: @leads))
+      scope = Lead.team_leads(user_id: current_user.id, query: @leads)
+      scope = scope.merge(Customer.search(params[:search])) if params[:search]
+      @leads = apply_list_query_options(scope)
 
       render 'index'
     end
