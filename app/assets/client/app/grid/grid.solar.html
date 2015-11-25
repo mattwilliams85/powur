@@ -81,14 +81,14 @@
         <span class="label left" flex="50">CONTACT INFO</span>
         <span class="label right" flex="50">PROGRESS</span>
       </div>
-      <div class="grid-row-wrap" ng-repeat="i in [1,2,3,4,5,6]">
+      <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row">
           <div class="left" flex="50" layout="row" layout-align="start center">
           <div class="circle" layout-align="center center" layout="row">
             <span>WM</span>
           </div>
           <div class="detail">
-            <div class="uppercase text-lg">wing <b>manchester</b></div>
+            <div class="uppercase text-lg">{{ lead.properties.user }}</div>
             <div class="uppercase text-sm">houston, tx</div>
           </div>
           </div>
