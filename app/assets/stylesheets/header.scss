@@ -152,164 +152,15 @@ and (max-device-width : 960px) {
   }
 }
 
-.nav .bg {
-    width: 70px;
-    z-index: 20;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    /*height: 1200px;*/
-    background: #29a8dd; /* Old browsers */
-    background: -moz-linear-gradient(top, #29a8dd 0%, #509f9a 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#29a8dd), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
 
-
-    .admin {
-        color: #2C6B8A;
-        font-weight: 600;
-        font-size: 11pt;
-    }
-
-    .align-bottom {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-    }
-    
-    .mobile-menu {
-        background: image-url('img/hud-icon-disabled.png');
-        height: 38px;
-        width: 34px;
-        background-size: 100%;
-        background-repeat: no-repeat;
-        margin-bottom: 35px;
-        cursor: pointer;
-        &.active {
-            background: image-url('img/hud-icon.png');
-        }
-    }
-
-    .list {
-        list-style-type: none;
-        padding: 30px 15px 0 15px;
-        margin: 0;        
-        text-align: center;
-            
-        li {
-            margin-bottom: 40px;
-        }
-        
-        li:hover, li.active {
-            -webkit-filter: brightness(0) invert(1);
-            filter: brightness(0) invert(1);
-            cursor: pointer;
-        }        
-    }
-
-    // .bottom {
-    //     position: fixed;
-    //     bottom: 10px;
-    // }
-    
-    .sprite {
-        background-image: image-url("img/nav-sprite.png");
-        background-repeat: no-repeat;
-        display: inline-block;
-    }
-    
-    .sprite-library {
-        width: 35px;
-        height: 43px;
-        background-position: -5px -5px;
-    }
-
-    .sprite-upgrade {
-        background: image-url('img/upgrade-icon.png');
-        background-size: contain;
-        width: 35px;
-        height: 35px;
-        margin-left: -3px;
-    }
-    
-    .sprite-certs {
-        background: image-url('img/powur-u-icon.png');
-        background-size: contain;
-        width: 35px;
-        height: 35px;
-        margin-left: 1px;
-    }
-    .sprite-earnings {
-        width: 42px;
-        height: 40px;
-        background-position: -50px -5px;
-    }
-    
-    .sprite-events {
-        width: 33px;
-        height: 33px;
-        background-position: -102px -5px;
-    }
-    
-    .sprite-goal {
-        width: 42px;
-        height: 40px;
-        background-position: -145px -5px;
-    }
-    
-    .sprite-grid {
-        width: 42px;
-        height: 40px;
-        background-position: -197px -5px;
-    }
-    
-    .sprite-logout {
-        width: 33px;
-        height: 26px;
-        background-position: -249px -5px;
-    }
-    
-    .sprite-social {
-        width: 33px;
-        height: 29px;
-        background-position: -292px -5px;
-    }
-    
-    .sprite-stats {
-        width: 27px;
-        height: 31px;
-        background-position: -335px -5px;
-    }
-    
-    .sprite-strategy {
-        width: 21px;
-        height: 37px;
-        background-position: -372px -5px;
-    }
-    
-    .sprite-dashboard {
-      width: 35px;
-      height: 35px;
-      background-position: -403px -5px;
-    }
-    
-    .sprite-invite {
-      width: 32px;
-      height: 38px;
-      background-position: -448px -5px;
-    }
-}
 
 .nav.top-menu {
     top: 0;
     left: 0;
+    position: fixed;
+    z-index: 30;
+    color: #fff;
+    font-weight: 400;
     .bg {
         width: 100%;
         height: 50px;
@@ -342,16 +193,30 @@ and (max-device-width : 960px) {
         padding: 0 15px;
         line-height: 15pt;
     }
+    .right {
+        cursor: pointer;
+        margin-top: -2px;
+    }
+    .avatar {
+        height: 30px;
+        width: 30px;
+        float: left;
+        display: inline-block;
+        margin: -3px 10px 0 0;
+        border-radius: 50%;
+        background-size: cover;
+    }
 }
 
 .mobile-side-nav {
   z-index: 98;
   display: block;
+  background: #2ba7d9; /* Old browsers */
   max-width: 400px !important;
   min-width: 400px !important;
   height: 100vh !important;
   position: fixed;
-  background: #2ba7d9; /* Old browsers */
+  font-family: 'Roboto';
   background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
@@ -362,6 +227,10 @@ and (max-device-width : 960px) {
 
   md-toolbar {
     padding-left: 15px;
+  }
+
+  .hide-for-desktop {
+    display: none;
   }
 
   .sprite {
@@ -378,6 +247,14 @@ and (max-device-width : 960px) {
       height: 33px;
       background-size: contain;
       background-repeat: no-repeat;
+    }
+    &.sprite-grid-solar {
+      background: image-url('img/grid-solar-icon.png');
+      width: 42px;
+      height: 33px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-left: -2px;
     }
     &.sprite-earnings {
       background: image-url('img/earnings-icon.png');
@@ -438,13 +315,14 @@ and (max-device-width : 960px) {
       background-repeat: no-repeat;
     }
   }
+
   .link-wrap {
-    padding: 5% 50px;
+    padding: 10px 10% 0 10%;
 
     .link-item {
       padding: 0 10px;
-      height: 7.5vh;
-      cursor: pointer; 
+      height: 7vh;
+      cursor: pointer;
 
       &.active, &:hover {
         -webkit-filter: brightness(0) invert(1);
@@ -454,7 +332,7 @@ and (max-device-width : 960px) {
       span {
         color: #2C6B8A;
         margin-left: 10px;
-        font-size: 16pt;
+        font-size: 10pt;
         text-transform: uppercase;
       }
     }
@@ -462,12 +340,12 @@ and (max-device-width : 960px) {
 
   .banner {
     width: 100%;
+    min-height: 28%;
     height: 23vh;
     text-transform: uppercase;
     color: #fff;
     background-image: image-url('img/menu-banner.png');
     padding: 0 20%;
-    min-height: 120px;
     background-size: cover;
 
       .logo {
@@ -488,12 +366,155 @@ and (max-device-width : 960px) {
   }
 }
 
-@media screen and (max-width : 1000px) {
-  .mobile-side-nav {
-    max-width: 50vw !important;
-    min-width: 50vw !important;
-  }
-  .link-wrap {
-    padding: 5% 20px;
+body {
+  &.mobile-device {
+    padding-top: 150px;
+
+    .top-menu {
+      .hide-for-desktop {
+        display: none;
+      }
+    }
+
+    .mobile-side-nav {
+      max-width: 70vw !important;
+      min-width: 70vw !important;
+
+      .hide-for-desktop {
+        display: block;
+      }
+
+      .banner {
+        height: 17vh;
+        min-height: 23%;
+      }
+      .logo {
+        height: 103px;
+        width: 355px;
+        margin: 0px 0 15px -90px;
+      }
+      .motto {
+        font-size: 22pt;
+      }
+      .link-item span {
+          margin-left: 35px;
+          font-size: 32pt;
+          font-weight: 300;
+      }
+      .sprite {
+        &.sprite-dashboard {
+          background: image-url('img/dashboard-icon.png');
+          width: 69px;
+          height: 60px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-invite {
+          background: image-url('img/invite-icon.png');
+          width: 70px;
+          height: 63px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-grid-solar {
+          background: image-url('img/grid-solar-icon.png');
+          width: 72px;
+          height: 63px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          margin-left: -2px;
+        }
+        &.sprite-earnings {
+          background: image-url('img/earnings-icon.png');
+          width: 70px;
+          height: 59px;
+          margin: 0 0px 0 -1px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-library {
+          background: image-url('img/library-icon.png');
+          width: 69px;
+          height: 62px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-certs {
+          background: image-url('img/powur-u-icon.png');
+          width: 59px;
+          height: 59px;
+          margin-right: 9px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-upgrade {
+          background: image-url('img/upgrade-icon.png');
+          width: 70px;
+          height: 59px;
+          margin-right: -2px;
+          margin-left: 0px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-stats {
+          background: image-url('img/profile-icon.png');
+          width: 70px;
+          height: 56px;
+          margin-left: 2px;
+          margin-right: -2px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-logout {
+          background: image-url('img/logout-icon.png');
+          width: 70px;
+          height: 53px;
+          margin-left: 2px;
+          margin-right: -2px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        &.sprite-admin {
+          background: image-url('img/hud-icon-disabled.png');
+          width: 49px;
+          height: 49px;
+          margin-right: 11px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+
+    .nav.mobile {
+      .bg {
+        height: 150px;
+        padding: 42px 43px;
+      }
+      .menu {
+        height: 75px;
+        width: 75px;
+      }
+      .title {
+        font-size: 42pt;
+        padding: 0 35px;
+        line-height: 44pt;
+      }
+    }
+
+    .top-menu {
+      .bg {
+        height: 150px;
+        padding: 42px 43px;
+      }
+      .menu {
+        height: 75px;
+        width: 75px;
+      }
+      .title {
+        font-size: 42pt;
+        padding: 0 35px;
+        line-height: 44pt;
+      }
+    }
   }
 }

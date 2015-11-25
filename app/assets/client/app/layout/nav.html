@@ -1,8 +1,17 @@
 <div class="nav top-menu">
   <div class="bg">
-    <!-- <a href="/next/invite/grid" target="_self"><div class="logo"></div></a> -->
-    <div class="menu" ng-click="nav.openMenu()"></div>
-    <div class="title">powur <b>{{nav.state.params.title}}</b></div>
+    <div class="float-left">
+      <div class="menu" ng-click="nav.openMenu()"></div>
+      <div class="title">powur <b>{{nav.state.params.title}}</b></div>
+    </div>
+    <div class="float-right">
+      <a href="/profile" target="_self">
+        <div class="avatar" ng-style="{{ nav.headshotStyle }}"></div>
+        <span>Hello, {{ nav.userData.first_name }}</span>
+      </a> 
+      &nbsp;|&nbsp;
+      <span ng-click="nav.logout()">LOGOUT</span>
+    </div>
   </div>
 </div>
 
@@ -80,14 +89,14 @@
         <i class="sprite sprite-admin"></i><span>Admin</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <a href="/profile" target="_self">
+    <md-divider hide-gt-sm></md-divider>
+    <a href="/profile" target="_self" hide-gt-sm>
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
         <i class="sprite sprite-stats"></i><span>Profile</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()">
+    <md-divider hide-gt-sm></md-divider>
+    <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()" hide-gt-sm>
       <i class="sprite sprite-logout"></i><span>Logout</span>
     </div>
   </div>

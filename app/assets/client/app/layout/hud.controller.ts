@@ -26,16 +26,6 @@ module powur {
       return this.home.goals.properties.rank_list.length - 1;
     }
 
-    get headshot(): string {
-      var avatar = this.userData.avatar;
-      var image = avatar ? avatar.large : this.home.assets.defaultProfileImg;
-      return `url(${image})`;
-    }
-
-    get headshotStyle(): any {
-      return { 'background-image': this.headshot };
-    }
-
     get goalRequirements(): ISirenModel[] {
       return this.home.requirements.entities;
     }

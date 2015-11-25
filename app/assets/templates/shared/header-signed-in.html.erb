@@ -3,12 +3,20 @@
 
 <div class="nav top-menu">
   <div class="bg">
-    <!-- <a href="/next/invite/grid" target="_self"><div class="logo"></div></a> -->
-    <div class="menu" ng-click="openMenu()"></div>
-    <div class="title">powur <b>{{stateName()}}</b></div>
+    <div class="left">
+      <div class="menu" ng-click="openMenu()"></div>
+      <div class="title">powur <b>{{nav.state.params.title}}</b></div>
+    </div>
+    <div class="right hide-for-desktop">
+      <a href="/profile" target="_self">
+        <img class="avatar" ng-src="{{ currentUser.avatar.large || legacyImagePaths.defaultProfile }}">
+        <span>Hello, {{ currentUser.first_name}}</span>
+      </a> 
+      &nbsp;|&nbsp;
+      <span ng-click="signOut()">LOGOUT</span>
+    </div>
   </div>
 </div>
-
 <!-- MOBILE SIDE NAV -->
 <md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
   <div class="banner" layout="column" layout-align="center start">
@@ -62,16 +70,18 @@
         <i class="sprite sprite-admin"></i><span>Admin</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <a href="/profile" target="_self">
+    <md-divider class="hide-for-desktop"></md-divider>
+    <a href="/profile" target="_self" class="hide-for-desktop">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
         <i class="sprite sprite-stats"></i><span>Profile</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <div layout="row" layout-align="start center" class="link-item" ng-click="signOut()">
-      <i class="sprite sprite-logout"></i><span>Logout</span>
-    </div>
+    <md-divider class="hide-for-desktop"></md-divider>
+    <a class="hide-for-desktop">
+      <div layout="row" layout-align="start center" class="link-item" ng-click="signOut()">
+        <i class="sprite sprite-logout"></i><span>Logout</span>
+      </div>
+    </a>
   </div>
 </md-sidenav>
 

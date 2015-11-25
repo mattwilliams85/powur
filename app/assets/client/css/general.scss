@@ -3,6 +3,10 @@ html,body {
   font-weight: 300;
 }
 
+a {
+  color: inherit;
+}
+
 :focus { outline:none; }
 
 .main-view {
@@ -34,6 +38,14 @@ md-backdrop {
 .left-menu {
   position: relative;
   left: 70px !important;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
 }
 
 /* #2c6b8a - nav-icon-color */
