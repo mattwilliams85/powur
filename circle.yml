@@ -17,9 +17,15 @@ dependencies:
   override:
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
     - npm install
+    - npm install -g gulp
     - bower install --config.directory=./vendor/assets/bower_components
 deployment:
   staging:
     branch: develop
     heroku:
       appname: powur-staging
+test:
+  override:
+    - bundle exec rspec spec:
+        parallel: true
+    - gulp test

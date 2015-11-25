@@ -19,5 +19,6 @@ actions action(:create, :post, request.path)
   .field(:city, :text, required: false)
   .field(:state, :text, required: false)
   .field(:zip, :text, required: false)
+  .field(:confirm_existing_email, :boolean)
 
 self_link request.path

@@ -12,7 +12,7 @@ describe('removeExtraChars', () => {
     expect(removeExtraChars).not.toBeNull();
   }));
 
-  it('should replace first _ with spaces', inject((removeExtraCharsFilter: any) => {
+  it('should replace first _ with space', inject((removeExtraCharsFilter: any) => {
     expect(removeExtraCharsFilter('abc_def')).toBe('abc def');
     expect(removeExtraCharsFilter('__aaa__')).toBe(' _aaa__');
   }));

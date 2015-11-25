@@ -24,6 +24,9 @@
       },
       placeUser: {
         tablePath: 'admin/users/templates/place-user-table.html'
+      },
+      assignSponsor: {
+        tablePath: 'admin/users/templates/assign-sponsor-table.html'
       }
     };
 
@@ -40,8 +43,10 @@
           selectedFilter,
           searchQuote;
       if ($scope.index.data) {
-        params.page = $scope.index.data.properties.paging.current_page;
-        params.sort = $scope.index.data.properties.sorting.current_sort;
+        if ($scope.index.data.properties) {
+          params.page = $scope.index.data.properties.paging.current_page;
+          params.sort = $scope.index.data.properties.sorting.current_sort;
+        }
         if ($scope.index.data.selectedFilter) {
           selectedFilter = $scope.index.data.selectedFilter;
           params[$scope.index.data.selectedFilter] = true;
@@ -146,6 +151,26 @@
       });
     };
 
+
+    // Sponsor actions
+    $scope.setNewSponsor = function(newSponsor) {
+      var action = getAction($scope.actions, 'update_sponsor');
+
+      $http({
+        method: action.method,
+        url: action.href,
+        params: { sponsor_id: newSponsor.properties.id },
+      }).success(function(data) {
+        if (data.error) {
+          $scope.showModal(data.error.message);
+        } else {
+          $location.path('/admin/users/' + $scope.user.properties.id);
+          $scope.showModal('You\'ve successfully set a new sponsor.');
+        }
+      });
+    };
+
+
     //
     // Invite Actions
     //
@@ -232,6 +257,7 @@
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
     if (/\/edit_password$/.test($location.path())) return $scope.mode = 'edit_password';
     if (/\/place-user$/.test($location.path())) return $scope.mode = 'place-user';
+    if (/\/assign-sponsor$/.test($location.path())) return $scope.mode = 'assign-sponsor';
   };
 
   controller.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
@@ -283,6 +309,16 @@
         $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + $scope.user.properties.id});
         $rootScope.breadcrumbs.push({title: 'Move User'});
       });
+    } else if ($scope.mode === 'assign-sponsor') {
+      $scope.index = {};
+      getUser($routeParams.userId, function(item) {
+        $scope.user = item;
+        $scope.actions = item.actions;
+
+        $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + $scope.user.properties.id});
+        $rootScope.breadcrumbs.push({title: 'Assign Sponsor'});
+      });
     } else if ($scope.mode === 'edit_password') {
       getUser($routeParams.userId, function(item) {
         $scope.user = item;
@@ -319,6 +355,10 @@
     }).
     when('/admin/users/:userId/place-user', {
       templateUrl: 'admin/users/templates/place-user.html',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/admin/users/:userId/assign-sponsor', {
+      templateUrl: 'admin/users/templates/assign-sponsor.html',
       controller: 'AdminUsersCtrl'
     }).
     when('/admin/users/:userId/:tab?', {

@@ -1,6 +1,6 @@
 <div class="invite-popup fill-height">
   <md-dialog aria-label="Invite" class="dialog">
-  
+
     <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate autocomplete="off">
       <div class="side-bg"></div>
       <div layout="column" flex>
@@ -8,21 +8,21 @@
           <span class="title">Send a<br>new Solar<b> Invite</b></span>
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
-        <md-dialog-content layout="column">
+        <md-dialog-content ng-if="!dialog.warning" layout="column">
           <!-- TODO: this is what happens when you code for 16 hours straight -->
           <br hide-gt-sm>
           <br hide-gt-sm>
           <!--  -->
           <div class="heading"><div class="title">contact<b> name</b></div></div>
           <md-content layout-padding layout="row">
-            <md-input-container flex>
+            <md-input-container flex="50">
               <label>first name</label>
               <input ng-model="dialog.create.field('first_name').value" autocomplete="off" md-autofocus>
               <div ng-messages="dialog.create.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container flex>
+            <md-input-container flex="50">
               <label>last name</label>
               <input ng-model="dialog.create.field('last_name').value" autocomplete="off">
               <div ng-messages="dialog.create.field('last_name').$error" class="messages">
@@ -36,14 +36,14 @@
             <div ng-messages="dialog.create.$error" class="messages">
               <div ng-message="message">{{ dialog.create.$error.message }}</div>
             </div>
-            <md-input-container>
+            <md-input-container flex="100">
               <label>phone number</label>
               <input ng-model="dialog.create.field('phone').value" type="tel">
               <div ng-messages="dialog.create.field('phone').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('phone').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container>
+            <md-input-container flex="100">
               <label>email</label>
               <input ng-model="dialog.create.field('email').value" type="text" autocomplete="off" autocapitalize="off">
               <div ng-messages="dialog.create.field('email').$error" class="messages">
@@ -53,7 +53,17 @@
           </md-content>
 
           <div class="actions">
-            <md-button ng-disabled="dialog.create.submitting" class="md-primary">Send Invitation</md-button>
+            <md-button type="submit" ng-disabled="dialog.create.submitting" class="md-primary">Send Invitation</md-button>
+          </div>
+        </md-dialog-content>
+
+        <md-dialog-content ng-if="dialog.warning" layout="column">
+          <br hide-gt-sm>
+          <br hide-gt-sm>
+          <h5>{{ dialog.warning.message }}</h5>
+
+          <div class="actions">
+            <md-button ng-click="dialog.confirm()" ng-disabled="dialog.create.submitting" class="md-primary">Confirm</md-button>
           </div>
         </md-dialog-content>
       </div>

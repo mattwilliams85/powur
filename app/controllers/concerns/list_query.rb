@@ -140,6 +140,7 @@ module ListQuery
 
     def current_page
       @current_page ||= params[:page] ? params[:page].to_i : 1
+      @current_page.zero? ? 1 : @current_page
     end
 
     def offset

@@ -4,8 +4,8 @@
 module powur {
   'use strict';
 
-  function productInvites(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-product_invites', { page: 1, status: '' });
+  function solarInvites(session: ISessionService) {
+    return session.getEntity(SirenModel, 'user-solar_invites', { page: 1, status: '' });
   }
 
   function userInvites(session: ISessionService) {
@@ -22,13 +22,13 @@ module powur {
         controller: 'InviteController as invite',
 
       })
-      .state('home.invite.product', {
+      .state('home.invite.solar', {
         url: '/solar',
-        templateUrl: 'app/invite/invite.product.html',
-        controller: 'InviteProductController as invite',
+        templateUrl: 'app/invite/invite.solar.html',
+        controller: 'InviteSolarController as invite',
         params: { title: 'invite' },
         resolve: {
-          invites: ['SessionService', productInvites]
+          invites: ['SessionService', solarInvites]
         }
       })
       .state('home.invite.grid', {

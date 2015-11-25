@@ -43,7 +43,7 @@
     "ngstorage": "~0.3.x"
   },
   "resolutions": {
-    "angular": ">=1.0.8",
+    "angular": "~1.4.x",
     "jquery-ui": "~1.11.3"
   }
 }

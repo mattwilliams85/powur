@@ -7,16 +7,12 @@ module powur {
 
     root: IRootController;
 
-
     constructor($log: ng.ILogService, $window: any) {
       this.root = RootController.get();
-      // var history = { page: 0, rel: '' };
 
       function loadMore(entity, scope) {
         var pg = entity.properties.paging.current_page;
 
-        // if (pg === history.page && entity.rel[0] === history.rel) return;
-        // history = { page: pg, rel: entity.rel[0] };
         var opts = { page: pg + 1 };
         if (entity.properties.filters) {
           for (var key in entity.properties.filters) {
@@ -33,9 +29,7 @@ module powur {
           if (!data.entities.length) return;
           entity.entities = entity.entities.concat(data.entities);
           entity.properties = data.properties;
-          setTimeout(function() {
-              scope.invite.buildPies();
-          })
+          scope.invite.buildPies();
         });
       }
 

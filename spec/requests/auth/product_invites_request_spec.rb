@@ -27,7 +27,6 @@ end
 
 describe 'POST /u/product_invites' do
   let!(:user) { login_user }
-  # let(:product) { create(:product) }
 
   let(:payload) do
     { email:      'example@example.com',
@@ -48,12 +47,26 @@ describe 'POST /u/product_invites' do
   end
 
   context 'when customer already exists' do
-    let!(:customer) { create(:customer, email: payload[:email]) }
+    let!(:customer) do
+      create(:customer, user: create(:user), email: payload[:email])
+    end
 
-    it 'returns error' do
+    it 'returns a warning' do
       post product_invites_path, payload, format: :json
 
-      expect_input_error(:email)
+      expect_input_warning(:email)
+    end
+
+    it 'should create a new customer if warning confirmed' do
+      post(product_invites_path,
+           payload.merge(confirm_existing_email: '1'),
+           format: :json)
+
+      expect_props(
+        status:     Customer.statuses.keys[0],
+        first_name: payload[:first_name],
+        last_name:  payload[:last_name],
+        email:      payload[:email])
     end
   end
 end

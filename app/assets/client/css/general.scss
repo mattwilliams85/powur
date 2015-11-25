@@ -126,6 +126,7 @@ form {
       display: block;
     }
   }
+
   .mobile-side-nav {
     display: block;
     background: #2ba7d9; /* Old browsers */
@@ -141,6 +142,9 @@ form {
     background: -ms-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* IE10+ */
     background: linear-gradient(to bottom, #2ba7d9 0%,#509f9a 100%); /* W3C */
     background-size: cover;
+    &.md-closed {
+      display: block !important;
+    }
 
     md-toolbar {
       padding-left: 15px;
@@ -223,7 +227,7 @@ form {
       height: 23vh;
       text-transform: uppercase;
       color: #fff;
-      background-image: url(/assets/img/menu-banner.png);
+      background-image: image-url('img/menu-banner.png');
       padding: 0 18%;
       min-height: 120px;
       background-size: cover;

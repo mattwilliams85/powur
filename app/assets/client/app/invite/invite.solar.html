@@ -22,16 +22,16 @@
 <div class="invite-list-bg">
   <md-tabs ng-show="invite.showFilters" class="md-accent solar">
     <md-tab md-active="!invite.listProps.filters.status" ng-class="{ 'active': !invite.getFilterStatus() }" >
-      <div ng-click="invite.filter('')"></div>All
+      <div ng-click="invite.filter('', invite.filterSuccess)"></div>All
     </md-tab>
     <md-tab md-active="invite.listProps.filters.status === 'sent'"  ng-if="invite.listProps.sent">
-      <div ng-click="invite.filter('sent')"></div>Sent
+      <div ng-click="invite.filter('sent', invite.filterSuccess)"></div>Sent
     </md-tab>
     <md-tab md-active="invite.listProps.filters.status === 'initiated'" ng-if="invite.listProps.initiated">
-      <div ng-click="invite.filter('initiated')"></div>Initiated
+      <div ng-click="invite.filter('initiated', invite.filterSuccess)"></div>Initiated
     </md-tab>
     <md-tab md-active="invite.listProps.filters.status === 'ineligible_location'" ng-if="invite.listProps.ineligible_location">
-      <div ng-click="invite.filter('ineligible_location')"></div>Ineligible
+      <div ng-click="invite.filter('ineligible_location', invite.filterSuccess)"></div>Ineligible
     </md-tab>
   </md-tabs>
 

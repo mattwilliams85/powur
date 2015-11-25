@@ -29,7 +29,7 @@
 //= require invite/show-invite-popup.grid
 //= require invite/update-invite-popup.solar
 //= require invite/update-invite-popup.grid
-//= require invite/invite.product
+//= require invite/invite.solar
 //= require invite/invite.grid
 
 //= require events/events
@@ -100,7 +100,7 @@
 
 /// <reference path='app/invite/powur.invite.ts' />
 /// <reference path='app/invite/invite.controller.ts' />
-/// <reference path='app/invite/invite.product.controller.ts' />
+/// <reference path='app/invite/invite.solar.controller.ts' />
 /// <reference path='app/invite/invite.grid.controller.ts' />
 
 /// <reference path='app/events/events.controller.ts' />

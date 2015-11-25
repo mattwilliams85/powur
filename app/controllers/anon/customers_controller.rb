@@ -17,6 +17,10 @@ module Anon
         @lead.submit!
         @lead.email_customer if @lead.can_email?
         @customer.accepted!
+        Customer.where.not(id: @customer.id)
+          .where(email: @customer.email)
+          .where.not(status: Customer.statuses[:accepted])
+          .delete_all
       end
 
       render 'show'
