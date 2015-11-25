@@ -71,13 +71,13 @@
 
   <div class="grid" ng-hide="hideGrid">
     <md-tabs>
-      <md-tab ng-click="grid.showAllLeads();search = null">ALL LEADS</md-tab>
-      <md-tab ng-click="search = null">PERSONAL</md-tab>
-      <md-tab ng-click="search = null">GRID</md-tab>
-      <md-tab ng-click="search = !search">SEARCH</md-tab>
+      <md-tab ng-click="grid.showLeads('user-team_leads');">ALL LEADS</md-tab>
+      <md-tab ng-click="grid.showLeads('user-leads');">PERSONAL</md-tab>
+      <md-tab ng-click="grid.showLeads('user-team_leads');">GRID</md-tab>
+      <md-tab ng-click="grid.showSearch = true">SEARCH</md-tab>
     </md-tabs>
     <form ng-submit="grid.search()" novalidate autocomplete="off">
-      <input ng-model="grid.searchQuery" type="text" class="search" placeholder="SEARCH" ng-show="search" pw-focus-on-show>
+      <input ng-model="grid.searchQuery" ng-show="grid.showSearch" type="text" class="search" placeholder="SEARCH" pw-focus-on-show>
     </form>
 
     <div class="summary">
