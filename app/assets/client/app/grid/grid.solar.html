@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
+  <!-- <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
     <span class="toggle" ng-class="{'closed': hideGeo }"></span>
     <span>GEO <b>SUMMARY</b></span>
     <span>LAST 60 DAYS</span>
@@ -57,7 +57,7 @@
       <span></span>
       <span>You have sequestered <b>1,499 TONS</b> of CO<sup>2</sup></span>
     </div>
-  </div>
+  </div> -->
 
   <div class="accordion" ng-click="hideGrid = !hideGrid" layout="row" layout-align="space-between-center">
     <span>
@@ -89,16 +89,16 @@
         <div class="grid-row" layout="row">
           <div class="left" flex="50" layout="row" layout-align="start center">
           <div class="circle" layout-align="center center" layout="row">
-            <span>WM</span>
+            <span>{{ lead.properties.customer.first_name[0] }}{{ lead.properties.customer.last_name[0] }}</span>
           </div>
           <div class="detail">
-            <div class="uppercase text-lg">{{ lead.properties.user }}</div>
-            <div class="uppercase text-sm">houston, tx</div>
+            <div class="uppercase text-lg">{{ lead.properties.customer.first_name }} <b>{{ lead.properties.customer.last_name }}</b></div>
+            <div class="uppercase text-sm">{{ lead.properties.customer.city }}, {{ lead.properties.customer.state }}</div>
           </div>
           </div>
           <div class="uppercase right" flex="50" layout="column" layout-align="center center">
             <div class="icon"></div>
-            <div class="uppercase text-sm">invitation sent: email opened</div>
+            <div class="uppercase text-sm">invitation {{ lead.properties.customer.status }}, status {{ lead.properties.data_status }}</div>
           </div>
         </div>
         <md-divider></md-divider>
