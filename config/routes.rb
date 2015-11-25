@@ -72,6 +72,9 @@ Rails.application.routes.draw do
         post :resend
         post :submit
       end
+      collection do
+        get :team
+      end
     end
 
     resources :ranks, only: [ :index, :create, :destroy, :show, :update ] do

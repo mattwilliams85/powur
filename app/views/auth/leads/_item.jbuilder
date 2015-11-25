@@ -11,8 +11,12 @@ json.properties do
     json.set! key_date, lead.send(key_date)
   end
   json.user lead.user.full_name
-  json.customer_id lead.customer.id
-  json.customer lead.customer.full_name
+  json.customer do
+    json.call(lead.customer,
+              :id, :status, :first_name, :last_name, :email, :phone,
+              :full_address, :city, :state,
+              :notes, :last_viewed_at)
+  end
   json.product lead.product.name
 end
 

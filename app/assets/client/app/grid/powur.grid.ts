@@ -5,11 +5,15 @@ module powur {
   'use strict';
 
   function userLeadsSummary(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-leads_summary', { days: 30 });
+    return session.getEntity(SirenModel, 'user-leads_summary', { days: 60 });
+  }
+
+  function userTeamLeads(session: ISessionService) {
+    return session.getEntity(SirenModel, 'user-team_leads', { days: 60 });
   }
 
   function userTeamSummary(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-grid_summary', { days: 30 });
+    return session.getEntity(SirenModel, 'user-grid_summary', { days: 60 });
   }
 
   inviteConfig.$inject = ['$stateProvider'];
@@ -26,7 +30,8 @@ module powur {
         templateUrl: 'app/grid/grid.solar.html',
         controller: 'GridSolarController as grid',
         resolve: {
-          leadsSummary: ['SessionService', userLeadsSummary]
+          leadsSummary: ['SessionService', userLeadsSummary],
+          leads: ['SessionService', userTeamLeads]
         }
       })
       .state('home.grid.powur', {

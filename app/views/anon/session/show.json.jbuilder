@@ -51,7 +51,15 @@ entity_list << entity(%w(list solar_invites),
                       'user-solar_invites',
                       product_invites_path(page: '{page}', status: '{status}'))
 entity_list << entity(%w(list users), 'user-users', users_path)
-entity_list << entity(%w(list leads), 'user-leads', leads_path(current_user))
+entity_list << entity(%w(list leads),
+                      'user-leads',
+                      user_leads_path(current_user, days: '{days}'))
+entity_list << entity(%w(list leads),
+                      'user-team_leads',
+                      team_leads_path(days: '{days}'))
+entity_list << entity(%w(search leads),
+                      'user-team_leads_search',
+                      team_leads_path(search: '{search}'))
 entity_list << entity(%w(user), 'user-profile', profile_path)
 entity_list << entity(%w(summary leads),
                       'user-leads_summary',
