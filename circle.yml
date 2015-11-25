@@ -26,5 +26,6 @@ deployment:
       appname: powur-staging
 test:
   override:
-    - bundle exec rspec spec
+    - bundle exec rspec spec:
+        parallel: true
     - gulp test
