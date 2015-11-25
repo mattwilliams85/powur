@@ -375,6 +375,7 @@ select::-ms-expand {
   min-width: 400px !important;
   height: 100vh !important;
   position: fixed;
+  font-family: 'Roboto';
   background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
@@ -401,6 +402,14 @@ select::-ms-expand {
       height: 33px;
       background-size: contain;
       background-repeat: no-repeat;
+    }
+    &.sprite-grid-solar {
+      background: image-url('img/grid-solar-icon.png');
+      width: 42px;
+      height: 33px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-left: -2px;
     }
     &.sprite-earnings {
       background: image-url('img/earnings-icon.png');
@@ -463,11 +472,11 @@ select::-ms-expand {
   }
 
   .link-wrap {
-    padding: 5% 10%;
+    padding: 10px 10% 0 10%;
 
     .link-item {
       padding: 0 10px;
-      height: 7.5vh;
+      height: 7vh;
       cursor: pointer;
 
       &.active, &:hover {
@@ -478,7 +487,7 @@ select::-ms-expand {
       span {
         color: #2C6B8A;
         margin-left: 10px;
-        font-size: 16pt;
+        font-size: 10pt;
         text-transform: uppercase;
       }
     }
@@ -486,7 +495,7 @@ select::-ms-expand {
 
   .banner {
     width: 100%;
-    min-height: 212px;
+    min-height: 28%;
     height: 23vh;
     text-transform: uppercase;
     color: #fff;
@@ -529,7 +538,7 @@ body {
         font-size: 22pt;
       }
       .link-wrap {
-        padding: 5% 90px;
+        padding: 10px 90px 0 90px;
       }
       .link-item span {
           margin-left: 35px;
@@ -550,6 +559,10 @@ body {
           height: 63px;
           background-size: contain;
           background-repeat: no-repeat;
+        }
+        &.sprite-grid-solar {
+          width: 70px;
+          height: 63px;
         }
         &.sprite-earnings {
           background: image-url('img/earnings-icon.png');
@@ -650,6 +663,11 @@ body {
     .mobile-side-nav {
       max-width: 70vw !important;
       min-width: 70vw !important;
+
+      .banner {
+        height: 17vh;
+        min-height: 23%;
+      }
       .logo {
         height: 103px;
         width: 355px;
@@ -657,9 +675,6 @@ body {
       }
       .motto {
         font-size: 22pt;
-      }
-      .link-wrap {
-        padding: 5% 90px;
       }
       .link-item span {
           margin-left: 35px;
