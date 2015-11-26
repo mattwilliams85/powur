@@ -1,5 +1,5 @@
 <div class="pw-grid solar">
-  <md-button class="md-secondary">ADD LEAD</md-button>
+  <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
   <div class="accordion" ng-click="hideInsight = !hideInsight" layout="row" layout-align="space-between-center">
     <span>
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
@@ -107,5 +107,5 @@
       </div>
     </div>
   </div>
-  <md-button class="md-secondary">ADD LEAD</md-button>
+  <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
 </div>

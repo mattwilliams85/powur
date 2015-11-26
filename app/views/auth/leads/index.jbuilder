@@ -6,6 +6,9 @@ json.entities @leads, partial: 'item', as: :lead
 
 actions = []
 
+actions << action(:validate_zip, :post, validate_zip_validator_path)
+  .field(:zip, :text)
+
 actions << action(:create, :post, leads_path)
   .field(:first_name, :text)
   .field(:last_name, :text)

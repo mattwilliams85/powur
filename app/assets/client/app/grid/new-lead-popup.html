@@ -1,0 +1,47 @@
+<div class="invite-popup fill-height">
+  <md-dialog aria-label="Lead" class="dialog">
+    <form ng-show="!dialog.isEligible" layout="row" ng-submit="dialog.verifyEligibility()" novalidate autocomplete="off">
+      <div class="side-bg"></div>
+      <div layout="column" flex>
+        <div class="banner solar" hide-sm>
+          <span class="title">Add Lead</span>
+        </div>
+        <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
+        <md-dialog-content layout="column">
+          <div class="heading"><div class="title">verify<b> eligibility</b></div></div>
+          <md-content layout-padding layout="row">
+            <md-input-container>
+              <label>homeowner zipcode</label>
+              <input ng-model="dialog.verifyEligibilityAction.field('zip').value" autocomplete="off" md-autofocus>
+              <div ng-messages="dialog.verifyEligibilityAction.field('zip').$error" class="messages">
+                <div ng-message="message">{{ dialog.verifyEligibilityAction.field('zip').$error.message }}</div>
+              </div>
+            </md-input-container>
+          </md-content>
+
+          <div class="actions">
+            <md-button type="submit" ng-disabled="dialog.verifyEligibilityAction.submitting" class="md-primary">Verify</md-button>
+          </div>
+        </md-dialog-content>
+      </div>
+    </form>
+
+    <form ng-show="dialog.isEligible" layout="row" novalidate autocomplete="off">
+      <div class="side-bg"></div>
+      <div layout="column" flex>
+        <div class="banner solar" hide-sm>
+          <span class="title">Add Lead</span>
+        </div>
+        <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
+        <md-dialog-content layout="column">
+          <div class="heading"><div class="title">enter<b> contact information</b></div></div>
+          <md-content layout-padding layout="row">
+            <md-input-container>
+              <label>zip valid, step 2 coming soon ...</label>
+            </md-input-container>
+          </md-content>
+        </md-dialog-content>
+      </div>
+    </form>
+  </md-dialog>
+</div>

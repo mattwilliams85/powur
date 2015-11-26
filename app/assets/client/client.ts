@@ -50,6 +50,7 @@
 //= require join/join-grid
 //= require join/join-grid2
 
+//= require grid/new-lead-popup
 //= require grid/grid.solar
 //= require grid/grid.powur
 
