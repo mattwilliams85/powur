@@ -101,7 +101,7 @@
       </div>
     </a>
     <md-divider></md-divider>
-    <a href="/next/invite/grid" target="_self">
+    <a ui-sref="home.invite.grid" ng-click="nav.openMenu()">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
         <i class="sprite sprite-invite"></i><span>Invite</span>
       </div>
@@ -113,7 +113,7 @@
       </div>
     </a> -->
     <!-- <md-divider></md-divider> -->
-    <a href="/next/grid/solar" target="_self">
+    <a ui-sref="home.grid.solar" ng-click="nav.openMenu()">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.solar') }">
         <i class="sprite sprite-grid-solar"></i><span>Solar Grid</span>
       </div>
