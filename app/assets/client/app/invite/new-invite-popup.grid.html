@@ -29,7 +29,7 @@
           <div class="heading"><div class="title">contact<b> name</b></div></div>
           <md-content layout-padding layout="row">
             <md-input-container flex="50">
-              <label>click me</label>
+              <label>first name</label>
               <input ng-model="dialog.create.field('first_name').value" autocomplete="off" md-autofocus>
               <div ng-messages="dialog.create.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
@@ -49,14 +49,14 @@
             <div ng-messages="dialog.create.$error" class="messages">
               <div ng-message="message">{{ dialog.create.$error.message }}</div>
             </div>
-            <md-input-container flex="100">
+            <md-input-container>
               <label>phone number</label>
               <input ng-model="dialog.create.field('phone').value" type="tel">
               <div ng-messages="dialog.create.field('phone').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('phone').$error.message }}</div>
               </div>
             </md-input-container>
-            <md-input-container flex="100">
+            <md-input-container>
               <label>email</label>
               <input ng-model="dialog.create.field('email').value" type="text" autocomplete="off" autocapitalize="off">
               <div ng-messages="dialog.create.field('email').$error" class="messages">
