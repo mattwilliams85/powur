@@ -57,9 +57,6 @@ entity_list << entity(%w(list leads),
 entity_list << entity(%w(list leads),
                       'user-team_leads',
                       team_leads_path(days: '{days}'))
-entity_list << entity(%w(list leads),
-                      'user-grid_leads',
-                      grid_leads_path(days: '{days}'))
 entity_list << entity(%w(search leads),
                       'user-team_leads_search',
                       team_leads_path(search: '{search}'))

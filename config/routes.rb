@@ -73,7 +73,7 @@ Rails.application.routes.draw do
         post :submit
       end
       collection do
-        get :team, :grid
+        get :team
       end
     end
 

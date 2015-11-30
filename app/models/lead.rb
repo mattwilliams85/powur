@@ -26,9 +26,6 @@ class Lead < ActiveRecord::Base
   scope :team_leads, lambda { |user_id:, query: Lead.unscoped|
     query.joins(:user).merge(User.all_team(user_id))
   }
-  scope :grid_leads, lambda { |user_id:, query: Lead.unscoped|
-    team_leads(user_id: user_id, query: query).where.not(user_id: user_id)
-  }
   scope :team_count, lambda { |user_id:, query: Lead.unscoped|
     query.joins(:user).merge(User.all_team(user_id)).count
   }
