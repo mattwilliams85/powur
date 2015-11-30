@@ -49,6 +49,11 @@
 //= require join/join-solar3
 //= require join/join-grid
 //= require join/join-grid2
+
+//= require grid/new-lead-popup
+//= require grid/grid.solar
+//= require grid/grid.powur
+
 //= require app/components/assets.constant
 
 // client / order according to any dependencies
@@ -74,6 +79,7 @@
 /// <reference path='app/components/powur.components.ts' />
 /// <reference path='app/components/invite-progress.directive.ts' />
 /// <reference path='app/components/scrolled.directive.ts' />
+/// <reference path='app/components/focus.directive.ts' />
 /// <reference path='app/components/title.directive.ts' />
 /// <reference path='app/components/activity.controller.ts' />
 /// <reference path='app/components/activity.directive.ts' />
@@ -102,6 +108,10 @@
 /// <reference path='app/invite/invite.controller.ts' />
 /// <reference path='app/invite/invite.solar.controller.ts' />
 /// <reference path='app/invite/invite.grid.controller.ts' />
+
+/// <reference path='app/grid/powur.grid.ts' />
+/// <reference path='app/grid/grid.solar.controller.ts' />
+/// <reference path='app/grid/grid.powur.controller.ts' />
 
 /// <reference path='app/events/events.controller.ts' />
 

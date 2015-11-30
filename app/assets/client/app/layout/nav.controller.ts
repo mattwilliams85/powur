@@ -32,6 +32,20 @@ module powur {
     logout() {
       this.home.session.logout();
     }
+
+    get userData(): any {
+      return this.home.userData;
+    }
+
+    get headshot(): string {
+      var avatar = this.userData.avatar;
+      var image = avatar ? avatar.large : this.home.assets.defaultProfileImg;
+      return `url(${image})`;
+    }
+
+    get headshotStyle(): any {
+      return { 'background-image': this.headshot };
+    }
   }
   
   angular

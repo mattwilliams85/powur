@@ -1,12 +1,21 @@
-<div class="nav mobile">
+<div class="nav top-menu">
   <div class="bg">
-    <!-- <a href="/next/invite/grid" target="_self"><div class="logo"></div></a> -->
-    <div class="menu" ng-click="nav.openMenu()"></div>
-    <div class="title">powur <b>{{nav.state.params.title}}</b></div>
+    <div class="float-left">
+      <div class="menu" ng-click="nav.openMenu()"></div>
+      <div class="title">powur <b>{{nav.state.params.title}}</b></div>
+    </div>
+    <div class="float-right">
+      <a href="/profile" target="_self">
+        <div class="avatar" ng-style="{{ nav.headshotStyle }}"></div>
+        <span>Hello, {{ nav.userData.first_name }}</span>
+      </a> 
+      &nbsp;|&nbsp;
+      <span ng-click="nav.logout()">LOGOUT</span>
+    </div>
   </div>
 </div>
 
-<div class="nav goals" ng-controller="HudController as hud">
+<div class="nav goals mobile" ng-controller="HudController as hud">
   <div ng-if="hud.rank > 0" layout="row" layout-align="space-around center" layout-fill class="bar">
     <div layout-align="center center">
       <span>Rank</span>
@@ -22,8 +31,65 @@
   </div>
 </div>
 
-<!-- MOBILE SIDE NAV -->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left" hide-gt-sm>
+<div class="nav goals desktop" ng-controller="HudController as hud" layout="row">
+  <div flex="50">
+    <div class="triangle" layout="column" layout-align="end center">
+      <span>GOAL</span>
+    </div>
+    <div ng-if="hud.rank > 0" layout="row" layout-align="center center" layout-fill class="bar">
+      <div class="inner-bar" layout="row" layout-align="space-around center" >
+        <div layout="column" layout-align="center center">
+          <div layout-align="center center">
+            <div class="medal icon"></div>
+            <span class="number">{{ hud.rank }}<span class="sub">/{{ hud.rankTotal }}</span></span>
+          </div>
+          <span class="label">Rank</span>
+        </div>
+        <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
+          <div layout-align="center center">
+            <div ng-if="req.properties.event_type === 'grid_proposals'" class="icon grid-lead"></div>
+            <div ng-if="req.properties.event_type === 'personal_proposals'" class="icon personal-lead"></div>
+            <span class="number">{{ req.properties.progress }}<span class="sub">/{{ req.properties.quantity }}</span></span>
+          </div>
+          <span ng-if="req.properties.event_type === 'grid_proposals'" class="label">Grid</span>
+          <span ng-if="req.properties.event_type === 'personal_proposals'" class="label">Personal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div flex="50">
+    <div class="triangle" layout="column" layout-align="end center">
+      <span>KPI</span>
+    </div>
+    <div ng-if="hud.rank > 0" layout="row" layout-align="center center" layout-fill class="bar">
+      <div class="inner-bar" layout="row" layout-align="space-around center" >
+        <div layout="column" layout-align="center center">
+          <div layout="row" layout-align="center center">
+            <div class="grid icon"></div>
+            <span class="number">{{ hud.userData.metrics.team_count | wholeNumber }}</span>
+          </div>
+          <span class="label">Grid Size</span>
+        </div>
+        <div layout="column" layout-align="center center">
+          <div layout="row" layout-align="center center">
+            <i class="earnings icon"></i>
+            <span class="number">{{ hud.userData.metrics.earnings | wholeNumber }}<sup>{{ hud.userData.metrics.earnings | decimalPart }}</sup></span>
+          </div>
+          <span class="label">Dollars Earned</span>
+        </div>
+        <div layout="column" layout-align="center center">
+          <div layout="row" layout-align="center center" class="offset">
+            <div class="co2 icon"></div>
+            <span class="number">{{ hud.userData.metrics.co2_saved | wholeNumber }}<small class="md-caption"> lb/ft<sup>2</sup></small></span>
+          </div>
+          <span class="label">CO<sub>2</sub> Saved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
   <div class="banner" layout="column" layout-align="center start">
     <div class="logo"></div>
     <div class="motto">Disrupt & <b>Decentralize</b></div>
@@ -35,9 +101,21 @@
       </div>
     </a>
     <md-divider></md-divider>
-    <a href="/next/invite/grid" target="_self">
+    <a ui-sref="home.invite.grid" ng-click="nav.openMenu()">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
         <i class="sprite sprite-invite"></i><span>Invite</span>
+      </div>
+    </a>
+    <md-divider></md-divider>
+<!--     <a href="/next/grid/powur" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.powur') }">
+        <i class="sprite sprite-grid-powur"></i><span>Powur Grid</span>
+      </div>
+    </a> -->
+    <!-- <md-divider></md-divider> -->
+    <a ui-sref="home.grid.solar" ng-click="nav.openMenu()">
+      <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.solar') }">
+        <i class="sprite sprite-grid-solar"></i><span>Solar Grid</span>
       </div>
     </a>
     <md-divider></md-divider>
@@ -69,80 +147,15 @@
         <i class="sprite sprite-admin"></i><span>Admin</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <a href="/profile" target="_self">
+    <md-divider hide-gt-sm></md-divider>
+    <a href="/profile" target="_self" hide-gt-sm>
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
         <i class="sprite sprite-stats"></i><span>Profile</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()">
+    <md-divider hide-gt-sm></md-divider>
+    <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()" hide-gt-sm>
       <i class="sprite sprite-logout"></i><span>Logout</span>
     </div>
   </div>
 </md-sidenav>
-
-<div class="nav fill-height">
-    <div class="bg fill-height">
-        <ul class="list fill-height" layout="column" layout-align="start center">
-            <!-- <div ng-click="nav.openMenu(); activeMenu = !activeMenu" class="mobile-menu" hide-gt-md ng-class="{ 'active': nav.isOpen() }"></div> -->
-            <div class="align-top">
-                <a href="/dashboard" target="_self">
-                  <li ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard" target="_self">
-                    <i class="sprite sprite-dashboard"></i>
-                    <md-tooltip>Dashboard</md-tooltip>
-                  </li>
-                </a>
-                <a href="/next/invite/grid" target="_self">
-                  <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }">
-                  <i class="sprite sprite-invite"></i>
-                  <md-tooltip>Invite</md-tooltip>
-                  </li>
-                </a>
-                <a ng-href="/earnings" target="_self">
-                  <li ng-class="{'active': isMenuLinkActive('/earnings')}" ><i class="sprite sprite-earnings"></i>
-                  <md-tooltip>Earnings</md-tooltip>
-                  </li>
-                </a>
-                <a ng-href="/university" target="_self">
-                  <li ng-class="{'active': isMenuLinkActive('/university')}"><i class="sprite sprite-certs"></i>
-                  <md-tooltip>Powur U</md-tooltip>
-                  </li>
-                </a>
-                <a ng-href="/library" target="_self">
-                  <li ng-class="{'active': isMenuLinkActive('/library')}"><i class="sprite sprite-library"></i>
-                  <md-tooltip>Library</md-tooltip>
-                  </li>
-                </a>
-            </div>
-
-            <div class="align-bottom">
-                <a ng-href="/upgrade" ng-hide="nav.home.userData['partner?']" target="_self">
-                  <li ng-class="{'active': isMenuLinkActive('/upgrade')}"><i class="sprite sprite-upgrade"></i>
-                  <md-tooltip>Upgrade</md-tooltip>
-                  </li>
-                </a>
-                <a href="/admin" target="_self">
-                  <li ng-show="nav.home.userData.is_admin"><span class="admin">ADMIN</span>
-                  <md-tooltip>Admin</md-tooltip>
-                  </li>
-                </a>
-                <a ng-href="/profile" target="_self">
-                  <li><i class="sprite sprite-stats"></i>
-                  <md-tooltip>Profile</md-tooltip>
-                  </li>
-                </a>
-    <!--             <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i>
-                <md-tooltip>Events</md-tooltip>
-                </li> -->
-    <!--             <li ui-sref="home.goal" ng-class="{ active: nav.isCurrent('home.goal') }"><i class="sprite sprite-goal"></i>
-                <md-tooltip>Goals</md-tooltip>
-                </li> -->
-
-                <li ng-click="nav.logout()"><i class="sprite sprite-logout"></i>
-                <md-tooltip>Logout</md-tooltip>
-                </li>
-            </div>
-        </ul>
-    </div>
-</div>

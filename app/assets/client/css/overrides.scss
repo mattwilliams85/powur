@@ -48,8 +48,14 @@ md-tab-item:not([disabled]) {
 
 .md-primary {
     background-color: rgb(49, 166, 206) !important;
+}
+.md-secondary {
+    background-color: rgb(1, 181, 152) !important;
+}
+.md-primary, .md-secondary {
     margin-left: 0px !important;
     margin-right: 0px !important;
+    border-radius: 0px !important;
     span {
         color: #fff !important;
     }

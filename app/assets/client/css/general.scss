@@ -3,6 +3,10 @@ html,body {
   font-weight: 300;
 }
 
+a {
+  color: inherit;
+}
+
 :focus { outline:none; }
 
 .main-view {
@@ -34,6 +38,14 @@ md-backdrop {
 .left-menu {
   position: relative;
   left: 70px !important;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
 }
 
 /* #2c6b8a - nav-icon-color */
@@ -111,142 +123,10 @@ form {
   text-transform: capitalize;
 }
 
-.nav.mobile, .nav.goals {
-  display: none;
+
+// @media screen and (max-width : 600px) {
+.main-view {
+  padding-left: 0px;
+  padding-top: 50px;
 }
 
-@media screen and (max-width : 600px) {
-  .main-view {
-    padding-left: 0px;
-    padding-top: 50px;
-  }
-  .nav {
-    display: none;
-    &.mobile, &.goals {
-      display: block;
-    }
-  }
-
-  .mobile-side-nav {
-    display: block;
-    background: #2ba7d9; /* Old browsers */
-    max-width: 70vw !important;
-    min-width: 70vw !important;
-    width: 70vw !important;
-    height: 100vh !important;
-    position: fixed;
-    background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #2ba7d9 0%,#509f9a 100%); /* W3C */
-    background-size: cover;
-    &.md-closed {
-      display: block !important;
-    }
-
-    md-toolbar {
-      padding-left: 15px;
-    }
-
-    .sprite {
-      &.sprite-dashboard {
-        width: 29px;
-        height: 20px;
-      }
-      &.sprite-invite {
-        width: 30px;
-        height: 23px;
-      }
-      &.sprite-earnings {
-        width: 30px;
-        height: 19px;
-        margin: 0 0px 0 -1px;
-      }
-      &.sprite-library {
-        width: 29px;
-        height: 22px;
-      }
-      &.sprite-certs {
-        width: 19px;
-        height: 19px;
-        margin-right: 9px;
-      }
-      &.sprite-upgrade {
-        width: 30px;
-        height: 19px;
-        margin-right: 8px;
-        margin-left: 0px;
-      }
-      &.sprite-stats {
-        width: 30px;
-        height: 16px;
-        margin-left: 2px;
-        margin-right: -2px;
-      }
-      &.sprite-logout {
-        width: 30px;
-        height: 13px;
-        margin-left: 2px;
-        margin-right: -2px;
-      }
-      &.sprite-admin {
-        background: image-url('img/hud-icon-disabled.png');
-        width: 19px;
-        height: 19px;
-        margin-right: 11px;
-        background-size: contain;
-      }
-      background-size: contain;
-    }
-    .link-wrap {
-      padding: 5% 20px;
-
-      .link-item {
-        padding: 0 10px;
-        height: 7.5vh;
-        cursor: pointer; 
-
-        &.active, &:hover {
-          -webkit-filter: brightness(0) invert(1);
-          filter: brightness(0) invert(1);
-        }
-
-        span {
-          color: #2C6B8A;
-          margin-left: 10px;
-          font-size: 10pt;
-          text-transform: uppercase;
-        }
-      }
-    }
-
-    .banner {
-      width: 100%;
-      height: 23vh;
-      text-transform: uppercase;
-      color: #fff;
-      background-image: image-url('img/menu-banner.png');
-      padding: 0 18%;
-      min-height: 120px;
-      background-size: cover;
-
-        .logo {
-          background: image-url('img/powur-logo-white.png');
-          height: 30px;
-          width: 104px;
-          margin: 0 0 5px -26px;
-          background-size: contain;
-          cursor: pointer;
-        }
-        .motto {
-          font-size: 8pt;
-        }
-    }
-
-    md-toolbar {
-      background-color: transparent;
-    }
-  }
-}

@@ -1,11 +1,11 @@
 module Auth
   class LeadsController < AuthController
     before_action :fetch_user!
-    before_action :fetch_leads, only: [ :index ]
+    before_action :fetch_leads, only: [ :index, :team, :grid ]
     before_action :fetch_lead,
                   only: [ :show, :update, :destroy, :resend, :submit ]
 
-    page max_limit: 500
+    page max_limit: 10
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
     filter :submitted_status,
@@ -20,6 +20,20 @@ module Auth
 
     def index
       @leads = apply_list_query_options(@leads)
+
+      render 'index'
+    end
+
+    def team
+      @leads = apply_list_query_options(
+        Lead.team_leads(user_id: current_user.id, query: @leads))
+
+      render 'index'
+    end
+
+    def grid
+      @leads = apply_list_query_options(
+        Lead.grid_leads(user_id: current_user.id, query: @leads))
 
       render 'index'
     end
@@ -82,6 +96,8 @@ module Auth
         .references(:customer, :user, :product)
         .joins(:customer)
       scope = scope.where(user_id: @user.id) if @user
+      scope = scope.where(
+        'leads.created_at > ?', params[:days].to_i.days.ago) if params[:days]
       scope = scope.merge(Customer.search(params[:search])) if params[:search]
       @leads = scope
     end

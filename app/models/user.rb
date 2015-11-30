@@ -245,8 +245,13 @@ class User < ActiveRecord::Base
       @user = user
     end
 
-    def team_count
-      @team_count ||= User.with_ancestor(user.id).count
+    def team_count(days: nil, partners: nil)
+      users = User.with_ancestor(user.id)
+      users = users.with_purchases if partners
+      users = users.within_date_range(
+        days.to_i.days.ago,
+        Time.zone.now) if days
+      users.count
     end
 
     def earnings
@@ -266,6 +271,12 @@ class User < ActiveRecord::Base
 
     def team_leads
       @team_leads ||= Lead.team_count(user_id: user.id, query: Lead.submitted)
+    end
+
+    def leads_count(scope, days = nil)
+      Lead.team_count(
+        user_id: user.id,
+        query:   Lead.send(scope.to_sym, from: days.to_i.days.ago))
     end
 
     def login_streak

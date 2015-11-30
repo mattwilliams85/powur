@@ -72,6 +72,9 @@ Rails.application.routes.draw do
         post :resend
         post :submit
       end
+      collection do
+        get :team, :grid
+      end
     end
 
     resources :ranks, only: [ :index, :create, :destroy, :show, :update ] do
@@ -124,14 +127,6 @@ Rails.application.routes.draw do
         get :leaderboard
       end
 
-      resources :leads, only: [ :index ]
-      resource :goals, only: [ :show ]
-      resources :order_totals, only: [ :index ]
-      resources :user_activities, only:       [ :index, :show ],
-                                  controller: :user_activities
-      resources :pay_periods, only:       [ :index, :show ],
-                              controller: :user_pay_periods
-
       member do
         get :downline
         get :full_downline
@@ -139,7 +134,20 @@ Rails.application.routes.draw do
         post :move
         get :eligible_parents
         get :sponsors
+        get :grid_summary
       end
+
+      resources :leads, only: [ :index ] do
+        collection do
+          get :summary
+        end
+      end
+      resource :goals, only: [ :show ]
+      resources :order_totals, only: [ :index ]
+      resources :user_activities, only:       [ :index, :show ],
+                                  controller: :user_activities
+      resources :pay_periods, only:       [ :index, :show ],
+                              controller: :user_pay_periods
     end
 
     resources :earnings,

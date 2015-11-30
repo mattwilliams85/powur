@@ -1,16 +1,24 @@
 <!-- Dashboard Header -->
 <!-- <nav powur-foundation > -->
 
-<div class="nav mobile">
+<div class="nav top-menu">
   <div class="bg">
-    <!-- <a href="/next/invite/grid" target="_self"><div class="logo"></div></a> -->
-    <div class="menu" ng-click="openMenu()"></div>
-    <div class="title">powur <b>{{stateName()}}</b></div>
+    <div class="left">
+      <div class="menu" ng-click="openMenu()"></div>
+      <div class="title">powur <b>{{stateName()}}</b></div>
+    </div>
+    <div class="right hide-for-desktop">
+      <a href="/profile" target="_self">
+        <img class="avatar" ng-src="{{ currentUser.avatar.large || legacyImagePaths.defaultProfile }}">
+        <span>Hello, {{ currentUser.first_name}}</span>
+      </a> 
+      &nbsp;|&nbsp;
+      <span ng-click="signOut()">LOGOUT</span>
+    </div>
   </div>
 </div>
-
 <!-- MOBILE SIDE NAV -->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left" hide-gt-lg>
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
   <div class="banner" layout="column" layout-align="center start">
     <div class="logo"></div>
     <div class="motto">Disrupt & <b>Decentralize</b></div>
@@ -25,6 +33,12 @@
     <a href="/next/invite/grid" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
         <i class="sprite sprite-invite"></i><span>Invite</span>
+      </div>
+    </a>
+    <md-divider></md-divider>
+    <a href="/next/grid/solar" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.solar') }">
+        <i class="sprite sprite-grid-solar"></i><span>Solar Grid</span>
       </div>
     </a>
     <md-divider></md-divider>
@@ -56,25 +70,26 @@
         <i class="sprite sprite-admin"></i><span>Admin</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <a href="/profile" target="_self">
+    <md-divider class="hide-for-desktop"></md-divider>
+    <a href="/profile" target="_self" class="hide-for-desktop">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
         <i class="sprite sprite-stats"></i><span>Profile</span>
       </div>
     </a>
-    <md-divider></md-divider>
-    <div layout="row" layout-align="start center" class="link-item" ng-click="signOut()">
-      <i class="sprite sprite-logout"></i><span>Logout</span>
-    </div>
+    <md-divider class="hide-for-desktop"></md-divider>
+    <a class="hide-for-desktop">
+      <div layout="row" layout-align="start center" class="link-item" ng-click="signOut()">
+        <i class="sprite sprite-logout"></i><span>Logout</span>
+      </div>
+    </a>
   </div>
 </md-sidenav>
 
-<div class="nav fill-height">
+<!-- <div class="nav fill-height">
     <div class="bg fill-height">
-        <ul class="list fill-height" layout="column" layout-align="start center">
+        <ul class="list fill-height" layout="column" layout-align="start center"> -->
 
-            <!-- <div ng-click="nav.openMenu(); activeMenu = !activeMenu" class="mobile-menu" hide-gt-md ng-class="{ 'active': nav.isOpen() }"></div> -->
-            <a href="/dashboard" target="_self" class="hover">
+            <!-- <a href="/dashboard" target="_self" class="hover">
               <li ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="/dashboard">
                 <i class="sprite sprite-dashboard"></i>
                 <md-tooltip>Dashboard</md-tooltip>
@@ -116,14 +131,8 @@
                 <li ui-sref="home.stats"><i class="sprite sprite-stats"></i>
                 <md-tooltip>Profile</md-tooltip>
                 </li>
-              </a>
-  <!--             <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i>
-              <md-tooltip>Events</md-tooltip>
-              </li> -->
-  <!--             <li ui-sref="home.goal" ng-class="{ active: nav.isCurrent('home.goal') }"><i class="sprite sprite-goal"></i>
-              <md-tooltip>Goals</md-tooltip>
-              </li> -->
-              <a ng-click="signOut()">
+              </a> -->
+<!--               <a ng-click="signOut()">
                 <li ><i class="sprite sprite-logout"></i>
                 <md-tooltip>Logout</md-tooltip>
                 </li>
@@ -132,10 +141,10 @@
         </ul>
     </div>
 </div>
-
+ -->
 <!-- </nav> -->
 
-<!-- 
+<!--
 
 <nav powur-foundation class="powur-header top-bar" data-topbar role="navigation" data-options="is_hover:false">
 
@@ -189,4 +198,3 @@
     </ul>
   </section>
 </nav> -->
-
