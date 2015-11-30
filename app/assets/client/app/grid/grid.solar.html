@@ -106,5 +106,12 @@
       </div>
     </div>
   </div>
-  <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
+
+  <section ng-if="grid.leads.properties.paging.current_page < grid.leads.properties.paging.page_count">
+    <md-button ng-click="grid.loadMore()" class="load-more">Load More</md-button>
+  </section>
+
+  <section>
+    <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
+  </section>
 </div>

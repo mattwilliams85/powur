@@ -8,6 +8,10 @@
     max-width: 400px;
     padding: 5px 15px;
     margin: 0 auto;
+    margin-bottom: 40px;
+  }
+
+  .load-more {
     margin-bottom: 20px;
   }
 
@@ -29,13 +33,13 @@
       position: absolute;
       margin-left: -13px;
 
-      &:after { 
-        content: '-' 
+      &:after {
+        content: '-'
       }
       &.closed {
         font-size: 12pt;
-        &:after { 
-          content: '+' 
+        &:after {
+          content: '+'
         }
       }
     }
@@ -58,7 +62,7 @@
 
   .insight {
     height: 50px;
-    margin: 20px 0; 
+    margin: 20px 0;
 
     .count {
       font-size: 20pt;

@@ -9,7 +9,7 @@ module powur {
   }
 
   function userTeamLeads(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-team_leads', { days: 60 });
+    return session.getEntity(SirenModel, 'user-team_leads', { days: 60, page: 1 });
   }
 
   function userTeamSummary(session: ISessionService) {

@@ -39,6 +39,7 @@ module powur {
     static ControllerId = 'GridSolarController';
     static $inject = ['leadsSummary', 'leads', '$mdDialog', '$timeout'];
 
+    days: number = 60;
     searchQuery: string;
     showSearch: boolean;
 
@@ -69,18 +70,44 @@ module powur {
     }
 
     search() {
-      this.session.getEntity(SirenModel, 'user-team_leads_search',
-        { search: this.searchQuery }, true).then((data: ISirenModel) => {
+      var entityType = 'user-team_leads_search';
+      this.session.getEntity(SirenModel, entityType,
+        { search: this.searchQuery, days: this.days, page: 1 }, true).then((data: ISirenModel) => {
           this.leads = data;
+          this.leads.properties.entityType = entityType;
         });
     }
 
     showLeads(entityType: string) {
       this.showSearch = false;
       this.session.getEntity(SirenModel, entityType,
-        { days: 60 }, true).then((data: ISirenModel) => {
+        { days: this.days, page: 1 }, true).then((data: ISirenModel) => {
           this.leads = data;
+          this.leads.properties.entityType = entityType;
         });
+    }
+
+    loadMore() {
+      var page = this.leads.properties.paging.current_page,
+          opts = {
+            days: this.days,
+            page: page + 1,
+            search: this.searchQuery
+          },
+          entityType = this.leads.properties.entityType || 'user-team_leads';
+
+      if (this.leads.properties.filters) {
+        for (var key in this.leads.properties.filters) {
+          opts[key] = this.leads.properties.filters[key];
+        }
+      }
+
+      this.session.getEntity(SirenModel, entityType, opts, true).then((data: any) => {
+        if (!data.entities.length) return;
+        this.leads.entities = this.leads.entities.concat(data.entities);
+        this.leads.properties = data.properties;
+        this.leads.properties.entityType = entityType;
+      });
     }
   }
 
