@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <!-- <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
+  <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
     <span class="toggle" ng-class="{'closed': hideGeo }"></span>
     <span>GEO <b>SUMMARY</b></span>
     <span>LAST 60 DAYS</span>
@@ -57,7 +57,7 @@
       <span></span>
       <span>You have sequestered <b>1,499 TONS</b> of CO<sup>2</sup></span>
     </div>
-  </div> -->
+  </div>
 
   <div class="accordion" ng-click="hideGrid = !hideGrid" layout="row" layout-align="space-between-center">
     <span>
@@ -105,11 +105,11 @@
         <md-divider></md-divider>
       </div>
     </div>
-  </div>
 
-  <section ng-if="grid.leads.properties.paging.current_page < grid.leads.properties.paging.page_count">
-    <md-button ng-click="grid.loadMore()" class="load-more">Load More</md-button>
-  </section>
+    <section ng-if="grid.leads.properties.paging.current_page < grid.leads.properties.paging.page_count">
+      <md-button ng-click="grid.loadMore()" class="load-more">Load More</md-button>
+    </section>
+  </div>
 
   <section>
     <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
