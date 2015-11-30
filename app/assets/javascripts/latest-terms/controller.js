@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function LatestTermsCtrl($scope, $rootScope, $timeout, $location, UserProfile, CommonService) {
+  function LatestTermsCtrl($scope, $rootScope, $timeout, $location, $window, UserProfile, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -31,13 +31,12 @@
         $rootScope.currentUser.latest_terms = null;
         $scope.currentUser.latest_terms = null;
         $timeout(function() {
-          $location.path('/dashboard');
+          $window.location.href = '/';
         });
       });
     }
-
   }
 
-  LatestTermsCtrl.$inject = ['$scope', '$rootScope', '$timeout', '$location', 'UserProfile', 'CommonService'];
+  LatestTermsCtrl.$inject = ['$scope', '$rootScope', '$timeout', '$location', '$window', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('LatestTermsCtrl', LatestTermsCtrl);
 })();

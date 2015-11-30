@@ -44,12 +44,13 @@ module powur {
 
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
-    static $inject = ['$mdDialog', '$stateParams', 'resetToken'];
+    static $inject = ['$mdDialog', '$stateParams', 'resetToken', '$window'];
     private _create: Action;
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
-                private resetToken: ISirenModel) {
+                private resetToken: ISirenModel,
+                private $window: ng.IWindowService) {
 
       super();
       if (this.$stateParams['resetCode'])  {
@@ -78,7 +79,11 @@ module powur {
 
     loginSubmit(): void {
       this.session.actions[0].fields = this.create.fields; // copy fields
-      this.session.login();
+      this.session.login().then((data: any) => {
+        if (data.data.properties.latest_terms) {
+          this.$window.location.href = '/latest-terms';
+        }
+      });
     }
 
     showNewPassword(): ng.IPromise<any> {
