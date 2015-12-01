@@ -38,8 +38,8 @@
             <div class="title">UPGRADE</div>
             <a ng-href="/upgrade"><div class="product">{{ req.properties.product }}</div></a>
           </div>
-          <span ng-if="req.properties.event_type === 'grid_proposals'" class="label">Grid</span>
-          <span ng-if="req.properties.event_type === 'personal_proposals'" class="label">Personal</span>
+          <span ng-if="req.properties.event_type === 'personal_proposals'" class="label">Personal Leads</span>
+          <span ng-if="req.properties.event_type === 'grid_proposals'" class="label">Grid Leads</span>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
             <div class="grid icon"></div>
             <span class="number">{{ hud.userData.metrics.team_count | wholeNumber }}</span>
           </div>
-          <span class="label">Grid</span>
+          <span class="label">Grid Size</span>
         </div>
         <div layout="column" layout-align="center center">
           <div layout="row" layout-align="center center">
