@@ -82,7 +82,7 @@
     <div class="summary">
       <br ng-show="search">
       <br ng-show="search">
-      <div class="header-row" layout="row" layout-align="start center">
+      <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="start center">
         <span class="label left" flex="50">CONTACT INFO</span>
         <span class="label right" flex="50">PROGRESS</span>
       </div>
