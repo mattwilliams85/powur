@@ -36,12 +36,20 @@ module Auth
     end
 
     def create
-      customer = find_or_create_customer
+      require_input :first_name, :last_name, :email
+
+      customer = Customer.create!(
+        customer_input.merge(user_id: current_user.id))
       @lead = Lead.create!(
         product_id: product.id,
         customer:   customer,
         user:       current_user,
         data:       lead_input)
+
+      if customer.email?
+        PromoterMailer.product_invitation(customer).deliver_later
+      end
+      customer.delay.send_sms
 
       show
     end
@@ -106,17 +114,17 @@ module Auth
       not_found!(:lead) unless @lead
     end
 
-    def find_or_create_customer
-      customer = Customer.where(
-        email:   customer_input['email'],
-        user_id: current_user.id).first
-      if customer && !customer.lead?
-        customer.update_attributes!(customer_input)
-        customer
-      else
-        Customer.create!(customer_input)
-      end
-    end
+    # def find_or_create_customer
+    #   customer = Customer.where(
+    #     email:   customer_input['email'],
+    #     user_id: current_user.id).first
+    #   if customer && !customer.lead?
+    #     customer.update_attributes!(customer_input)
+    #     customer
+    #   else
+    #     Customer.create!(customer_input)
+    #   end
+    # end
 
     def customer_input
       allow_input(:first_name, :last_name, :email,

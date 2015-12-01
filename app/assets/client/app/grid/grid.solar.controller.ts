@@ -8,8 +8,14 @@ module powur {
     static ControllerId = 'NewLeadDialogController';
     static $inject = ['$log', '$mdDialog', 'leads'];
 
+    lead: ISirenModel;
     isEligible: boolean;
     get verifyEligibilityAction(): Action { return this.leads.action('validate_zip') }
+    get createAction(): Action { return this.leads.action('create') }
+    get updateAction(): Action {
+      if (!this.lead) return;
+      return this.lead.action('update');
+    }
 
     constructor(private $log: ng.ILogService,
                 public $mdDialog: ng.material.IDialogService,
@@ -27,6 +33,12 @@ module powur {
         } else {
           this.verifyEligibilityAction.field('zip').$error = { message: 'ineligible zip code' };
         }
+      });
+    }
+
+    create() {
+      this.createAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.lead = new SirenModel(response.data);
       });
     }
 
