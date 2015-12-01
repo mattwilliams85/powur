@@ -15,80 +15,6 @@
   </div>
 </div>
 
-<div class="nav goals mobile" ng-controller="HudController as hud">
-  <div ng-if="hud.rank > 0" layout="row" layout-align="space-around center" layout-fill class="bar">
-    <div layout-align="center center">
-      <span>Rank</span>
-      <span class="number">{{ hud.rank }}<sup>/{{ hud.rankTotal }}</sup></span>
-      <div class="medal icon"></div>
-    </div>
-    <div ng-repeat="req in hud.goalRequirements">
-      <span ng-if="req.properties.event_type === 'grid_proposals'">Grid</span>
-      <span ng-if="req.properties.event_type === 'personal_proposals'">Personal</span>
-      <span class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
-      <div class="icon"></div>
-    </div>
-  </div>
-</div>
-
-<div class="nav goals desktop" ng-controller="HudController as hud" layout="row">
-  <div flex="50">
-    <div class="triangle" layout="column" layout-align="end center">
-      <span>GOAL</span>
-    </div>
-    <div ng-if="hud.rank > 0" layout="row" layout-align="center center" layout-fill class="bar">
-      <div class="inner-bar" layout="row" layout-align="space-around center" >
-        <div layout="column" layout-align="center center">
-          <div layout-align="center center">
-            <div class="medal icon"></div>
-            <span class="number">{{ hud.rank }}<span class="sub">/{{ hud.rankTotal }}</span></span>
-          </div>
-          <span class="label">Rank</span>
-        </div>
-        <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
-          <div layout-align="center center">
-            <div ng-if="req.properties.event_type === 'grid_proposals'" class="icon grid-lead"></div>
-            <div ng-if="req.properties.event_type === 'personal_proposals'" class="icon personal-lead"></div>
-            <span class="number">{{ req.properties.progress }}<span class="sub">/{{ req.properties.quantity }}</span></span>
-          </div>
-          <span ng-if="req.properties.event_type === 'grid_proposals'" class="label">Grid</span>
-          <span ng-if="req.properties.event_type === 'personal_proposals'" class="label">Personal</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div flex="50">
-    <div class="triangle" layout="column" layout-align="end center">
-      <span>KPI</span>
-    </div>
-    <div ng-if="hud.rank > 0" layout="row" layout-align="center center" layout-fill class="bar">
-      <div class="inner-bar" layout="row" layout-align="space-around center" >
-        <div layout="column" layout-align="center center">
-          <div layout="row" layout-align="center center">
-            <div class="grid icon"></div>
-            <span class="number">{{ hud.userData.metrics.team_count | wholeNumber }}</span>
-          </div>
-          <span class="label">Grid Size</span>
-        </div>
-        <div layout="column" layout-align="center center">
-          <div layout="row" layout-align="center center">
-            <i class="earnings icon"></i>
-            <span class="number">{{ hud.userData.metrics.earnings | wholeNumber }}<sup>{{ hud.userData.metrics.earnings | decimalPart }}</sup></span>
-          </div>
-          <span class="label">Dollars Earned</span>
-        </div>
-        <div layout="column" layout-align="center center">
-          <div layout="row" layout-align="center center" class="offset">
-            <div class="co2 icon"></div>
-            <span class="number">{{ hud.userData.metrics.co2_saved | wholeNumber }}<small class="md-caption"> lb/ft<sup>2</sup></small></span>
-          </div>
-          <span class="label">CO<sub>2</sub> Saved</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
   <div class="banner" layout="column" layout-align="center start">
     <div class="logo"></div>
@@ -107,12 +33,6 @@
       </div>
     </a>
     <md-divider></md-divider>
-<!--     <a href="/next/grid/powur" target="_self">
-      <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.powur') }">
-        <i class="sprite sprite-grid-powur"></i><span>Powur Grid</span>
-      </div>
-    </a> -->
-    <!-- <md-divider></md-divider> -->
     <a ui-sref="home.grid.solar" ng-click="nav.openMenu()">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.solar') }">
         <i class="sprite sprite-grid-solar"></i><span>Solar Grid</span>

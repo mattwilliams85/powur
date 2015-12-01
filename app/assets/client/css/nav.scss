@@ -202,53 +202,6 @@
     }
 }
 
-.nav.goals {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-
-    .bar {
-        height: 32px;
-        width: 100%;
-        background-color: #2C6C8A;
-        box-shadow: 0px 0px 2px 1px rgba(0,0,0,.15);
-    }
-
-
-    span {
-        font-size: 7pt;
-        color: #fff;
-        text-transform: uppercase;
-        vertical-align: middle;
-    }
-
-    .number {
-        font-size: 10pt;
-
-        letter-spacing: .05em;
-        font-weight: 600;
-    }
-    sup {
-        font-size: 7pt;
-    }
-    .icon {
-        background: image-url('img/personal-lead-icon-alt.png');
-        background-size: contain;
-        height: 10px;
-        width: 8px;
-        display: inline-block;
-        &.medal {
-            background: image-url('img/medal-icon-alt.png');
-            height: 12px;
-            width: 8px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            margin-bottom: -1px;
-        }
-    }
-}
-
 .mobile-side-nav {
   display: block;
   background: #2ba7d9; /* Old browsers */
@@ -619,6 +572,12 @@
         .label {
             font-size: 10pt;
         }
+        a .product {
+          font-size: 12pt;
+        }
+        .title {
+          font-size: 9pt;
+        }
     }
 }
 
@@ -632,6 +591,12 @@
         }
         .icon {
             margin-right: 5px;
+        }
+        a .product {
+          font-size: 10pt;
+        }
+        .title {
+          font-size: 8pt;
         }
     }
 }

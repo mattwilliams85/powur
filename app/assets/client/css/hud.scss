@@ -1,342 +1,227 @@
-.collapsed .hud{
-    width:160px;
-    transition: .2s;
+.hud.goals {
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    bottom: 0;
+    left: 0;
 
-    .control-tab{
-        background-image:image-url("img/hud-collapse-tab.png");
-        background-repeat:no-repeat;
-        top:265px;
-        position:absolute;
-        right:0px;
-        width:50px;
-        height:40px;
-        outline:none;
-        transition:0.2s;
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        transform: rotate(180deg);
-        cursor: pointer;
-        &:hover {
-            padding-right: 0;
-        }
-    }    
-    .achievements{
-        display:none;
+    .bar {
+        height: 32px;
+        width: 100%;
+        background-color: #2C6C8A;
+        box-shadow: 0px 0px 2px 1px rgba(0,0,0,.15);
     }
 
-    .heading{
-        padding:30px 0 0 0px;
-        margin:auto;
-    }    
 
-    .headshot {
-        //background-image: image-url("img/default-profile.png");
-        height: 315px;
-        color: white;
-        background-size: cover;
-        background-position:-100px 0px;
-        overflow: hidden;
-        transition:0.2s;
-            
-        .user {
-            height: 100%;
-            padding: 20px 40px 5px 20px;
-        }
-        
-        .greeting {
-            opacity:0;
-            transition:.2s;
-
-        }
-        
-        .full-name {
-            opacity:0;
-            transition:.2s;
-
-        }
-        
-        .actions i {
-            padding: 5px;
-        }        
-    }
-    .stat1{
-        margin: 37px 10px 0 10px;
-        .login-streaks, .sprite{
-            display:none;
-            transition:.2s;
-        }
-        .rank{
-            border-right:0px;
-        }
-        .stat{
-            padding:10px 0 0 0px;
-        }
+    span {
+        font-size: 7pt;
+        color: #fff;
+        text-transform: uppercase;
+        vertical-align: middle;
     }
 
-    .stat2 {
-        height: 120px;
-        margin: 0 10px 0 10px;
-        border-top: solid #62babf 1px;
-            
-        .sprite{
-            display:none;
-        }        
-        
-        .stat {
-            padding: 10px 0 0 15px;
-                
-            .info {
-                text-align: center;
-                padding: 0 30px 0 0;
-                margin:auto;
-            }        
-        }
-        sup{
-            font-size:small;
+    .number {
+        font-size: 10pt;
+
+        letter-spacing: .05em;
+        font-weight: 600;
+    }
+    sup {
+        font-size: 7pt;
+    }
+    .icon {
+        background: image-url('img/personal-lead-icon-alt.png');
+        background-size: contain;
+        height: 10px;
+        width: 8px;
+        display: inline-block;
+        &.medal {
+            background: image-url('img/medal-icon-alt.png');
+            height: 12px;
+            width: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-bottom: -1px;
         }
     }
-    .current-goals{
-        display:none;
-    }
-    .stat4{
-        opacity:0;
+    .purchase {
+        .title {
+          color: #fff;
+          font-size: 10pt;
+          text-align: center;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            float: left;
+            padding: 5px 0 0 10px;
+
+            .product {
+                color: #FF9929;
+                font-weight: 400;
+                font-size: 14pt;
+            }
+        }
     }
 }
 
-.hud {
-    width: 280px;
-    background-color: #2c6c8a;
-    transition:.2s;
-    overflow:visible;
-    padding-bottom:100px;
-    
-    .control-tab{
-        background-image:image-url("img/hud-collapse-tab.png");
-        width: 40px;
-        height: 40px;
-        background-position:top center;
-        background-repeat:no-repeat;
-        top:265px;
-        position:absolute;
-        right:0px;
-        outline:none;
-        transition:0.2s;
-        cursor: pointer;
-        &:hover {
-            padding-right: 60px;
+@media screen and (max-width : 600px) {
+    .top-menu {
+        .float-right {
+            display: none;
         }
-    }    
+    }
+    .hud.goals.desktop {
+        display: none;
+    }
+    .hud.goals.mobile {
+        display: block;
+    }
+}
 
-    .headshot {
-        //background-image: image-url("img/default-profile.png");
-        height: 315px;
-        color: white;
-        background-size: cover;
-        transition:0.2s;
-            
-        .user {
-            height: 100%;
-            padding: 20px 20px 5px 20px;
-        }
-        
-        .greeting {
-            font-size: 12px;
-            padding-bottom: 5px;
-        }
-        
-        .full-name {
-            font-size: 25px;
-            padding-bottom: 10px;
-        }
-        
-        .actions i {
-            padding: 5px;
-        }        
+@media screen and (min-width : 600px) {
+    .hud.goals.mobile {
+        display: none;
     }
-    
-    .heading {
-        padding: 30px 0 0 20px;
-        text-transform: uppercase;
-        color: rgba(255,255,255, 0.6);
-        font-weight: bold;
-    }
-    
-    .achievements {
-        height: 65px;
-        font-size:small;
-    }
-    
-    .stat-title {
-        color: #62babf;
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 12px;
-    }
-    
-    .superscript {
-        vertical-align: super;
-        font-size: small;
-    }
-    
-    .stat .info {
-        color: white;
-        font-size: 30px;
-        padding-left: 10px;
-    }
-    
-    .stat1 {
-        height: 90px;
-        margin: 7px 10px 0 10px;
-            
-        .rank {
-            border-right: solid #62babf 1px;
-            height: 100%;
+    .hud.goals.desktop {
+        display: flex;
+
+        .bar {
+            height: 70px;
+            padding: 0 30px;
+            .inner-bar {
+                width: 600px;
+            }
         }
-        
-        .stat {
-            padding: 20px 0 0 15px;
+        .triangle {
+            position: absolute;
+            background-color: #1D506A;
+            color: #5AAAB3;
+            height: 70px;
+            width: 120px;
+            transform: rotate(-45deg);
+            top: -32px;
+            left: -60px;
+            padding-bottom: 7px;
+            span {
+                color: #5AAAB3;
+                font-size: 8pt;
+                font-weight: 500;
+            }
         }
-        
-        .rank .stat .total {
-            font-size: 25px;
+        .label {
+            font-size: 10pt;
+            color: #5AAAB3;
+            font-weight: 500;
         }
-        
-        .grid-size {
-        }        
-    
-        .stat-title {
-            font-weight: 400;
+        .number {
+            font-size: 18pt;
+            font-weight: 300;
+            vertical-align: bottom;
+            letter-spacing: 0;
         }
-            
-    }
-    
-    .stat2 {
-        height: 120px;
-        margin: 0 10px 0 10px;
-        border-top: solid #62babf 1px;
-            
-        .sprite-earned {
-            margin-top: 20px;
+        .md-caption {
+            font-size: 8pt;
         }
-        
-        .stat-title {
-            padding-top: 25px;
-            font-weight: 400;
+        .sub {
+            font-size: 10pt;
         }
-            
-        .sprite-earned {
-            margin-top: 20px;
+        .offset {
+            margin-top: 3px;
         }
-        
-        
-        .stat {
-            padding: 10px 0 0 15px;
-                
-            .info {
-                text-align: center;
-                padding: 0 30px 0 0;
-            }        
+
+        .icon {
+            margin-right: 10px;
+            height: 13px;
+            width: 13px;
+
+            &.medal {
+                background: image-url('img/medal-icon-alt.png');
+                background-size: contain;
+                height: 14px;
+                width: 9px;
+            }
+            &.personal-lead {
+                background: image-url('img/personal-lead-icon-alt.png');
+                background-size: contain;
+                height: 12px;
+                width: 10px;
+            }
+            &.grid-lead {
+                background: image-url('img/grid-lead-icon-alt.png');
+                background-size: contain;
+            }
+            &.grid {
+                background: image-url('img/grid-icon-alt.png');
+                background-size: contain;
+                height: 11px;
+                width: 12px;
+            }
+            &.earnings {
+                background: image-url('img/earnings-icon-alt.png');
+                background-size: contain;
+                height: 8px;
+                width: 13px;
+            }
+            &.co2 {
+                background: image-url('img/co2-icon-alt.png');
+                background-size: contain;
+                height: 11px;
+                width: 13px;
+            }
         }
-        sup{
-            font-size:small;
-        }
-    }
-    
-    .current-goals {
-        padding-top: 90px; 
-        font-size: small;   
-    }
-    
-    .stat4 {            
-        .stat {
-            padding: 20px 30px 0 20px;
-            
-            .progress {
-                .stat-title {
-                    text-align: left;
-                    padding-bottom: 10px;
+
+        .flex-50 {
+            position: relative;
+            overflow: hidden;
+            &:first-child {
+                border-right: 1px solid #5689A0;
+                .inner-bar {
+                    width: 500px;
                 }
-                &.purchase {
-                    i {
-                        float: left;
-                    }
-                    a {
-                        text-decoration: none;
-                        float: left;
-                        padding: 5px 0 0 10px;
-
-                        .stat-title {
-                            color: #FF9929;
-                            font-weight: 400;
-                        }
-                    }
+                .icon {
+                    margin-right: 7px;
                 }
-            }                 
-        }        
+            }
+        }
     }
-    
-    /* sprites */
-    .sprite {
-        background-image: image-url("img/profile-sprite.png");
-        background-repeat: no-repeat;
-        display: inline-block;
-    }
-    
-    .sprite-badge {
-        width: 12px;
-        height: 18px;
-        background-position: -5px -5px;
-    }
-    
-    .sprite-boxes {
-        width: 16px;
-        height: 16px;
-        background-position: -27px -5px;
-    }
-    
-    .sprite-co2 {
-        width: 24px;
-        height: 20px;
-        background-position: -53px -5px;
-    }
-    
-    .sprite-earned {
-        width: 26px;
-        height: 16px;
-        background-position: -87px -5px;
-    }
-    
-    .sprite-grid {
-        width: 22px;
-        height: 18px;
-        background-position: -123px -5px;
-    }
-    
-    .sprite-login {
-        width: 20px;
-        height: 17px;
-        background-position: -155px -5px;
-    }
-    
-    .sprite-proposal {
-        width: 21px;
-        height: 25px;
-        background-position: -185px -5px;
-    }
-    
-    .sprite-proposal-group {
-        width: 26px;
-        height: 26px;
-        background-position: -216px -5px;
-    }
-    
-    .sprite-rank {
-        width: 16px;
-        height: 26px;
-        background-position: -252px -5px;
-    }
+}
 
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+    .hud.goals.desktop {
+        .number {
+            font-size: 14pt;
+        }
+        .label {
+            font-size: 10pt;
+        }
+        a .product {
+          font-size: 12pt;
+        }
+        .title {
+          font-size: 9pt;
+        }
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 800px) {
+    .hud.goals.desktop {
+        .number {
+            font-size: 12pt;
+        }
+        .label {
+            font-size: 7pt;
+        }
+        .icon {
+            margin-right: 5px;
+        }
+        a .product {
+          font-size: 10pt;
+        }
+        .title {
+          font-size: 8pt;
+        }
+    }
 }

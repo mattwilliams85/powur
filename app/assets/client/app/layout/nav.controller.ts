@@ -22,7 +22,6 @@ module powur {
       return !!this.state.current.name.match(`${state}`);
     }
 
-    // TODO: Add animation to side, prevent mobile toggle and desktop toggle combo
     isOpen() { return this.$mdSidenav('left').isOpen(); };
 
     openMenu() {
