@@ -16,6 +16,10 @@ module powur {
       if (!this.lead) return;
       return this.lead.action('update');
     }
+    get submitAction(): Action {
+      if (!this.lead) return;
+      return this.lead.action('submit');
+    }
 
     constructor(private $log: ng.ILogService,
                 public $mdDialog: ng.material.IDialogService,
@@ -39,6 +43,20 @@ module powur {
     create() {
       this.createAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.lead = new SirenModel(response.data);
+      });
+    }
+
+    update() {
+      this.updateAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.lead = new SirenModel(response.data);
+
+        this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+          this.$mdDialog.cancel();
+        }, (response: any) => {
+          if (response.data.error) {
+            this.updateAction.field('notes').$error = { message: response.data.error.message };
+          }
+        });
       });
     }
 

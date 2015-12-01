@@ -14,13 +14,11 @@ if @lead.last_update
                   lead_update: @lead.last_update)
 end
 
-path = lead_path(@lead)
-resend = action(:resend, :post, resend_lead_path(@lead))
+actions_list = [
+  action(:resend, :post, resend_lead_path(@lead)) ]
 
-if @lead.submitted_at?
-  actions(resend)
-else
-  update = action(:update, :patch, path)
+unless @lead.submitted_at?
+  update = action(:update, :patch, lead_path(@lead))
     .field(:first_name, :text, value: @lead.customer.first_name)
     .field(:last_name, :text, value: @lead.customer.last_name)
     .field(:email, :email, required: false, value: @lead.customer.email)
@@ -50,10 +48,9 @@ else
     update.field(field.name, field.view_type, opts)
   end
 
-  list = [ resend, update, action(:delete, :delete, path) ]
-  if @lead.ready_to_submit?
-    list << action(:submit, :post, submit_lead_path(@lead))
-  end
-
-  actions(*list)
+  actions_list << update
+  actions_list << action(:delete, :delete, lead_path(@lead))
+  actions_list << action(:submit, :post, submit_lead_path(@lead))
 end
+
+actions(*actions_list)

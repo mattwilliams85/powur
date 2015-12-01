@@ -86,16 +86,55 @@
           <div class="heading"><div class="title">enter<b> household information</b></div></div>
           <md-content layout-padding layout="column">
             <md-input-container>
+              <label>street address</label>
+              <input ng-model="dialog.updateAction.field('address').value">
+              <div ng-messages="dialog.updateAction.field('address').$error" class="messages">
+                <div ng-message="message">{{ dialog.updateAction.field('address').$error.message }}</div>
+              </div>
+            </md-input-container>
+          </md-content>
+          <md-content layout-padding layout="row">
+            <md-input-container flex="40">
+              <label>city</label>
+              <input ng-model="dialog.updateAction.field('city').value">
+              <div ng-messages="dialog.updateAction.field('city').$error" class="messages">
+                <div ng-message="message">{{ dialog.updateAction.field('city').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="30">
+              <label>state</label>
+              <input ng-model="dialog.updateAction.field('state').value">
+              <div ng-messages="dialog.updateAction.field('state').$error" class="messages">
+                <div ng-message="message">{{ dialog.updateAction.field('state').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="30">
+              <label>zip</label>
+              <input ng-model="dialog.updateAction.field('zip').value">
+              <div ng-messages="dialog.updateAction.field('zip').$error" class="messages">
+                <div ng-message="message">{{ dialog.updateAction.field('zip').$error.message }}</div>
+              </div>
+            </md-input-container>
+          </md-content>
+          <md-content layout-padding layout="column">
+            <md-input-container>
               <label>average bill</label>
-              <input ng-model="dialog.updateAction.field('average_bill').value" type="tel">
+              <input ng-model="dialog.updateAction.field('average_bill').value" type="number">
               <div ng-messages="dialog.updateAction.field('average_bill').$error" class="messages">
                 <div ng-message="message">{{ dialog.updateAction.field('average_bill').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <md-input-container>
+              <label>additional notes</label>
+              <input ng-model="dialog.updateAction.field('notes').value">
+              <div ng-messages="dialog.updateAction.field('notes').$error" class="messages">
+                <div ng-message="message">{{ dialog.updateAction.field('notes').$error.message }}</div>
               </div>
             </md-input-container>
           </md-content>
 
           <div class="actions">
-            <md-button type="submit" ng-disabled="dialog.updateAction.submitting" class="md-primary">Submit To Solar City</md-button>
+            <md-button type="submit" ng-disabled="dialog.updateAction.submitting || dialog.submitAction.submitting" class="md-primary">Submit To Solar City</md-button>
           </div>
         </md-dialog-content>
       </div>

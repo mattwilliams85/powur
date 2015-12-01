@@ -36,7 +36,7 @@ module Auth
     end
 
     def create
-      require_input :first_name, :last_name, :email
+      require_input :first_name, :last_name, :email, :phone
 
       customer = Customer.create!(
         customer_input.merge(user_id: current_user.id))
@@ -45,11 +45,6 @@ module Auth
         customer:   customer,
         user:       current_user,
         data:       lead_input)
-
-      if customer.email?
-        PromoterMailer.product_invitation(customer).deliver_later
-      end
-      customer.delay.send_sms
 
       show
     end

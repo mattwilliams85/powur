@@ -43,6 +43,7 @@ en:
     update_avatar: You must submit an image to change your avatar
     update_lead: You cannot update a lead that has been submitted
     delete_lead: You cannot delete a lead that has been submitted
+    cannot_submit_lead: Incomplete lead. Not ready to submit.
     delete_rank: You can only delete the last rank
     delete_product: You cannot delete a product with existing quotes/orders
     duplicate_bonus_plan_start: "The bonus plan '%{plan}' already has this start date"
