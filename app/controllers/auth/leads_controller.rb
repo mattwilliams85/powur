@@ -7,7 +7,7 @@ module Auth
 
     page max_limit: 10
     sort created:  { created_at: :desc },
-         customer: 'customers.last_name asc, customers.first_name asc'
+         customer: 'leads.last_name asc, leads.first_name asc'
     filter :submitted_status,
            options:  [ :not_submitted, :submitted ],
            required: false

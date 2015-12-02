@@ -22,8 +22,8 @@ module Auth
       first = siren.entities.first
       last = siren.entities.last
 
-      first.properties.customer_id.must_equal customers(:garey).id
-      last.properties.customer_id.must_equal customers(:garry).id
+      first.properties.first_name.must_equal 'Garey'
+      last.properties.first_name.must_equal 'Garry'
     end
 
     def test_incomplete_lead_show
@@ -32,8 +32,7 @@ module Auth
 
       siren.must_be_class(:lead)
       siren.props_must_equal(id: lead.id)
-      siren.must_have_actions(:update, :delete, :resend)
-      siren.wont_have_actions(:submit)
+      siren.must_have_actions(:update, :delete, :resend, :submit)
     end
 
     def test_ready_to_submit_lead_show
@@ -69,7 +68,9 @@ module Auth
 
     def test_create
       VCR.use_cassette('zip_validation/valid') do
-        post :create, input
+        Lead.stub_any_instance(:valid_phone?, true) do
+          post :create, input
+        end
       end
 
       siren.must_be_class(:lead)
