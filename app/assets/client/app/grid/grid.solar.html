@@ -101,7 +101,7 @@
         <span class="label right" flex="50">PROGRESS</span>
       </div>
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
-        <div class="grid-row" layout="row">
+        <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <div class="left" flex="50" layout="row" layout-align="start center">
           <div class="circle" layout-align="center center" layout="row">
             <span>{{ lead.properties.first_name[0] }}{{ lead.properties.last_name[0] }}</span>

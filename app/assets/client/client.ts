@@ -53,6 +53,9 @@
 //= require grid/new-lead-popup
 //= require grid/grid.solar
 //= require grid/grid.powur
+//= require grid/show-invite-popup.solar
+//= require grid/show-lead-popup.solar
+//= require grid/update-invite-popup.solar
 
 //= require app/components/assets.constant
 

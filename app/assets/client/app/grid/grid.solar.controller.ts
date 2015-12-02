@@ -65,6 +65,79 @@ module powur {
     }
   }
 
+  class UpdateLeadDialogController {
+      static ControllerId = 'UpdateLeadDialogController';
+      static $inject = ['$log', '$mdDialog', 'parentCtrl', 'lead'];
+
+      parentCtrl: any;
+      lead: any;
+
+      constructor(private $log: ng.ILogService,
+                  public $mdDialog: ng.material.IDialogService,
+                  parentCtrl: ng.IScope,
+                  lead: any) {
+
+        this.lead = lead
+        this.parentCtrl = parentCtrl;
+
+        if (this.update) {
+          for (var i = 0; i < this.update.fields.length; i++) {
+            this.update.fields[i].value = this.customer[ this.update.fields[i].name ];
+          }
+
+          // this.lead.entity('invite-email').get((email_data: any) => {
+          //   this.lead.properties.email_data = email_data.properties;
+          // });
+        }
+      }
+
+      remove() {
+        this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+          delete this.lead;
+          this.$mdDialog.hide(response.data);
+        });
+      }
+
+      resendInvite() {
+        this.resend.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+          this.$mdDialog.hide(response.data);
+        });
+      }
+
+      updateInvite() {
+        this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+          // TODO: Have the backend return updated data rather than set it here
+          for (var i = 0; i < this.update.fields.length; i++) {
+            this.customer[this.update.fields[i].name] = this.update.fields[i].value;
+          }
+          // 
+          this.$mdDialog.hide(response.data);
+        });
+      }
+
+      leadStage() {
+        if (this.lead.properties.installed_at)  { return 5; }
+        if (this.lead.properties.contracted_at) { return 4; }
+        if (this.lead.properties.closed_won_at) { return 3; }
+        if (this.lead.properties.converted_at)  { return 2; }
+        if (this.lead.properties.submitted_at)  { return 1; }
+        return 0;
+      };
+
+      showLink(customer): string {
+        return 'https://powur.com/next/join/grid/' + customer.id;
+      }
+
+      cancel() {
+        this.$mdDialog.cancel();
+      }
+
+      get delete(): Action { return this.lead.action('delete') }
+      get resend(): Action { return this.lead.action('resend') }
+      get update(): Action { return this.lead.action('update') }
+      get customer(): any  { return this.lead.properties.customer }
+  }
+
   class GridSolarController extends AuthController {
     static ControllerId = 'GridSolarController';
     static $inject = ['leadsSummary', 'leads', '$mdDialog', '$timeout'];
@@ -107,6 +180,53 @@ module powur {
         }
       }).then((data: any) => {
         //
+      });
+    }
+
+    showLead(e: MouseEvent, lead) {
+      if (lead.properties.submitted_at) {
+        this.$mdDialog.show({
+          controller: 'UpdateLeadDialogController as dialog',
+          templateUrl: 'app/grid/show-lead-popup.solar.html',
+          parent: angular.element('body'),
+          targetEvent: e,
+          clickOutsideToClose: true,
+          locals: {
+            parentCtrl: this,
+            lead: lead
+          }
+        });
+      } else {
+        this.$mdDialog.show({
+          controller: 'UpdateLeadDialogController as dialog',
+          templateUrl: 'app/grid/show-invite-popup.solar.html',
+          parent: angular.element('body'),
+          targetEvent: e,
+          clickOutsideToClose: true,
+          locals: {
+            parentCtrl: this,
+            lead: lead
+          }
+        }).then((data: any) => {
+          // if (data) this.leads = new SirenModel(data);
+        });
+      }
+
+    }
+
+    inviteUpdate(e: MouseEvent, lead) {
+      this.$mdDialog.show({
+        controller: 'UpdateLeadDialogController as dialog',
+        templateUrl: 'app/grid/update-invite-popup.solar.html',
+        parent: angular.element('body'),
+        targetEvent: e,
+        clickOutsideToClose: true,
+        locals: {
+          parentCtrl: this,
+          lead: lead
+        }
+      }).then((data: any) => {
+        // if (data) this.leads.entities = new SirenModel(data).entities;
       });
     }
 
@@ -164,5 +284,6 @@ module powur {
   angular
     .module('powur.grid')
     .controller(NewLeadDialogController.ControllerId, NewLeadDialogController)
-    .controller(GridSolarController.ControllerId, GridSolarController);
+    .controller(GridSolarController.ControllerId, GridSolarController)
+    .controller(UpdateLeadDialogController.ControllerId, UpdateLeadDialogController);
 }
