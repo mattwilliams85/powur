@@ -16,7 +16,7 @@
         <div class="row collapse">
           <form ng-submit="leadPipelineSection.search()">
             <div class="no-padding large-12 medium-12 small-12 columns">
-              <input 
+              <input
                 id="customer-search"
                 type="search"
                 ng-model="customerSearch.string"
@@ -105,7 +105,7 @@
     <div class="row collapse carousel-box">
       <div class="w20percent columns">
         <!-- New Homeowner Button -->
-        <a ng-click="leadPipelineSection.newLead()">
+        <a href="/next/grid/solar" target="_self">
           <div class="new-lead" ng-class="{active: mode === 'new'}">
             <div class="icon">
               <span><i class="fa fa-plus fa-4x"></i></span>
@@ -172,7 +172,7 @@
                 </div>
                 <!-- Lead Customer Name -->
                 <div class="customer-name">
-                  <span>{{lead.properties.customer}}</span>
+                  <span>{{ lead.properties.customer.first_name }} {{ lead.properties.customer.last_name }}</span>
                 </div>
                 <!-- Lead Date -->
                 <div class="date-text">

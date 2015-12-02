@@ -6,6 +6,8 @@ json.entities @leads, partial: 'item', as: :lead
 
 actions = []
 
+actions << index_action(request.path, true) # for old dashboard
+
 actions << action(:validate_zip, :post, validate_zip_validator_path)
   .field(:zip, :text)
 
