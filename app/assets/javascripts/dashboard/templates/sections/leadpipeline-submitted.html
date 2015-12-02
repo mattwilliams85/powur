@@ -3,7 +3,7 @@
 
   <h1><i class="fa fa-book fa-2x"></i> Household Status</h1>
   <label>Contact Information</label>
-  <p class="name">{{currentLead.customer}}</p>
+  <p class="name">{{ currentLead.first_name }} {{ currentLead.last_name }}</p>
   <p class="email"><a href="mailto:{{currentLead.email}}">{{currentLead.email}}</a></p>
   <p class="phone">{{currentLead.phone}}</p>
   <label>Lead ID: {{currentLead.id}}</label>
@@ -33,7 +33,7 @@
           <div class="shine mask"></div>
           <div class="inset mask"></div>
           <div class="stripe mask"></div>
-          <div class="progress-cell"  
+          <div class="progress-cell"
                ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 1 }">
             <div class="arrow-block" id="block-1"></div>
             <div class='warning' ng-if="leadItem.properties.action_copy && leadPipelineSection.leadStage(leadItem) === 1"></div>
@@ -78,7 +78,7 @@
       <div
         class="illuminated progress-cell"
         ng-if="leadPipelineSection.leadStage(leadItem) == 4">
-        Installation 
+        Installation
       </div>
       <div
         class="illuminated progress-cell"
