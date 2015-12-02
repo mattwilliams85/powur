@@ -77,6 +77,13 @@ module powur {
       return this.leadsSummary.properties;
     }
 
+    get filters(): any {
+      var keys = _.keys(this.leads.properties.filters);
+      return _.filter(keys, function(k) {
+        return k !== 'options';
+      });
+    }
+
     constructor(public leadsSummary: ISirenModel,
                 public leads: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
@@ -119,25 +126,30 @@ module powur {
 
     loadMore() {
       var page = this.leads.properties.paging.current_page,
-          opts = {
-            days: this.days,
-            page: page + 1,
-            search: this.searchQuery
-          },
+          opts = { days: this.days, page: page + 1, search: this.searchQuery },
           entityType = this.leads.properties.entityType || 'user-team_leads';
 
       if (this.leads.properties.filters) {
-        for (var key in this.leads.properties.filters) {
-          opts[key] = this.leads.properties.filters[key];
-        }
+        var filterValue;
+        _.forEach(this.filters, (key: string) => {
+          filterValue = this.leads.properties.filters[key];
+          if (filterValue) opts[key] = filterValue;
+        });
       }
 
       this.session.getEntity(SirenModel, entityType, opts, true).then((data: any) => {
-        if (!data.entities.length) return;
-        this.leads.entities = this.leads.entities.concat(data.entities);
         this.leads.properties = data.properties;
         this.leads.properties.entityType = entityType;
+        if (!data.entities.length) return;
+        this.leads.entities = this.leads.entities.concat(data.entities);
       });
+    }
+
+    filter(name: string, value: string) {
+      this.leads.properties.filters[name] = value;
+      this.leads.properties.paging.current_page = 0;
+      this.leads.entities = [];
+      this.loadMore();
     }
   }
 
