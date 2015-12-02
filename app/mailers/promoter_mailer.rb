@@ -54,10 +54,10 @@ class PromoterMailer < ActionMailer::Base
   end
 
   def new_quote(lead)
-    to = lead.customer.name_and_email
+    to = lead.name_and_email
     pdf_url = "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-home-solar-guide.pdf"
     merge_vars = {
-      customer_full_name: lead.customer.full_name,
+      customer_full_name: lead.full_name,
       sponsor_full_name:  lead.user.full_name,
       sponsor_photo:      lead.user.avatar.url(:thumb),
       solar_guide_url:    pdf_url }

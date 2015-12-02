@@ -38,13 +38,11 @@ module Auth
     def create
       require_input :first_name, :last_name, :email, :phone
 
-      customer = Customer.create!(
-        customer_input.merge(user_id: current_user.id))
       @lead = Lead.create!(
-        product_id: product.id,
-        customer:   customer,
-        user:       current_user,
-        data:       lead_input)
+        lead_input.merge(
+          product_id: product.id,
+          user:       current_user,
+          data:       lead_data_input))
 
       show
     end
@@ -52,8 +50,7 @@ module Auth
     def update
       error!(:update_lead) if @lead.submitted_at?
 
-      @lead.customer.update_attributes!(customer_input)
-      @lead.update(data: lead_input)
+      @lead.update(lead_input.merge(data: lead_data_input))
 
       show
     end
@@ -90,11 +87,10 @@ module Auth
       scope = Lead
         .includes(:customer, :user, :product)
         .references(:customer, :user, :product)
-        .joins(:customer)
       scope = scope.where(user_id: @user.id) if @user
       scope = scope.where(
         'leads.created_at > ?', params[:days].to_i.days.ago) if params[:days]
-      scope = scope.merge(Customer.search(params[:search])) if params[:search]
+      scope = scope.merge(Lead.search(params[:search])) if params[:search]
       @leads = scope
     end
 
@@ -109,19 +105,7 @@ module Auth
       not_found!(:lead) unless @lead
     end
 
-    # def find_or_create_customer
-    #   customer = Customer.where(
-    #     email:   customer_input['email'],
-    #     user_id: current_user.id).first
-    #   if customer && !customer.lead?
-    #     customer.update_attributes!(customer_input)
-    #     customer
-    #   else
-    #     Customer.create!(customer_input)
-    #   end
-    # end
-
-    def customer_input
+    def lead_input
       allow_input(:first_name, :last_name, :email,
                   :phone, :address, :city, :state, :zip, :notes)
     end
@@ -130,7 +114,7 @@ module Auth
       @product ||= Product.default
     end
 
-    def lead_input
+    def lead_data_input
       allow_input(*product.quote_fields.map(&:name))
     end
   end

@@ -3,8 +3,10 @@ siren json
 json.partial! 'auth/leads/item', lead: @lead
 
 json.properties do
-  json.call(@lead.customer, :email, :phone,
+  json.call(@lead, :email, :phone,
             :address, :city, :state, :zip, :notes)
+  json.call(@lead.customer, :email, :phone,
+            :address, :city, :state, :zip, :notes) if @lead.customer
   json.product_fields @lead.data.each { |key, value| json.set! key, value }
   json.call(@lead, :action_copy, :completion_chance) if @lead.lead_action?
 end
@@ -19,15 +21,15 @@ actions_list = [
 
 unless @lead.submitted_at?
   update = action(:update, :patch, lead_path(@lead))
-    .field(:first_name, :text, value: @lead.customer.first_name)
-    .field(:last_name, :text, value: @lead.customer.last_name)
-    .field(:email, :email, required: false, value: @lead.customer.email)
-    .field(:phone, :text, required: false, value: @lead.customer.phone)
-    .field(:address, :text, required: false, value: @lead.customer.address)
-    .field(:city, :text, required: false, value: @lead.customer.city)
-    .field(:state, :text, required: false, value: @lead.customer.state)
-    .field(:zip, :text, required: false, value: @lead.customer.zip)
-    .field(:notes, :text, required: false, value: @lead.customer.notes)
+    .field(:first_name, :text, value: @lead.first_name)
+    .field(:last_name, :text, value: @lead.last_name)
+    .field(:email, :email, required: false, value: @lead.email)
+    .field(:phone, :text, required: false, value: @lead.phone)
+    .field(:address, :text, required: false, value: @lead.address)
+    .field(:city, :text, required: false, value: @lead.city)
+    .field(:state, :text, required: false, value: @lead.state)
+    .field(:zip, :text, required: false, value: @lead.zip)
+    .field(:notes, :text, required: false, value: @lead.notes)
 
   @lead.product.quote_fields.each do |field|
     opts = {

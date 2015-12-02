@@ -1,4 +1,9 @@
+require 'valid_email'
+
 class Lead < ActiveRecord::Base
+  include NameEmailSearch
+  include Phone
+
   belongs_to :user
   belongs_to :product
   belongs_to :customer
@@ -11,7 +16,7 @@ class Lead < ActiveRecord::Base
     :in_progress, :proposal, :closed_won, :contract, :installed,
     :duplicate, :ineligible, :closed_lost]
 
-  add_search :user, :customer, [ :user, :customer ]
+  add_search :user, [ :user ]
 
   scope :not_submitted, -> { where('submitted_at IS NULL') }
   scope :submitted_status, -> (status) { send(status) }
@@ -51,7 +56,22 @@ class Lead < ActiveRecord::Base
     }
   end
 
-  validates_presence_of :product_id, :customer_id, :user_id
+  validates_presence_of :product_id, :user_id
+  validates_presence_of :first_name, :last_name,
+                        :email, :phone, :address, :city, :state, :zip,
+                        allow_nil: true
+  validates_length_of :first_name, maximum: 40
+  validates_length_of :last_name, maximum: 40
+  validates :email, presence:   true,
+                    email:      true, if: :email_present?
+  def email_present?
+    email?
+  end
+
+  validates_with ::Phone::Validator, fields: [:phone],
+                                     if:     'phone.present?',
+                                     on:     :create
+
 
   before_create :validate_data_status
   before_update :validate_data_status
@@ -84,11 +104,15 @@ class Lead < ActiveRecord::Base
   end
 
   def can_email?
-    customer.email && submitted_at?
+    email && submitted_at?
   end
 
   def email_customer
     PromoterMailer.new_quote(self).deliver_later if can_email?
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def converted_count_at_time
@@ -175,10 +199,16 @@ class Lead < ActiveRecord::Base
     submitted("simulated:#{SecureRandom.hex(2)}", DateTime.current)
   end
 
+  def complete?
+    %w(first_name last_name email phone address city state zip).all? do |f|
+      !attributes[f].nil?
+    end
+  end
+
   def calculate_data_status
     return :submitted if submitted_at?
-    return :incomplete unless customer.complete?
-    return :ineligible_location unless Lead.eligible_zip?(customer.zip)
+    return :incomplete unless complete?
+    return :ineligible_location unless Lead.eligible_zip?(zip)
     :ready_to_submit
   end
 

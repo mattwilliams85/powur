@@ -5,10 +5,6 @@ class SolarCityForm
     @lead = lead
   end
 
-  def customer
-    lead.customer
-  end
-
   def post
     url = ENV['SOLAR_CITY_LEAD_URL']
     @response = RestClient::Request.execute(
@@ -69,14 +65,14 @@ class SolarCityForm
   def post_body
     { 'External_ID__c'           => Lead.id_to_external(lead.id),
       'Lead_Generator__c'        => lead.user_id,
-      'FirstName'                => customer.first_name,
-      'LastName'                 => customer.last_name,
-      'Street'                   => customer.address,
-      'City'                     => customer.city,
-      'PostalCode'               => customer.zip,
-      'Phone'                    => customer.phone,
-      'Email'                    => customer.email,
+      'FirstName'                => lead.first_name,
+      'LastName'                 => lead.last_name,
+      'Street'                   => lead.address,
+      'City'                     => lead.city,
+      'PostalCode'               => lead.zip,
+      'Phone'                    => lead.phone,
+      'Email'                    => lead.email,
       'Monthly_Electric_Bill__c' => lead.data['average_bill'],
-      'Notes_Description__c'     => customer.notes }
+      'Notes_Description__c'     => lead.notes }
   end
 end
