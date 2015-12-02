@@ -24,7 +24,7 @@
     "karma-typescript-preprocessor": "0.0.20",
     "phantomjs": "^1.9.18",
     "q": "^1.4.1",
-    "typescript": "^1.6.2"
+    "typescript": "^1.7.3"
   },
   "repository": {
     "type": "git",
