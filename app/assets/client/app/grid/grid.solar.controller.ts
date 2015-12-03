@@ -84,6 +84,10 @@ module powur {
       });
     }
 
+    get dateFilterLabel() {
+      return 'Last ' + this.days + ' days';
+    }
+
     constructor(public leadsSummary: ISirenModel,
                 public leads: ISirenModel,
                 public $mdDialog: ng.material.IDialogService,
@@ -145,8 +149,12 @@ module powur {
       });
     }
 
-    filter(name: string, value: string) {
-      this.leads.properties.filters[name] = value;
+    filter(name: string, value: any) {
+      if (name === 'days') {
+        this.days = value;
+      } else {
+        this.leads.properties.filters[name] = value;
+      }
       this.leads.properties.paging.current_page = 0;
       this.leads.entities = [];
       this.loadMore();

@@ -24,6 +24,7 @@
     line-height: 10pt;
     cursor: pointer;
     user-select: none;
+    text-transform: uppercase;
 
     .toggle {
       font-size: 16pt;
@@ -33,17 +34,18 @@
       margin-left: -13px;
 
       &:after {
-        content: '-'
+        content: '-';
       }
+
       &.closed {
         font-size: 12pt;
+
         &:after {
-          content: '+'
+          content: '+';
         }
       }
     }
   }
-
 
   .label {
     font-size: 6pt;
@@ -51,12 +53,12 @@
 
   .left {
     text-align: left;
-    padding-left: 5%
+    padding-left: 5%;
   }
 
   .right {
     text-align: right;
-    padding-right: 5%
+    padding-right: 5%;
   }
 
   .insight {
@@ -85,7 +87,7 @@
     }
 
     .grid-row-wrap:last-child md-divider {
-      display: none
+      display: none;
     }
 
     .grid-row {

@@ -3,7 +3,22 @@
     <md-tab ng-click="grid.showLeads('user-team_leads');">GRID</md-tab>
     <md-tab ng-click="grid.showLeads('user-leads');">PERSONAL</md-tab>
     <md-tab ng-click="grid.showSearch = true">SEARCH</md-tab>
+    <md-tab>
+      <md-menu md-position-mode="target-right target" >
+        <a ng-click="$mdOpenMenu($event)">{{ grid.dateFilterLabel }}</a>
+        <md-menu-content width="4">
+          <md-menu-item ng-repeat="d in [7, 30, 60]">
+            <md-button ng-click="grid.filter('days', d)">
+              <div layout="row">
+                <p flex>In last {{ d }} days</p>
+              </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-tab>
   </md-tabs>
+
   <form ng-submit="grid.search()" novalidate autocomplete="off">
     <input ng-model="grid.searchQuery" ng-show="grid.showSearch" type="text" class="search" placeholder="SEARCH" pw-focus-on-show>
   </form>
@@ -13,13 +28,11 @@
   </md-tabs>
 
   <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
+
   <div class="accordion" ng-click="hideInsight = !hideInsight" layout="row" layout-align="space-between-center">
     <span>
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
       GRID <b>INSIGHT</b>
-    </span>
-    <span>
-      LAST 60 DAYS
     </span>
   </div>
 
@@ -49,7 +62,6 @@
   <div class="accordion" ng-click="hideGeo = !hideGeo" layout="row" layout-align="space-between center">
     <span class="toggle" ng-class="{'closed': hideGeo }"></span>
     <span>GEO <b>SUMMARY</b></span>
-    <span>LAST 60 DAYS</span>
   </div>
 
   <div class="summary geo" ng-hide="hideGeo">
@@ -78,7 +90,7 @@
       GRID <b>SUMMARY</b>
     </span>
     <span>
-      LAST 60 DAYS
+      {{ grid.dateFilterLabel }}
     </span>
   </div>
 
