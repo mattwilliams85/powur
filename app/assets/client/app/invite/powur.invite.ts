@@ -22,15 +22,15 @@ module powur {
         controller: 'InviteController as invite',
 
       })
-      .state('home.invite.solar', {
-        url: '/solar',
-        templateUrl: 'app/invite/invite.solar.html',
-        controller: 'InviteSolarController as invite',
-        params: { title: 'invite' },
-        resolve: {
-          invites: ['SessionService', solarInvites]
-        }
-      })
+      // .state('home.invite.solar', {
+      //   url: '/solar',
+      //   templateUrl: 'app/invite/invite.solar.html',
+      //   controller: 'InviteSolarController as invite',
+      //   params: { title: 'invite' },
+      //   resolve: {
+      //     invites: ['SessionService', solarInvites]
+      //   }
+      // })
       .state('home.invite.grid', {
         url: '/grid',
         templateUrl: 'app/invite/invite.grid.html',

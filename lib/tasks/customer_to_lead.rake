@@ -1,10 +1,19 @@
 namespace :powur do
+  def find_or_create_lead(product, customer)
+    attrs = { product_id: product.id, customer_id: customer.id }
+    Lead.find_or_create_by(attrs) do |lead|
+      lead.user_id = customer.user_id
+    end
+  end
+
   task customer_to_lead: :environment do
-    Lead.joins(:customer).includes(:customer).find_each do |l|
+    Customer.find_each do |customer|
+      next unless customer.user_id
+      lead = find_or_create_lead(Product.default, customer)
       keys = %w(first_name last_name email phone address city state zip notes)
-      attrs = l.customer.attributes
+      attrs = customer.attributes
         .select { |k, v| keys.include?(k) && v.present? }
-      l.update_columns(attrs) unless attrs.empty?
+      lead.update_columns(attrs) unless attrs.empty?
     end
   end
 end
