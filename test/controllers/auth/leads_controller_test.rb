@@ -90,7 +90,7 @@ module Auth
     def test_delete
       delete :destroy, id: leads(:incomplete).id
 
-      response.status.must_equal 204
+      response.status.must_equal 200
     end
 
     def test_delete_unowned_lead
