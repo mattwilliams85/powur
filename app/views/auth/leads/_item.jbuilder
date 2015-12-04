@@ -24,22 +24,23 @@ json.properties do
 end
 
 actions = []
-actions << action(:update, :patch, product_invite_path(lead.customer))
-  .field(:first_name, :text, value: lead.customer.first_name)
-  .field(:last_name, :text, value: lead.customer.last_name)
-  .field(:email, :email, value: lead.customer.email)
-  .field(:phone, :text, value: lead.customer.phone)
-  .field(:address, :text, value: lead.customer.address)
-  .field(:city, :text, value: lead.customer.city)
-  .field(:state, :text, value: lead.customer.state)
-  .field(:zip, :text, value: lead.customer.zip)
-actions << action(:resend, :post, resend_product_invite_path(lead.customer))
-actions << action(:delete, :delete, product_invite_path(lead.customer))
+actions << action(:update, :patch, lead_path(lead))
+  .field(:first_name, :text, value: lead.first_name)
+  .field(:last_name, :text, value: lead.last_name)
+  .field(:email, :email, value: lead.email)
+  .field(:phone, :text, value: lead.phone)
+  .field(:address, :text, value: lead.address)
+  .field(:city, :text, value: lead.city)
+  .field(:state, :text, value: lead.state)
+  .field(:zip, :text, value: lead.zip)
+actions << action(:resend, :post, resend_lead_path(lead))
+actions << action(:delete, :delete, lead_path(lead))
 
 actions(*actions) if !lead.submitted?
 
-entity_list = [ entity(%w(email),
+entity_list = []
+entity_list << entity(%w(email),
                        'invite-email',
-                       email_product_invite_path(lead.customer.id)) ]
+                       email_product_invite_path(lead.customer.id)) if lead.customer
 
 self_link lead_path(lead)

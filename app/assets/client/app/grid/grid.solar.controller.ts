@@ -82,7 +82,7 @@ module powur {
 
         if (this.update) {
           for (var i = 0; i < this.update.fields.length; i++) {
-            this.update.fields[i].value = this.customer[ this.update.fields[i].name ];
+            this.update.fields[i].value = this.lead.properties[ this.update.fields[i].name ];
           }
 
           // this.lead.entity('invite-email').get((email_data: any) => {
@@ -106,23 +106,9 @@ module powur {
 
       updateInvite() {
         this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          // TODO: Have the backend return updated data rather than set it here
-          for (var i = 0; i < this.update.fields.length; i++) {
-            this.customer[this.update.fields[i].name] = this.update.fields[i].value;
-          }
-          // 
           this.$mdDialog.hide(response.data);
         });
       }
-
-      leadStage() {
-        if (this.lead.properties.installed_at)  { return 5; }
-        if (this.lead.properties.contracted_at) { return 4; }
-        if (this.lead.properties.closed_won_at) { return 3; }
-        if (this.lead.properties.converted_at)  { return 2; }
-        if (this.lead.properties.submitted_at)  { return 1; }
-        return 0;
-      };
 
       showLink(customer): string {
         return 'https://powur.com/next/join/grid/' + customer.id;
@@ -145,6 +131,7 @@ module powur {
     days: number = 60;
     searchQuery: string;
     showSearch: boolean;
+    stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install']; 
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -183,6 +170,15 @@ module powur {
       });
     }
 
+    leadStage(lead) {
+      if (lead.properties.installed_at)  { return 5; }
+      if (lead.properties.contracted_at) { return 4; }
+      if (lead.properties.closed_won_at) { return 3; }
+      if (lead.properties.converted_at)  { return 2; }
+      if (lead.properties.submitted_at)  { return 1; }
+      return 0;
+    };
+    
     showLead(e: MouseEvent, lead) {
       if (lead.properties.submitted_at) {
         this.$mdDialog.show({
@@ -211,7 +207,6 @@ module powur {
           // if (data) this.leads = new SirenModel(data);
         });
       }
-
     }
 
     inviteUpdate(e: MouseEvent, lead) {

@@ -3,6 +3,72 @@
   text-align: center;
   color: #666;
 
+  .progress-bar {
+    position: relative;
+    width: 100%;
+
+    .node-wrap {
+      position: relative;
+    }
+
+    .node {
+      height: 14px;
+      width: 14px;
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      border-radius: 50%;
+      z-index: 2;
+      position: relative;
+    }
+
+    .highlight {
+      display: none;
+      background: #01b598;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto auto;
+      height: 0px;
+      width: 0px;
+      border-radius: 50%;
+      z-index: 3;
+      &.active {
+        display: block;
+      }
+      &.stage-1 { animation: pop-in .2s .3s forwards; }
+      &.stage-2 { animation: pop-in .2s .4s forwards; }
+      &.stage-3 { animation: pop-in .2s .5s forwards; }
+      &.stage-4 { animation: pop-in .2s .6s forwards; }
+      &.stage-5 { animation: pop-in .2s .7s forwards; }
+    }
+
+    .bar {
+      width: calc(100% - 10px);
+      height: 4px;
+      background: #e0e0e0;
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      margin: auto;
+
+      &.active {
+        width: 0px;
+        background: #01b598;
+        z-index: 3;
+        transition: width .5s .3s;
+        &.disabled {
+          width: 0px !important;
+        }
+      }
+    }
+
+    .header {
+      margin: 10px 0 0 0;
+    }
+  }
+
   .md-secondary {
     width: 80%;
     max-width: 400px;
@@ -95,8 +161,17 @@
       background: #EFEFEF;
       width: 100%;
       cursor: pointer;
+
       .count {
         margin: 0 auto;
+      }
+
+      .right {
+        padding: 0 15px;
+      }
+
+      .progress-bar {
+        margin: 5px 0;
       }
     }
 
@@ -109,12 +184,12 @@
     }
 
     .text-lg {
-      font-size: 7pt;
+      font-size: 6.5pt;
       line-height: 10pt;
     }
 
     .text-sm {
-      font-size: 6pt;
+      font-size: 5pt;
     }
 
     &.geo .grid-row-wrap {
@@ -123,7 +198,13 @@
   }
 
   .icon {
-    height: 7pt;
+    height: 25px;
+    width: 25px;
+    margin-bottom: 2px;
+    &.sent {
+      background: image-url("img/solar-invite-sent-icon-alt.png");
+      background-size: contain;
+    }
   }
 
   .circle {
@@ -163,6 +244,7 @@
 
 .grid-popup {
   font-size: 7pt;
+  text-align: left;
 
   .side-bg {
     width: 20px;
@@ -248,6 +330,12 @@
   }
 
   .progress {
+    .progress-bar {
+
+      .header {
+        margin: 10px 0 0 0;
+      }
+    }
 
     .number {
       margin: 0 0 5px 0;
@@ -256,68 +344,6 @@
         color: $pow-color-orange;
       }
     }
-    .progress-bar {
-      position: relative;
-
-      .node-wrap {
-        position: relative;
-      }
-
-      .node {
-        height: 16px;
-        width: 16px;
-        background: #fff;
-        border: 3px solid #e0e0e0;
-        border-radius: 50%;
-        z-index: 2;
-        position: relative;
-      }
-
-      .highlight {
-        display: none;
-        background: $pow-color-green;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto auto;
-        height: 0px;
-        width: 0px;
-        border-radius: 50%;
-        z-index: 3;
-        &.active {
-          display: block;
-        }
-        &.stage-1 { animation: pop-in .2s .3s forwards; }
-        &.stage-2 { animation: pop-in .2s .4s forwards; }
-        &.stage-3 { animation: pop-in .2s .5s forwards; }
-        &.stage-4 { animation: pop-in .2s .6s forwards; }
-        &.stage-5 { animation: pop-in .2s .7s forwards; }
-      }
-
-      .bar {
-        width: calc(100% - 10px);
-        height: 4px;
-        background: #e0e0e0;
-        position: absolute;
-        top: 6px;
-        left: 10px;
-        margin: auto;
-
-        &.active {
-          width: 0px;
-          background: $pow-color-green;
-          z-index: 1;
-          transition: width .5s .3s;
-        }
-      }
-
-      .header {
-        margin: 10px 0 0 0;
-      }
-    }
-
   }
 
   .info {
@@ -360,6 +386,6 @@
 }
 
 @keyframes pop-in {
-  100% { width: 12px; height: 12px; }
+  100% { width: 10px; height: 10px; }
 }
 
