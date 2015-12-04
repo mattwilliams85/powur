@@ -3,7 +3,7 @@ module Auth
     before_action :fetch_user!
     before_action :fetch_leads, only: [ :index, :team, :destroy, :resend ]
     before_action :fetch_lead,
-                  only: [ :show, :update, :destroy, :resend, :submit ]
+                  only: [ :show, :update, :destroy, :resend, :submit, :invite ]
 
     page max_limit: 10
     sort created:  { created_at: :desc },
@@ -79,6 +79,16 @@ module Auth
     rescue Lead::SolarCityApiError => e
       Airbrake.notify(e)
       error!(:solarcity_api)
+    end
+
+    def invite
+      if @lead.not_sent?
+        PromoterMailer.product_invitation(@lead).deliver_later if @lead.email?
+        @lead.delay.send_sms_invite
+        @lead.sent!
+      end
+
+      show
     end
 
     private

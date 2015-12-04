@@ -75,7 +75,7 @@
       </div>
     </form>
 
-    <form ng-show="dialog.isEligible && dialog.lead" ng-submit="dialog.update()" layout="row" novalidate autocomplete="off">
+    <form ng-show="dialog.isEligible && dialog.lead" layout="row" novalidate autocomplete="off">
       <div class="side-bg"></div>
       <div layout="column" flex>
         <div class="banner solar" hide-sm>
@@ -134,7 +134,8 @@
           </md-content>
 
           <div class="actions">
-            <md-button type="submit" ng-disabled="dialog.updateAction.submitting || dialog.submitAction.submitting" class="md-primary">Submit To Solar City</md-button>
+            <md-button ng-disabled="!dialog.inviteAction || dialog.submitting" ng-click="dialog.sendInvite()" class="md-primary" type="submit">Send Invite</md-button>
+            <md-button ng-disabled="dialog.submitting" ng-click="dialog.submitToSC()" class="md-primary" type="submit">Submit To Solar City</md-button>
           </div>
         </md-dialog-content>
       </div>

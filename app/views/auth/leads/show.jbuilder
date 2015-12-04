@@ -52,6 +52,7 @@ unless @lead.submitted_at?
   actions_list << update
   actions_list << action(:delete, :delete, lead_path(@lead))
   actions_list << action(:submit, :post, submit_lead_path(@lead))
+  actions_list << action(:invite, :post, invite_lead_path(@lead)) if @lead.not_sent?
 end
 
 actions(*actions_list)

@@ -16,7 +16,7 @@ class Lead < ActiveRecord::Base
     :in_progress, :proposal, :closed_won, :contract, :installed,
     :duplicate, :ineligible, :closed_lost]
   enum invite_status: [
-    :not_set, :sent, :initiated, :accepted ]
+    :not_sent, :sent, :initiated, :accepted ]
 
   add_search :user, [ :user ]
 
@@ -158,6 +158,24 @@ class Lead < ActiveRecord::Base
 
   def action_badge
     lead_action? && !contract? && !installed?
+  end
+
+  def send_sms_invite
+    return if phone.nil? || !valid_phone?(phone)
+
+    opts = Rails.configuration.action_mailer.default_url_options
+    # TODO: this will change when the new public page is ready
+    join_url = URI.join("#{opts[:protocol]}://#{opts[:host]}",
+                        'next/join/solar/',
+                        code).to_s
+
+    message = I18n.t('sms.solar_invite', name: user.full_name, url: join_url)
+
+    twilio_client = TwilioClient.new
+    twilio_client.send_message(
+      to:   phone,
+      from: twilio_client.numbers_for_personal_sms.sample,
+      body: message)
   end
 
   def mandrill

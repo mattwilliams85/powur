@@ -69,8 +69,7 @@ Rails.application.routes.draw do
 
     resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
       member do
-        post :resend
-        post :submit
+        post :resend, :submit, :invite
       end
       collection do
         get :team

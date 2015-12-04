@@ -20,12 +20,21 @@ module powur {
       if (!this.lead) return;
       return this.lead.action('submit');
     }
+    get inviteAction(): Action {
+      if (!this.lead) return;
+      return this.lead.action('invite');
+    }
+
+    get submitting(): boolean {
+      return (this.updateAction && this.updateAction.submitting) ||
+             (this.submitAction && this.submitAction.submitting) ||
+             (this.inviteAction && this.inviteAction.submitting);
+    }
 
     constructor(private $log: ng.ILogService,
                 public $mdDialog: ng.material.IDialogService,
                 public leads: ISirenModel) {
 
-      this.isEligible = false;
       this.verifyEligibilityAction.field('zip').$error = {};
       this.verifyEligibilityAction.field('zip').value = '';
     }
@@ -46,7 +55,13 @@ module powur {
       });
     }
 
-    update() {
+    sendInvite() {
+      this.inviteAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.cancel();
+      });
+    }
+
+    submitToSC() {
       this.updateAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.lead = new SirenModel(response.data);
 
@@ -127,7 +142,7 @@ module powur {
     days: number = 60;
     searchQuery: string;
     showSearch: boolean;
-    stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install']; 
+    stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install'];
 
     get insight(): any {
       return this.leadsSummary.properties;
