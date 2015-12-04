@@ -8,7 +8,7 @@
       <a href="/profile" target="_self">
         <div class="avatar" ng-style="{{ nav.headshotStyle }}"></div>
         <span>Hello, {{ nav.userData.first_name }}</span>
-      </a> 
+      </a>
       &nbsp;|&nbsp;
       <span ng-click="nav.logout()">LOGOUT</span>
     </div>
@@ -60,6 +60,11 @@
     <a href="/upgrade" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-hide="nav.home.userData['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
         <i class="sprite sprite-upgrade"></i><span>Upgrade</span>
+      </div>
+    </a>
+    <a href="/profile" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
+        <i class="sprite sprite-admin"></i><span>Profile</span>
       </div>
     </a>
     <a href="/admin" target="_self">
