@@ -111,11 +111,10 @@
             <div class="uppercase text-sm">{{ lead.properties.city }}, {{ lead.properties.state }}</div>
           </div>
           </div>
-          <div ng-if="lead.properties.data_status === 'ready_to_submit'" class="uppercase right" flex="50" layout="column" layout-align="center center">
-            <div class="icon {{ lead.properties.customer.status }}"></div>
+          <div ng-if="lead.properties.data_status !== 'submitted'" class="uppercase right" flex="50" layout="column" layout-align="center center">
+            <div class="icon {{ grid.leadStatus(lead) }}"></div>
             <div class="uppercase text-lg">
-              <span ng-if="lead.properties.customer.status !== 'ineligible_location'">Invitation</span>
-              {{ lead.properties.customer.status }}
+              Invitation {{ grid.leadStatus(lead) }}
             </div>
           </div>
           <div ng-if="lead.properties.data_status === 'submitted'" class="uppercase right" flex="50" layout="column" layout-align="center start">

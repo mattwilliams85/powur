@@ -1,7 +1,7 @@
 module Auth
   class LeadsController < AuthController
     before_action :fetch_user!
-    before_action :fetch_leads, only: [ :index, :team ]
+    before_action :fetch_leads, only: [ :index, :team, :destroy, :resend ]
     before_action :fetch_lead,
                   only: [ :show, :update, :destroy, :resend, :submit ]
 
@@ -60,13 +60,13 @@ module Auth
 
       @lead.destroy
 
-      head :no_content
+      index
     end
 
     def resend
       @lead.email_customer if @lead.can_email?
 
-      show
+      index
     end
 
     def submit

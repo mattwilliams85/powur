@@ -201,9 +201,25 @@
     height: 25px;
     width: 25px;
     margin-bottom: 2px;
+    background: image-url("img/solar-invite-sent-icon.png");
+    background-size: contain;
     &.sent {
       background: image-url("img/solar-invite-sent-icon-alt.png");
       background-size: contain;
+    }
+    &.ineligible {
+      background: image-url("img/solar-invite-ineligible-icon-alt.png");
+      background-size: contain;
+      height: 20px;
+      width: 20px;
+      margin-bottom: 4px;
+    }
+    &.initiated {
+      background: image-url("img/solar-invite-initiated-icon-alt.png");
+      background-size: contain;
+      height: 21px;
+      width: 21px;
+      margin-left: 3px;
     }
   }
 

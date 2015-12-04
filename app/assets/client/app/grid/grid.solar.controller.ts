@@ -84,10 +84,6 @@ module powur {
           for (var i = 0; i < this.update.fields.length; i++) {
             this.update.fields[i].value = this.lead.properties[ this.update.fields[i].name ];
           }
-
-          // this.lead.entity('invite-email').get((email_data: any) => {
-          //   this.lead.properties.email_data = email_data.properties;
-          // });
         }
       }
 
@@ -166,7 +162,7 @@ module powur {
           leads: this.leads,
         }
       }).then((data: any) => {
-        //
+        if (data) this.leads.entities = new SirenModel(data).entities;
       });
     }
 
@@ -178,7 +174,21 @@ module powur {
       if (lead.properties.submitted_at)  { return 1; }
       return 0;
     };
-    
+
+    leadStatus(lead) {
+      if (!lead.properties.invite_status) { return 'incomplete' }
+      if (lead.properties.sales_status === 'ineligible') { return 'ineligible' }
+      return lead.properties.invite_status;
+    }
+
+    updateEntity(lead) {
+      for (var i = 0; i < this.leads.entities.length; i++) {
+        if (this.leads.entities[i].properties.id === lead.properties.id) {
+          this.leads.entities[i] = lead;
+        }
+      }
+    }
+
     showLead(e: MouseEvent, lead) {
       if (lead.properties.submitted_at) {
         this.$mdDialog.show({
@@ -204,7 +214,7 @@ module powur {
             lead: lead
           }
         }).then((data: any) => {
-          // if (data) this.leads = new SirenModel(data);
+          if (data) this.leads.entities = new SirenModel(data).entities;
         });
       }
     }
@@ -221,7 +231,7 @@ module powur {
           lead: lead
         }
       }).then((data: any) => {
-        // if (data) this.leads.entities = new SirenModel(data).entities;
+        this.updateEntity(new SirenModel(data));
       });
     }
 
