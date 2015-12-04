@@ -15,6 +15,8 @@ class Lead < ActiveRecord::Base
   enum sales_status: [
     :in_progress, :proposal, :closed_won, :contract, :installed,
     :duplicate, :ineligible, :closed_lost]
+  enum invite_status: [
+    :not_set, :sent, :initiated, :accepted ]
 
   add_search :user, [ :user ]
 
@@ -54,6 +56,17 @@ class Lead < ActiveRecord::Base
                from:          from,
                to:            to)
     }
+  end
+
+  before_validation do
+    self.code ||= self.class.generate_code
+  end
+
+  class << self
+    def generate_code(size = 3)
+      code = SecureRandom.hex(size).upcase
+      find_by(code: code) ? generate_code(size) : code
+    end
   end
 
   validates_presence_of :product_id, :user_id
@@ -145,6 +158,11 @@ class Lead < ActiveRecord::Base
 
   def action_badge
     lead_action? && !contract? && !installed?
+  end
+
+  def mandrill
+    return nil unless mandrill_id
+    @mandrill ||= MandrillMonitor.new(self)
   end
 
   private

@@ -4,9 +4,8 @@ json.partial! 'auth/leads/item', lead: @lead
 
 json.properties do
   json.call(@lead, :email, :phone,
-            :address, :city, :state, :zip, :notes)
-  json.call(@lead.customer, :email, :phone,
-            :address, :city, :state, :zip, :notes) if @lead.customer
+            :address, :city, :state, :zip, :notes, :last_viewed_at,
+            :data_status, :sales_status, :invite_status)
   json.product_fields @lead.data.each { |key, value| json.set! key, value }
   json.call(@lead, :action_copy, :completion_chance) if @lead.lead_action?
 end

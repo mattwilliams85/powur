@@ -553,7 +553,11 @@ CREATE TABLE leads (
     city character varying,
     state character varying,
     zip character varying,
-    notes character varying
+    notes character varying,
+    code character varying,
+    invite_status integer DEFAULT 0,
+    last_viewed_at timestamp without time zone,
+    mandrill_id character varying
 );
 
 
@@ -3090,3 +3094,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151202191820');
 
 INSERT INTO schema_migrations (version) VALUES ('20151202222303');
 
+INSERT INTO schema_migrations (version) VALUES ('20151203235650');
+
+INSERT INTO schema_migrations (version) VALUES ('20151204001109');

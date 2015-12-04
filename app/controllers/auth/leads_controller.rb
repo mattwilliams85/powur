@@ -85,8 +85,8 @@ module Auth
 
     def fetch_leads
       scope = Lead
-        .includes(:customer, :user, :product)
-        .references(:customer, :user, :product)
+        .includes(:user, :product)
+        .references(:user, :product)
       scope = scope.where(user_id: @user.id) if @user
       scope = scope.where(
         'leads.created_at > ?', params[:days].to_i.days.ago) if params[:days]

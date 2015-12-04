@@ -62,10 +62,6 @@ class Customer < ActiveRecord::Base
     !lead.nil?
   end
 
-  def lead_submitted?
-    lead? && lead.submitted?
-  end
-
   def send_sms
     return if phone.nil? || !valid_phone?(phone)
 

@@ -32,16 +32,16 @@
             <td>{{ item.properties.type }}</td>
             <td>{{ item.properties.start_date }}</td>
             <td>{{ item.properties.end_date }}</td>
-            <td ng-show="payPeriod.id !== item.properties.id" 
-                class="text-right clickable" 
+            <td ng-show="payPeriod.id !== item.properties.id"
+                class="text-right clickable"
                 ng-click="showDetails(item)">
-                Details 
+                Details
                 <i class="fa fa-angle-down"></i>
             </td>
-            <td ng-show="payPeriod.id === item.properties.id" 
-                class="text-right clickable" 
+            <td ng-show="payPeriod.id === item.properties.id"
+                class="text-right clickable"
                 ng-click="showDetails(item)">
-                Details 
+                Details
                 <i class="fa fa-angle-up"></i>
             </td>
           </tr>
@@ -76,7 +76,7 @@
                       <td ng-show="payPeriod.type === 'Monthly'">{{ item.properties.pay_as_rank }}</td>
                       <td>{{ item.properties.lead.id }}</td>
                       <td>{{ findKeyDate(item) | date:'MM/dd/yyyy @ h:mma'}}</td>
-                      <td>{{ item.properties.lead.customer }}</td>
+                      <td>{{ item.properties.lead.first_name }} {{ item.properties.lead.last_name }}</td>
                       <td>{{ item.properties.lead.owner }}</td>
                       <td  width="75">{{ item.properties.amount | currency }}</td>
                     </tr>

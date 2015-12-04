@@ -13,7 +13,7 @@
     <tr ng-repeat="item in index.data.entities">
       <td>{{ item.properties.id }}</td>
       <td>{{ item.properties.user }}</td>
-      <td>{{ item.properties.customer }}</td>
+      <td>{{ item.properties.first_name }} {{ item.properties.last_name }}</td>
       <td>{{ item.properties.created_at | dateToLocalDate }}</td>
       <td>{{ item.properties.submitted_at | dateToLocalDate }}</td>
       <td>{{ item.properties.sales_status }}</td>
