@@ -62,18 +62,13 @@
         <i class="sprite sprite-upgrade"></i><span>Upgrade</span>
       </div>
     </a>
-    <a href="/profile" target="_self">
-      <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
-        <i class="sprite sprite-admin"></i><span>Profile</span>
-      </div>
-    </a>
     <a href="/admin" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-show="nav.home.userData.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
         <i class="sprite sprite-admin"></i><span>Admin</span>
       </div>
     </a>
-    <md-divider hide-gt-sm></md-divider>
-    <a href="/profile" target="_self" hide-gt-sm>
+    <md-divider></md-divider>
+    <a href="/profile" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
         <i class="sprite sprite-stats"></i><span>Profile</span>
       </div>

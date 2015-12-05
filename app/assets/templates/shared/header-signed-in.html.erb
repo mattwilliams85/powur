@@ -11,7 +11,7 @@
       <a href="/profile" target="_self">
         <img class="avatar" ng-src="{{ currentUser.avatar.large || legacyImagePaths.defaultProfile }}">
         <span>Hello, {{ currentUser.first_name}}</span>
-      </a> 
+      </a>
       &nbsp;|&nbsp;
       <span ng-click="signOut()">LOGOUT</span>
     </div>
@@ -61,17 +61,17 @@
     </a>
     <md-divider></md-divider>
     <a href="/upgrade" target="_self">
-      <div layout="row" layout-align="start center" class="link-item" ng-hide="nav.home.userData['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
+      <div layout="row" layout-align="start center" class="link-item" ng-hide="currentUser['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
         <i class="sprite sprite-upgrade"></i><span>Upgrade</span>
       </div>
     </a>
     <a href="/admin" target="_self">
-      <div layout="row" layout-align="start center" class="link-item" ng-show="nav.home.userData.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
+      <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
         <i class="sprite sprite-admin"></i><span>Admin</span>
       </div>
     </a>
-    <md-divider class="hide-for-desktop"></md-divider>
-    <a href="/profile" target="_self" class="hide-for-desktop">
+    <md-divider></md-divider>
+    <a href="/profile" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
         <i class="sprite sprite-stats"></i><span>Profile</span>
       </div>
