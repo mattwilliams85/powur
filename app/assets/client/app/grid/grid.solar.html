@@ -111,48 +111,56 @@
             <div class="uppercase text-sm">{{ lead.properties.city }}, {{ lead.properties.state }}</div>
           </div>
           </div>
-          <div ng-if="lead.properties.data_status !== 'submitted'" class="uppercase right" flex="50" layout="column" layout-align="center center">
+          <div ng-if="!lead.properties.submitted_at" class="uppercase right" flex="50" layout="column" layout-align="center center">
             <div class="icon {{ grid.leadStatus(lead) }}"></div>
             <div class="uppercase text-lg">
               Invitation {{ grid.leadStatus(lead) }}
             </div>
           </div>
-          <div ng-if="lead.properties.data_status === 'submitted'" class="uppercase right" flex="50" layout="column" layout-align="center start">
+          <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" layout="column" layout-align="center center">
+            <div class="icon lost"></div>
+            <div class="uppercase text-lg">
+              Lead {{ grid.stage[lead.properties.stage] }}
+            </div>
+          </div>
+          <div ng-if="lead.properties.data_status === 'submitted' && lead.properties.stage < 5" class="uppercase right" flex="50" layout="column" layout-align="center start">
             <div layout="row" layout-align="space-between" class="progress-bar">
               <div class="bar"></div>
-              <div class="bar active" ng-class="{ 'disabled': grid.disableAnim }" style="width:{{ (grid.leadStage(lead) - 1) * 22 }}%"></div>
+              <div class="bar overlay" style="width:{{ lead.properties.stage * 22.5 }}%">
+                <div class="bar animated stage-{{ lead.properties.stage }}"></div>
+              </div>
               <div layout="column" layout-align="center start">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-1" ng-class="{ 'active': grid.leadStage(lead)  >= 1 }"></div>
+                  <div class="highlight stage-1" ng-class="{ 'active': lead.properties.stage  >= 0 }"></div>
                 </div>
               </div>
               <div layout="column" layout-align="center center">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-2" ng-class="{ 'active': grid.leadStage(lead)  >= 2 }"></div>
+                  <div class="highlight stage-2" ng-class="{ 'active': lead.properties.stage  >= 1 }"></div>
                 </div>
               </div>
               <div layout="column" layout-align="center center">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-3" ng-class="{ 'active': grid.leadStage(lead)  >= 3 }"></div>
+                  <div class="highlight stage-3" ng-class="{ 'active': lead.properties.stage  >= 2 }"></div>
                 </div>
               </div>
               <div layout="column" layout-align="center center">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-4" ng-class="{ 'active': grid.leadStage(lead)  >= 4 }"></div>
+                  <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 3 }"></div>
                 </div>
               </div>
               <div layout="column" layout-align="center end">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-5" ng-class="{ 'active': grid.leadStage(lead)  >= 5 }"></div>
+                  <div class="highlight stage-5" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
                 </div>
               </div>
             </div>
-            <div class="uppercase text-lg">{{ grid.stage[grid.leadStage(lead)] }}</div>
+            <div class="uppercase text-lg">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
         </div>
         <md-divider></md-divider>

@@ -13,6 +13,7 @@ json.properties do
     json.set! key_date, lead.send(key_date)
   end
   json.average_bill lead.data['average_bill']
+  json.stage lead.lead_stage
   json.user lead.user.full_name
   json.product lead.product.name
 end

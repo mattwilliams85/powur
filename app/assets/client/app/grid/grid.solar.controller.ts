@@ -95,7 +95,6 @@ module powur {
 
       remove() {
         this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          delete this.lead;
           this.$mdDialog.hide(response.data);
         });
       }
@@ -133,7 +132,7 @@ module powur {
     days: number = 60;
     searchQuery: string;
     showSearch: boolean;
-    stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install'];
+    stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -168,18 +167,9 @@ module powur {
           leads: this.leads,
         }
       }).then((data: any) => {
-        if (data) this.leads.entities = new SirenModel(data).entities;
+        if (data) this.leads = new SirenModel(data);
       });
     }
-
-    leadStage(lead) {
-      if (lead.properties.installed_at)  { return 5; }
-      if (lead.properties.contracted_at) { return 4; }
-      if (lead.properties.closed_won_at) { return 3; }
-      if (lead.properties.converted_at)  { return 2; }
-      if (lead.properties.submitted_at)  { return 1; }
-      return 0;
-    };
 
     leadStatus(lead) {
       if (!lead.properties.invite_status) { return 'incomplete' }
@@ -220,7 +210,7 @@ module powur {
             lead: lead
           }
         }).then((data: any) => {
-          if (data) this.leads.entities = new SirenModel(data).entities;
+          if (data) this.leads = new SirenModel(data);
         });
       }
     }

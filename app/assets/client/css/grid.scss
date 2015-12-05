@@ -37,11 +37,11 @@
       &.active {
         display: block;
       }
-      &.stage-1 { animation: pop-in .2s .3s forwards; }
-      &.stage-2 { animation: pop-in .2s .4s forwards; }
-      &.stage-3 { animation: pop-in .2s .5s forwards; }
-      &.stage-4 { animation: pop-in .2s .6s forwards; }
-      &.stage-5 { animation: pop-in .2s .7s forwards; }
+      &.stage-0 { animation: pop-in .2s 0s forwards; }
+      &.stage-1 { animation: pop-in .2s .1s forwards; }
+      &.stage-2 { animation: pop-in .2s .2s forwards; }
+      &.stage-3 { animation: pop-in .2s .3s forwards; }
+      &.stage-4 { animation: pop-in .2s .4s forwards; }
     }
 
     .bar {
@@ -53,13 +53,20 @@
       left: 10px;
       margin: auto;
 
-      &.active {
-        width: 0px;
-        background: #01b598;
+      &.overlay {
         z-index: 3;
-        transition: width .5s .3s;
-        &.disabled {
-          width: 0px !important;
+        background: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .animated {
+          width: 0;
+          background: #01b598;
+          &.stage-1 { animation: grow .2s .1s forwards; }
+          &.stage-2 { animation: grow .2s .2s forwards; }
+          &.stage-3 { animation: grow .2s .3s forwards; }
+          &.stage-4 { animation: grow .2s .4s forwards; }
         }
       }
     }
@@ -220,6 +227,13 @@
       height: 21px;
       width: 21px;
       margin-left: 3px;
+    }
+    &.lost {
+      background: image-url("img/grid-solar-lost-icon.png");
+      background-size: contain;
+      height: 18px;
+      width: 18px;
+      margin-bottom: 5px;
     }
   }
 
@@ -403,5 +417,9 @@
 
 @keyframes pop-in {
   100% { width: 10px; height: 10px; }
+}
+
+@keyframes grow {
+  100% { width: 100% }
 }
 

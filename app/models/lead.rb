@@ -128,6 +128,10 @@ class Lead < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def lead_stage
+    Lead.sales_statuses[sales_status]
+  end
+
   def converted_count_at_time
     @converted_count_at_time ||= begin
       Lead.converted(to: converted_at).where(user_id: user_id).count + 1
