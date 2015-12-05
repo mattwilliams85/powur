@@ -20,15 +20,10 @@ module powur {
       if (!this.lead) return;
       return this.lead.action('submit');
     }
-    get inviteAction(): Action {
-      if (!this.lead) return;
-      return this.lead.action('invite');
-    }
 
     get submitting(): boolean {
       return (this.updateAction && this.updateAction.submitting) ||
-             (this.submitAction && this.submitAction.submitting) ||
-             (this.inviteAction && this.inviteAction.submitting);
+             (this.submitAction && this.submitAction.submitting);
     }
 
     constructor(private $log: ng.ILogService,
@@ -55,23 +50,19 @@ module powur {
       });
     }
 
-    sendInvite() {
-      this.inviteAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$mdDialog.cancel();
+    update() {
+      this.updateAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.lead = new SirenModel(response.data);
       });
     }
 
     submitToSC() {
-      this.updateAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.lead = new SirenModel(response.data);
-
-        this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.$mdDialog.cancel();
-        }, (response: any) => {
-          if (response.data.error) {
-            this.updateAction.field('notes').$error = { message: response.data.error.message };
-          }
-        });
+      this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.cancel();
+      }, (response: any) => {
+        if (response.data.error) {
+          this.updateAction.field('notes').$error = { message: response.data.error.message };
+        }
       });
     }
 
