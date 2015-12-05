@@ -62,3 +62,4 @@
 //= require_tree ./users
 //= require_tree ./utility
 //= require_tree ./zip-validator
+//= require_tree ./getsolar
