@@ -14,7 +14,7 @@
       url: '/u/profile'
     }).success(function(data) {
       $scope.userProfile = data.properties;
-      $scope.actions = data.actions;
+      $scope.createEwalletAction = getAction(data.actions, 'create_ewallet');
     });
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -43,12 +43,12 @@
     };
 
     $scope.setUpEwalletAccount = function() {
+      if (!$scope.createEwalletAction) return;
       $scope.isSubmitDisabled = true;
-      var action = getAction($scope.actions, 'create_ewallet');
 
       return $http({
-        method: action.method,
-        url: action.href
+        method: $scope.createEwalletAction.method,
+        url: $scope.createEwalletAction.href
       }).success(function(data) {
         $scope.isSubmitDisabled = false;
         $scope.userProfile = data.properties;
