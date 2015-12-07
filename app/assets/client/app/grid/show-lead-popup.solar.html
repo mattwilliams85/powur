@@ -77,7 +77,7 @@
         <md-divider></md-divider>
         <div class="column info">
           <div>LEAD <b>INTEL</b></div>
-          <div>
+          <div class="detail">
             The lead was last updated on 
             {{ (dialog.lead.properties.updated_at | date:'M/d/yyyy') || 'No Updates Available' }}
             @ {{ dialog.lead.properties.updated_at | date:'mediumTime'}}
@@ -88,7 +88,7 @@
           <div>POWUR <b>ACTION</b></div>
           <div>
             <div class="side-bar"></div> 
-            <span>{{ dialog.lead.properties.action_copy }}</span>
+            <span class="detail">{{ dialog.lead.properties.action_copy }}</span>
           </div>
         </div>
       </md-dialog-content>
