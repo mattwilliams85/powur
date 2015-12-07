@@ -1,0 +1,143 @@
+.get-solar {
+  .headline {
+    font-size: x-large;
+  }
+
+  .header {
+    height: 45px;
+  }
+  
+  .bg0 {
+    height: 335px;
+    background-color: #219fd5;
+    color: white;
+  }
+
+  .bg1 {
+    height: 627px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #248ba3;
+    color: white;
+    ul {
+      padding-top: 20px;
+      li {
+        padding-bottom: 20px;
+      }
+    }
+  }
+
+  .bg2 {
+    height: 568px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: white;
+    color: black;
+  }
+
+  .bg3 {
+    height: 695px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #2faac8;
+    .promises {
+      padding-top: 30px;
+    }
+    .promises>div {
+      padding-right: 50px;
+    }
+
+    .headline {
+      color: white;
+    }
+    .title {
+      font-size: x-large;
+      padding-bottom: 20px;
+    }
+    .msg {
+      color: white;
+    }
+  }
+  
+  .bg4 {
+    height: 445px;
+    background-color: #353535;
+    color: white;
+    text-align: center;
+    .companies {
+      padding-top: 70px;
+      width: 100%;
+      i {
+        padding: 30px;
+      }
+    }
+  }
+  .bg5 {
+    //height: 52px;
+    background-color: #219fd5;
+    color: white;
+    button {
+      height: 40px;
+    }
+  }
+  
+  .corp {
+      background-repeat: no-repeat;
+      display: block;
+  }
+  
+  .corp-citibank {
+      width: 153px;
+      height: 40px;
+      background-position: -5px -5px;
+  }
+  
+  .corp-goldman-sachs {
+      width: 138px;
+      height: 57px;
+      background-position: -168px -5px;
+  }
+  
+  .corp-google {
+      width: 137px;
+      height: 45px;
+      background-position: -316px -5px;
+  }
+  
+  .corp-honda {
+      width: 177px;
+      height: 22px;
+      background-position: -463px -5px;
+  }
+  
+  .corp-usbancorp {
+      width: 214px;
+      height: 39px;
+      background-position: -650px -5px;
+  }
+  
+  .promise {
+      background-repeat: no-repeat;
+      display: block;
+      margin: 40px
+  }
+  
+  .promise-best-coverage {
+      width: 92px;
+      height: 91px;
+      background-position: -5px -5px;
+  }
+  
+  .promise-better-world {
+      width: 87px;
+      height: 91px;
+      background-position: -107px -5px;
+  }
+  
+  .promise-lowest-rates {
+      width: 92px;
+      height: 91px;
+      background-position: -204px -5px;
+  }
+  
+}
