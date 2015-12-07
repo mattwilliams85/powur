@@ -31,7 +31,7 @@ module powur {
 
       this.$timeout(() => {
         this.invites.properties.pieTimer = this.$interval(() => {
-            this.startTimers();
+          this.startTimers();
         }, 1000)
         this.buildPies();
       });
@@ -129,7 +129,9 @@ module powur {
         }
       }).then((data: any) => {
         if (data) {
+          data.properties.pieTimer = this.invites.properties.pieTimer;
           this.invites = new SirenModel(data);
+          this.activePies = [];
           this.buildPies();
         }
       });
