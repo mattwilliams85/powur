@@ -32,7 +32,7 @@ module Auth
 
       siren.must_be_class(:lead)
       siren.props_must_equal(id: lead.id)
-      siren.must_have_actions(:update, :delete, :resend, :submit)
+      siren.must_have_actions(:update, :delete, :resend, :invite)
     end
 
     def test_ready_to_submit_lead_show
