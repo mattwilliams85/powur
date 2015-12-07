@@ -169,6 +169,16 @@
       width: 100%;
       cursor: pointer;
 
+      .state {
+        height: 38px;
+        width: 35px;
+        background: image-url('img/california.png');
+        background-size: contain;
+        background-repeat: no-repeat; 
+        display: inline-block;
+        margin-right: 15px;
+      }
+
       .count {
         margin: 0 auto;
       }
@@ -456,6 +466,11 @@
         height: 75px;
         .count {
           font-size: 18pt;
+        }
+        .state {
+          height: 50px;
+          width: 45px;
+          margin-right: 20px;
         }
       }
 
