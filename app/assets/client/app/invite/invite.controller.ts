@@ -116,8 +116,10 @@ module powur {
       });
     }
 
-    showLink(invite): string {
-      return 'https://powur.com/next/join/grid/' + invite.id;
+    showLink(invite, path): string {
+      if (path === 'grid') { return 'https://powur.com/next/join/grid/' + invite.id }
+      else { return 'https://powur.com/next/join/solar/' + invite.code  }
+
     }
 
     cancel() {

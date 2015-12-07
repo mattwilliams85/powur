@@ -9,7 +9,7 @@
         <md-button class="md-primary md-raised" ng-click="dialog.parentCtrl.inviteUpdate($event,dialog.invite)">Edit</md-button>
         <md-content layout-padding layout="column" class="link-wrap">
           <div class="header">Invite Link: </div>
-          <input class="link" value="{{dialog.showLink(dialog.invite.properties)}}" readonly>
+          <input class="link" value="{{dialog.showLink(dialog.invite.properties, 'grid')}}" readonly>
         </md-content>
         <md-content layout-padding layout="row" class="info-wrap">
           <div class="info-box">
