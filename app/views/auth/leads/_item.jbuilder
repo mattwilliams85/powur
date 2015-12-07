@@ -5,7 +5,7 @@ entity_rel(local_assigns[:rel] || 'item')
 json.properties do
   json.call(lead, :id, :data_status, :sales_status, :invite_status,
             :submitted_at, :provider_uid, :created_at, :action_badge,
-            :first_name, :last_name, :email, :phone,
+            :first_name, :last_name, :email, :phone, :code,
             :address, :city, :state, :notes, :last_viewed_at, :updated_at)
   json.call(lead, :action_copy, :completion_chance) if lead.lead_action?
   [ :converted_at, :closed_won_at,

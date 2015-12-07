@@ -108,7 +108,7 @@
           </div>
           <div class="detail">
             <div class="uppercase text-lg">{{ lead.properties.first_name }} <b>{{ lead.properties.last_name }}</b></div>
-            <div class="uppercase text-sm">{{ lead.properties.city }}, {{ lead.properties.state }}</div>
+            <div class="uppercase text-sm">{{ lead.properties.city }}{{', ' + lead.properties.state }}</div>
           </div>
           </div>
           <div ng-if="!lead.properties.submitted_at" class="uppercase right" flex="50" layout="column" layout-align="center center">
@@ -160,7 +160,7 @@
                 </div>
               </div>
             </div>
-            <div class="uppercase text-lg">{{ grid.stage[lead.properties.stage] }}</div>
+            <div class="uppercase text-sm">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
         </div>
         <md-divider></md-divider>

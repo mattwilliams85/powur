@@ -111,8 +111,8 @@ module powur {
         });
       }
 
-      showLink(customer): string {
-        return 'https://powur.com/next/join/grid/' + customer.id;
+      showLink(lead): string {
+        return 'https://powur.com/next/join/solar/' + lead.code;
       }
 
       cancel() {

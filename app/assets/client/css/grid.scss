@@ -80,7 +80,7 @@
     width: 80%;
     max-width: 400px;
     padding: 5px 15px;
-    margin: 10px auto 40px auto;
+    margin: 20px auto;
   }
 
   .load-more {
@@ -408,18 +408,104 @@
     background-position: -40px -5px;
   }
 
-  @media screen and (min-width: 600px) {
-    md-dialog-content {
-      padding: 20px 20px 10px 40px;
-    }
+  @keyframes pop-in {
+    100% { width: 10px; height: 10px; }
+  }
+
+  @keyframes grow {
+    100% { width: 100% }
   }
 }
 
-@keyframes pop-in {
-  100% { width: 10px; height: 10px; }
+@media screen and (min-width: 600px) {
+  .pw-grid {
+    font-size: 14pt;
+
+    .accordion {
+      padding: 10px 10px 10px 30px;
+      font-size: 12pt;
+      line-height: 12pt;
+      .toggle {
+        font-size: 16pt;
+        line-height: 9pt;
+        margin-left: -17px;
+      }
+    }
+
+    .md-secondary {
+      font-size: 14pt;
+    }
+
+    md-dialog-content {
+      padding: 20px 20px 10px 40px;
+    }
+    .label { 
+      font-size: 8pt;
+    }
+    .insight {
+      .count {
+        font-size: 28pt;
+      }
+    }
+    .summary {
+      .co2 {
+        font-size: 14pt;
+        margin-top: 16px;
+      }
+      .grid-row {
+        height: 75px;
+        .count {
+          font-size: 18pt;
+        }
+      }
+
+      .circle {
+        height: 50px;
+        width: 50px;
+      }
+
+      .text-lg {
+        font-size: 9pt;
+        line-height: 14pt;
+      }
+
+      .text-sm {
+        font-size: 7pt;
+      }
+    }
+    .progress-bar {
+      .bar {
+        top: 7px;
+        height: 6px;
+      }
+      .node {
+        height: 20px;
+        width: 20px;
+        border: 3px solid #e0e0e0;
+      }
+    }
+    .icon {
+      height: 30px;
+      width: 30px;
+      &.ineligible {
+        height: 25px;
+        width: 25px;
+      }
+      &.initiated {
+        height: 25px;
+        width: 25px;
+        margin-bottom: 5px;
+      }
+      &.lost {
+        height: 23px;
+        width: 23px;
+      }
+    } 
+  }
+  @keyframes pop-in {
+    100% { width: 14px; height: 14px; }
+  }
 }
 
-@keyframes grow {
-  100% { width: 100% }
-}
+
 
