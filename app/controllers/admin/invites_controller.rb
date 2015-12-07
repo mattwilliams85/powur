@@ -15,7 +15,7 @@ module Admin
     private
 
     def fetch_user
-      params[:user_id] = params[:admin_user_id]
+      params[:user_id] = params[:admin_user_id] if params[:admin_user_id]
       super
     end
   end
