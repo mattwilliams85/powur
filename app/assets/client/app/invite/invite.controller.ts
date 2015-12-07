@@ -25,7 +25,7 @@ module powur {
         status: name || ''
       };
 
-      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
+      this.session.getEntity(SirenModel, 'user-invites', opts, true)
         .then((data: any) => {
           success(data, this);
         });
