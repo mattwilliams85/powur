@@ -80,6 +80,7 @@ class Lead < ActiveRecord::Base
   def email_present?
     email?
   end
+  validates :address, length: { maximum: 40 }, if: 'address.present?'
 
   validates_with ::Phone::Validator, fields: [:phone],
                                      if:     'phone.present?',

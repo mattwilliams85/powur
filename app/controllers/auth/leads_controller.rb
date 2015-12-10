@@ -50,7 +50,7 @@ module Auth
     def update
       error!(:update_lead) if @lead.submitted_at?
 
-      @lead.update(lead_input.merge(data: lead_data_input))
+      @lead.update!(lead_input.merge(data: lead_data_input))
 
       show
     end
