@@ -123,6 +123,11 @@ class Lead < ActiveRecord::Base
     lead_action? && !contract? && !installed?
   end
 
+  def distinct_update_dates(date)
+    lead_updates.select(date).distinct(date)
+      .map { |lu| lu.send(date) }.compact
+  end
+
   private
 
   def query_status_count(status, product_id = nil)
@@ -186,8 +191,8 @@ class Lead < ActiveRecord::Base
     return if last_update.nil?
     self.converted_at = last_update.converted
     self.closed_won_at ||= last_update.updated_at if last_update.closed_won?
-    self.contracted_at = last_update.contract
-    self.installed_at = last_update.installation
+    self.contracted_at ||= last_update.contract
+    self.installed_at ||= last_update.installation
     self.sales_status = last_update.sales_status
     save!
   end
