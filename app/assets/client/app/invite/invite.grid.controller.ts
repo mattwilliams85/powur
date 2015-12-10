@@ -159,7 +159,9 @@ module powur {
       scope.invites.entities = data.entities;
       scope.invites.properties = data.properties;
       scope.activePies = [];
-      scope.buildPies();
+      scope.$timeout(() => {
+        scope.buildPies();
+      });
     }
   }
 
