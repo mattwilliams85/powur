@@ -3,6 +3,10 @@
 module powur {
   'use strict';
 
+  function userVideoAssets(session: ISessionService) {
+    return session.getEntity(SirenModel, 'user-video_assets');
+  }
+
   joinConfig.$inject = ['$stateProvider'];
 
   function joinConfig($stateProvider: ng.ui.IStateProvider) {
@@ -29,7 +33,8 @@ module powur {
               defer.resolve({});
             });
             return defer.promise;
-          }
+          },
+          videoAssets: ['SessionService', userVideoAssets]
         }
       })
       .state('join.grid2', {
@@ -44,7 +49,8 @@ module powur {
               return $q.reject(reason);
             }
             return root.$session.getInvite($stateParams.inviteCode).then(null, fail);
-          }
+          },
+          videoAssets: ['SessionService', userVideoAssets]
         }
       })
       .state('join.solar', {

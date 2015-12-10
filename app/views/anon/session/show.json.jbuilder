@@ -28,9 +28,6 @@ json.properties do
     json.call(current_user.metrics,
               :team_count, :earnings, :co2_saved, :login_streak)
   end
-
-  json.preview_video_embed_url(
-    SystemSettings.get!('preview_video_embed_url'))
 end
 
 actions_list = [
@@ -73,6 +70,8 @@ entity_list << entity(%w(summary leads),
 entity_list << entity(%w(grid_summary user),
                       'user-grid_summary',
                       grid_summary_user_path(current_user, days: '{days}'))
+entity_list << entity(%w(video_assets),
+                      'user-video_assets', assets_login_path)
 
 link_list << link(:index, dashboard_path)
 

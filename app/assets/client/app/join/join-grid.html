@@ -1,8 +1,8 @@
 <div class="join step1" flex layout="column" layout-align="start center">
     <div class="bg-img g1"></div>
-    <div class="trailer-box" ng-if="join.videoStep1">
+    <div class="trailer-box" ng-if="join.videoAssets.properties.join_grid_step1_youtube_embed_url">
       <div class="intro" flex>
-        <iframe src="{{ join.videoStep1 }}" width="100%" height="100%" frameborder="0" ></iframe>
+        <iframe src="{{ join.trustedUrl(join.videoAssets.properties.join_grid_step1_youtube_embed_url) }}" width="100%" height="100%" frameborder="0" ></iframe>
       </div>
     </div>
     <div class="invalid messages key-box" layout-padding ng-hide="join.invite.properties">

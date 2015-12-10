@@ -37,7 +37,11 @@ Rails.application.routes.draw do
 
   # anonymous routes
   scope module: :anon do
-    resource :login, controller: :session, only: [ :show, :create, :destroy ]
+    resource :login, controller: :session, only: [ :show, :create, :destroy ] do
+      member do
+        get :assets
+      end
+    end
 
     resource :password, only: [ :show, :create, :new ] do
       member do

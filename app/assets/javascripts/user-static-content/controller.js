@@ -11,6 +11,12 @@
       url: '/index.json'
     }).success(function(res) {
       if (res.properties.id) $rootScope.currentUser = res.properties;
+    });
+
+    $http({
+      method: 'GET',
+      url: '/login/assets'
+    }).success(function(res) {
       $scope.previewVideoEmbedUrl = res.properties.preview_video_embed_url;
     });
 
