@@ -77,6 +77,7 @@ module powur {
 
       parentCtrl: any;
       lead: any;
+      editMode: boolean;
 
       constructor(private $log: ng.ILogService,
                   public $mdDialog: ng.material.IDialogService,
@@ -107,7 +108,8 @@ module powur {
 
       updateInvite() {
         this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.$mdDialog.hide(response.data);
+          this.$mdDialog.hide();
+          this.lead.properties = response.data.properties;
         });
       }
 
@@ -209,26 +211,8 @@ module powur {
             parentCtrl: this,
             lead: lead
           }
-        }).then((data: any) => {
-          if (data) this.leads = new SirenModel(data);
         });
       }
-    }
-
-    inviteUpdate(e: MouseEvent, lead) {
-      this.$mdDialog.show({
-        controller: 'UpdateLeadDialogController as dialog',
-        templateUrl: 'app/grid/update-invite-popup.solar.html',
-        parent: angular.element('body'),
-        targetEvent: e,
-        clickOutsideToClose: true,
-        locals: {
-          parentCtrl: this,
-          lead: lead
-        }
-      }).then((data: any) => {
-        this.updateEntity(new SirenModel(data));
-      });
     }
 
     search() {

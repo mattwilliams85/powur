@@ -174,7 +174,7 @@
         width: 35px;
         background: image-url('img/california.png');
         background-size: contain;
-        background-repeat: no-repeat; 
+        background-repeat: no-repeat;
         display: inline-block;
         margin-right: 15px;
       }
@@ -258,8 +258,33 @@
     text-transform: uppercase;
   }
 
+  .link-wrap {
+    input {
+      width: 100%;
+    }
+  }
+
+  .line-icon {
+    margin-top: .5em;
+    padding-left: 50px;
+    background-position: 0;
+    background-repeat: no-repeat;
+    background-size: 30px;
+
+    &.sent {
+      background-image: image-url("img/solar-invite-sent-icon.png");
+    }
+    &.url {
+      background-image: image-url("img/solar-invite-url-icon.png");
+      background-size: 20px;
+      background-position: 7px;
+    }
+  }
+
+
   md-tabs {
     background: #cfcfcf;
+
     md-tab-item {
       &.md-active span {
         color: #666 !important;
@@ -285,6 +310,35 @@
 .grid-popup {
   font-size: 7pt;
   text-align: left;
+
+  md-tabs {
+    background: #fff;
+
+    .md-tab {
+      max-width: none !important;
+    }
+
+    md-tab-item {
+      &.md-active span {
+        color: #666 !important;
+        transition: color .2s;
+      }
+      &.md-disabled span {
+        color: #666 !important;
+        transition: color .2s;
+      }
+      md-ink-bar {
+        background-color: rgb(63,81,181);
+        color: rgb(63,81,181);
+      }
+    }
+  }
+
+  .actions {
+    button {
+      width: 100%;
+    }
+  }
 
   .side-bg {
     width: 20px;
@@ -449,7 +503,7 @@
     md-dialog-content {
       padding: 20px 20px 10px 40px;
     }
-    .label { 
+    .label {
       font-size: 8pt;
     }
     .insight {
@@ -580,6 +634,3 @@
   }
 
 }
-
-
-

@@ -28,6 +28,7 @@ actions << action(:update, :patch, lead_path(lead))
   .field(:city, :text, value: lead.city)
   .field(:state, :text, value: lead.state)
   .field(:zip, :text, value: lead.zip)
+  .field(:notes, :text, required: false, value: lead.notes)
 actions << action(:resend, :post, resend_lead_path(lead))
 actions << action(:delete, :delete, lead_path(lead))
 
