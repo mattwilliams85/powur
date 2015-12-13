@@ -14,8 +14,15 @@ json.properties do
   end
   json.average_bill lead.data['average_bill']
   json.stage lead.lead_stage
-  json.user lead.user.full_name
   json.product lead.product.name
+  json.owner do 
+    json.call(lead.user, :id, :first_name, :last_name, :phone, :email)
+    json.avatar do
+      [ :thumb, :preview, :large ].each do |key|
+        json.set! key, asset_path(lead.user.avatar.url(key))
+      end
+    end if lead.user.avatar?
+  end
 end
 
 actions = []

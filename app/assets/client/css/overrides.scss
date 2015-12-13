@@ -24,6 +24,13 @@ $pow-menu-link-color: #0a7fa1;
     overflow:visible;
 }
 
+.md-open-menu-container.md-active > md-menu-content > * {
+    -moz-transition: none !important;
+    -webkit-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
 md-dialog {
     border-radius: 0px !important;
     display: block !important;

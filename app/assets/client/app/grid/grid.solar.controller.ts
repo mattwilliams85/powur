@@ -129,12 +129,14 @@ module powur {
 
   class GridSolarController extends AuthController {
     static ControllerId = 'GridSolarController';
-    static $inject = ['leadsSummary', 'leads', '$mdDialog', '$timeout'];
+    static $inject = ['leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
 
+    mainFilter: string;
     days: number = 60;
     searchQuery: string;
     showSearch: boolean;
     stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
+    activeFilter: string;
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -153,9 +155,14 @@ module powur {
 
     constructor(public leadsSummary: ISirenModel,
                 public leads: ISirenModel,
+                public $scope: any,
                 public $mdDialog: ng.material.IDialogService,
                 public $timeout: ng.ITimeoutService) {
       super();
+
+      $timeout(function() {
+        angular.element('.test').trigger('click');
+      }, 100);
     }
 
     addLead(e: MouseEvent) {
@@ -215,6 +222,30 @@ module powur {
       }
     }
 
+    inviteUpdate(e: MouseEvent, lead) {
+      this.$mdDialog.show({
+        controller: 'UpdateLeadDialogController as dialog',
+        templateUrl: 'app/grid/update-invite-popup.solar.html',
+        parent: angular.element('body'),
+        targetEvent: e,
+        clickOutsideToClose: true,
+        locals: {
+          parentCtrl: this,
+          lead: lead
+        }
+      }).then((data: any) => {
+        this.updateEntity(new SirenModel(data));
+      });
+    }
+
+    get home(): any {
+      return this.$scope.home;
+    }
+
+    get defaultAvatar(): string {
+      return this.home.assets.defaultProfileImg;
+    }
+
     search() {
       var entityType = 'user-team_leads_search';
       this.session.getEntity(SirenModel, entityType,
@@ -254,7 +285,11 @@ module powur {
       });
     }
 
-    filter(name: string, value: any) {
+    filter(name: string, value: any, status: any) {
+      this.leads.properties.filters['sales_status'] = null;
+      this.leads.properties.filters['data_status'] = null;
+      this.activeFilter = name;
+
       if (name === 'days') {
         this.days = value;
       } else {
