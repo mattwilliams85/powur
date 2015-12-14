@@ -271,42 +271,6 @@
     height: 22px;
     background-position: -63px -5px;
   }
-
-  &.invite-popup-v2 {
-    md-content {
-      text-align: left;
-    }
-
-    &.show {
-      .header {
-        font-size: initial;
-        font-weight: 400;
-        white-space: nowrap;
-
-        &.small {
-          font-size: .8em;
-        }
-      }
-    }
-
-    .link-wrap {
-      text-align: left;
-    }
-
-    .line-icon {
-      margin-top: .5em;
-      padding-left: 50px;
-      background-position: 0;
-      background-repeat: no-repeat;
-
-      &.sent {
-        background-image: image-url("img/solar-invite-sent-icon.png");
-      }
-      &.viewed {
-        // background-image: image-url("img/solar-invite-viewed-icon.png");
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 600px) {

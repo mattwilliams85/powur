@@ -4,8 +4,8 @@ $pow-color-orange: #FFC003;
 $pow-color-green: #2ecc71;
 $pow-menu-link-color: #0a7fa1;
 
-.left-menu, 
-.left-menu.md-locked-open, 
+.left-menu,
+.left-menu.md-locked-open,
 .left-menu.md-closed.md-locked-open-add-active {
     z-index:5;
     min-width: 280px !important;
@@ -13,7 +13,7 @@ $pow-menu-link-color: #0a7fa1;
     max-width: 280px !important;
     box-shadow:none !important;
     transition:.2s;
-} 
+}
 
 .left-menu.collapsed{
     min-width: 160px !important;
@@ -65,7 +65,7 @@ md-tab-item:not([disabled]) {
 .md-secondary {
     background-color: rgb(1, 181, 152) !important;
 }
-.md-primary, .md-secondary {
+.md-primary, .md-secondary, .md-warn {
     margin-left: 0px !important;
     margin-right: 0px !important;
     border-radius: 0px !important;
@@ -94,7 +94,7 @@ button:disabled {
         background: linear-gradient(to right,  #52DAE2 0%,#29a8dd 100%) !important; /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52DAE2', endColorstr='#29a8dd',GradientType=1 ) !important; /* IE6-9 */
     }
-}  
+}
 
 
 .hud .stat4 .stat:nth-child(2) md-progress-linear .md-bar.md-bar2{
@@ -106,9 +106,8 @@ button:disabled {
     background: -ms-linear-gradient(left,  #FFA252 0%,#EA8D00  100%) !important; /* IE10+ */
     background: linear-gradient(to right,  #FFA252 0%,#EA8D00  100%) !important; /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFA252', endColorstr='#EA8D00 ',GradientType=1 ) !important; /* IE6-9 */
-}  
+}
 
 .hud md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar1{
     background-color:#fff !important;
 }
-
