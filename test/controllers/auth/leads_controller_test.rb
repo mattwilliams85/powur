@@ -80,9 +80,12 @@ module Auth
     def test_update
       lead = leads(:incomplete)
       VCR.use_cassette('zip_validation/valid') do
-        patch :update, id: lead.id, phone: input[:phone]
+        patch :update, id: lead.id,
+                       phone: input[:phone],
+                       email: lead[:email],
+                       first_name: lead[:first_name],
+                       last_name: lead[:last_name]
       end
-
       siren.props_must_equal(phone: input[:phone])
       siren.props_must_equal(data_status: 'ready_to_submit')
     end
