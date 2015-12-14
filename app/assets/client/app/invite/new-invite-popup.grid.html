@@ -31,14 +31,14 @@
             <md-input-container flex="50">
               <label>first name</label>
               <input ng-model="dialog.create.field('first_name').value" autocomplete="off" md-autofocus>
-              <div ng-messages="dialog.create.field('first_name').$error" class="messages">
+              <div ng-messages="dialog.create.field('first_name').$error" ng-show="dialog.create.field('first_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
             <md-input-container flex="50">
               <label>last name</label>
               <input ng-model="dialog.create.field('last_name').value" autocomplete="off">
-              <div ng-messages="dialog.create.field('last_name').$error" class="messages">
+              <div ng-messages="dialog.create.field('last_name').$error" ng-show="dialog.create.field('last_name').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('last_name').$error.message }}</div>
               </div>
             </md-input-container>
@@ -46,20 +46,20 @@
 
           <div class="heading"><div class="title">contact<b> method</b></div></div>
           <md-content layout-padding layout="column">
-            <div ng-messages="dialog.create.$error" class="messages">
+            <div ng-messages="dialog.create.$error" ng-show="dialog.create.$error" class="messages">
               <div ng-message="message">{{ dialog.create.$error.message }}</div>
             </div>
             <md-input-container>
               <label>phone number</label>
               <input ng-model="dialog.create.field('phone').value" type="tel">
-              <div ng-messages="dialog.create.field('phone').$error" class="messages">
+              <div ng-messages="dialog.create.field('phone').$error" ng-show="dialog.create.field('phone').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('phone').$error.message }}</div>
               </div>
             </md-input-container>
             <md-input-container>
               <label>email</label>
               <input ng-model="dialog.create.field('email').value" type="text" autocomplete="off" autocapitalize="off">
-              <div ng-messages="dialog.create.field('email').$error" class="messages">
+              <div ng-messages="dialog.create.field('email').$error" ng-show="dialog.create.field('email').$error" class="messages">
                 <div ng-message="message">{{ dialog.create.field('email').$error.message }}</div>
               </div>
             </md-input-container>
