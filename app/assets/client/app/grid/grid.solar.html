@@ -23,7 +23,7 @@
       GRID <b>INSIGHT</b>
     </span>
     <div layout="row" layout-align="center center">
-    {{ grid.dateFilterLabel }} 
+    {{ grid.dateFilterLabel }}
     <md-menu md-position-mode="target-right target" md-offset="0 10">
       <div class="icon date" ng-click="$mdOpenMenu($event)"></div>
       <md-menu-content class="filter-menu" width="4">
@@ -84,7 +84,7 @@
       GRID <b>GEO</b>
     </span>
     <div layout="row" layout-align="center center">
-      {{ grid.dateFilterLabel }} 
+      {{ grid.dateFilterLabel }}
       <md-menu md-position-mode="target-right target" md-offset="0 10">
         <div class="icon date" ng-click="$mdOpenMenu($event)"></div>
         <md-menu-content class="filter-menu" width="4">
@@ -195,7 +195,7 @@
             </div>
             <div class="detail">
               <div class="uppercase text-lg">{{ lead.properties.first_name }} <b>{{ lead.properties.last_name }}</b></div>
-              <div class="uppercase text-sm">{{ lead.properties.city }}{{', ' + lead.properties.state }}</div>
+              <div class="uppercase text-sm">{{ lead.properties.city }}<span ng-if="lead.properties.state">, {{ lead.properties.state }}</span></div>
             </div>
           </div>
           <!-- COLUMN #progress -->
