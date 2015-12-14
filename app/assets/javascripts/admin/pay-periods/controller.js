@@ -134,11 +134,10 @@
         $scope.user = data.properties;
         $scope.leadTotals = Utility.findBranch(
           data.entities, {'rel': 'user-lead_totals'}).entities;
-        $scope.bonuses = Utility.findBranch(
-          data.entities, {'rel': 'user-bonus_payments'}).entities;
-        for (var b in $scope.bonuses) {
-          $scope.sum += parseInt($scope.bonuses[b].properties.amount);
-        }
+        $scope.bonusesData = Utility.findBranch(
+          data.entities, {'rel': 'user-bonus_payments'})
+        $scope.sum = $scope.bonusesData.properties.grand_total;
+        $scope.bonuses = $scope.bonusesData.entities;
       });
     }
   };
