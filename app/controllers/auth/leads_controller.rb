@@ -49,6 +49,7 @@ module Auth
 
     def update
       error!(:update_lead) if @lead.submitted_at?
+      require_input :first_name, :last_name, :email, :phone
 
       @lead.update!(lead_input.merge(data: lead_data_input))
 
