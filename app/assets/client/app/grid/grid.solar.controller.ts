@@ -30,8 +30,8 @@ module powur {
                 public $mdDialog: ng.material.IDialogService,
                 public leads: ISirenModel) {
 
-      this.verifyEligibilityAction.field('zip').$error = {};
-      this.verifyEligibilityAction.field('zip').value = '';
+      this.verifyEligibilityAction.clearValues();
+      this.createAction.clearValues();
     }
 
     verifyEligibility() {

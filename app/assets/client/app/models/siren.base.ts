@@ -188,6 +188,7 @@ module powur {
     }
 
     clearValues(): void {
+      this.clearErrors();
       this.fields.forEach(f => {
         delete f.value;
       });
