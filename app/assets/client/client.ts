@@ -1,7 +1,7 @@
 // Bower components
 // -----------------------------------------------------
 //= require jquery/dist/jquery.min
-//= require jquery-ui/ui/minified/jquery-ui.min
+//= require jquery-ui/jquery-ui.min
 //= require q/q
 //= require lodash/lodash.min
 //= require moment/min/moment.min
