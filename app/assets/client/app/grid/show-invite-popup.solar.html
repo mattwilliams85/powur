@@ -27,7 +27,7 @@
       <md-divider></md-divider>
       <br>
 
-      <md-content layout-padding layout="column" class="link-wrap">
+      <md-content layout="column" class="link-wrap">
         <div class="header">INVITATION <b>INFO</b></div>
 
         <div class="line-icon sent">{{ dialog.lead.properties.email_data.state_description || 'sent'}} on {{dialog.lead.properties.updated_at | date: 'MMM d, yyyy'}}</div>
@@ -106,7 +106,7 @@
 
 
         <section layout="column" ng-show="dialog.editTab">
-          <md-content layout-padding layout="column">
+          <md-content layout="column">
             <md-input-container>
               <label>street address</label>
               <input ng-model="dialog.update.field('address').value">
@@ -115,7 +115,7 @@
               </div>
             </md-input-container>
           </md-content>
-          <md-content layout-padding layout="row">
+          <md-content layout="row">
             <md-input-container flex="40">
               <label>city</label>
               <input ng-model="dialog.update.field('city').value">
@@ -138,7 +138,7 @@
               </div>
             </md-input-container>
           </md-content>
-          <md-content layout-padding layout="column">
+          <md-content layout="column">
             <md-input-container>
               <label>average bill</label>
               <input ng-model="dialog.update.field('average_bill').value" type="number">

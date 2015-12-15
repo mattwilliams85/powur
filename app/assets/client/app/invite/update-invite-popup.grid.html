@@ -13,7 +13,7 @@
           <br hide-gt-sm>
           <!--  -->
           <div class="heading"><div class="title">contact<b> name</b></div></div>
-          <md-content layout-padding layout="row">
+          <md-content layout="row">
             <md-input-container flex="50">
               <label>first name</label>
               <input ng-model="dialog.update.field('first_name').value" autocomplete="off">
@@ -31,7 +31,7 @@
           </md-content>
 
           <div class="heading"><div class="title">contact<b> method</b></div></div>
-          <md-content layout-padding layout="column">
+          <md-content layout="column">
             <div ng-messages="dialog.update.$error" ng-show="dialog.update.$error" class="messages">
               <div ng-message="message">{{ dialog.update.$error.message }}</div>
             </div>
@@ -58,7 +58,7 @@
           </md-content>
 
           <div class="actions">
-            <md-button type="submit" ng-disabled="dialog.update.submitting" class="md-primary">Update Invite</md-button>
+            <md-button type="submit" ng-disabled="dialog.update.submitting" class="md-primary md-raised">Update Invite</md-button>
           </div>
         </md-dialog-content>
       </div>

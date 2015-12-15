@@ -8,8 +8,8 @@
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
         <md-dialog-content layout="column">
-          <div class="heading"><div class="title">verify<b> eligibility</b></div></div>
-          <md-content layout-padding layout="row">
+          <div class="heading padded"><div class="title">verify<b> eligibility</b></div></div>
+          <md-content layout="row">
             <md-input-container>
               <label>homeowner zipcode</label>
               <input ng-model="dialog.verifyEligibilityAction.field('zip').value" autocomplete="off" md-autofocus>
@@ -34,8 +34,8 @@
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
         <md-dialog-content layout="column">
-          <div class="heading"><div class="title">enter<b> contact information</b></div></div>
-          <md-content layout-padding layout="row">
+          <div class="heading padded"><div class="title">enter<b> contact information</b></div></div>
+          <md-content layout="row">
             <md-input-container flex="50">
               <label>first name</label>
               <input ng-model="dialog.createAction.field('first_name').value" autocomplete="off" md-autofocus>
@@ -51,7 +51,7 @@
               </div>
             </md-input-container>
           </md-content>
-          <md-content layout-padding layout="column">
+          <md-content layout="column">
             <md-input-container>
               <label>phone number</label>
               <input ng-model="dialog.createAction.field('phone').value" type="tel">
@@ -83,8 +83,8 @@
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
         <md-dialog-content layout="column">
-          <div class="heading"><div class="title">enter<b> household information</b></div></div>
-          <md-content layout-padding layout="column">
+          <div class="heading padded"><div class="title">enter<b> household information</b></div></div>
+          <md-content layout="column">
             <md-input-container>
               <label>street address</label>
               <input ng-model="dialog.updateAction.field('address').value">
@@ -93,7 +93,7 @@
               </div>
             </md-input-container>
           </md-content>
-          <md-content layout-padding layout="row">
+          <md-content layout="row">
             <md-input-container flex="40">
               <label>city</label>
               <input ng-model="dialog.updateAction.field('city').value">
@@ -116,7 +116,7 @@
               </div>
             </md-input-container>
           </md-content>
-          <md-content layout-padding layout="column">
+          <md-content layout="column">
             <md-input-container>
               <label>average bill</label>
               <input ng-model="dialog.updateAction.field('average_bill').value" type="number">
@@ -131,8 +131,8 @@
           </md-content>
 
           <div class="actions">
-            <md-button ng-disabled="dialog.submitting" ng-click="dialog.update()" class="md-primary" type="submit">Save</md-button>
-            <md-button ng-disabled="!dialog.submitAction || dialog.submitting" ng-click="dialog.submitToSC()" class="md-primary" type="submit">Submit To Solar City</md-button>
+            <md-button ng-disabled="dialog.submitting" ng-click="dialog.update()" class="md-primary md-raised" type="submit">Save</md-button>
+            <md-button ng-disabled="!dialog.submitAction || dialog.submitting" ng-click="dialog.submitToSC()" class="md-primary md-raised" type="submit">Submit To Solar City</md-button>
           </div>
         </md-dialog-content>
       </div>
