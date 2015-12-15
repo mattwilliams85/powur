@@ -8,9 +8,6 @@ class Invite < ActiveRecord::Base
   # Validates with https://github.com/hallelujah/valid_email
   validates :email, presence: true,
                     email:    true
-  def email_present?
-    email?
-  end
 
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
