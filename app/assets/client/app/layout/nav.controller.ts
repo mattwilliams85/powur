@@ -3,7 +3,7 @@
 module powur {
   class NavController {
     static ControllerId: string = 'NavController';
-    static $inject: Array<string> = ['$scope', '$mdSidenav'];
+    static $inject: Array<string> = ['$scope', '$mdSidenav', '$sce'];
 
     activeMenu: boolean = false;
 
@@ -14,10 +14,12 @@ module powur {
     get state(): ng.ui.IStateService {
       return this.home.state;
     }
-    
-    constructor(private $scope: any, private $mdSidenav: ng.material.ISidenavService) {
+
+    constructor(private $scope: any,
+                private $mdSidenav: ng.material.ISidenavService,
+                private $sce: ng.ISCEService) {
     }
-    
+
     isCurrent(state: string): boolean {
       return !!this.state.current.name.match(`${state}`);
     }
@@ -45,8 +47,12 @@ module powur {
     get headshotStyle(): any {
       return { 'background-image': this.headshot };
     }
+
+    get title(): string {
+      return this.$sce.trustAsHtml(this.state.params['title']);
+    }
   }
-  
+
   angular
     .module('powur.layout')
     .controller(NavController.ControllerId, NavController);

@@ -26,7 +26,7 @@ module powur {
       //   url: '/solar',
       //   templateUrl: 'app/invite/invite.solar.html',
       //   controller: 'InviteSolarController as invite',
-      //   params: { title: 'invite' },
+      //   params: { title: 'powur <b>invite</b>' },
       //   resolve: {
       //     invites: ['SessionService', solarInvites]
       //   }
@@ -35,7 +35,7 @@ module powur {
         url: '/grid',
         templateUrl: 'app/invite/invite.grid.html',
         controller: 'InviteGridController as invite',
-        params: { title: 'invite' },
+        params: { title: 'powur <b>invite</b>' },
         resolve: {
           invites: ['SessionService', userInvites]
         }

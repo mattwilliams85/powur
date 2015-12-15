@@ -29,7 +29,7 @@ module powur {
         url: '/solar',
         templateUrl: 'app/grid/grid.solar.html',
         controller: 'GridSolarController as grid',
-        params: { title: 'grid' },
+        params: { title: 'solar <b>grid</b>' },
         resolve: {
           leadsSummary: ['SessionService', userLeadsSummary],
           leads: ['SessionService', userTeamLeads]
@@ -39,7 +39,7 @@ module powur {
         url: '/powur',
         templateUrl: 'app/grid/grid.powur.html',
         controller: 'GridPowurController as grid',
-        params: { title: 'grid' },
+        params: { title: 'powur <b>grid</b>' },
         resolve: {
           teamSummary: ['SessionService', userTeamSummary]
         }
