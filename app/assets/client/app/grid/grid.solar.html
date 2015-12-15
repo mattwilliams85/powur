@@ -15,17 +15,18 @@
     <md-tab ng-repeat="val in grid.leads.properties.filters.options[f]" ng-click="grid.filter(f, val);">{{ val | humanizeString }}</md-tab>
   </md-tabs>
     TEST -->
-  <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
+<!--   <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button> -->
 
   <div class="accordion" layout="row" layout-align="space-between-center">
     <span ng-click="hideInsight = !hideInsight" >
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
-      GRID <b>INSIGHT</b>
+      GRID <b>SUMMARY</b>
     </span>
-    <div layout="row" layout-align="center center">
-    {{ grid.dateFilterLabel }}
     <md-menu md-position-mode="target-right target" md-offset="0 10">
-      <div class="icon date" ng-click="$mdOpenMenu($event)"></div>
+      <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
+        {{ grid.dateFilterLabel }} 
+        <div class="icon date"></div>
+      </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
         <md-menu-item ng-repeat="d in [7, 30, 60]">
@@ -37,7 +38,6 @@
         </md-menu-item>
       </md-menu-content>
     </md-menu>
-    </div>
   </div>
 
   <div class="insight" layout="row" ng-hide="hideInsight">
@@ -83,22 +83,23 @@
       <span class="toggle" ng-class="{'closed': hideGeo }"></span>
       GRID <b>GEO</b>
     </span>
-    <div layout="row" layout-align="center center">
-      {{ grid.dateFilterLabel }}
-      <md-menu md-position-mode="target-right target" md-offset="0 10">
-        <div class="icon date" ng-click="$mdOpenMenu($event)"></div>
-        <md-menu-content class="filter-menu" width="4">
-          <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
-          <md-menu-item ng-repeat="d in [7, 30, 60]">
-            <md-button ng-click="grid.filter('days', d)">
-              <div layout="row">
-                <p flex>In last {{ d }} days</p>
-              </div>
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </div>
+
+    <md-menu md-position-mode="target-right target" md-offset="0 10">
+      <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
+        {{ grid.dateFilterLabel }} 
+        <div class="icon date"></div>
+      </div>
+      <md-menu-content class="filter-menu" width="4">
+        <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
+        <md-menu-item ng-repeat="d in [7, 30, 60]">
+          <md-button ng-click="grid.filter('days', d)">
+            <div layout="row">
+              <p flex>In last {{ d }} days</p>
+            </div>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
   </div>
 
   <div class="summary geo" ng-hide="hideGeo">
@@ -127,7 +128,7 @@
   <div class="accordion" layout="row" layout-align="space-between-center">
     <span ng-click="hideGrid = !hideGrid">
       <span class="toggle" ng-class="{'closed': hideGrid }"></span>
-      GRID <b>SUMMARY</b>
+      GRID <b>LEADS</b>
     </span>
     <div layout="row" layout-align="center center">
       <div class="icon search" ng-class="{ 'active': search }" ng-click="search = !search"></div>
@@ -179,7 +180,17 @@
   </div>
 
   <div class="grid" ng-hide="hideGrid">
-    <div class="summary">
+    <div class="summary" layout="column">
+      <div class="grid-row new" flex="25" layout="row" ng-click="grid.addLead($event)">
+        <div class="left" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
+          <md-button class="md-fab md-primary" layout-align="center center" layout="column">
+            <span>+</span>
+          </md-button>
+          <div class="detail">
+            <div class="uppercase text-xl">CREATE A <b>LEAD</b></div>
+          </div>
+        </div>
+      </div>
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="start center">
         <span class="label left" flex="50" flex-gt-md="25">CONTACT INFO</span>
         <span class="label left" flex="50" flex-gt-md="25">PROGRESS</span>
@@ -253,7 +264,7 @@
           <!-- COLUMN #owner -->
           <div class="left" flex="50" flex-gt-md="25" hide show-gt-md layout="row" layout-align="start center">
             <div class="circle" layout-align="center center" layout="row">
-              <img src="{{ lead.properties.owner.avatar.thumb || grid.defaultAvatar }}">
+              <img ng-src="{{ lead.properties.owner.avatar.thumb || grid.defaultAvatar }}">
             </div>
             <div class="detail">
               <div class="uppercase text-lg">{{ lead.properties.owner.first_name }} <b>{{ lead.properties.owner.last_name }}</b></div>
@@ -266,7 +277,7 @@
             <span class="text-sm">{{ lead.properties.action_copy || '---' }}</span>
           </div>
         </div>
-        <md-divider hide-gt-md></md-divider>
+        <md-divider hide-gt-sm></md-divider>
       </div>
     </div>
 
@@ -274,8 +285,4 @@
       <md-button ng-click="grid.loadMore()" class="load-more">Load More</md-button>
     </section>
   </div>
-
-  <section>
-    <md-button hide-gt-md ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button>
-  </section>
 </div>

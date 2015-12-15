@@ -46,6 +46,10 @@
   text-align: center;
   color: #666;
 
+  .md-menu { 
+    cursor: pointer;
+  }
+
   .progress-bar {
     position: relative;
     width: 100%;
@@ -228,6 +232,7 @@
 
     .header-row {
       margin-bottom: 10px;
+      padding-top: 20px;
     }
 
     .grid-row-wrap:last-child md-divider {
@@ -294,6 +299,21 @@
       .progress-bar {
         margin: 5px 0;
       }
+
+      &.new {
+        background: #fff;
+
+        .md-fab {
+          color: #fff;
+          span {
+            font-size: 20pt;
+            font-weight: 400;
+          }
+        }
+        .text-xl {
+          margin-left: 2px;
+        }
+      }
     }
 
     .co2 {
@@ -302,6 +322,10 @@
       b {
         color: #01B598;
       }
+    }
+
+    .text-xl {
+      font-size: 8pt;
     }
 
     .text-lg {
@@ -586,6 +610,10 @@
         width: 50px;
       }
 
+      .text-xl {
+        font-size: 12pt;
+      }
+
       .text-lg {
         font-size: 11pt;
         line-height: 16pt;
@@ -749,6 +777,9 @@
       .text-lg {
         font-size: 10pt;
         line-height: 14pt;
+      }
+      .header-row {
+        border-top: 1px solid #eee;
       }
       .grid-row {
         background: #fff;
