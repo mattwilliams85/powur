@@ -4,10 +4,6 @@
 module powur {
   'use strict';
 
-  function solarInvites(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-solar_invites', { page: 1, status: '' });
-  }
-
   function userInvites(session: ISessionService) {
     return session.getEntity(SirenModel, 'user-invites', { page: 1, status: '' });
   }
@@ -22,15 +18,6 @@ module powur {
         controller: 'InviteController as invite',
 
       })
-      // .state('home.invite.solar', {
-      //   url: '/solar',
-      //   templateUrl: 'app/invite/invite.solar.html',
-      //   controller: 'InviteSolarController as invite',
-      //   params: { title: 'powur <b>invite</b>' },
-      //   resolve: {
-      //     invites: ['SessionService', solarInvites]
-      //   }
-      // })
       .state('home.invite.grid', {
         url: '/grid',
         templateUrl: 'app/invite/invite.grid.html',

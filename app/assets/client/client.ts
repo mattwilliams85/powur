@@ -1,17 +1,17 @@
 // Bower components
 // -----------------------------------------------------
-//= require jquery/dist/jquery
-//= require jquery-ui
+//= require jquery/dist/jquery.min
+//= require jquery-ui/ui/minified/jquery-ui.min
 //= require q/q
-//= require lodash/lodash
-//= require moment/moment
-//= require angular/angular
-//= require ngstorage/ngStorage
-//= require angular-ui-router/release/angular-ui-router
-//= require angular-aria/angular-aria
-//= require angular-animate/angular-animate
-//= require angular-material/angular-material
-//= require angular-messages/angular-messages
+//= require lodash/lodash.min
+//= require moment/min/moment.min
+//= require angular/angular.min
+//= require ngstorage/ngStorage.min
+//= require angular-ui-router/release/angular-ui-router.min
+//= require angular-aria/angular-aria.min
+//= require angular-animate/angular-animate.min
+//= require angular-material/angular-material.min
+//= require angular-messages/angular-messages.min
 //= require eyecue-chartjs/Chart
 
 // NOTE: make sure to load template first
@@ -23,13 +23,9 @@
 //= require components/activity
 
 //= require invite/layout
-//= require invite/new-invite-popup.solar
 //= require invite/new-invite-popup.grid
-//= require invite/show-invite-popup.solar
 //= require invite/show-invite-popup.grid
-//= require invite/update-invite-popup.solar
 //= require invite/update-invite-popup.grid
-//= require invite/invite.solar
 //= require invite/invite.grid
 
 //= require events/events
@@ -110,7 +106,6 @@
 
 /// <reference path='app/invite/powur.invite.ts' />
 /// <reference path='app/invite/invite.controller.ts' />
-/// <reference path='app/invite/invite.solar.controller.ts' />
 /// <reference path='app/invite/invite.grid.controller.ts' />
 
 /// <reference path='app/grid/powur.grid.ts' />
