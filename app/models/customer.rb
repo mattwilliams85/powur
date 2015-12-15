@@ -1,5 +1,3 @@
-require 'valid_email'
-
 class Customer < ActiveRecord::Base
   include NameEmailSearch
   include Phone

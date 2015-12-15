@@ -1,5 +1,3 @@
-require 'valid_email'
-
 class User < ActiveRecord::Base
   include UserSecurity
   include UserInvites

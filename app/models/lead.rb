@@ -1,5 +1,3 @@
-require 'valid_email'
-
 class Lead < ActiveRecord::Base
   include NameEmailSearch
   include Phone
