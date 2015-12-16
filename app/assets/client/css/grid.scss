@@ -228,7 +228,6 @@
 
   .summary {
     margin: 20px auto;
-    max-width: 600px;
 
     .header {
       height: 20px;
@@ -240,6 +239,10 @@
     .header-row {
       margin-bottom: 10px;
       padding-top: 20px;
+    }
+
+    md-divider {
+      border-top-color: rgba(0,0,0,0.05);
     }
 
     .grid-row-wrap:last-child md-divider {
@@ -309,6 +312,7 @@
 
       &.new {
         background: #fff;
+        color: $pow-color-blue;
         cursor: default;
 
         & > div {
@@ -324,7 +328,7 @@
           }
         }
         .text-xl {
-          margin-left: 2px;
+          margin-left: 5px;
         }
       }
     }
@@ -729,7 +733,7 @@
   }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 960px) {
   .pw-grid {
     .label {
       font-size: 10pt;
@@ -781,6 +785,8 @@
       .grid-row {
         background: #fff;
         border: 0;
+        height: 85px;
+
         .progress-bar {
           width: 80%;
           margin: 7px auto;

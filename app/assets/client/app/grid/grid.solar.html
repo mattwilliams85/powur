@@ -188,7 +188,7 @@
   <div class="grid" ng-hide="hideGrid">
     <div class="summary" layout="column">
       <div class="grid-row new" flex="25" layout="row">
-        <div class="left" flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.addLead($event)">
+        <div flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.addLead($event)">
           <md-button class="md-fab md-primary" layout-align="center center" layout="column">
             <span>+</span>
           </md-button>
@@ -198,10 +198,10 @@
         </div>
       </div>
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="start center">
-        <span class="label left" flex="50" flex-gt-md="25">CONTACT INFO</span>
-        <span class="label left" flex="50" flex-gt-md="25">PROGRESS</span>
-        <span class="label left" hide show-gt-md flex="25">LEAD OWNER</span>
-        <span class="label right" hide show-gt-md flex="25">POWUR MOVE</span>
+        <span class="label left" flex="50" flex-gt-sm="25">CONTACT INFO</span>
+        <span class="label left" flex="50" flex-gt-sm="25">PROGRESS</span>
+        <span class="label left" hide show-gt-sm flex="25">LEAD OWNER</span>
+        <span class="label right" hide show-gt-sm flex="25">POWUR MOVE</span>
       </div>
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
@@ -268,7 +268,7 @@
             <div class="uppercase text-sm bump">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
-          <div class="left" flex="50" flex-gt-md="25" hide show-gt-md layout="row" layout-align="start center">
+          <div class="left" flex="50" flex-gt-md="25" hide show-gt-sm layout="row" layout-align="start center">
             <div class="circle" layout-align="center center" layout="row">
               <img ng-src="{{ lead.properties.owner.avatar.thumb || grid.defaultAvatar }}">
             </div>
@@ -279,11 +279,11 @@
             </div>
           </div>
           <!-- COLUMN #move -->
-          <div class="left" flex="50" flex-gt-md="25" hide show-gt-md layout="row" layout-align="start center">
+          <div class="left" flex="50" flex-gt-md="25" hide show-gt-sm layout="row" layout-align="start center">
             <span class="text-sm">{{ lead.properties.action_copy || '---' }}</span>
           </div>
         </div>
-        <md-divider hide-gt-sm></md-divider>
+        <md-divider hide show-gt-sm></md-divider>
       </div>
     </div>
 
