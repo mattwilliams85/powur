@@ -241,15 +241,16 @@
     .header-row {
       margin-bottom: 10px;
       padding-top: 10px;
+      &:first-child {
+        padding-top: 20px;
+      }
     }
 
     md-divider {
       border-top-color: rgba(0,0,0,0.05);
     }
 
-    .grid-row-wrap:last-child md-divider {
-      display: none;
-    }
+
 
     .grid-row {
       height: 60px;

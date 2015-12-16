@@ -103,12 +103,12 @@
   </div>
 
   <div class="summary geo" ng-hide="hideGeo">
-    <div hide-gt-md class="header-row" layout="row" layout-align="start center">
+    <div hide-gt-sm class="header-row" layout="row" layout-align="start center">
       <span class="label left" flex="50">TERRITORY</span>
       <span class="label" flex="25">GRID SIZE</span>
       <span class="label" flex="25">PARTNERS</span>
     </div>
-    <div hide-gt-md class="grid-row-wrap" ng-repeat="i in [1,2,3,4,5,6]">
+    <div hide-gt-sm ng-repeat="i in [1,2,3,4,5,6]">
       <div class="grid-row" layout="row" layout-align="start center">
         <span class="left" flex="50" layout="row" layout-align="start center">
           <div class="state"></div>
@@ -227,7 +227,7 @@
         <span class="label left" hide show-gt-sm flex="25">LEAD OWNER</span>
         <span class="label right" hide show-gt-sm flex="25">POWUR MOVE</span>
       </div>
-      <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
+      <div ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
           <div class="left" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
