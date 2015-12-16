@@ -9,7 +9,7 @@ describe('truncateName', () => {
         $provide.value('$window', { innerWidth: 500 });
       });
   });
-  
+
   it('should initialize correctly', inject(($filter: ng.IFilterService) => {
     var truncateName = $filter('truncateName');
     expect(truncateName).toBeDefined();
@@ -17,11 +17,11 @@ describe('truncateName', () => {
   }));
 
   it('should cut/trancate < 720', inject((truncateNameFilter: any) => {
-    expect(truncateNameFilter('abc')).toBe('a.');
+    expect(truncateNameFilter('abcdefghi')).toBe('abcdef.');
   }));
 
   it('should cut/trancate >= 7', inject((truncateNameFilter: any) => {
-    expect(truncateNameFilter('1234567')).toBe('1.');
+    expect(truncateNameFilter('abcdefghi')).toBe('abcdef.');
   }));
 });
 
@@ -33,7 +33,7 @@ describe('truncateName with 800', () => {
         $provide.value('$window', { innerWidth: 800 });
       });
   });
-  
+
   it('should initialize correctly', inject(($filter: ng.IFilterService) => {
     var truncateName = $filter('truncateName');
     expect(truncateName).toBeDefined();
@@ -45,6 +45,6 @@ describe('truncateName with 800', () => {
   }));
 
   it('should cut/trancate >= 7', inject((truncateNameFilter: any) => {
-    expect(truncateNameFilter('1234567')).toBe('1.');
+    expect(truncateNameFilter('12345678')).toBe('123456.');
   }));
 });

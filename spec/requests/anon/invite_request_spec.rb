@@ -92,14 +92,6 @@ describe '/invite/{code}' do
     expect_404
   end
 
-  it 'returns not found if expired' do
-    invite.update_attribute(:expires, (invite.expires -= 2.days))
-
-    get anon_invite_path(invite.id), format: :json
-
-    expect_404
-  end
-
   it 'returns an invite when the user has inputted a code' do
     get anon_invite_path(invite.id), format: :json
 

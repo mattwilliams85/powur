@@ -84,17 +84,4 @@ describe Auth::InvitesController do
       expect(Invite.find_by_id(invite.id)).to be_nil
     end
   end
-
-  describe '#resend' do
-    it 'resends an invite and resets the expiration' do
-      invite = create(:invite, sponsor: @user, expires: 1.day.ago)
-
-      post :resend, id: invite.id
-
-      expect_200
-
-      invite = Invite.find(invite.id)
-      expect(invite.time_left).to be > 23.hours.to_f
-    end
-  end
 end
