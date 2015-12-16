@@ -309,6 +309,11 @@
 
       &.new {
         background: #fff;
+        cursor: default;
+
+        & > div {
+          cursor: pointer;
+        }
 
         .md-fab {
           color: #fff;
@@ -469,7 +474,7 @@
   }
 
   .dialog {
-    max-width: 550px;
+    max-width: 500px;
     margin: auto auto;
   }
 
@@ -647,7 +652,7 @@
   .grid-popup {
     .dialog {
       font-size: 12pt;
-      max-width: 600px;
+      max-width: 500px;
     }
 
     .side-bg {
@@ -668,7 +673,7 @@
 
     md-dialog-content {
       padding: 30px 30px 20px 50px;
-      min-width: 550px;
+      min-width: 500px;
       max-width: none;
     }
     .overview, .progress {
