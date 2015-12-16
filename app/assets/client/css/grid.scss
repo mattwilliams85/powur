@@ -5,8 +5,15 @@
     color: #fff;
   }
   .filter-header {
-    padding: 15px 0;
-    div{
+    position: relative;
+    text-align: center;
+    md-ink-bar {
+      background-color: rgb(38,166,154);
+      left: 0;
+      right: 247px;
+    }
+    .tab {
+      padding: 15px 0;
       cursor: pointer;
       &.active {
         font-weight: 500;
@@ -378,22 +385,6 @@
       background-position: 7px;
     }
   }
-
-
-  md-tabs {
-    background: #cfcfcf;
-
-    md-tab-item {
-      &.md-active span {
-        color: #666 !important;
-        transition: color .2s;
-      }
-    }
-    md-ink-bar {
-      background-color: #666 !important;
-      color: #666 !important;
-    }
-  }
 }
 
 .grid-popup {
@@ -415,7 +406,7 @@
     }
 
     md-ink-bar {
-      background-color: #31a6ce !important;
+      // background-color: #31a6ce !important;
       height: 3px;
     }
   }
@@ -779,7 +770,7 @@
         font-size: 10pt;
         line-height: 14pt;
       }
-      .header-row {
+      .header-row:last-of-type {
         border-top: 1px solid #eee;
       }
       .grid-row {

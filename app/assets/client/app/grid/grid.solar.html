@@ -152,10 +152,16 @@
         <div class="icon menu-icon" ng-click="$mdOpenMenu($event)"></div>
         <md-menu-content class="filter-menu rigid" width="5">
           <md-menu-item class="header"><span>LEAD PHASE <b>FILTER</b></span></md-menu-item>
-          <div class="filter-header" layout="row" layout-align="space-around center">
-            <div ng-class="{ 'active': !filter }" ng-click="filter = null;" md-prevent-menu-close="md-prevent-menu-close">ALL</div>
-            <div ng-class="{ 'active': filter === 'pending' }" ng-click="filter = 'pending'" md-prevent-menu-close="md-prevent-menu-close">PENDING</div>
-            <div ng-class="{ 'active': filter === 'submitted' }" ng-click="filter = 'submitted'" md-prevent-menu-close="md-prevent-menu-close">SUBMITTED</div>
+          <div class="filter-header" layout="row">
+            <div ng-class="{ 'active': !filter }" ng-click="filter = null; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="25" class="tab">ALL
+             <div class="md-ripple-container"></div>
+            </div>
+            <div ng-class="{ 'active': filter === 'pending' }" ng-click="filter = 'pending'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="35" class="tab">PENDING</div>
+            <div ng-class="{ 'active': filter === 'submitted' }" ng-click="filter = 'submitted'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="40" class="tab">SUBMITTED</div>
+            <md-ink-bar class="md-secondary"
+                        style="left:{{ grid.barLeft }}px;right:{{ grid.barRight }}px" 
+                        ng-class="{ 'md-right': grid.barLeft < grid.barRight, 'md-left': grid.barLeft >= grid.barRight || !grid.barLeft }">
+            </md-ink-bar>
           </div>
           <div class="filter-box">
             <md-radio-group ng-hide="filter" ng-click="grid.filter(' ')" md-no-ink ng-show="filter === 'pending'" ng-model="grid.activeFilter">

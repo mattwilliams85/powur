@@ -136,6 +136,8 @@ module powur {
     searchQuery: string;
     showSearch: boolean;
     stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
+    barLeft: number;
+    barRight: number;
     activeFilter: string;
 
     get insight(): any {
@@ -244,6 +246,11 @@ module powur {
 
     get defaultAvatar(): string {
       return this.home.assets.defaultProfileImg;
+    }
+
+    tabBar(e){
+      this.barLeft = e.target.offsetLeft;
+      this.barRight = e.target.parentElement.offsetWidth - (this.barLeft + e.target.offsetWidth);
     }
 
     search() {
