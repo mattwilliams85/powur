@@ -245,9 +245,6 @@
     .header-row {
       margin-bottom: 10px;
       padding-top: 10px;
-      &:first-child {
-        padding-top: 20px;
-      }
     }
 
     md-divider {
@@ -320,9 +317,9 @@
         .md-fab {
           color: #fff;
           z-index: 1;
-          height: 50px;
-          width: 50px;
-          margin-left: 25px;
+          height: 40px;
+          width: 40px;
+          margin-left: 15px;
           span {
             font-size: 20pt;
             font-weight: 400;
