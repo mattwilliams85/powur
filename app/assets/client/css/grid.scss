@@ -54,7 +54,7 @@
   text-align: center;
   color: #666;
 
-  .md-menu { 
+  .md-menu {
     cursor: pointer;
   }
 
@@ -153,22 +153,26 @@
     user-select: none;
     text-transform: uppercase;
 
-    .toggle {
-      font-size: 16pt;
-      line-height: 7pt;
-      font-weight: 500;
-      position: absolute;
-      margin-left: -13px;
+    .toggle-wrapper {
+      cursor: pointer;
 
-      &:after {
-        content: '-';
-      }
-
-      &.closed {
-        font-size: 12pt;
+      .toggle {
+        font-size: 16pt;
+        line-height: 7pt;
+        font-weight: 500;
+        position: absolute;
+        margin-left: -13px;
 
         &:after {
-          content: '+';
+          content: '-';
+        }
+
+        &.closed {
+          font-size: 12pt;
+
+          &:after {
+            content: '+';
+          }
         }
       }
     }
