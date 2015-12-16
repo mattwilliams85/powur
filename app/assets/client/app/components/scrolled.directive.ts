@@ -43,9 +43,12 @@ module powur {
                 setTimeout(function(){
                   loading = false;
                   loadMore(scope.$apply(attributes.pwScrolled), scope);
-                  
                 }, 500);
             }
+          });
+
+          scope.$on('$destroy', function cleanup() {
+            angular.element($window).off('scroll');
           });
         }
       };
