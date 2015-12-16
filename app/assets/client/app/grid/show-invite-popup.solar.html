@@ -144,7 +144,7 @@
           <md-content layout="column">
             <md-input-container>
               <label>average bill</label>
-              <input ng-model="dialog.update.field('average_bill').value" type="number">
+              <input ng-model="dialog.update.field('average_bill').value">
               <div ng-messages="dialog.update.field('average_bill').$error" ng-show="dialog.update.field('average_bill').$error" class="messages no-padding">
                 <div ng-message="message">{{ dialog.update.field('average_bill').$error.message }}</div>
               </div>

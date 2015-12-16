@@ -6,7 +6,7 @@ json.properties do
   json.call(lead, :id, :data_status, :sales_status, :invite_status,
             :submitted_at, :provider_uid, :created_at, :action_badge,
             :first_name, :last_name, :email, :phone, :code,
-            :address, :city, :state, :notes, :last_viewed_at, :updated_at)
+            :address, :city, :state, :zip, :notes, :last_viewed_at, :updated_at)
   json.call(lead, :action_copy, :completion_chance) if lead.lead_action?
   [ :converted_at, :closed_won_at,
     :contracted_at, :installed_at ].each do |key_date|
@@ -15,7 +15,7 @@ json.properties do
   json.average_bill lead.data['average_bill']
   json.stage lead.lead_stage
   json.product lead.product.name
-  json.owner do 
+  json.owner do
     json.call(lead.user, :id, :first_name, :last_name, :phone, :email)
     json.avatar do
       [ :thumb, :preview, :large ].each do |key|
@@ -25,25 +25,52 @@ json.properties do
   end
 end
 
-actions = []
-actions << action(:update, :patch, lead_path(lead))
-  .field(:first_name, :text, value: lead.first_name)
-  .field(:last_name, :text, value: lead.last_name)
-  .field(:email, :email, value: lead.email)
-  .field(:phone, :text, value: lead.phone)
-  .field(:address, :text, value: lead.address)
-  .field(:city, :text, value: lead.city)
-  .field(:state, :text, value: lead.state)
-  .field(:zip, :text, value: lead.zip)
-  .field(:notes, :text, required: false, value: lead.notes)
-actions << action(:resend, :post, resend_lead_path(lead))
-actions << action(:delete, :delete, lead_path(lead))
+actions_list = []
 
-actions(*actions) if !lead.submitted?
+unless lead.submitted?
+  update = action(:update, :patch, lead_path(lead))
+    .field(:first_name, :text, value: lead.first_name)
+    .field(:last_name, :text, value: lead.last_name)
+    .field(:email, :email, required: false, value: lead.email)
+    .field(:phone, :text, required: false, value: lead.phone)
+    .field(:address, :text, required: false, value: lead.address)
+    .field(:city, :text, required: false, value: lead.city)
+    .field(:state, :text, required: false, value: lead.state)
+    .field(:zip, :text, required: false, value: lead.zip)
+    .field(:notes, :text, required: false, value: lead.notes)
 
-entity_list = []
-entity_list << entity(%w(email),
-                       'invite-email',
-                       email_product_invite_path(lead.customer.id)) if lead.customer
+  lead.product.quote_fields.each do |field|
+    opts = {
+      required:      field.required,
+      product_field: true,
+      value:         field.normalize(lead.data[field.name]) }
+
+    if field.lookup?
+      lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
+      next if lookups.empty?
+      opts[:options] = lookups.map do |lookup|
+        attrs = { display: lookup.value }
+        attrs[:group] = lookup.group if lookup.group
+        attrs
+      end
+    end
+
+    update.field(field.name, field.view_type, opts)
+  end
+
+  actions_list << update
+  actions_list << action(:resend, :post, resend_lead_path(lead))
+  actions_list << action(:delete, :delete, lead_path(lead))
+  actions_list << action(:submit, :post, submit_lead_path(lead)) if lead.ready_to_submit?
+  actions_list << action(:invite, :post, invite_lead_path(lead)) if lead.not_sent?
+end
+
+actions(*actions_list)
+
+# entity_list = []
+# entity_list << entity(%w(email),
+#                       'invite-email',
+#                       email_product_invite_path(lead.customer.id)) if lead.customer
+# entities(*entity_list)
 
 self_link lead_path(lead)
