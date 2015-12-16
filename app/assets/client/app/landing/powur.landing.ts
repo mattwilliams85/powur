@@ -13,6 +13,16 @@ module powur {
         url: '/getsolar',
         templateUrl: 'app/landing/step1.html',
         controller: 'LandingController as landing',
+      })
+    .state('landing-step2', {
+        url: '/getsolar/step2',
+        templateUrl: 'app/landing/step2.html',
+        controller: 'LandingController as landing',
+      })
+    .state('landing-thanks', {
+        url: '/getsolar/thanks',
+        templateUrl: 'app/landing/thanks.html',
+        controller: 'LandingController as landing',
       });
   }
 

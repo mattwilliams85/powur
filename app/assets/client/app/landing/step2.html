@@ -1,0 +1,97 @@
+<div layout="column" class="landing">
+  <div class="header" layout="row">
+    <div flex="50" layout="row" layout-fill>
+      <div flex="30"></div>
+      <div flex layout="column" layout-align="center start">
+        <img class="powur-logo" src="/assets/img/landing/powur-logo.png">
+      </div>
+    </div>
+    <div flex="50"></div>
+  </div>
+  <div class="bg0" layout="row" layout-align="center center" layout-fill>
+    <div flex="20"></div>
+    <div flex class="quote">
+      “You could power the entire United States with about 150 to 200 square kilometers of solar panels..., the entire United States.”
+      <br><br>
+      <div class="who">- Elon Musk, Founder of SolarCity</div>
+    </div>
+    <div flex="20"></div>
+  </div>
+  <div class="bg6" layout="row">
+    <div flex="20"></div>
+    <div flex>
+      <div class="title">Take your first step at solar savings</div>
+      <div class="subtitle">Hundreds of your neighbors have gone solar with us in Portland, OR.</div>
+      
+      <div class="form" layout="column">
+        <div layout="column" layout-md="row">
+          <md-input-container flex="50">
+            <div class="border"></div>
+            <label>First Name</label>
+            <input type="text" ng-model="langing.info.firstName">
+          </md-input-container>
+          <div class="spacer"></div>
+          <md-input-container flex="50">
+            <div class="border"></div>
+            <label>Last Name</label>
+            <input type="text" ng-model="langing.info.lastName">
+          </md-input-container>
+        </div>
+        <md-input-container>
+          <div class="border"></div>
+          <label>Street Address</label>
+          <input type="text" ng-model="langing.info.address">
+        </md-input-container>
+        <md-input-container>
+          <div class="border"></div>
+          <label>City</label>
+          <input type="text" ng-model="langing.info.city">
+        </md-input-container>
+        <div layout="column" layout-md="row">
+          <md-input-container flex="50">
+            <div class="border"></div>
+            <label>State</label>
+            <input type="text" ng-model="langing.info.state">
+          </md-input-container>
+          <div class="spacer"></div>
+          <md-input-container flex="50">
+            <div class="border"></div>
+            <label>Zip</label>
+            <input type="text" ng-model="langing.info.zip">
+          </md-input-container>
+        </div>
+        <md-input-container>
+          <div class="border"></div>
+          <label>Phone</label>
+          <input type="text" ng-model="langing.info.phone">
+        </md-input-container>
+        <md-input-container>
+          <div class="border"></div>
+          <label>Email </label>
+          <input type="text" ng-model="langing.info.email">
+        </md-input-container>
+      </div>
+
+      <div class="msg">The more you spend on electricity, the more we can save you. <br>What’s your average electricity bill?</div>
+      <div class="slider">
+        <md-slider flex min="0" max="500" md-discrete ng-model="landing.monthly" aria-label="monthly" id="monthly-slider" class="md-primary"></md-slider>
+      </div>
+      <md-button class="md-raised md-primary" ng-click="landing.go()">GO</md-button>
+      <div class="disclaimer">By clicking here, I agree that SolarCity can contact me via automated technology and/or pre-recorded messages using the number provided. I understand that this consent is not required to make a purchase.</div>
+    </div>
+    <div flex="20"></div>
+  </div>
+  <div class="bg4" layout="column" layout-align="center center">
+    <div layout="column" layout-align="center center">
+      <div class="headline">Truly Reliable Partnership</div>
+      <div class="msg">SolarCity’s revolutionizing the energy industry with the strong support of partners who have funded billions of dollars worth of solar projects with us. They know that clean, more affordable solar power is the bright solution for homeowners, their investors, the environment and the future.</div>
+    </div>
+    <div class="companies" layout="row" layout-align="space-around end">
+      <i class="corp corp-google"></i>
+      <i class="corp corp-goldman-sachs"></i>
+      <i class="corp corp-honda"></i>
+      <i class="corp corp-citibank"></i>
+      <i class="corp corp-usbancorp"></i>
+    </div>
+  </div>
+</div>

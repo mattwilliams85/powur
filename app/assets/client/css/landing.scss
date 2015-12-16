@@ -1,4 +1,4 @@
-.get-solar {
+.landing {
 
   label {
     text-transform: uppercase;
@@ -40,6 +40,14 @@
     height: 335px;
     background-color: #219fd5;
     color: white;
+    
+    .quote {
+      text-align: center;
+      font-size: x-large;
+      .who {
+        font-size: initial;
+      }
+    }
   }
 
   .bg1 {
@@ -107,9 +115,11 @@
         padding: 30px;
       }
     }
+    .msg {
+      width: 80%;
+    }
   }
   .bg5 {
-    //height: 52px;
     background-color: #219fd5;
     color: white;
     button {
@@ -127,6 +137,84 @@
     input {
       width: 200px;
     }    
+  }
+  
+  .bg6 {
+    height: 1150px;
+    color: #36c6f4;
+    
+    .title {
+      font-size: x-large;
+      text-align: center;
+      margin-top: 70px;
+    }
+    
+    .subtitle {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    label {
+      color: black !important;
+      font-size: small;
+      text-align: left;
+    }
+    
+    .border {
+      border-color: #36c6f4 !important;
+    }
+    
+    .spacer {
+      width: 10px;
+    }
+    
+    button {
+      width: 100%;
+    }
+    .disclaimer {
+      font-size: xx-small;
+    }
+    
+    .slider {
+      margin: 20px 0 75px 0;
+      .md-thumb-text {
+        color: white;
+      }
+    }
+    
+    .msg {
+      margin-top: 20px;
+    }
+  }
+  
+  .bg7 {
+    color: white;
+    height: 1300px;
+    background-color: #219fd5;
+    
+    .title {
+      font-size: x-large;
+      text-align: center;
+      margin-top: 170px;
+    }
+    
+    .subtitle {
+      font-size: large;
+      text-align: center;
+      margin-bottom: 150px;
+    }
+    
+    .section {
+      margin: 20px 0 20px 0;
+    }
+    
+    i {
+      
+    }
+    
+    .spacer {
+      height: 150px;
+    }
   }
   
   .corp {
@@ -189,5 +277,36 @@
       height: 91px;
       background-position: -204px -5px;
   }
+  
+  .thanks {
+    background: image-url('img/landing/thanks-sprite.png');
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.thanks-customized-solar {
+    width: 44px;
+    height: 61px;
+    background-position: -5px -5px;
+}
+
+.thanks-get-solar {
+    width: 54px;
+    height: 65px;
+    background-position: -59px -5px;
+}
+
+.thanks-lower-energy {
+    width: 100px;
+    height: 55px;
+    background-position: -123px -5px;
+}
+
+.thanks-zero-upfront {
+    width: 70px;
+    height: 61px;
+    background-position: -233px -5px;
+}
+
   
 }

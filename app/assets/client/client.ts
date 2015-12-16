@@ -54,6 +54,8 @@
 //= require grid/update-invite-popup.solar
 
 //= require landing/step1
+//= require landing/step2
+//= require landing/thanks
 
 //= require app/components/assets.constant
 
