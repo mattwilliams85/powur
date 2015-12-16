@@ -129,8 +129,10 @@ module powur {
         }
       }).then((data: any) => {
         if (data) {
+          data = new SirenModel(data);
           data.properties.pieTimer = this.invites.properties.pieTimer;
-          this.invites = new SirenModel(data);
+          this.invites.entities = data.entities;
+          this.invites.properties = data.properties;
           this.activePies = [];
           this.buildPies();
         }
