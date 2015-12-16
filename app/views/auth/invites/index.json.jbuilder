@@ -5,7 +5,6 @@ klass :invites, :list
 json.properties do
   # json.available_count current_user.available_invites
   json.accepted_count current_user.invites.redeemed.count
-  json.expired_count current_user.invites.expired.count
   json.pending_count current_user.invites.pending.count
 end
 

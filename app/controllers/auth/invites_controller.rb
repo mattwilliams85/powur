@@ -6,12 +6,12 @@ module Auth
 
     page max_limit: 20
     filter :status,
-           options:  [ :pending, :expired ],
+           options:  [ :pending ],
            required: false
 
     def index
       @invites = apply_list_query_options(
-        current_user.invites.where('user_id is null').order(expires: :asc))
+        current_user.invites.where('user_id is null').order(created_at: :desc))
 
       render 'index'
     end
@@ -31,7 +31,6 @@ module Auth
     end
 
     def resend
-      @invite.renew
       current_user.send_invite(@invite)
 
       index

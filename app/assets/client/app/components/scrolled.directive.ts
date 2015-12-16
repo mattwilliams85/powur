@@ -29,7 +29,6 @@ module powur {
           if (!data.entities.length) return;
           entity.entities = entity.entities.concat(data.entities);
           entity.properties = data.properties;
-          scope.invite.buildPies();
         });
       }
 
