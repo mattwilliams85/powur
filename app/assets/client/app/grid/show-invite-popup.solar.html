@@ -42,6 +42,10 @@
       <md-divider></md-divider>
       <br>
 
+      <md-button class="md-primary md-raised" ng-show="dialog.submitAction" ng-click="dialog.submitToSC()" ng-disabled="dialog.submitAction.submitting">Submit To Solar City</md-button>
+      <div ng-messages="dialog.submitAction.$error" ng-show="dialog.submitAction && dialog.submitAction.$error" class="messages">
+        <div ng-message="message">{{ dialog.submitAction.$error.message }}</div>
+      </div>
       <md-button class="md-primary md-raised" ng-click="dialog.resendInvite()" ng-disabled="dialog.resend.submitting">Resend</md-button>
       <md-button class="md-warn md-raised" ng-click="dialog.remove()" ng-disabled="dialog.delete.submitting">Delete</md-button>
     </md-dialog-content>

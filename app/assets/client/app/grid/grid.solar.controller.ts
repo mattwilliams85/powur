@@ -113,6 +113,12 @@ module powur {
         });
       }
 
+      submitToSC() {
+        this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+          this.$mdDialog.cancel();
+        });
+      }
+
       showLink(lead): string {
         return 'https://powur.com/next/join/solar/' + lead.code;
       }
@@ -124,6 +130,7 @@ module powur {
       get delete(): Action { return this.lead.action('delete') }
       get resend(): Action { return this.lead.action('resend') }
       get update(): Action { return this.lead.action('update') }
+      get submitAction(): Action { return this.lead.action('submit') }
       get customer(): any  { return this.lead.properties.customer }
   }
 

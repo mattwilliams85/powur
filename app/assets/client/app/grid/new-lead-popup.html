@@ -127,6 +127,9 @@
             <md-input-container>
               <label>additional notes</label>
               <input ng-model="dialog.updateAction.field('notes').value">
+              <div ng-messages="dialog.updateAction.field('notes').$error" ng-show="dialog.updateAction.field('notes').$error" class="messages">
+                <div ng-message="message">{{ dialog.updateAction.field('notes').$error.message }}</div>
+              </div>
             </md-input-container>
           </md-content>
 
