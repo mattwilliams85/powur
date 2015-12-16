@@ -181,10 +181,11 @@
         <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
         <md-menu-content class="filter-menu" width="4">
           <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
-          <md-menu-item ng-repeat="d in [7, 30, 60]">
+          <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
             <md-button ng-click="grid.filter('days', d)">
               <div layout="row">
-                <p flex>In last {{ d }} days</p>
+                <p ng-if="d" flex>In last {{ d }} days</p>
+                <p ng-if="!d" flex>In last {{ d }} days</p>
               </div>
             </md-button>
           </md-menu-item>
