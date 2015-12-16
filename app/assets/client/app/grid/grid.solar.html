@@ -1,22 +1,4 @@
 <div class="pw-grid solar">
-<!--   <md-tabs>
-    <md-tab ng-click="grid.showLeads('user-team_leads');">GRID</md-tab>
-    <md-tab ng-click="grid.showLeads('user-leads');">PERSONAL</md-tab>
-    <md-tab ng-click="grid.showSearch = true">SEARCH</md-tab>
-    <md-tab>
-    </md-tab>
-  </md-tabs>
-
-  <form ng-submit="grid.search()" novalidate autocomplete="off">
-    <input ng-model="grid.searchQuery" ng-show="grid.showSearch" type="text" class="search" placeholder="SEARCH" pw-focus-on-show>
-  </form>
-
-  <md-tabs ng-repeat="f in grid.filters" md-selected="-1">
-    <md-tab ng-repeat="val in grid.leads.properties.filters.options[f]" ng-click="grid.filter(f, val);">{{ val | humanizeString }}</md-tab>
-  </md-tabs>
-    TEST -->
-<!--   <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button> -->
-
   <div class="accordion" layout="row" layout-align="space-between-center" ng-click="hideInsight = !hideInsight">
     <span>
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
@@ -24,15 +6,16 @@
     </span>
     <md-menu md-position-mode="target-right target" md-offset="0 10">
       <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
-        {{ grid.dateFilterLabel }} 
+        {{ grid.dateFilterLabel }}
         <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
-        <md-menu-item ng-repeat="d in [7, 30, 60]">
+        <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
           <md-button ng-click="grid.filter('days', d)">
             <div layout="row">
-              <p flex>In last {{ d }} days</p>
+              <p ng-if="d" flex>In last {{ d }} days</p>
+              <p ng-if="!d" flex>In a Lifetime</p>
             </div>
           </md-button>
         </md-menu-item>
@@ -86,15 +69,16 @@
 
     <md-menu md-position-mode="target-right target" md-offset="0 10">
       <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
-        {{ grid.dateFilterLabel }} 
+        {{ grid.dateFilterLabel }}
         <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
-        <md-menu-item ng-repeat="d in [7, 30, 60]">
+        <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
           <md-button ng-click="grid.filter('days', d)">
             <div layout="row">
-              <p flex>In last {{ d }} days</p>
+              <p ng-if="d" flex>In last {{ d }} days</p>
+              <p ng-if="!d" flex>In a Lifetime</p>
             </div>
           </md-button>
         </md-menu-item>
@@ -136,7 +120,7 @@
       <form ng-submit="grid.search()" novalidate autocomplete="off">
         <input ng-model="grid.searchQuery" ng-show="search" type="text" class="search" placeholder="SEARCH" pw-focus-on-show>
       </form>
-      
+
       <md-menu md-position-mode="target-right target" md-offset="0 10">
         <i class="material-icons" ng-click="$mdOpenMenu($event)">people</i>
         <md-menu-content class="filter-menu" width="4">
@@ -169,7 +153,7 @@
             <div ng-class="{ 'active': filter === 'pending' }" ng-click="filter = 'pending'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="35" class="tab">PENDING</div>
             <div ng-class="{ 'active': filter === 'submitted' }" ng-click="filter = 'submitted'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="40" class="tab">SUBMITTED</div>
             <md-ink-bar class="md-secondary"
-                        style="left:{{ grid.barLeft }}px;right:{{ grid.barRight }}px" 
+                        style="left:{{ grid.barLeft }}px;right:{{ grid.barRight }}px"
                         ng-class="{ 'md-right': grid.barLeft < grid.barRight, 'md-left': grid.barLeft >= grid.barRight || !grid.barLeft }">
             </md-ink-bar>
           </div>

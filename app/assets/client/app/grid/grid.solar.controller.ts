@@ -304,7 +304,9 @@ module powur {
 
       if (name === 'days') {
         this.days = value;
-        this.session.getEntity(SirenModel, 'user-leads_summary', { days: this.days }, true).then((data: any) => {
+        var opts = {};
+        if (this.days) opts = { days: this.days };
+        this.session.getEntity(SirenModel, 'user-leads_summary', opts, true).then((data: any) => {
           this.leadsSummary.properties = data.properties;
         });
       } else {
