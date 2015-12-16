@@ -262,15 +262,6 @@ module powur {
         });
     }
 
-    showLeads(entityType: string) {
-      this.showSearch = false;
-      this.session.getEntity(SirenModel, entityType,
-        { days: this.days, page: 1 }, true).then((data: ISirenModel) => {
-          this.leads = data;
-          this.leads.properties.entityType = entityType;
-        });
-    }
-
     loadMore() {
       var page = this.leads.properties.paging.current_page,
           opts = { days: this.days, page: page + 1, search: this.searchQuery },
@@ -292,9 +283,17 @@ module powur {
       });
     }
 
+    showLeads(entityType: string) {
+      this.showSearch = false;
+      this.leads.properties.entityType = entityType;
+      this.leads.properties.paging.current_page = 0;
+      this.leads.entities = [];
+      this.loadMore();
+    }
+
     filter(name: string, value: any, status: any) {
-      this.leads.properties.filters['sales_status'] = null;
-      this.leads.properties.filters['data_status'] = null;
+      // this.leads.properties.filters['sales_status'] = null;
+      // this.leads.properties.filters['data_status'] = null;
       this.activeFilter = name;
 
       if (name === 'days') {
