@@ -115,11 +115,6 @@
       templateUrl: 'profile/templates/edit.html',
       controller: 'ProfileCtrl'
     }).
-    // Landing page
-    when('/getsolar', {
-      templateUrl: 'getsolar/templates/step1.html',
-      controller: 'GetSolarCtrl'
-    }).
 
     otherwise({
       redirectTo: '/home'

@@ -53,6 +53,8 @@
 //= require grid/show-lead-popup.solar
 //= require grid/update-invite-popup.solar
 
+//= require landing/step1
+
 //= require app/components/assets.constant
 
 // client / order according to any dependencies
@@ -111,6 +113,9 @@
 /// <reference path='app/grid/powur.grid.ts' />
 /// <reference path='app/grid/grid.solar.controller.ts' />
 /// <reference path='app/grid/grid.powur.controller.ts' />
+
+/// <reference path='app/landing/powur.landing.ts' />
+/// <reference path='app/landing/landing.controller.ts' />
 
 /// <reference path='app/events/events.controller.ts' />
 

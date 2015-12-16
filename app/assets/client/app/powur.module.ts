@@ -13,6 +13,7 @@ module powur {
     'powur.invite',
     'powur.join',
     'powur.events',
-    'powur.grid'
+    'powur.grid',
+    'powur.landing',
   ]);
 }
