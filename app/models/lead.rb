@@ -6,6 +6,8 @@ class Lead < ActiveRecord::Base
   belongs_to :product
   belongs_to :customer
   has_many :lead_updates
+  has_many :bonus_payment_leads
+  has_many :bonus_payments, through: :bonus_payment_leads
 
   enum data_status: [
     :incomplete, :ready_to_submit,

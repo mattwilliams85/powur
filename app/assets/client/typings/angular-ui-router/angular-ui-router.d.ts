@@ -75,6 +75,8 @@ declare module angular.ui {
          * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
+
+        ncyBreadcrumb?: any;
     }
 
     interface IStateProvider extends angular.IServiceProvider {
