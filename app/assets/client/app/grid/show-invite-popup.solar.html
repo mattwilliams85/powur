@@ -29,9 +29,11 @@
 
       <md-content layout="column" class="link-wrap">
         <div class="header">INVITATION <b>INFO</b></div>
-
-        <div class="line-icon sent">{{ dialog.lead.properties.email_data.state_description || 'sent'}} on {{dialog.lead.properties.updated_at | date: 'MMM d, yyyy'}}</div>
-        <div class="line-icon url">
+        <div layout="row">
+          <i class="material-icons">mail</i>
+          {{ dialog.lead.properties.email_data.state_description || 'sent'}} on {{dialog.lead.properties.updated_at | date: 'MMM d, yyyy'}}</div>
+        <div layout="row">
+          <i class="material-icons">link</i>
           <input class="link" value="{{dialog.showLink(dialog.lead.properties)}}" onclick="this.select()" readonly>
         </div>
       </md-content>

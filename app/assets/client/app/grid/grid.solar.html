@@ -17,8 +17,8 @@
     TEST -->
 <!--   <md-button ng-click="grid.addLead($event)" class="md-secondary">ADD LEAD</md-button> -->
 
-  <div class="accordion" layout="row" layout-align="space-between-center">
-    <span ng-click="hideInsight = !hideInsight" >
+  <div class="accordion" layout="row" layout-align="space-between-center" ng-click="hideInsight = !hideInsight">
+    <span>
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
       GRID <b>SUMMARY</b>
     </span>
@@ -44,42 +44,42 @@
     <div layout="column" layout-align="space-around" flex="20">
       <div class="label">LEADS</div>
       <div class="count" layout="row" layout-align="center center">
-        <span class="icon lead"></span>
+        <i class="material-icons">assignment</i>
         {{ grid.insight.leads }}
       </div>
     </div>
     <div layout="column" layout-align="space-around" flex="20">
       <div class="label">QUALIFIED</div>
       <div class="count" layout="row" layout-align="center center">
-        <span class="icon proposal"></span>
+        <i class="material-icons">assignment_turned_in</i>
         {{ grid.insight.proposals }}
       </div>
     </div>
     <div layout="column" layout-align="space-around" flex="20">
       <div class="label">CLOSED WON</div>
       <div class="count" layout="row" layout-align="center center">
-        <span class="icon closed-won"></span>
+        <i class="material-icons">thumb_up</i>
         {{ grid.insight.closed }}
       </div>
     </div>
     <div layout="column" layout-align="space-around" flex="20">
       <div class="label">CONTRACTS</div>
       <div class="count" layout="row" layout-align="center center">
-        <span class="icon contract"></span>
+        <i class="material-icons">import_contacts</i>
         {{ grid.insight.contracts }}
       </div>
     </div>
     <div layout="column" layout-align="space-around" flex="20">
       <div class="label">INSTALLS</div>
       <div class="count" layout="row" layout-align="center center">
-        <span class="icon install"></span>
+        <i class="material-icons">home</i>
         {{ grid.insight.installs }}
       </div>
     </div>
   </div>
 
-  <div class="accordion" layout="row" layout-align="space-between center">
-    <span ng-click="hideGeo = !hideGeo">
+  <div class="accordion" layout="row" layout-align="space-between center" ng-click="hideGeo = !hideGeo">
+    <span>
       <span class="toggle" ng-class="{'closed': hideGeo }"></span>
       GRID <b>GEO</b>
     </span>
@@ -125,8 +125,8 @@
     </div>
   </div>
 
-  <div class="accordion" layout="row" layout-align="space-between-center">
-    <span ng-click="hideGrid = !hideGrid">
+  <div class="accordion" layout="row" layout-align="space-between-center" ng-click="hideGrid = !hideGrid">
+    <span>
       <span class="toggle" ng-class="{'closed': hideGrid }"></span>
       GRID <b>LEADS</b>
     </span>
@@ -211,10 +211,10 @@
 
   <div class="grid" ng-hide="hideGrid">
     <div class="summary" layout="column">
-      <div class="grid-row new" flex="25" layout="row">
+      <div class="grid-row new" layout="row">
         <div flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.addLead($event)">
-          <md-button class="md-fab md-primary" layout-align="center center" layout="column">
-            <span>+</span>
+          <md-button class="md-fab md-primary" layout-align="center center" layout="row">
+            <i class="material-icons">add</i>
           </md-button>
           <div class="detail">
             <div class="uppercase text-xl">CREATE A <b>LEAD</b></div>
@@ -241,15 +241,15 @@
           </div>
           <!-- COLUMN #progress -->
           <div ng-if="!lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center center">
-            <div class="icon {{ grid.leadStatus(lead) }}"></div>
+            <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             <div class="uppercase text-sm">
-              Invitation {{ grid.leadStatus(lead) }}
+              Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
           </div>
           <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center center">
             <div class="icon lost"></div>
             <div class="uppercase text-sm">
-              Lead {{ grid.stage[lead.properties.stage] }}
+              Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
           </div>
           <div ng-if="lead.properties.data_status === 'submitted' && lead.properties.stage < 5" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center start">

@@ -173,12 +173,9 @@
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
     }
     .menu {
-        background: image-url('img/header-menu-icon.png');
-        height: 25px;
-        width: 25px;
+        font-size: 26pt;
+        line-height: 16pt;
         float: left;
-        background-size: contain;
-        background-repeat: no-repeat;
         cursor: pointer;
     }
     .title {

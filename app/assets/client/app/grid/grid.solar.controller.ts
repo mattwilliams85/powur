@@ -188,6 +188,12 @@ module powur {
       return lead.properties.invite_status;
     }
 
+    iconStatus(lead) {
+      if (lead.properties.sales_status === 'ineligible') return;
+      if (lead.properties.invite_status === 'initiated') return 'drafts';
+      return 'mail';
+    }
+
     updateEntity(lead) {
       for (var i = 0; i < this.leads.entities.length; i++) {
         if (this.leads.entities[i].properties.id === lead.properties.id) {

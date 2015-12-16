@@ -8,9 +8,10 @@
     position: relative;
     text-align: center;
     md-ink-bar {
-      background-color: rgb(38,166,154);
+      background-color: #01B598;
       left: 0;
       right: 247px;
+      height: 3px;
     }
     .tab {
       padding: 15px 0;
@@ -213,10 +214,22 @@
       font-size: 20pt;
       color: #01B598;
     }
+    .material-icons {
+      font-size: 24pt;
+      color: #bbb;
+      margin-left: -5px;
+      margin-right: 10px;
+      display: none;
+    }
+    & > div:last-child {
+      .material-icons {
+        font-size: 26pt;
+      }
+    }
   }
 
   .summary {
-    margin: 20px auto;
+    padding: 20px auto;
 
     .header {
       height: 20px;
@@ -227,7 +240,7 @@
 
     .header-row {
       margin-bottom: 10px;
-      padding-top: 20px;
+      padding-top: 10px;
     }
 
     md-divider {
@@ -244,36 +257,21 @@
       width: 100%;
       cursor: pointer;
 
-      .icon {
-        height: 25px;
-        width: 25px;
+      .material-icons {
+        color: #888;
         margin-bottom: 2px;
-        background: image-url("img/solar-invite-sent-icon.png");
-        background-size: contain;
-        &.sent {
-          background: image-url("img/solar-invite-sent-icon-alt.png");
-          background-size: contain;
+        display: block;
+        font-size: 15pt;
+
+        &.sent, &.initiated {
+          color: #01B598;
         }
         &.ineligible {
           background: image-url("img/solar-invite-ineligible-icon-alt.png");
           background-size: contain;
-          height: 20px;
-          width: 20px;
-          margin-bottom: 4px;
-        }
-        &.initiated {
-          background: image-url("img/solar-invite-initiated-icon-alt.png");
-          background-size: contain;
-          height: 21px;
-          width: 21px;
-          margin-left: 3px;
-        }
-        &.lost {
-          background: image-url("img/grid-solar-lost-icon.png");
-          background-size: contain;
           height: 18px;
           width: 18px;
-          margin-bottom: 5px;
+          margin-bottom: 6px;
         }
       }
 
@@ -300,9 +298,15 @@
       }
 
       &.new {
-        background: #fff;
+        background-color: #fff;
         color: $pow-color-blue;
         cursor: default;
+        margin-top: 10px;
+
+        .material-icons {
+          color: #fff;
+          margin-bottom: 0;
+        }
 
         & > div {
           cursor: pointer;
@@ -311,12 +315,13 @@
         .md-fab {
           color: #fff;
           z-index: 1;
-          height: 50px;
-          width: 50px;
-          margin-left: 25px;
+          height: 40px;
+          width: 40px;
+          margin-left: 15px;
           span {
             font-size: 20pt;
             font-weight: 400;
+            line-height: 35pt;
           }
         }
         .text-xl {
@@ -368,22 +373,13 @@
       width: 100%;
       color: #31a6ce;
     }
-  }
-
-  .line-icon {
-    margin-top: .5em;
-    padding-left: 50px;
-    background-position: 0;
-    background-repeat: no-repeat;
-    background-size: 30px;
-
-    &.sent {
-      background-image: image-url("img/solar-invite-sent-icon.png");
+    .layout-row {
+      margin: 5px 0;
+      line-height: 17pt;
     }
-    &.url {
-      background-image: image-url("img/solar-invite-url-icon.png");
-      background-size: 20px;
-      background-position: 7px;
+    .material-icons {
+      margin-right: 7px;
+      color: #666;
     }
   }
 }
@@ -555,6 +551,8 @@
       padding: 5px 10px 5px 30px;
       font-size: 12pt;
       line-height: 12pt;
+      cursor: pointer;
+
       .icon {
         height: 20px;
         width: 20px;
@@ -596,6 +594,13 @@
           width: 45px;
           margin-right: 20px;
         }
+        .material-icons {
+          font-size: 18pt;
+          &.ineligible {
+            height: 22px;
+            width: 22px;
+          }
+        }
       }
 
       .circle {
@@ -625,23 +630,6 @@
         height: 20px;
         width: 20px;
         border: 3px solid #e0e0e0;
-      }
-    }
-    .icon {
-      height: 30px;
-      width: 30px;
-      &.ineligible {
-        height: 25px;
-        width: 25px;
-      }
-      &.initiated {
-        height: 25px;
-        width: 25px;
-        margin-bottom: 5px;
-      }
-      &.lost {
-        height: 23px;
-        width: 23px;
       }
     }
   }
@@ -734,6 +722,10 @@
       height: 130px;
       margin: 10px 0;
 
+      .material-icons {
+        display: block;
+      }
+
       & > div {
         border-left: 1px solid #ccc;
 
@@ -741,17 +733,6 @@
           color: #666;
           font-size: 40pt;
           position: relative;
-          .icon {
-            width: 26px;
-            height: 26px;
-            display: inline-block;
-            margin-right: 10px;
-            &.lead { background: image-url('img/lead-icon.png') no-repeat; }
-            &.proposal   { background: image-url('img/proposals-icon.png') no-repeat }
-            &.closed-won { background: image-url('img/closed-won-icon.png') no-repeat }
-            &.contract   { background: image-url('img/contract-icon.png') no-repeat }
-            &.install    { background: image-url('img/install-icon.png') no-repeat }
-          }
         }
 
         div:first-child {
