@@ -185,20 +185,9 @@
         100% { width: 200px }
       }
     }
-    .icon {
-      height: 15px;
-      width: 15px;
+    .material-icons {
+      margin: 0 5px;
       cursor: pointer;
-      padding: 0 20px;
-      &.search {
-        background: image-url('img/search-icon.png') center/contain no-repeat;
-      }
-      &.date {
-        background: image-url('img/date-icon.png') center/contain no-repeat;
-      }
-      &.menu-icon {
-        background: image-url('img/menu-icon.png') center/contain no-repeat;
-      }
     }
   }
 
@@ -322,6 +311,9 @@
         .md-fab {
           color: #fff;
           z-index: 1;
+          height: 50px;
+          width: 50px;
+          margin-left: 25px;
           span {
             font-size: 20pt;
             font-weight: 400;
@@ -786,6 +778,14 @@
         background: #fff;
         border: 0;
         height: 85px;
+
+        &.new {
+          .md-fab {
+            height: 56px;
+            width: 56px;
+            margin-left: 20px;
+          }
+        }
 
         .progress-bar {
           width: 80%;

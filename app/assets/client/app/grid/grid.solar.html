@@ -25,7 +25,7 @@
     <md-menu md-position-mode="target-right target" md-offset="0 10">
       <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
         {{ grid.dateFilterLabel }} 
-        <div class="icon date"></div>
+        <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
@@ -87,7 +87,7 @@
     <md-menu md-position-mode="target-right target" md-offset="0 10">
       <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
         {{ grid.dateFilterLabel }} 
-        <div class="icon date"></div>
+        <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
@@ -131,25 +131,35 @@
       GRID <b>LEADS</b>
     </span>
     <div layout="row" layout-align="center center">
-      <div class="icon search" ng-class="{ 'active': search }" ng-click="search = !search"></div>
+      <i class="material-icons" ng-class="{ 'active': search }" ng-click="search = !search" ng-click="$mdOpenMenu($event)">search</i>
+
       <form ng-submit="grid.search()" novalidate autocomplete="off">
         <input ng-model="grid.searchQuery" ng-show="search" type="text" class="search" placeholder="SEARCH" pw-focus-on-show>
       </form>
+      
       <md-menu md-position-mode="target-right target" md-offset="0 10">
-        <div class="icon date" ng-click="$mdOpenMenu($event)"></div>
+        <i class="material-icons" ng-click="$mdOpenMenu($event)">people</i>
         <md-menu-content class="filter-menu" width="4">
-          <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
-          <md-menu-item ng-repeat="d in [7, 30, 60]">
-            <md-button ng-click="grid.filter('days', d)">
+          <md-menu-item class="header"><span>SELECT <b>GROUP</b></span></md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="grid.showLeads('user-team_leads');">
               <div layout="row">
-                <p flex>In last {{ d }} days</p>
+                <p flex>Grid leads</p>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="grid.showLeads('user-leads');">
+              <div layout="row">
+                <p flex>Personal leads</p>
               </div>
             </md-button>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
+
       <md-menu md-position-mode="target-right target" md-offset="0 10">
-        <div class="icon menu-icon" ng-click="$mdOpenMenu($event)"></div>
+        <i class="material-icons" ng-click="$mdOpenMenu($event)">filter_list</i>
         <md-menu-content class="filter-menu rigid" width="5">
           <md-menu-item class="header"><span>LEAD PHASE <b>FILTER</b></span></md-menu-item>
           <div class="filter-header" layout="row">
@@ -180,6 +190,20 @@
               </md-radio-button>
             </md-radio-group>
           </div>
+        </md-menu-content>
+      </md-menu>
+
+      <md-menu md-position-mode="target-right target" md-offset="0 10">
+        <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
+        <md-menu-content class="filter-menu" width="4">
+          <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
+          <md-menu-item ng-repeat="d in [7, 30, 60]">
+            <md-button ng-click="grid.filter('days', d)">
+              <div layout="row">
+                <p flex>In last {{ d }} days</p>
+              </div>
+            </md-button>
+          </md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
