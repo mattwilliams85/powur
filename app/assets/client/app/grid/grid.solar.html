@@ -206,13 +206,13 @@
           </div>
         </div>
       </div>
-      <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="start center">
+      <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
         <span class="label left" flex="50" flex-gt-sm="25">CONTACT INFO</span>
         <span class="label left" flex="50" flex-gt-sm="25">PROGRESS</span>
         <span class="label left" hide show-gt-sm flex="25">LEAD OWNER</span>
-        <span class="label right" hide show-gt-sm flex="25">POWUR MOVE</span>
+        <span class="label left" hide show-gt-sm flex="25">POWUR MOVE</span>
       </div>
-      <div ng-repeat="lead in grid.leads.entities">
+      <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
           <div class="left" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
@@ -226,12 +226,12 @@
           </div>
           <!-- COLUMN #progress -->
           <div ng-if="!lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center center">
-            <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
-            <div class="uppercase text-sm">
+            <i class="material-icons bump-right {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
+            <div class="uppercase text-sm bump-right">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
           </div>
-          <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center center">
+          <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center start">
             <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             <div class="uppercase text-sm">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
@@ -240,41 +240,41 @@
           <div ng-if="lead.properties.data_status === 'submitted' && lead.properties.stage < 5" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center start">
             <div layout="row" layout-align="space-between" class="progress-bar">
               <div class="bar"></div>
-              <div class="bar overlay" style="width:{{ lead.properties.stage * 22.5 }}%">
+              <div class="bar overlay" style="width:{{ lead.properties.stage * 20 }}%">
                 <div class="bar animated stage-{{ lead.properties.stage }}"></div>
               </div>
-              <div layout="column" layout-align="center start">
+              <div layout="column" layout-align="center center" flex="20">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-1" ng-class="{ 'active': lead.properties.stage  >= 0 }"></div>
+                  <div class="highlight stage-0" ng-class="{ 'active': lead.properties.stage  >= 0 }"></div>
                 </div>
               </div>
-              <div layout="column" layout-align="center center">
+              <div layout="column" layout-align="center center" flex="20">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-2" ng-class="{ 'active': lead.properties.stage  >= 1 }"></div>
+                  <div class="highlight stage-1" ng-class="{ 'active': lead.properties.stage  >= 1 }"></div>
                 </div>
               </div>
-              <div layout="column" layout-align="center center">
+              <div layout="column" layout-align="center center" flex="20">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-3" ng-class="{ 'active': lead.properties.stage  >= 2 }"></div>
+                  <div class="highlight stage-2" ng-class="{ 'active': lead.properties.stage  >= 2 }"></div>
                 </div>
               </div>
-              <div layout="column" layout-align="center center">
+              <div layout="column" layout-align="center center" flex="20">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 3 }"></div>
+                  <div class="highlight stage-3" ng-class="{ 'active': lead.properties.stage  >= 3 }"></div>
                 </div>
               </div>
-              <div layout="column" layout-align="center end">
+              <div layout="column" layout-align="center center" flex="20">
                 <div class="node-wrap">
                   <div class="node"></div>
-                  <div class="highlight stage-5" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
+                  <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
                 </div>
               </div>
             </div>
-            <div class="uppercase text-sm bump">{{ grid.stage[lead.properties.stage] }}</div>
+            <div class="capitalize text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
           <div class="left" flex="50" flex-gt-md="25" hide show-gt-sm layout="row" layout-align="start center">

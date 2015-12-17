@@ -61,6 +61,8 @@
   .progress-bar {
     position: relative;
     width: 100%;
+    max-width: 220px;
+    margin: 10px 0 10px -5px;
 
     .node-wrap {
       position: relative;
@@ -92,21 +94,20 @@
       &.active {
         display: block;
       }
-      &.stage-0 { animation: pop-in .2s 0s forwards; }
-      &.stage-1 { animation: pop-in .2s .1s forwards; }
-      &.stage-2 { animation: pop-in .2s .2s forwards; }
-      &.stage-3 { animation: pop-in .2s .3s forwards; }
-      &.stage-4 { animation: pop-in .2s .4s forwards; }
+      &.stage-0 { animation: pop-in .3s 0s forwards; }
+      &.stage-1 { animation: pop-in .3s .1s forwards; }
+      &.stage-2 { animation: pop-in .3s .2s forwards; }
+      &.stage-3 { animation: pop-in .3s .3s forwards; }
+      &.stage-4 { animation: pop-in .3s .4s forwards; }
     }
 
     .bar {
-      width: calc(100% - 12px);
+      width: 80%;
       height: 4px;
       background: #e0e0e0;
       position: absolute;
       top: 5px;
-      left: 10px;
-      margin: auto;
+      left: 18px;
 
       &.overlay {
         z-index: 3;
@@ -129,6 +130,10 @@
     .header {
       margin: 10px 0 0 0;
     }
+  }
+
+  .progress-detail {
+    margin-left: 3%;
   }
 
   .md-secondary {
@@ -213,12 +218,10 @@
 
   .left {
     text-align: left;
-    padding-left: 5%;
   }
 
   .right {
     text-align: right;
-    padding-right: 5%;
   }
 
   .insight {
@@ -256,7 +259,10 @@
 
     .header-row {
       margin-bottom: 10px;
-      padding-top: 10px;
+      padding: 10px 0 0 5vw;
+      .label {
+        max-width: 300px;
+      }
     }
 
     md-divider {
@@ -264,12 +270,17 @@
     }
 
 
+    .grid-row-wrap {
+      background: #EFEFEF;
+    }
 
     .grid-row {
       height: 60px;
-      background: #EFEFEF;
       width: 100%;
       cursor: pointer;
+      padding: 0 5vw;
+      max-width: 600px;
+      margin: auto;
 
       .material-icons {
         color: #888;
@@ -303,14 +314,6 @@
         margin: 0 auto;
       }
 
-      .right {
-        padding: 0 15px;
-      }
-
-      .progress-bar {
-        margin: 5px 0;
-      }
-
       &.new {
         background-color: #fff;
         color: $pow-color-blue;
@@ -331,7 +334,8 @@
           z-index: 1;
           height: 40px;
           width: 40px;
-          margin-left: 5vw;
+          margin-left: 0px;
+
           span {
             font-size: 20pt;
             font-weight: 400;
@@ -346,7 +350,7 @@
 
     .co2 {
       font-size: 9pt;
-      margin-top: 12px;
+      margin: 10px;
       b {
         color: #01B598;
       }
@@ -398,6 +402,200 @@
   }
 }
 
+@media screen and (min-width: 600px) {
+  .pw-grid {
+    font-size: 14pt;
+
+    .accordion {
+      padding: 5px 10px 5px 30px;
+      font-size: 12pt;
+      line-height: 12pt;
+      cursor: pointer;
+
+      input {
+        position: initial;
+        height: 25px;
+      }
+
+      .icon {
+        height: 20px;
+        width: 20px;
+      }
+      .toggle {
+        font-size: 16pt;
+        line-height: 9pt;
+        margin-left: -17px;
+      }
+    }
+
+    .md-secondary {
+      font-size: 14pt;
+    }
+
+    md-dialog-content {
+      padding: 20px 20px 10px 40px;
+    }
+    .label {
+      font-size: 8pt;
+    }
+    .insight {
+      .count {
+        font-size: 28pt;
+      }
+    }
+    .summary {
+      .co2 {
+        font-size: 14pt;
+        margin-top: 16px;
+      }
+      .header-row .label {
+        max-width: 350px;
+      }
+      .grid-row {
+        height: 75px;
+        max-width: 700px;
+        .count {
+          font-size: 18pt;
+        }
+        .state {
+          height: 50px;
+          width: 45px;
+          margin-right: 20px;
+        }
+        .material-icons {
+          font-size: 18pt;
+          &.ineligible {
+            height: 22px;
+            width: 22px;
+          }
+        }
+        &.new {
+          .md-fab {
+            height: 50px;
+            width: 50px;
+          }
+        }
+      }
+
+      .circle {
+        height: 50px;
+        width: 50px;
+      }
+
+      .text-xl {
+        font-size: 12pt;
+      }
+
+      .text-lg {
+        font-size: 11pt;
+        line-height: 16pt;
+      }
+
+      .text-sm {
+        font-size: 8pt;
+      }
+    }
+    .progress-bar {
+      max-width: none;
+      .bar {
+        top: 7px;
+        height: 6px;
+        left: 25px;
+      }
+      .node {
+        height: 20px;
+        width: 20px;
+        border: 3px solid #e0e0e0;
+      }
+      .highlight {
+        &.stage-0 { animation: pop-in-lg .3s 0s forwards; }
+        &.stage-1 { animation: pop-in-lg .3s .1s forwards; }
+        &.stage-2 { animation: pop-in-lg .3s .2s forwards; }
+        &.stage-3 { animation: pop-in-lg .3s .3s forwards; }
+        &.stage-4 { animation: pop-in-lg .3s .4s forwards; }
+      }
+      @keyframes pop-in-lg {
+        100% { width: 14px; height: 14px; }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .pw-grid {
+    .label {
+      font-size: 10pt;
+    }
+    .insight {
+      height: 130px;
+      margin: 10px 0;
+
+      .material-icons {
+        display: block;
+      }
+
+      & > div {
+        border-left: 1px solid #ccc;
+
+        .count {
+          color: #666;
+          font-size: 40pt;
+          position: relative;
+        }
+
+        div:first-child {
+          order: 1;
+        }
+      }
+    }
+    .grid {
+      padding-bottom: 20px;
+    }
+    .summary {
+      max-width: 1100px;
+      margin: 0 auto;
+      .text-sm {
+        line-height: 11pt;
+      }
+      .text-lg {
+        font-size: 10pt;
+        line-height: 14pt;
+      }
+
+      .header-row {
+        padding: 20px 15px 0 15px;
+        max-width: none;
+      }
+      .grid-row-wrap {
+        background: #fff;
+      }
+      .grid-row {
+        border: 0;
+        height: 85px;
+        padding: 0 15px;
+        max-width: none;
+
+        &.new {
+          .md-fab {
+            height: 56px;
+            width: 56px;
+          }
+        }
+
+        .progress-bar {
+          width: 80%;
+        }
+
+        .bump-right {
+          margin-left: -20%;
+        }
+      }
+    }
+  }
+}
+
+
+// GRID POP-UP CSS
 .grid-popup {
   font-size: 7pt;
   text-align: left;
@@ -499,20 +697,34 @@
     }
   }
 
-  .progress {
-    .progress-bar {
-
-      .header {
-        margin: 10px 0 0 0;
+  .progress-bar {
+    .bar {
+      width: 80%;
+      left: 30px;
+      &.overlay {
+        left: 0;
       }
     }
+    .highlight {
+      &.stage-0 { animation: pop-in .3s 0s forwards; }
+      &.stage-1 { animation: pop-in .3s .1s forwards; }
+      &.stage-2 { animation: pop-in .3s .2s forwards; }
+      &.stage-3 { animation: pop-in .3s .3s forwards; }
+      &.stage-4 { animation: pop-in .3s .4s forwards; }
+    }
+    @keyframes pop-in {
+      100% { width: 10px; height: 10px; }
+    }
+    .header {
+      margin: 10px 0 0 0;
+    }
+  }
 
-    .number {
-      margin: 0 0 5px 0;
-      color: $pow-color-blue;
-      &.secondary {
-        color: $pow-color-orange;
-      }
+  .number {
+    margin: 0 0 5px 0;
+    color: $pow-color-blue;
+    &.secondary {
+      color: $pow-color-orange;
     }
   }
 
@@ -548,116 +760,12 @@
     background-position: -40px -5px;
   }
 
-  @keyframes pop-in {
-    100% { width: 10px; height: 10px; }
-  }
-
   @keyframes grow {
     100% { width: 100% }
   }
 }
 
 @media screen and (min-width: 600px) {
-  .pw-grid {
-    font-size: 14pt;
-
-    .accordion {
-      padding: 5px 10px 5px 30px;
-      font-size: 12pt;
-      line-height: 12pt;
-      cursor: pointer;
-
-      input {
-        position: initial;
-        height: 25px;
-      }
-
-      .icon {
-        height: 20px;
-        width: 20px;
-      }
-      .toggle {
-        font-size: 16pt;
-        line-height: 9pt;
-        margin-left: -17px;
-      }
-    }
-
-    .md-secondary {
-      font-size: 14pt;
-    }
-
-    md-dialog-content {
-      padding: 20px 20px 10px 40px;
-    }
-    .label {
-      font-size: 8pt;
-    }
-    .insight {
-      .count {
-        font-size: 28pt;
-      }
-    }
-    .summary {
-      .co2 {
-        font-size: 14pt;
-        margin-top: 16px;
-      }
-      .grid-row {
-        height: 75px;
-        .count {
-          font-size: 18pt;
-        }
-        .state {
-          height: 50px;
-          width: 45px;
-          margin-right: 20px;
-        }
-        .material-icons {
-          font-size: 18pt;
-          &.ineligible {
-            height: 22px;
-            width: 22px;
-          }
-        }
-        &.new {
-          .md-fab {
-            height: 50px;
-            width: 50px;
-          }
-        }
-      }
-
-      .circle {
-        height: 50px;
-        width: 50px;
-      }
-
-      .text-xl {
-        font-size: 12pt;
-      }
-
-      .text-lg {
-        font-size: 11pt;
-        line-height: 16pt;
-      }
-
-      .text-sm {
-        font-size: 8pt;
-      }
-    }
-    .progress-bar {
-      .bar {
-        top: 7px;
-        height: 6px;
-      }
-      .node {
-        height: 20px;
-        width: 20px;
-        border: 3px solid #e0e0e0;
-      }
-    }
-  }
   .grid-popup {
     .dialog {
       font-size: 12pt;
@@ -710,11 +818,12 @@
       margin-top: 20px;
       width: 95%;
       span {
-        font-size: 9pt;
+        font-size: 8pt;
       }
       .bar {
         top: 8px;
         height: 7px;
+        left: 35px;
       }
       .node {
         height: 24px;
@@ -722,90 +831,15 @@
         border: 4px solid #e0e0e0;
       }
       .highlight {
-        &.stage-0 { animation: pop-in-lg .2s 0s forwards; }
-        &.stage-1 { animation: pop-in-lg .2s .1s forwards; }
-        &.stage-2 { animation: pop-in-lg .2s .2s forwards; }
-        &.stage-3 { animation: pop-in-lg .2s .3s forwards; }
-        &.stage-4 { animation: pop-in-lg .2s .4s forwards; }
+        &.stage-0 { animation: pop-in-xl .3s 0s forwards; }
+        &.stage-1 { animation: pop-in-xl .3s .1s forwards; }
+        &.stage-2 { animation: pop-in-xl .3s .2s forwards; }
+        &.stage-3 { animation: pop-in-xl .3s .3s forwards; }
+        &.stage-4 { animation: pop-in-xl .3s .4s forwards; }
+      }
+      @keyframes pop-in-xl {
+        100% { width: 16px; height: 16px; }
       }
     }
   }
-  @keyframes pop-in {
-    100% { width: 14px; height: 14px; }
-  }
-  @keyframes pop-in-lg {
-    100% { width: 16px; height: 16px; }
-  }
-}
-
-@media screen and (min-width: 960px) {
-  .pw-grid {
-    .label {
-      font-size: 10pt;
-    }
-    .insight {
-      height: 130px;
-      margin: 10px 0;
-
-      .material-icons {
-        display: block;
-      }
-
-      & > div {
-        border-left: 1px solid #ccc;
-
-        .count {
-          color: #666;
-          font-size: 40pt;
-          position: relative;
-        }
-
-        div:first-child {
-          order: 1;
-        }
-      }
-    }
-    .grid {
-      padding-bottom: 20px;
-    }
-    .summary {
-      max-width: 1000px;
-      .text-sm {
-        line-height: 11pt;
-      }
-      .text-lg {
-        font-size: 10pt;
-        line-height: 14pt;
-      }
-      .header-row:last-of-type {
-        border-top: 1px solid #eee;
-      }
-      .grid-row {
-        background: #fff;
-        border: 0;
-        height: 85px;
-
-        &.new {
-          .md-fab {
-            height: 56px;
-            width: 56px;
-            margin-left: 20px;
-          }
-        }
-
-        .progress-bar {
-          width: 80%;
-          margin: 7px auto;
-        }
-        .left, .right {
-          padding: 0 2%;
-        }
-        .bump {
-          padding-left: 20px;
-          text-transform: capitalize;
-        }
-      }
-    }
-  }
-
 }

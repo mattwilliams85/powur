@@ -34,41 +34,41 @@
           </div>
           <div layout="row" layout-align="space-between" class="progress-bar">
             <div class="bar"></div>
-            <div class="bar overlay" style="width:{{ dialog.lead.properties.stage * 22.5 }}%">
+            <div class="bar overlay" style="width:{{ dialog.lead.properties.stage * 20 }}%">
               <div class="bar animated stage-{{ dialog.lead.properties.stage }}"></div>
             </div>
-            <div layout="column" layout-align="center start">
+            <div layout="column" layout-align="center center" flex="20">
               <div class="node-wrap">
                 <div class="node"></div>
-                <div class="highlight stage-1" ng-class="{ 'active': dialog.lead.properties.stage >= 0 }"></div>
+                <div class="highlight stage-0" ng-class="{ 'active': dialog.lead.properties.stage >= 0 }"></div>
               </div>
               <span class="header">SUBMIT</span>
             </div>
-            <div layout="column" layout-align="center center">
+            <div layout="column" layout-align="center center" flex="20">
               <div class="node-wrap">
                 <div class="node"></div>
-                <div class="highlight stage-2" ng-class="{ 'active': dialog.lead.properties.stage >= 1 }"></div>
+                <div class="highlight stage-1" ng-class="{ 'active': dialog.lead.properties.stage >= 1 }"></div>
               </div>
               <span class="header">QUALIFY</span>
             </div>
-            <div layout="column" layout-align="center center">
+            <div layout="column" layout-align="center center" flex="20">
             <div class="node-wrap">
               <div class="node"></div>
-              <div class="highlight stage-3" ng-class="{ 'active': dialog.lead.properties.stage >= 2 }"></div>
+              <div class="highlight stage-2" ng-class="{ 'active': dialog.lead.properties.stage >= 2 }"></div>
             </div>
               <span class="header">CLOSED WON</span>
             </div>
-            <div layout="column" layout-align="center center">
+            <div layout="column" layout-align="center center" flex="20">
             <div class="node-wrap">
               <div class="node"></div>
-              <div class="highlight stage-4" ng-class="{ 'active': dialog.lead.properties.stage >= 3 }"></div>
+              <div class="highlight stage-3" ng-class="{ 'active': dialog.lead.properties.stage >= 3 }"></div>
             </div>
               <span class="header">CONTRACT</span>
             </div>
-            <div layout="column" layout-align="center end">
+            <div layout="column" layout-align="center center" flex="20">
             <div class="node-wrap">
               <div class="node"></div>
-              <div class="highlight stage-5" ng-class="{ 'active': dialog.lead >= 4}"></div>
+              <div class="highlight stage-4" ng-class="{ 'active': dialog.lead.properties.stage >= 4}"></div>
             </div>
               <span class="header">INSTALL</span>
             </div>
