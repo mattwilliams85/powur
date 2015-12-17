@@ -5,7 +5,7 @@ module powur {
   'use strict';
 
   function userInvites(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-invites', { page: 1, status: '' });
+    return session.getEntity(SirenModel, 'user-invites', { page: 1 });
   }
 
   inviteConfig.$inject = ['$stateProvider'];
