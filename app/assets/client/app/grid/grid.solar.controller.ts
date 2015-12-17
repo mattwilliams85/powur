@@ -34,6 +34,12 @@ module powur {
       this.createAction.clearValues();
     }
 
+    updateLead(lead){
+      if (this.leads.entities[0].properties.id === lead.properties.id) {
+        this.leads.entities[0] = lead;
+      }
+    }
+
     verifyEligibility() {
       this.verifyEligibilityAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         if (response.data.properties.is_valid) {
@@ -47,12 +53,14 @@ module powur {
     create() {
       this.createAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.lead = new SirenModel(response.data);
+        this.leads.entities.unshift(this.lead);
       });
     }
 
     update() {
       this.updateAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.lead = new SirenModel(response.data);
+        this.updateLead(this.lead);
       });
     }
 
@@ -60,6 +68,7 @@ module powur {
       this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.$mdDialog.cancel();
       }, (response: any) => {
+        this.updateLead(this.lead);
         if (response.data.error) {
           this.updateAction.field('notes').$error = { message: response.data.error.message };
         }
@@ -185,7 +194,8 @@ module powur {
           leads: this.leads,
         }
       }).then((data: any) => {
-        if (data) this.leads = new SirenModel(data);
+
+        if (data) this.updateEntity(new SirenModel(data));
       });
     }
 
@@ -234,6 +244,8 @@ module powur {
             parentCtrl: this,
             lead: lead
           }
+        }).then((data: any) => {
+          if (data) this.leads.entities = new SirenModel(data).entities;
         });
       }
     }
