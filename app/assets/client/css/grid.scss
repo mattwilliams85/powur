@@ -152,6 +152,7 @@
     line-height: 10pt;
     user-select: none;
     text-transform: uppercase;
+    position: relative;
 
     .toggle-wrapper {
       cursor: pointer;
@@ -178,6 +179,12 @@
     }
 
     input {
+      position: absolute;
+      -webkit-appearance: none;
+      border-radius: 0;
+      right: 0;
+      top: 42px;
+      height: 30px;
       width: 200px;
       background: #444;
       border: 0;
@@ -559,6 +566,11 @@
       font-size: 12pt;
       line-height: 12pt;
       cursor: pointer;
+
+      input {
+        position: initial;
+        height: 25px;
+      }
 
       .icon {
         height: 20px;

@@ -117,8 +117,8 @@
     <div layout="row" layout-align="center center">
       <i class="material-icons" ng-class="{ 'active': search }" ng-click="search = !search">search</i>
 
-      <form ng-submit="grid.search()" novalidate autocomplete="off">
-        <input ng-model="grid.searchQuery" ng-show="search" type="text" class="search" placeholder="SEARCH" pw-focus-on-show>
+      <form ng-submit="grid.search(); search = false" novalidate autocomplete="off">
+        <input ng-model="grid.searchQuery" ng-show="search" type="text" class="search" placeholder="SEARCH" pw-focus-on-show autofocus>
       </form>
 
       <md-menu md-position-mode="target-right target" md-offset="0 10">
