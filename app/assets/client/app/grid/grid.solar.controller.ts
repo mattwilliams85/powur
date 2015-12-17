@@ -82,18 +82,21 @@ module powur {
 
   class UpdateLeadDialogController {
       static ControllerId = 'UpdateLeadDialogController';
-      static $inject = ['$log', '$mdDialog', 'parentCtrl', 'lead'];
+      static $inject = ['$log', '$mdDialog', 'parentCtrl', 'lead', 'leads'];
 
       parentCtrl: any;
       lead: any;
+      leads: ISirenModel;
       editMode: boolean;
 
       constructor(private $log: ng.ILogService,
                   public $mdDialog: ng.material.IDialogService,
                   parentCtrl: ng.IScope,
-                  lead: any) {
+                  lead: any,
+                  leads: ISirenModel) {
 
-        this.lead = lead
+        this.lead = lead;
+        this.leads = leads;
         this.parentCtrl = parentCtrl;
 
         if (this.update) {
@@ -105,7 +108,10 @@ module powur {
 
       remove() {
         this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.$mdDialog.hide(response.data);
+          this.$mdDialog.hide();
+          _.remove(this.leads.entities, (i) => {
+            return this.lead.properties.id === i.properties.id;
+          });
         });
       }
 
@@ -242,7 +248,8 @@ module powur {
           clickOutsideToClose: true,
           locals: {
             parentCtrl: this,
-            lead: lead
+            lead: lead,
+            leads: this.leads
           }
         }).then((data: any) => {
           if (data) this.leads.entities = new SirenModel(data).entities;

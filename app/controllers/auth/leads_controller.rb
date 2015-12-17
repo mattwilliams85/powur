@@ -61,7 +61,7 @@ module Auth
 
       @lead.destroy
 
-      index
+      head :ok
     end
 
     def resend
