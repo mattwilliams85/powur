@@ -194,6 +194,10 @@
       margin: 0 5px;
       cursor: pointer;
     }
+    .toggle-wrapper {
+      flex: 1;
+      padding: 10px 0;
+    }
   }
 
   .label {
@@ -233,6 +237,7 @@
   }
 
   .summary {
+    width: 100%;
     padding: 20px auto;
 
     .header {
@@ -319,7 +324,7 @@
           z-index: 1;
           height: 40px;
           width: 40px;
-          margin-left: 15px;
+          margin-left: 5vw;
           span {
             font-size: 20pt;
             font-weight: 400;
@@ -601,6 +606,12 @@
           &.ineligible {
             height: 22px;
             width: 22px;
+          }
+        }
+        &.new {
+          .md-fab {
+            height: 50px;
+            width: 50px;
           }
         }
       }
