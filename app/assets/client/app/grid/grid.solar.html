@@ -12,7 +12,7 @@
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
         <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
-          <md-button ng-click="grid.filter('days', d)">
+          <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
             <div layout="row">
               <p ng-if="d" flex>In last {{ d }} days</p>
               <p ng-if="!d" flex>Lifetime</p>
@@ -75,7 +75,7 @@
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
         <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
-          <md-button ng-click="grid.filter('days', d)">
+          <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
             <div layout="row">
               <p ng-if="d" flex>In last {{ d }} days</p>
               <p ng-if="!d" flex>Lifetime</p>
@@ -182,7 +182,7 @@
         <md-menu-content class="filter-menu" width="4">
           <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
           <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
-            <md-button ng-click="grid.filter('days', d)">
+            <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
               <div layout="row">
                 <p ng-if="d" flex>In last {{ d }} days</p>
                 <p ng-if="!d" flex>Lifetime</p>
@@ -231,9 +231,9 @@
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
           </div>
-          <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center start">
-            <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
-            <div class="uppercase text-sm">
+          <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center center">
+            <i class="material-icons bump-right {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
+            <div class="uppercase text-sm  bump-right">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
           </div>
@@ -295,7 +295,7 @@
         <md-divider hide show-gt-sm></md-divider>
       </div>
     </div>
-
+    <div ng-show="!grid.leads.entities.length" layout-padding><i>No Results Found</i></div>
     <section ng-if="grid.leads.properties.paging.current_page < grid.leads.properties.paging.page_count">
       <md-button ng-click="grid.loadMore()" class="load-more">Load More</md-button>
     </section>
