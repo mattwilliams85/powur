@@ -39,11 +39,11 @@ namespace :powur do
         password_confirmation: password)
     end
 
-    Customer.all.each do |customer|
-      customer.update_attributes(
+    Lead.all.each do |lead|
+      lead.update_attributes(
         first_name: Faker::Name.first_name,
         last_name:  Faker::Name.first_name,
-        email:      "customer+#{customer.id}@eyecuelab.com",
+        email:      "lead+#{lead.id}@eyecuelab.com",
         address:    Faker::Address.street_address,
         city:       Faker::Address.city,
         phone:      Faker::PhoneNumber.phone_number)
