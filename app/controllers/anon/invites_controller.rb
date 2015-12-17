@@ -34,7 +34,7 @@ module Anon
 
     def fetch_invite
       @invite = Invite.find(params[:id])
-      not_found!(:invite) unless @invite.pending?
+      not_found!(:invite) if @invite.redeemed?
     end
 
     def invite_input
