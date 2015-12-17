@@ -61,7 +61,7 @@
     position: relative;
     width: 100%;
     max-width: 220px;
-    margin: 10px 0 10px -5px;
+    margin: 10px 0 10px -20px;
 
     .node-wrap {
       position: relative;
@@ -129,10 +129,6 @@
     .header {
       margin: 10px 0 0 0;
     }
-  }
-
-  .progress-detail {
-    margin-left: 3%;
   }
 
   .md-secondary {
@@ -284,8 +280,9 @@
       .material-icons {
         color: #888;
         margin-bottom: 2px;
+        margin-right: 5px;
         display: block;
-        font-size: 15pt;
+        font-size: 18pt;
 
         &.sent, &.initiated {
           color: #01B598;
@@ -293,8 +290,8 @@
         &.ineligible {
           background: image-url("img/solar-invite-ineligible-icon-alt.png");
           background-size: contain;
-          height: 18px;
-          width: 18px;
+          height: 20px;
+          width: 20px;
           margin-bottom: 6px;
         }
       }
@@ -462,10 +459,10 @@
           margin-right: 20px;
         }
         .material-icons {
-          font-size: 18pt;
+          font-size: 24pt;
           &.ineligible {
-            height: 22px;
-            width: 22px;
+            height: 26px;
+            width: 26px;
           }
         }
         &.new {
@@ -583,6 +580,7 @@
 
         .progress-bar {
           width: 80%;
+          margin: 10px 0 10px -13px;
         }
 
         .bump-right {
