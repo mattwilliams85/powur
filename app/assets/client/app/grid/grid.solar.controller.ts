@@ -236,7 +236,8 @@ module powur {
           clickOutsideToClose: true,
           locals: {
             parentCtrl: this,
-            lead: lead
+            lead: lead,
+            leads: this.leads
           }
         });
       } else {
