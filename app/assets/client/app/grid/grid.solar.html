@@ -232,7 +232,7 @@
             </div>
           </div>
           <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center center">
-            <div class="icon lost"></div>
+            <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             <div class="uppercase text-sm">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>

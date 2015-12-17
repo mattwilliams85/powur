@@ -197,6 +197,7 @@ module powur {
 
     iconStatus(lead) {
       if (lead.properties.sales_status === 'ineligible') return;
+      if (lead.properties.sales_status === 'closed_lost') return 'cancel';
       if (lead.properties.invite_status === 'initiated') return 'drafts';
       return 'mail';
     }
