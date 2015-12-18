@@ -139,7 +139,6 @@
         }, 700);
       });
     };
-
   }
 
   init.$inject = [
@@ -155,7 +154,6 @@
   angular.module('powurApp', [
     'ngRoute',
     'ngResource',
-    'uiSlider',
     'duScroll',
     'angularS3FileUpload',
     'blocks.filters',
