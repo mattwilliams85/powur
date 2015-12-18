@@ -157,7 +157,7 @@ module powur {
     days: number = 60;
     searchQuery: string;
     showSearch: boolean;
-    stage: string[] = ['submit', 'qualify', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
+    stage: string[] = ['submit', 'qualified', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
     barLeft: number;
     barRight: number;
     activeFilter: string;
