@@ -174,7 +174,7 @@ module powur {
     }
 
     get dateFilterLabel() {
-      return 'Last ' + this.days + ' days';
+      return this.days == 0 ? 'Lifetime' : 'Last ' + this.days + ' days';
     }
 
     constructor(public leadsSummary: ISirenModel,
