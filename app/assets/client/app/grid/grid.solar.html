@@ -146,29 +146,29 @@
         <md-menu-content class="filter-menu rigid" width="5">
           <md-menu-item class="header"><span>LEAD PHASE <b>FILTER</b></span></md-menu-item>
           <div class="filter-header" layout="row">
-            <div ng-class="{ 'active': !filter }" ng-click="filter = null; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="25" class="tab">ALL
+            <div ng-class="{ 'active': !grid.phaseFilter }" ng-click="grid.phaseFilter = null; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="25" class="tab">ALL
              <div class="md-ripple-container"></div>
             </div>
-            <div ng-class="{ 'active': filter === 'pending' }" ng-click="filter = 'pending'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="35" class="tab">PENDING</div>
-            <div ng-class="{ 'active': filter === 'submitted' }" ng-click="filter = 'submitted'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="40" class="tab">SUBMITTED</div>
+            <div ng-class="{ 'active': grid.phaseFilter === 'pending' }" ng-click="grid.phaseFilter = 'pending'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="35" class="tab">PENDING</div>
+            <div ng-class="{ 'active': grid.phaseFilter === 'submitted' }" ng-click="grid.phaseFilter = 'submitted'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="40" class="tab">SUBMITTED</div>
             <md-ink-bar class="md-secondary"
                         style="left:{{ grid.barLeft }}px;right:{{ grid.barRight }}px"
                         ng-class="{ 'md-right': grid.barLeft < grid.barRight, 'md-left': grid.barLeft >= grid.barRight || !grid.barLeft }">
             </md-ink-bar>
           </div>
           <div class="filter-box">
-            <md-radio-group>
-              <div ng-hide="filter" ng-click="grid.filter('all', null, null)"ng-show="filter === 'pending'" ng-model="grid.activeFilters['all']">
-                <md-radio-button ng-value="all" aria-label="{{ f.label }}" ng-value="'all'">
-                       All Leads
+            <md-radio-group ng-model="grid.radio">
+              <div ng-hide="grid.phaseFilter" ng-click="grid.filter('all', null, null)"ng-show="grid.phaseFilter === 'pending'" ng-model="grid.activeFilters['all']">
+                <md-radio-button ng-value="" aria-label="{{ f.label }}">
+                       Leads (all)
                 </md-radio-button>
               </div>
-              <div ng-show="filter === 'pending'" layout="column" layout-align="center start">
+              <div ng-show="grid.phaseFilter === 'pending'" layout="column" layout-align="center start">
                 <md-radio-button ng-click="grid.filter('data_status', val, 'not_submitted')" ng-repeat="val in grid.leads.properties.filters.options['data_status']" ng-value="val" aria-label="{{ val }}" >
                        {{ val | humanizeString }}
                 </md-radio-button>
               </div>
-              <div ng-show="filter === 'submitted'" layout="row" layout-align="start center" class="flex-wrap">
+              <div ng-show="grid.phaseFilter === 'submitted'" layout="row" layout-align="start center" class="flex-wrap">
                 <md-radio-button ng-click="grid.filter('sales_status', val, 'submitted');"  ng-repeat="val in grid.leads.properties.filters.options['sales_status']" ng-value="val" aria-label="{{ val }}" >
                        {{ val | humanizeString }}
                 </md-radio-button>
@@ -201,7 +201,7 @@
         <div class="chip" ng-repeat="c in grid.activeFilters" layout="row" layout-align="center center">
           <span ng-hide="c.name === 'days'">{{c.label | humanizeString}}</span>
           <span ng-show="c.name === 'days'">Last {{c.label}} days</span>
-          <i class="material-icons" ng-click="grid.removeFilter(c.name);">close</i>
+          <i class="material-icons" ng-click="grid.removeFilter(c);">close</i>
         </div>
       </div>
       <div class="grid-row new" layout="row">

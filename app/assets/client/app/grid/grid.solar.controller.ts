@@ -159,7 +159,9 @@ module powur {
     stage: string[] = ['submit', 'proposal', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
     barLeft: number;
     barRight: number;
+    radio: string;
     activeFilters: any = {};
+    phaseFilter: string;
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -282,6 +284,11 @@ module powur {
     }
 
     tabBar(e) {
+      if (!e) {
+        this.barLeft = 0;
+        this.barRight = 247;
+        return;
+      }
       this.barLeft = e.target.offsetLeft;
       this.barRight = e.target.parentElement.offsetWidth - (this.barLeft + e.target.offsetWidth);
     }
@@ -323,8 +330,13 @@ module powur {
       this.loadMore();
     }
 
-    removeFilter(name) {
-      delete this.activeFilters[name];
+    removeFilter(filter) {
+      if (filter.status === 'submitted' || filter.status === 'not_submitted') {
+        this.radio = null;
+        this.phaseFilter = null;
+        this.tabBar(null);
+      }
+      delete this.activeFilters[filter.name];
       this.reloadList()
     }
     filter(name: string, value: any, status: any) {
