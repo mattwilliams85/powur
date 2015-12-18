@@ -12,7 +12,7 @@
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
         <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
-          <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
+          <md-button ng-click="grid.filterSummary(d)" aria-label="{{d}}">
             <div layout="row">
               <p ng-if="d" flex>In last {{ d }} days</p>
               <p ng-if="!d" flex>Lifetime (all)</p>
@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <div class="accordion" layout="row" layout-align="space-between center">
+ <!--  <div class="accordion" layout="row" layout-align="space-between center">
     <span class="toggle-wrapper" ng-click="hideGeo = !hideGeo">
       <span class="toggle" ng-class="{'closed': hideGeo }"></span>
       GRID <b>GEO</b>
@@ -107,7 +107,7 @@
       <span></span>
       <span>You have sequestered <b>1,499 TONS</b> of CO<sup>2</sup></span>
     </div>
-  </div>
+  </div> -->
 
   <div class="accordion" layout="row" layout-align="space-between-center" >
     <span class="toggle-wrapper" ng-click="hideGrid = !hideGrid">

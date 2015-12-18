@@ -162,6 +162,7 @@ module powur {
     radio: string;
     activeFilters: any = {};
     phaseFilter: string;
+    summaryFilter: number = 60;
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -175,7 +176,7 @@ module powur {
     }
 
     get dateFilterLabel() {
-      return this.days == 0 ? 'Lifetime' : 'Last ' + this.days + ' days';
+      return this.summaryFilter == 0 ? 'Lifetime' : 'Last ' + this.summaryFilter + ' days';
     }
 
     constructor(public leadsSummary: ISirenModel,
@@ -339,6 +340,7 @@ module powur {
       delete this.activeFilters[filter.name];
       this.reloadList()
     }
+
     filter(name: string, value: any, status: any) {
       var label, opt = {};
 
@@ -357,6 +359,15 @@ module powur {
         status: status
       };
       this.reloadList()
+    }
+
+    filterSummary(days){
+      var filterOpts = {};
+      this.summaryFilter = days;
+      if (days) filterOpts = { days: days }
+      this.session.getEntity(SirenModel, 'user-leads_summary', filterOpts, true).then((data: any) => {
+        this.leadsSummary.properties = data.properties;
+      });
     }
   }
 
