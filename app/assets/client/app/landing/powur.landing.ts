@@ -10,9 +10,23 @@ module powur {
     $stateProvider
     // Landing page
     .state('landing', {
-        url: '/getsolar',
+        url: '/getsolar?rep_id',
         templateUrl: 'app/landing/step1.html',
         controller: 'LandingController as landing',
+        resolve: {
+          rep: function($stateParams, $q) {
+            var root = RootController.get();
+            var defer = $q.defer();
+            root.$session
+                .getRep($stateParams.rep_id)
+                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
+              defer.resolve(response);
+            }, () => {
+              defer.resolve({});
+            });
+            return defer.promise;
+          }
+        }
       })
     .state('landing-step2', {
         url: '/getsolar/step2',

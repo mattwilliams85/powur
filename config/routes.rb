@@ -58,6 +58,8 @@ Rails.application.routes.draw do
     end
 
     resources :customers, only: [ :show, :update ]
+
+    resources :users, only: [ :show, :update ]
   end
 
   # logged in user routes

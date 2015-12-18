@@ -7,6 +7,7 @@ module powur {
     loggedIn(): boolean;
     login(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
+    getRep(repId: number): ng.IPromise<ISirenModel>;
     getCustomer(code: string): ng.IPromise<ISirenModel>;
     getInvite(code: string): ng.IPromise<ISirenModel>;
     getPasswordToken(code: string): ng.IPromise<ISirenModel>;
@@ -28,6 +29,10 @@ module powur {
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
       this.removeClass('user');
       return this.action('logout').submit();
+    }
+
+    getRep(rep_id: number): ng.IPromise<ISirenModel> {
+      return this.getEntity(SirenModel, 'user-solar_invite', { rep_id: rep_id });
     }
 
     getCustomer(code: string): ng.IPromise<ISirenModel> {

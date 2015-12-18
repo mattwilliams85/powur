@@ -6,50 +6,45 @@ module powur {
 
   export class LandingController extends BaseController {
     static ControllerId = 'LandingController';
-    static $inject = ['$stateParams', '$timeout', '$sce'];
+    static $inject = ['$stateParams', 'rep'];
     
-    //step 1
-    public zipCode: string = null;
+    get validateZipAction(): Action {
+      return this.rep.action('validate_zip');
+    }
     
-    //step 2
-    public monthly: number = 95;
-    public info: any;
+    get zip(): Field {
+      return this.validateZipAction.field('zip');
+    }
+    
+    get leadAction(): Action {
+      return this.rep.action('submit_lead');
+    }
+
+    get params(): any {
+      return this.$stateParams;
+    }
     
     constructor(private $stateParams: ng.ui.IStateParamsService,
-                private $timeout: ng.ITimeoutService,
-                private $sce: ng.ISCEService) {
+                private rep: ISirenModel) {
       super();
       
-      //step 2
-      this.info = {
-        firstName: null,
-        lastName: null,
-        address: null,
-        city: null,
-        state: null,
-        zip: null,
-        phone: null,
-        email: null,
-      }
-    }
-    //step 1
-    public checkAvailability() {
-      this.state.go('landing-step2');
+    }    
+
+    submitLead(): any {
+      this.leadAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.state.go('landing-thanks');
+      });
     }
     
-    //step 1
-    public getSavings() {
-      this.state.go('landing-step2');
+    validateZip(): void {
+      this.validateZipAction.submit().then((response) => {
+        this.leadAction.field('zip').value = this.validateZipAction.field('zip').value;
+        this.state.go('landing-step2', { rep_id: this.params.rep_id });
+      });
     }
     
-    //step 1
-    public letsGo() {
-      this.state.go('landing-step2');
-    }
-    
-    //step 2
-    public go() {
-      this.state.go('landing-thanks');
+    getSavings(): void {
+      
     }
   }
 

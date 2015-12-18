@@ -15,7 +15,7 @@
         <md-input-container>
           <div class="border"></div>
           <label>YOUR ZIP CODE</label>
-          <input type="text" ng-model="landing.zipCode">
+          <input name="zip" type="text" ng-model="landing.validateZipAction.field('zip').value">
         </md-input-container>
       </div>
       <div>
@@ -100,11 +100,11 @@
         <md-input-container>
           <div class="border"></div>
           <label>YOUR ZIP CODE</label>
-          <input type="text" ng-model="landing.zipCode">
+          <input name="zip" type="text" ng-model="landing.validateZipAction.field('zip').value">
         </md-input-container>
       </div>
       <div flex="33">
-        <md-button class="md-raised md-primary" ng-click="landing.letsGo()">LET'S GO</md-button>
+        <md-button class="md-raised md-primary" ng-click="landing.validateZip()">LET'S GO</md-button>
       </div>
     </div>
     <div flex="20"></div>
