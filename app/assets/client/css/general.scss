@@ -48,6 +48,12 @@ md-backdrop {
   float: right;
 }
 
+.flex-wrap {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /* #2c6b8a - nav-icon-color */
 /* #2c6c8a - bg of profile */
 

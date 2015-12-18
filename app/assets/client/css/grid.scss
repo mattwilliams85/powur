@@ -31,11 +31,6 @@
     flex: 1;
     text-transform: uppercase;
   }
-  md-radio-group .flex-wrap {
-    flex-direction: row;
-    display: flex;
-    flex-wrap: wrap;
-  }
   md-radio-button {
     font-size: 10pt;
     margin: 10px 15px 10px 5px;
@@ -47,6 +42,31 @@
     margin-top: 10px;
   }
 }
+.chips {
+  padding: 15px;
+  .chip {
+    background: #e0e0e0;
+    color: #424242;
+    cursor: default;
+    border-radius: 16px;
+    height: 30px;
+    margin: 0 4px 10px 4px;
+    padding: 0 12px;
+    float: right;
+    box-sizing: border-box;
+    max-width: 100%;
+    position: relative;
+    font-size: 10pt;
+    text-transform: capitalize;
+    i {
+      cursor: pointer;
+      font-size: 13pt;
+      margin: 0 0 0 3px;
+      color: #666;
+    }
+  }
+}
+
 
 .pw-grid {
   padding: 20px 0 70px 0;
@@ -154,28 +174,6 @@
 
     position: relative;
 
-    .chip {
-      background: #e0e0e0;
-      color: #424242;
-      cursor: default;
-      border-radius: 16px;
-      height: 30px;
-      margin: 0 4px;
-      padding: 0 12px;
-      float: right;
-      box-sizing: border-box;
-      max-width: 100%;
-      position: relative;
-      font-size: 12pt;
-      text-transform: capitalize;
-      i {
-        cursor: pointer;
-        font-size: 13pt;
-        margin: 0 0 0 3px;
-        color: #666;
-      }
-    }
-
     .toggle-wrapper {
       cursor: pointer;
 
@@ -202,21 +200,22 @@
 
     input {
       position: absolute;
+      z-index: 2;
       -webkit-appearance: none;
       border-radius: 0;
       right: 0;
       top: 42px;
-      height: 30px;
-      width: 200px;
+      height: 33px;
+      width: 100%;
       background: #444;
       border: 0;
       padding: 4px 5px;
       font-size: 11pt;
       color: #ccc;
-      animation: expand .3s;
-      @keyframes expand {
-        0% { width: 0px }
-        100% { width: 200px }
+      transition: all .3s;
+      &.collapsed {
+        width: 0;
+        padding: 0;
       }
     }
     .material-icons {
@@ -336,7 +335,7 @@
         background-color: #fff;
         color: $pow-color-blue;
         cursor: default;
-        margin-top: 10px;
+        // margin-top: 10px;
 
         .material-icons {
           color: #fff;
@@ -434,6 +433,8 @@
       input {
         position: initial;
         height: 25px;
+        width: 200px;
+        z-index: inherit;
       }
 
       .icon {

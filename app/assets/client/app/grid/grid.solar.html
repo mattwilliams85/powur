@@ -115,21 +115,9 @@
       GRID <b>LEADS</b>
     </span>
     <div layout="row" layout-align="center center">
-      <div layout="row">
-      <div class="chip" ng-repeat="c in grid.activeFilters" layout="row" layout-align="center center">
-        <span ng-hide="c.name === 'days'">{{c.label | humanizeString}}</span>
-        <span ng-show="c.name === 'days'">Last {{c.label}} days</span>
-        <i class="material-icons" ng-click="grid.removeFilter(c.name);">close</i>
-      </div>
-<!--       <div ng-show="grid.leads.properties.entityType === 'user-leads'" class="chip" layout="row" layout-align="center center">
-        <span>Personal Leads</span>
-        <i class="material-icons" ng-click="grid.removeFilter(c.name);">close</i>
-      </div> -->
-      </div>
-
       <i class="material-icons" ng-class="{ 'active': search }" ng-click="search = !search">search</i>
       <form ng-submit="grid.filter('search',grid.searchQuery, null); search = false" novalidate autocomplete="off">
-        <input ng-model="grid.searchQuery" ng-show="search" type="text" class="search" placeholder="SEARCH" pw-focus-on-show autofocus>
+        <input ng-model="grid.searchQuery" ng-class="{ 'collapsed': !search }" focus-if="search" ng-blur="search = false" type="text" class="search" placeholder="SEARCH" autofocus>
       </form>
 
       <md-menu md-position-mode="target-right target" md-offset="0 10">
@@ -209,6 +197,13 @@
 
   <div class="grid" ng-hide="hideGrid" layout="column" layout-align="center center">
     <div class="summary" layout="column">
+      <div layout="row" class="chips flex-wrap">
+        <div class="chip" ng-repeat="c in grid.activeFilters" layout="row" layout-align="center center">
+          <span ng-hide="c.name === 'days'">{{c.label | humanizeString}}</span>
+          <span ng-show="c.name === 'days'">Last {{c.label}} days</span>
+          <i class="material-icons" ng-click="grid.removeFilter(c.name);">close</i>
+        </div>
+      </div>
       <div class="grid-row new" layout="row">
         <div flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.addLead($event)">
           <md-button class="md-fab md-primary" layout-align="center center" layout="row">

@@ -54,6 +54,9 @@ leads_routes_options = {
 entity_list << entity(%w(list leads),
                       'user-leads',
                       user_leads_path(current_user, leads_routes_options))
+entity_list << entity(%w(search leads),
+                      'user-leads_search',
+                      user_leads_path(current_user, leads_routes_options.merge(search: '{search}')))
 entity_list << entity(%w(list leads),
                       'user-team_leads',
                       team_leads_path(leads_routes_options))

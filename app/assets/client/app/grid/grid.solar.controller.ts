@@ -301,22 +301,12 @@ module powur {
         page = this.leads.properties.paging.current_page;
 
       if (this.activeFilters['group']) entityType = this.activeFilters.group.status;
-      if (this.activeFilters['search']) entityType = 'user-team_leads_search';
-      // opts = { days: this.days, page: page + 1, search: this.searchQuery },
-      // entityType = this.leads.properties.entityType || 'user-team_leads';
-      // if (this.leads.properties.filters) {
-      //   var filterValue;
-      //   _.forEach(this.filters, (key: string) => {
-      //     filterValue = this.leads.properties.filters[key];
-      //     if (filterValue) opts[key] = filterValue;
-      //   });
-      // }
+      if (this.activeFilters['search']) entityType = entityType + '_search';
       if (Object.keys(this.activeFilters).length) {
         _.forEach(this.activeFilters, (filter: any) => {
           filterOpts[filter.name] = filter.label
         });
       }
-
       filterOpts['page'] = page;
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leads.properties = data.properties;
@@ -324,15 +314,6 @@ module powur {
         if (!data.entities.length) return;
         this.leads.entities = this.leads.entities.concat(data.entities);
       });
-    }
-
-    showLeads(entityType: string) {
-      this.leads.properties.entityType = entityType;
-      this.reloadList()
-    }
-
-    checkFilter(name) {
-      this.activeFilters['name']
     }
 
     reloadList() {
