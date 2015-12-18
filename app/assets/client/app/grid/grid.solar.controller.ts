@@ -23,18 +23,18 @@ module powur {
 
     get submitting(): boolean {
       return (this.updateAction && this.updateAction.submitting) ||
-             (this.submitAction && this.submitAction.submitting);
+        (this.submitAction && this.submitAction.submitting);
     }
 
     constructor(private $log: ng.ILogService,
-                public $mdDialog: ng.material.IDialogService,
-                public leads: ISirenModel) {
+      public $mdDialog: ng.material.IDialogService,
+      public leads: ISirenModel) {
 
       this.verifyEligibilityAction.clearValues();
       this.createAction.clearValues();
     }
 
-    updateLead(lead){
+    updateLead(lead) {
       if (this.leads.entities[0].properties.id === lead.properties.id) {
         this.leads.entities[0] = lead;
       }
@@ -81,86 +81,85 @@ module powur {
   }
 
   class UpdateLeadDialogController {
-      static ControllerId = 'UpdateLeadDialogController';
-      static $inject = ['$log', '$mdDialog', 'parentCtrl', 'lead', 'leads'];
+    static ControllerId = 'UpdateLeadDialogController';
+    static $inject = ['$log', '$mdDialog', 'parentCtrl', 'lead', 'leads'];
 
-      parentCtrl: any;
-      lead: any;
-      leads: ISirenModel;
-      editMode: boolean;
+    parentCtrl: any;
+    lead: any;
+    leads: ISirenModel;
+    editMode: boolean;
 
-      constructor(private $log: ng.ILogService,
-                  public $mdDialog: ng.material.IDialogService,
-                  parentCtrl: ng.IScope,
-                  lead: any,
-                  leads: ISirenModel) {
+    constructor(private $log: ng.ILogService,
+      public $mdDialog: ng.material.IDialogService,
+      parentCtrl: ng.IScope,
+      lead: any,
+      leads: ISirenModel) {
 
-        this.lead = lead;
-        this.leads = leads;
-        this.parentCtrl = parentCtrl;
+      this.lead = lead;
+      this.leads = leads;
+      this.parentCtrl = parentCtrl;
 
-        if (this.update) {
-          for (var i = 0; i < this.update.fields.length; i++) {
-            this.update.fields[i].value = this.lead.properties[ this.update.fields[i].name ];
-          }
+      if (this.update) {
+        for (var i = 0; i < this.update.fields.length; i++) {
+          this.update.fields[i].value = this.lead.properties[this.update.fields[i].name];
         }
       }
+    }
 
-      remove() {
-        this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.$mdDialog.hide();
-          _.remove(this.leads.entities, (i) => {
-            return this.lead.properties.id === i.properties.id;
-          });
+    remove() {
+      this.delete.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide();
+        _.remove(this.leads.entities, (i) => {
+          return this.lead.properties.id === i.properties.id;
         });
-      }
+      });
+    }
 
-      resendInvite() {
-        this.resend.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.$mdDialog.hide(response.data);
-        });
-      }
+    resendInvite() {
+      this.resend.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide(response.data);
+      });
+    }
 
-      updateInvite() {
-        this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.$mdDialog.hide();
-          this.lead.properties = response.data.properties;
-        });
-      }
+    updateInvite() {
+      this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide();
+        this.lead.properties = response.data.properties;
+      });
+    }
 
-      submitToSC() {
-        this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-          this.$mdDialog.cancel();
-        });
-      }
-
-      showLink(lead): string {
-        return 'https://powur.com/next/join/solar/' + lead.code;
-      }
-
-      cancel() {
+    submitToSC() {
+      this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.$mdDialog.cancel();
-      }
+      });
+    }
 
-      get delete(): Action { return this.lead.action('delete') }
-      get resend(): Action { return this.lead.action('resend') }
-      get update(): Action { return this.lead.action('update') }
-      get submitAction(): Action { return this.lead.action('submit') }
-      get customer(): any  { return this.lead.properties.customer }
+    showLink(lead): string {
+      return 'https://powur.com/next/join/solar/' + lead.code;
+    }
+
+    cancel() {
+      this.$mdDialog.cancel();
+    }
+
+    get delete(): Action { return this.lead.action('delete') }
+    get resend(): Action { return this.lead.action('resend') }
+    get update(): Action { return this.lead.action('update') }
+    get submitAction(): Action { return this.lead.action('submit') }
+    get customer(): any { return this.lead.properties.customer }
   }
 
   class GridSolarController extends AuthController {
     static ControllerId = 'GridSolarController';
     static $inject = ['leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
 
-    mainFilter: string;
     days: number = 60;
-    searchQuery: string;
+    searchQuery: string[];
     showSearch: boolean;
     stage: string[] = ['submit', 'proposal', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
     barLeft: number;
     barRight: number;
-    activeFilter: string;
+    activeFilters: any = {};
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -178,10 +177,10 @@ module powur {
     }
 
     constructor(public leadsSummary: ISirenModel,
-                public leads: ISirenModel,
-                public $scope: any,
-                public $mdDialog: ng.material.IDialogService,
-                public $timeout: ng.ITimeoutService) {
+      public leads: ISirenModel,
+      public $scope: any,
+      public $mdDialog: ng.material.IDialogService,
+      public $timeout: ng.ITimeoutService) {
       super();
 
       $timeout(function() {
@@ -282,7 +281,7 @@ module powur {
       return this.home.assets.defaultProfileImg;
     }
 
-    tabBar(e){
+    tabBar(e) {
       this.barLeft = e.target.offsetLeft;
       this.barRight = e.target.parentElement.offsetWidth - (this.barLeft + e.target.offsetWidth);
     }
@@ -297,19 +296,29 @@ module powur {
     }
 
     loadMore() {
-      var page = this.leads.properties.paging.current_page,
-          opts = { days: this.days, page: page + 1, search: this.searchQuery },
-          entityType = this.leads.properties.entityType || 'user-team_leads';
+      var entityType = 'user-team_leads',
+        filterOpts = {},
+        page = this.leads.properties.paging.current_page;
 
-      if (this.leads.properties.filters) {
-        var filterValue;
-        _.forEach(this.filters, (key: string) => {
-          filterValue = this.leads.properties.filters[key];
-          if (filterValue) opts[key] = filterValue;
+      if (this.activeFilters['group']) entityType = this.activeFilters.group.status;
+      if (this.activeFilters['search']) entityType = 'user-team_leads_search';
+      // opts = { days: this.days, page: page + 1, search: this.searchQuery },
+      // entityType = this.leads.properties.entityType || 'user-team_leads';
+      // if (this.leads.properties.filters) {
+      //   var filterValue;
+      //   _.forEach(this.filters, (key: string) => {
+      //     filterValue = this.leads.properties.filters[key];
+      //     if (filterValue) opts[key] = filterValue;
+      //   });
+      // }
+      if (Object.keys(this.activeFilters).length) {
+        _.forEach(this.activeFilters, (filter: any) => {
+          filterOpts[filter.name] = filter.label
         });
       }
 
-      this.session.getEntity(SirenModel, entityType, opts, true).then((data: any) => {
+      filterOpts['page'] = page;
+      this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leads.properties = data.properties;
         this.leads.properties.entityType = entityType;
         if (!data.entities.length) return;
@@ -318,31 +327,43 @@ module powur {
     }
 
     showLeads(entityType: string) {
-      this.showSearch = false;
       this.leads.properties.entityType = entityType;
+      this.reloadList()
+    }
+
+    checkFilter(name) {
+      this.activeFilters['name']
+    }
+
+    reloadList() {
+      this.searchQuery = null;
       this.leads.properties.paging.current_page = 0;
       this.leads.entities = [];
       this.loadMore();
     }
 
+    removeFilter(name) {
+      delete this.activeFilters[name];
+      this.reloadList()
+    }
     filter(name: string, value: any, status: any) {
-      // this.leads.properties.filters['sales_status'] = null;
-      // this.leads.properties.filters['data_status'] = null;
-      this.activeFilter = name;
+      var label, opt = {};
 
-      if (name === 'days') {
-        this.days = value;
-        var opts = {};
-        if (this.days) opts = { days: this.days };
-        this.session.getEntity(SirenModel, 'user-leads_summary', opts, true).then((data: any) => {
-          this.leadsSummary.properties = data.properties;
-        });
-      } else {
-        this.leads.properties.filters[name] = value;
+      if (status === 'submitted' || status === 'not_submitted') {
+        delete this.activeFilters['data_status'];
+        delete this.activeFilters['sales_status'];
+      } 
+      if (!value) {
+        delete this.activeFilters[name];
+        this.reloadList()
+        return;
       }
-      this.leads.properties.paging.current_page = 0;
-      this.leads.entities = [];
-      this.loadMore();
+      this.activeFilters[name] = {
+        label: value,
+        name: name,
+        status: status
+      };
+      this.reloadList()
     }
   }
 

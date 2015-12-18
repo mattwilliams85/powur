@@ -15,7 +15,7 @@
           <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
             <div layout="row">
               <p ng-if="d" flex>In last {{ d }} days</p>
-              <p ng-if="!d" flex>Lifetime</p>
+              <p ng-if="!d" flex>Lifetime (all)</p>
             </div>
           </md-button>
         </md-menu-item>
@@ -78,7 +78,7 @@
           <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
             <div layout="row">
               <p ng-if="d" flex>In last {{ d }} days</p>
-              <p ng-if="!d" flex>Lifetime</p>
+              <p ng-if="!d" flex>Lifetime (all)</p>
             </div>
           </md-button>
         </md-menu-item>
@@ -115,9 +115,20 @@
       GRID <b>LEADS</b>
     </span>
     <div layout="row" layout-align="center center">
-      <i class="material-icons" ng-class="{ 'active': search }" ng-click="search = !search">search</i>
+      <div layout="row">
+      <div class="chip" ng-repeat="c in grid.activeFilters" layout="row" layout-align="center center">
+        <span ng-hide="c.name === 'days'">{{c.label | humanizeString}}</span>
+        <span ng-show="c.name === 'days'">Last {{c.label}} days</span>
+        <i class="material-icons" ng-click="grid.removeFilter(c.name);">close</i>
+      </div>
+<!--       <div ng-show="grid.leads.properties.entityType === 'user-leads'" class="chip" layout="row" layout-align="center center">
+        <span>Personal Leads</span>
+        <i class="material-icons" ng-click="grid.removeFilter(c.name);">close</i>
+      </div> -->
+      </div>
 
-      <form ng-submit="grid.search(); search = false" novalidate autocomplete="off">
+      <i class="material-icons" ng-class="{ 'active': search }" ng-click="search = !search">search</i>
+      <form ng-submit="grid.filter('search',grid.searchQuery, null); search = false" novalidate autocomplete="off">
         <input ng-model="grid.searchQuery" ng-show="search" type="text" class="search" placeholder="SEARCH" pw-focus-on-show autofocus>
       </form>
 
@@ -126,14 +137,14 @@
         <md-menu-content class="filter-menu" width="4">
           <md-menu-item class="header"><span>SELECT <b>GROUP</b></span></md-menu-item>
           <md-menu-item>
-            <md-button ng-click="grid.showLeads('user-team_leads');">
+            <md-button ng-click="grid.filter('group', null, 'user-team_leads');">
               <div layout="row">
-                <p flex>Grid leads</p>
+                <p flex>Grid Leads (all)</p>
               </div>
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="grid.showLeads('user-leads');">
+            <md-button ng-click="grid.filter('group', 'personal_leads', 'user-leads');">
               <div layout="row">
                 <p flex>Personal leads</p>
               </div>
@@ -158,20 +169,22 @@
             </md-ink-bar>
           </div>
           <div class="filter-box">
-            <md-radio-group ng-hide="filter" ng-click="grid.filter(' ')" md-no-ink ng-show="filter === 'pending'" ng-model="grid.activeFilter">
-              <md-radio-button ng-value="all" aria-label="{{ f.label }}" ng-value="' '">
-                     All Leads
-              </md-radio-button>
-            </md-radio-group>
-            <md-radio-group ng-show="filter === 'pending'">
-              <md-radio-button ng-click="grid.filter('data_status', val, 'not_submitted')" ng-repeat="val in grid.leads.properties.filters.options['data_status']" ng-value="val" aria-label="{{ val }}" layout="column" layout-align="center start">
-                     {{ val | humanizeString }}
-              </md-radio-button>
-            </md-radio-group>
-            <md-radio-group ng-show="filter === 'submitted'">
-              <md-radio-button ng-click="grid.filter('sales_status', val, 'submitted');"  ng-repeat="val in grid.leads.properties.filters.options['sales_status']" ng-value="val" aria-label="{{ val }}" layout="row" layout-align="start center">
-                     {{ val | humanizeString }}
-              </md-radio-button>
+            <md-radio-group>
+              <div ng-hide="filter" ng-click="grid.filter('all', null, null)"ng-show="filter === 'pending'" ng-model="grid.activeFilters['all']">
+                <md-radio-button ng-value="all" aria-label="{{ f.label }}" ng-value="'all'">
+                       All Leads
+                </md-radio-button>
+              </div>
+              <div ng-show="filter === 'pending'" layout="column" layout-align="center start">
+                <md-radio-button ng-click="grid.filter('data_status', val, 'not_submitted')" ng-repeat="val in grid.leads.properties.filters.options['data_status']" ng-value="val" aria-label="{{ val }}" >
+                       {{ val | humanizeString }}
+                </md-radio-button>
+              </div>
+              <div ng-show="filter === 'submitted'" layout="row" layout-align="start center" class="flex-wrap">
+                <md-radio-button ng-click="grid.filter('sales_status', val, 'submitted');"  ng-repeat="val in grid.leads.properties.filters.options['sales_status']" ng-value="val" aria-label="{{ val }}" >
+                       {{ val | humanizeString }}
+                </md-radio-button>
+              </div>
             </md-radio-group>
           </div>
         </md-menu-content>
@@ -185,7 +198,7 @@
             <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
               <div layout="row">
                 <p ng-if="d" flex>In last {{ d }} days</p>
-                <p ng-if="!d" flex>Lifetime</p>
+                <p ng-if="!d" flex>Lifetime (all)</p>
               </div>
             </md-button>
           </md-menu-item>
