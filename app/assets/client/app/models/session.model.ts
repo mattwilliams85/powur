@@ -28,6 +28,7 @@ module powur {
 
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
       this.removeClass('user');
+      this.entities = [];
       return this.action('logout').submit();
     }
 
