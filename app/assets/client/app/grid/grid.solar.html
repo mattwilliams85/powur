@@ -125,14 +125,14 @@
         <md-menu-content class="filter-menu" width="4">
           <md-menu-item class="header"><span>SELECT <b>GROUP</b></span></md-menu-item>
           <md-menu-item>
-            <md-button ng-click="grid.filter('group', null, 'user-team_leads');">
+            <md-button ng-click="grid.filter('grid', null, 'user-team_leads');">
               <div layout="row">
                 <p flex>Grid Leads (all)</p>
               </div>
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="grid.filter('group', 'personal_leads', 'user-leads');">
+            <md-button ng-click="grid.filter('grid', 'personal_leads', 'user-leads');">
               <div layout="row">
                 <p flex>Personal leads</p>
               </div>
@@ -199,7 +199,7 @@
     <div class="summary" layout="column">
       <div layout="row" class="chips flex-wrap">
         <div class="chip" ng-repeat="c in grid.activeFilters" layout="row" layout-align="center center">
-          <span ng-hide="c.name === 'days'">{{c.label | humanizeString}}</span>
+          <span ng-hide="c.name === 'days'">{{c.name}}: {{c.label | humanizeString}}</span>
           <span ng-show="c.name === 'days'">Last {{c.label}} days</span>
           <i class="material-icons" ng-click="grid.removeFilter(c);">close</i>
         </div>

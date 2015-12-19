@@ -308,7 +308,7 @@ module powur {
         filterOpts = {},
         page = this.leads.properties.paging.current_page;
 
-      if (this.activeFilters['group']) entityType = this.activeFilters.group.status;
+      if (this.activeFilters['grid']) entityType = this.activeFilters.grid.status;
       if (this.activeFilters['search']) entityType = entityType + '_search';
       if (Object.keys(this.activeFilters).length) {
         _.forEach(this.activeFilters, (filter: any) => {
@@ -344,9 +344,8 @@ module powur {
     filter(name: string, value: any, status: any) {
       var label, opt = {};
 
-      if (status === 'submitted' || status === 'not_submitted') {
-        delete this.activeFilters['data_status'];
-        delete this.activeFilters['sales_status'];
+      if (name === 'status') {
+        delete this.activeFilters[name];
       } 
       if (!value) {
         delete this.activeFilters[name];
