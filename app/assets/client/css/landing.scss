@@ -42,6 +42,14 @@
     pointer-events: none;
   }
 
+  .profile-pic {
+    background-color: #01B598;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 120px;
+    width: 120px;
+  }
+
   .headline {
     font-size: x-large;
   }
@@ -88,7 +96,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-color: white;
-    background-image: image-url("img/landing/landing-bg2.jpg");
+    background-image: image-url("img/landing/housess.jpg");
     color: black;
   }
 
