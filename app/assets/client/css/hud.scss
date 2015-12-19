@@ -68,17 +68,35 @@
 }
 
 @media screen and (max-width : 600px) {
-    .top-menu {
-        .float-right {
-            display: none;
+  .top-menu {
+    .float-right {
+      display: none;
+    }
+  }
+
+  .hud.goals.desktop {
+    display: none;
+  }
+
+  .hud.goals.mobile {
+    display: block;
+
+    .purchase {
+      .title {
+        font-size: 7pt;
+      }
+
+      a {
+        padding: 0;
+        text-align: center;
+        width: 100%;
+
+        .product {
+          font-size: 9pt;
         }
+      }
     }
-    .hud.goals.desktop {
-        display: none;
-    }
-    .hud.goals.mobile {
-        display: block;
-    }
+  }
 }
 
 @media screen and (min-width : 600px) {

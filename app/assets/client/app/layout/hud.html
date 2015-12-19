@@ -1,4 +1,12 @@
 <div class="hud goals mobile">
+  <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
+    <div ng-show="req.properties.event_type == 'purchase'" layout="row" layout-align="space-around center" layout-fill class="bar">
+      <div class="purchase" flex>
+        <div class="title">UPGRADE</div>
+        <a ng-href="/upgrade"><div class="product">{{ req.properties.product }}</div></a>
+      </div>
+    </div>
+  </div>
   <div layout="row" layout-align="space-around center" layout-fill class="bar">
     <div layout-align="center center">
       <span>Rank</span>
