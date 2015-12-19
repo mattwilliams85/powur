@@ -28,7 +28,7 @@ module Anon
     private
 
     def fetch_lead
-      @lead = Lead.find_by(user_id: params[:id])
+      @lead = Lead.find_by(user_id: params[:id], submitted_at: nil)
       not_found!(:user) if @lead.nil? || @lead.submitted?
     end
 

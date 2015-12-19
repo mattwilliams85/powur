@@ -29,14 +29,42 @@ module powur {
         }
       })
     .state('landing-step2', {
-        url: '/getsolar/step2',
+        url: '/getsolar/step2?rep_id',
         templateUrl: 'app/landing/step2.html',
         controller: 'LandingController as landing',
+        resolve: {
+          rep: function($stateParams, $q) {
+            var root = RootController.get();
+            var defer = $q.defer();
+            root.$session
+                .getRep($stateParams.rep_id)
+                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
+              defer.resolve(response);
+            }, () => {
+              defer.resolve({});
+            });
+            return defer.promise;
+          }
+        }
       })
     .state('landing-thanks', {
-        url: '/getsolar/thanks',
+        url: '/getsolar/thanks?rep_id',
         templateUrl: 'app/landing/thanks.html',
         controller: 'LandingController as landing',
+        resolve: {
+          rep: function($stateParams, $q) {
+            var root = RootController.get();
+            var defer = $q.defer();
+            root.$session
+                .getRep($stateParams.rep_id)
+                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
+              defer.resolve(response);
+            }, () => {
+              defer.resolve({});
+            });
+            return defer.promise;
+          }
+        }
       });
   }
 

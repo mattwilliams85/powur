@@ -33,7 +33,7 @@ module powur {
     }
 
     getRep(rep_id: number): ng.IPromise<ISirenModel> {
-      return this.getEntity(SirenModel, 'user-solar_invite', { rep_id: rep_id });
+      return this.getEntity(SirenModel, 'user-rep_invite', { rep_id: rep_id });
     }
 
     getCustomer(code: string): ng.IPromise<ISirenModel> {
