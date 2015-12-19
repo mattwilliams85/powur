@@ -1,45 +1,66 @@
-<div class="counter">
-  <ul layout="row" layout-align="start center" class="fadeIn">
-    <li flex layout="column" layout-align="center center">
-      <div class="label kpi">pending</div>
-      <div layout="row" layout-align="center center"><i class="sprite sprite-pending"></i><span class="count">{{ invite.pending }}</span></div>
-    </li>
-    <li flex layout="column" layout-align="center center">
-      <div class="label kpi">accepted</div>
-      <div layout="row" layout-align="center center"><i class="sprite sprite-accepted"></i><span class="count">{{ invite.accepted }}</span></div>
-    </li>
-  </ul>
+
+
+<div class="accordion" layout="row" layout-align="space-between-center">
+  <span class="toggle-wrapper" ng-click="hideSummary = !hideSummary">
+    <span class="toggle" ng-class="{'closed': hideSummary }"></span>
+    INVITES <b>SUMMARY</b>
+  </span>
 </div>
 
-<div class="invite-list-bg">
+<div class="insight" layout="row" ng-hide="hideSummary">
+  <div layout="column" layout-align="space-around center" flex="50">
+    <div class="label">PENDING</div>
+    <div class="count" layout="row" layout-align="center center">
+      <i class="material-icons">access_time</i>
+      {{ invite.pending }}
+    </div>
+  </div>
+  <div layout="column" layout-align="space-around center" flex="50">
+    <div class="label">ACCEPTED</div>
+    <div class="count" layout="row" layout-align="center center">
+      <i class="material-icons">assignment_turned_in</i>
+      {{ invite.accepted }}
+    </div>
+  </div>
+</div>
+
+<div class="accordion" layout="row" layout-align="space-between-center">
+  <span class="toggle-wrapper" ng-click="hideInvites = !hideInvites">
+    <span class="toggle" ng-class="{'closed': hideInvites }"></span>
+    GRID <b>INVITES</b>
+  </span>
+</div>
+
+
+<div class="invite-list-bg" ng-hide="hideInvites">
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
-    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" flex-xs="100"  class="list-item">
+    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" flex="100"  class="list-item">
       <div layout="row">
         <div class="invite-item">
           <div class="invite-bg ellipse"></div>
           <span class="add counter">
             <i class="sprite sprite-invite"></i>
-            <div class="label hoverable" hide show-gt-xs>Click to <b>Invite</b></div>
+            <!-- <div class="label hoverable" hide show-gt-xs>Click to <b>Invite</b></div> -->
           </span>
         </div>
-        <div class="side-text-box" hide-gt-xs>
-          <div class="label">Tap to <b>Invite</b></div>
+        <div class="side-text-box">
+          <div class="label">Click to <b>Invite</b></div>
         </div>
     </div>
     </a>
 
-    <div ng-repeat="item in invite.list track by $index"  flex-xs="100" class="list-item">
+    <div ng-repeat="item in invite.list track by $index"  flex="100" class="list-item">
       <div layout="row">
         <div class="invite-item" ng-click="invite.showInvite($event, item)">
           <div class="invite-bg"></div>
-          <div class="text-box" flex layout="column" layout-align="start center" hide show-gt-xs>
+          <div class="text-box" flex layout="column" layout-align="start center">
             <div class="full-name">
-              {{ item.properties.first_name | truncateName }}<br>
-              <b>{{ item.properties.last_name | truncateName }}</b>
+              {{ item.properties.first_name.charAt(0) }}
+              <b>{{ item.properties.last_name.charAt(0) }}</b>
             </div>
           </div>
         </div>
-        <div class="side-text-box" hide-gt-xs>
+        <div class="side-text-box">
           <br>
           <div class="full-name">
             {{ item.properties.first_name | truncateName }}<br>
