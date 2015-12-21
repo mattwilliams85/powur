@@ -4,66 +4,52 @@
 module powur {
   'use strict';
 
+  function user(session: ISessionService, $stateParams: any) {
+    return session.getRep($stateParams.repId);
+  }
+
+  function lead(session, $stateParams, $q) {
+    if (!$stateParams.inviteCode) return;
+
+    var root = RootController.get();
+    var defer = $q.defer();
+    session.getInvite($stateParams.inviteCode).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+      defer.resolve(response);
+    }, () => {
+      defer.resolve({});
+    });
+    return defer.promise;
+  }
+
   landingConfig.$inject = ['$stateProvider'];
 
   function landingConfig($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
-    // Landing page
     .state('landing', {
-        url: '/getsolar?rep_id',
+        url: '/getsolar/{repId}?inviteCode',
         templateUrl: 'app/landing/step1.html',
         controller: 'LandingController as landing',
         resolve: {
-          rep: function($stateParams, $q) {
-            var root = RootController.get();
-            var defer = $q.defer();
-            root.$session
-                .getRep($stateParams.rep_id)
-                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
-              defer.resolve(response);
-            }, () => {
-              defer.resolve({});
-            });
-            return defer.promise;
-          }
+          rep: ['SessionService', '$stateParams', user],
+          lead: ['SessionService', '$stateParams', '$q', lead]
         }
       })
     .state('landing-step2', {
-        url: '/getsolar/step2?rep_id',
+        url: '/getsolar/step2/{repId}?inviteCode',
         templateUrl: 'app/landing/step2.html',
         controller: 'LandingController as landing',
         resolve: {
-          rep: function($stateParams, $q) {
-            var root = RootController.get();
-            var defer = $q.defer();
-            root.$session
-                .getRep($stateParams.rep_id)
-                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
-              defer.resolve(response);
-            }, () => {
-              defer.resolve({});
-            });
-            return defer.promise;
-          }
+          rep: ['SessionService', '$stateParams', user],
+          lead: ['SessionService', '$stateParams', '$q', lead]
         }
       })
     .state('landing-thanks', {
-        url: '/getsolar/thanks?rep_id',
+        url: '/getsolar/thanks/{repId}?inviteCode',
         templateUrl: 'app/landing/thanks.html',
         controller: 'LandingController as landing',
         resolve: {
-          rep: function($stateParams, $q) {
-            var root = RootController.get();
-            var defer = $q.defer();
-            root.$session
-                .getRep($stateParams.rep_id)
-                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
-              defer.resolve(response);
-            }, () => {
-              defer.resolve({});
-            });
-            return defer.promise;
-          }
+          rep: ['SessionService', '$stateParams', user],
+          lead: ['SessionService', '$stateParams', '$q', lead]
         }
       });
   }

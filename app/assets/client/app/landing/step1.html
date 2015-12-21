@@ -46,12 +46,12 @@
         <div class="profile-pic" layout-align="center center" layout="row">
           <img ng-src="{{ landing.rep.properties.avatar.thumb || landing.defaultAvatar }}">
         </div>
-        <div class="headline">Meet Lydia,</div>
+        <div class="headline">Meet {{ landing.rep.properties.first_name }},</div>
         <div class="headline">your Personal Solar Advocate</div>
         <p>Suspendisse potenti. Proin at elit id dolor feugiat pellentesque. Sed ullamcorper, urna ac scelerisque commodo, orci odio malesuada lacus, in venenatis ligula mauris in risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec consectetur porttitor sodales. Phasellus tincidunt ipsum nec dolor pellentesque suscipit. Sed tempus orci purus, sed varius magna venenatis sed.<br><br>Vestibulum nec posuere libero. Mauris sed elementum arcu. Donec lacinia dui ut turpis pellentesque gravida.</p>
-      <div>
-        <md-button class="md-raised md-primary" ng-click="landing.getSavings()">GET YOUR SOLAR SAVINGS</md-button>
-      </div>
+        <div>
+          <md-button class="md-raised md-primary" ng-click="landing.getSavings()">GET YOUR SOLAR SAVINGS</md-button>
+        </div>
       </div>
     </div>
   </div>

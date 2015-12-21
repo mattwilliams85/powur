@@ -30,7 +30,8 @@ module powur {
 
     constructor(private $stateParams: ng.ui.IStateParamsService,
                 private $scope: any,
-                private rep: ISirenModel) {
+                private rep: ISirenModel,
+                private lead: ISirenModel) {
       super();
     }
 
