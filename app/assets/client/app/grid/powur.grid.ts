@@ -5,15 +5,15 @@ module powur {
   'use strict';
 
   function userLeadsSummary(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-leads_summary', { days: 60 });
+    return session.getEntity(SirenModel, 'user-leads_summary', {}, true);
   }
 
   function userTeamLeads(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-team_leads', { days: 60, page: 1 });
+    return session.getEntity(SirenModel, 'user-team_leads', { page: 1 });
   }
 
   function userTeamSummary(session: ISessionService) {
-    return session.getEntity(SirenModel, 'user-grid_summary', { days: 60 });
+      return session.getEntity(SirenModel, 'user-grid_summary', {}, true);
   }
 
   inviteConfig.$inject = ['$stateProvider'];

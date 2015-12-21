@@ -153,7 +153,7 @@ module powur {
     static ControllerId = 'GridSolarController';
     static $inject = ['leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
 
-    days: number = 60;
+    days: number = 0;
     searchQuery: string[];
     showSearch: boolean;
     stage: string[] = ['submit', 'proposal', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
@@ -161,8 +161,8 @@ module powur {
     barRight: number;
     radio: string;
     activeFilters: any = {};
-    phaseFilter: string;
-    summaryFilter: number = 60;
+    phaseFilter: string = 'pending';
+    summaryFilter: number = 0;
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -308,11 +308,11 @@ module powur {
         filterOpts = {},
         page = this.leads.properties.paging.current_page;
 
-      if (this.activeFilters['grid']) entityType = this.activeFilters.grid.status;
+      if (this.activeFilters['grid']) entityType = 'user-leads';
       if (this.activeFilters['search']) entityType = entityType + '_search';
       if (Object.keys(this.activeFilters).length) {
         _.forEach(this.activeFilters, (filter: any) => {
-          filterOpts[filter.name] = filter.label
+          filterOpts[filter.key] = filter.value
         });
       }
       filterOpts['page'] = page;
@@ -332,30 +332,31 @@ module powur {
     }
 
     removeFilter(filter) {
-      if (filter.status === 'submitted' || filter.status === 'not_submitted') {
+      if (filter === 'status') {
         this.radio = null;
         this.phaseFilter = null;
         this.tabBar(null);
       }
-      delete this.activeFilters[filter.name];
+      if (filter === 'grid') {}
+      delete this.activeFilters[filter];
       this.reloadList()
     }
 
-    filter(name: string, value: any, status: any) {
+    filter(group: string, key: any, value: any) {
       var label, opt = {};
 
-      if (name === 'status') {
-        delete this.activeFilters[name];
+      if (group === 'status') {
+        delete this.activeFilters[group];
       } 
-      if (!value) {
-        delete this.activeFilters[name];
+      if (!key) {
+        delete this.activeFilters[group];
         this.reloadList()
         return;
       }
-      this.activeFilters[name] = {
-        label: value,
-        name: name,
-        status: status
+      this.activeFilters[group] = {
+        group: group,
+        key: key,
+        value: value
       };
       this.reloadList()
     }
