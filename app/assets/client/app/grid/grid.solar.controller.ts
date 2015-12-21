@@ -287,7 +287,7 @@ module powur {
     tabBar(e) {
       if (!e) {
         this.barLeft = 0;
-        this.barRight = 247;
+        this.barRight = 165;
         return;
       }
       this.barLeft = e.target.offsetLeft;
@@ -334,7 +334,7 @@ module powur {
     removeFilter(filter) {
       if (filter === 'status') {
         this.radio = null;
-        this.phaseFilter = null;
+        this.phaseFilter = 'pending';
         this.tabBar(null);
       }
       if (filter === 'grid') {}
