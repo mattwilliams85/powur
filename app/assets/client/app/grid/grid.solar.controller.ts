@@ -210,12 +210,14 @@ module powur {
     leadStatus(lead) {
       if (!lead.properties.invite_status) { return 'incomplete' }
       if (lead.properties.sales_status === 'ineligible') { return 'ineligible' }
+      if (lead.properties.data_status === 'ineligible_location') { return 'ineligible' }
+      if (lead.properties.sales_status === 'closed_lost' || lead.properties.sales_status === 'duplicate') return;
       return lead.properties.invite_status;
     }
 
     iconStatus(lead) {
-      if (lead.properties.sales_status === 'ineligible') return;
-      if (lead.properties.sales_status === 'closed_lost') return 'cancel';
+      if (lead.properties.sales_status === 'ineligible' || lead.properties.data_status === 'ineligible_location') return;
+      if (lead.properties.sales_status === 'closed_lost' || lead.properties.sales_status === 'duplicate') return 'cancel';
       if (lead.properties.invite_status === 'initiated') return 'drafts';
       return 'mail';
     }
