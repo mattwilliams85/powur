@@ -117,7 +117,7 @@
       GRID <b>LEADS</b>
     </span>
     <div layout="row" layout-align="center center">
-      <div class="chip" layout="row" layout-align="center center">
+      <div class="chip search" layout="row" layout-align="center center">
       <i class="material-icons" ng-class="{ 'active': search }" ng-click="search = !search; grid.activeFilters['search'] = null">search</i>
       <span ng-show="grid.activeFilters['search']">{{ grid.activeFilters['search'].value }}</span>
       <i class="material-icons close" ng-show="grid.activeFilters['search']" ng-click="grid.removeFilter('search')">close</i>

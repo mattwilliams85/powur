@@ -51,22 +51,24 @@
   color: #424242;
   cursor: pointer;
   border-radius: 16px;
-  height: 30px;
-  // margin: 0 4px 10px 4px;
-  margin-left: 7px;
-  padding: 0 12px;
+  height: 20px;
+  margin-left: 3px;
+  padding: 0 4px;
   float: right;
   box-sizing: border-box;
   max-width: 100%;
-  position: relative;
   font-size: 10pt;
   text-transform: capitalize;
+  &.search {
+    padding: 0 6px;
+  }
   i {
-    font-size: 13pt;
+    font-size: 7pt;
     color: #666;
   }
   span {
     margin-left: 3px;
+    font-size: 6pt;
   }
 }
 
@@ -167,7 +169,7 @@
   .accordion {
     text-align: left;
     background: #5A5A5A;
-    padding: 0 10px 0 20px;
+    padding: 0 5px 0 20px;
     margin-top: 5px;
     color: #fff;
     font-size: 10pt;
@@ -206,14 +208,14 @@
       -webkit-appearance: none;
       border-radius: 0;
       right: 0;
-      top: 42px;
+      top: 36px;
       height: 33px;
       width: 100%;
-      background: #e0e0e0;;
+      background: #444;
+      color: #ccc;
       border: 0;
       padding: 4px 5px;
       font-size: 11pt;
-      color: #666;
       transition: all .3s;
       &.collapsed {
         width: 0;
@@ -435,11 +437,28 @@
       line-height: 12pt;
       cursor: pointer;
 
+      .chip {
+        height: 30px;
+        padding: 0 12px;
+        margin-left: 7px;
+        &.search {
+          padding: 0 12px;
+        }
+        i {
+          font-size: 13pt;
+        }
+        span {
+          font-size: 10pt;
+        }
+      }
+
       input {
         position: initial;
         height: 25px;
         width: 200px;
         z-index: inherit;
+        background: #e0e0e0;
+        color: #666;
       }
 
       .icon {
