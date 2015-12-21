@@ -13,10 +13,11 @@ module powur {
 
     var root = RootController.get();
     var defer = $q.defer();
-    session.getInvite($stateParams.inviteCode).then((response: ng.IHttpPromiseCallbackArg<any>) => {
-      defer.resolve(response);
+    session.getEntity(SirenModel, 'user-lead', { code: $stateParams.inviteCode })
+      .then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        defer.resolve(response);
     }, () => {
-      defer.resolve({});
+      defer.resolve();
     });
     return defer.promise;
   }
@@ -26,7 +27,7 @@ module powur {
   function landingConfig($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
     .state('landing', {
-        url: '/getsolar/{repId}?inviteCode',
+        url: '/getsolar/{repId}/:inviteCode',
         templateUrl: 'app/landing/step1.html',
         controller: 'LandingController as landing',
         resolve: {
@@ -35,7 +36,7 @@ module powur {
         }
       })
     .state('landing-step2', {
-        url: '/getsolar/step2/{repId}?inviteCode',
+        url: '/getsolar/step2/{repId}/:inviteCode',
         templateUrl: 'app/landing/step2.html',
         controller: 'LandingController as landing',
         resolve: {
@@ -44,13 +45,9 @@ module powur {
         }
       })
     .state('landing-thanks', {
-        url: '/getsolar/thanks/{repId}?inviteCode',
+        url: '/getsolar/thanks',
         templateUrl: 'app/landing/thanks.html',
-        controller: 'LandingController as landing',
-        resolve: {
-          rep: ['SessionService', '$stateParams', user],
-          lead: ['SessionService', '$stateParams', '$q', lead]
-        }
+        controller: 'LandingController as landing'
       });
   }
 

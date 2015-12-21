@@ -22,88 +22,95 @@
     <div flex>
       <div class="title">Take your first step at solar savings</div>
       <div class="subtitle">Hundreds of your neighbors have gone solar with us in Portland, OR.</div>
-      
-      <form ng-submit="landing.submitLead()" name="submitForm" novalidate layout-padding>
-      <div class="form" layout="column">
-        <div layout="column" layout-md="row">
-          <md-input-container flex="50">
-            <div class="border"></div>
-            <label>First Name</label>
-            <input name="first_name" ng-model="landing.leadAction.field('first_name').value" type="text" required="">
-            <div ng-messages="landing.leadAction.field('first_name').$error">
+
+      <form ng-submit="landing.submitLead()" name="leadSubmitForm" novalidate layout-padding>
+        <div class="form" layout="column">
+          <div layout="column" layout-md="row">
+            <md-input-container flex="50">
+              <div class="border"></div>
+              <label>First Name</label>
+              <input ng-model="landing.leadAction.field('first_name').value" type="text">
+              <div ng-messages="landing.leadAction.field('first_name').$error" ng-show="landing.leadAction.field('first_name').$error">
                 <div class="capitalize">{{ landing.leadAction.field('first_name').$error.message }}</div>
-            </div>
-          </md-input-container>
-          <div class="spacer"></div>
-          <md-input-container flex="50">
-            <div class="border"></div>
-            <label>Last Name</label>
-            <input name="last_name" ng-model="landing.leadAction.field('last_name').value" type="text" required="">
-            <div ng-messages="landing.leadAction.field('last_name').$error">
-                <div class="capitalize">{{ landing.leadAction.field('last_name').$error.message }}</div>
-            </div>
-          </md-input-container>
-        </div>
-        <md-input-container>
-          <div class="border"></div>
-          <label>Street Address</label>
-          <input name="address" ng-model="landing.leadAction.field('address').value" type="text">
-          <div ng-messages="landing.leadAction.field('address').$error">
-              <div class="capitalize">{{ landing.leadAction.field('address').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container flex="50">
+              <div class="border"></div>
+              <label>Last Name</label>
+              <input name="last_name" ng-model="landing.leadAction.field('last_name').value" type="text" required="">
+              <div ng-messages="landing.leadAction.field('last_name').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('last_name').$error.message }}</div>
+              </div>
+            </md-input-container>
           </div>
-        </md-input-container>
-        <md-input-container>
-          <div class="border"></div>
-          <label>City</label>
-          <input name="city" ng-model="landing.leadAction.field('city').value" type="text">
-          <div ng-messages="landing.leadAction.field('city').$error">
-              <div class="capitalize">{{ landing.leadAction.field('city').$error.message }}</div>
-          </div>
-        </md-input-container>
-        <div layout="column" layout-md="row">
-          <md-input-container flex="50">
+          <md-input-container>
             <div class="border"></div>
-            <label>State</label>
-            <input name="state" ng-model="landing.leadAction.field('state').value" type="text">
-            <div ng-messages="landing.leadAction.field('state').$error">
-                <div class="capitalize">{{ landing.leadAction.field('state').$error.message }}</div>
+            <label>Street Address</label>
+            <input name="address" ng-model="landing.leadAction.field('address').value" type="text">
+            <div ng-messages="landing.leadAction.field('address').$error">
+                <div class="capitalize">{{ landing.leadAction.field('address').$error.message }}</div>
             </div>
           </md-input-container>
-          <div class="spacer"></div>
-          <md-input-container flex="50">
+          <md-input-container>
             <div class="border"></div>
-            <label>Zip</label>
-            <input name="zip" ng-model="landing.leadAction.field('zip').value" type="text">
-            <div ng-messages="landing.leadAction.field('zip').$error">
-                <div class="capitalize">{{ landing.leadAction.field('zip').$error.message }}</div>
+            <label>City</label>
+            <input name="city" ng-model="landing.leadAction.field('city').value" type="text">
+            <div ng-messages="landing.leadAction.field('city').$error">
+                <div class="capitalize">{{ landing.leadAction.field('city').$error.message }}</div>
             </div>
           </md-input-container>
-        </div>
-        <md-input-container>
-          <div class="border"></div>
-          <label>Phone</label>
-          <input name="phone" ng-model="landing.leadAction.field('phone').value">
-          <div ng-messages="landing.leadAction.field('phone').$error">
-              <div class="capitalize">{{ landing.leadAction.field('phone').$error.message }}</div>
+          <div layout="column" layout-md="row">
+            <md-input-container flex="50">
+              <div class="border"></div>
+              <label>State</label>
+              <input name="state" ng-model="landing.leadAction.field('state').value" type="text">
+              <div ng-messages="landing.leadAction.field('state').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('state').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container flex="50">
+              <div class="border"></div>
+              <label>Zip</label>
+              <input name="zip" ng-model="landing.leadAction.field('zip').value" type="text">
+              <div ng-messages="landing.leadAction.field('zip').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('zip').$error.message }}</div>
+              </div>
+            </md-input-container>
           </div>
-        </md-input-container>
-        <md-input-container>
-          <div class="border"></div>
-          <label>Email </label>
-          <input name="email" ng-model="landing.leadAction.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
-          <div ng-messages="landing.leadAction.field('email').$error">
+          <md-input-container>
+            <div class="border"></div>
+            <label>Phone</label>
+            <input name="phone" ng-model="landing.leadAction.field('phone').value">
+            <div ng-messages="landing.leadAction.field('phone').$error">
+                <div class="capitalize">{{ landing.leadAction.field('phone').$error.message }}</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <div class="border"></div>
+            <label>Email </label>
+            <input name="email" ng-model="landing.leadAction.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+            <div ng-messages="landing.leadAction.field('email').$error">
               <div class="capitalize">{{ landing.leadAction.field('email').$error.message }}</div>
               <div ng-message="pattern">Must be a valid email address</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div class="msg">The more you spend on electricity, the more we can save you. <br>What’s your average electricity bill?</div>
+        <div class="slider">
+          <md-slider flex min="0" max="500" md-discrete ng-model="landing.leadAction.field('average_bill').value" aria-label="monthly" id="monthly-slider" class="md-primary"></md-slider>
+        </div>
+
+        <md-button class="md-raised md-primary" ng-click="landing.submitLead()" ng-disabled="landing.leadAction.submitting">GO</md-button>
+        <md-input-container ng-show="landing.leadAction.$error">
+          <div ng-messages="landing.leadAction.$error">
+            <div class="capitalize">{{ landing.leadAction.$error.message }}</div>
           </div>
         </md-input-container>
-      </div>
 
-      <div class="msg">The more you spend on electricity, the more we can save you. <br>What’s your average electricity bill?</div>
-      <div class="slider">
-        <md-slider flex min="0" max="500" md-discrete ng-model="landing.leadAction.field('average_bill').value" aria-label="monthly" id="monthly-slider" class="md-primary"></md-slider>
-      </div>
-      <md-button class="md-raised md-primary">GO</md-button>
-      <div class="disclaimer">By clicking here, I agree that SolarCity can contact me via automated technology and/or pre-recorded messages using the number provided. I understand that this consent is not required to make a purchase.</div>
+        <div class="disclaimer">By clicking here, I agree that SolarCity can contact me via automated technology and/or pre-recorded messages using the number provided. I understand that this consent is not required to make a purchase.</div>
       </form>
     </div>
     <div flex="20"></div>

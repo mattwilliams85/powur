@@ -16,9 +16,9 @@ actions_list = [
 
 actions(*actions_list)
 
-entity_list = [ entity(%w(solar_invite),
-                       'customer-solar_invite',
-                       customer_path('{code}')),
+entity_list = [ entity(%w(lead),
+                       'user-lead',
+                       lead_path('{code}')),
                 entity(%w(rep_invite),
                        'user-rep_invite',
                        user_path('{rep_id}')),

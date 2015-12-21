@@ -8,17 +8,22 @@
   </div>
   <div class="bg0" layout="column">
     <div flex="60" layout="column" layout-align="center center" layout-fill>
-      <div class="headline">Going Solar has never been easier. See if solar is right for you.</div>
-      <div>
-        <md-input-container>
-          <div class="border"></div>
-          <label>YOUR ZIP CODE</label>
-          <input name="zip" type="text" ng-model="landing.validateZipAction.field('zip').value">
-        </md-input-container>
-      </div>
-      <div>
-        <md-button class="md-raised md-primary" ng-click="landing.checkAvailability()">CHECK AVAILABILITY</md-button>
-      </div>
+      <form name="zipForm" ng-submit="landing.validateZip()">
+        <div class="headline">Going Solar has never been easier. See if solar is right for you.</div>
+        <div>
+          <md-input-container>
+            <div class="border"></div>
+            <label>YOUR ZIP CODE</label>
+            <input ng-model="landing.validateZipAction.field('zip').value" name="zip" type="text">
+            <div ng-messages="landing.validateZipAction.field('zip').$error" ng-show="landing.validateZipAction.field('zip').$error">
+              <div ng-message="message" class="messages">{{ landing.validateZipAction.field('zip').$error.message }}</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div>
+          <md-button class="md-raised md-primary">CHECK AVAILABILITY</md-button>
+        </div>
+      </form>
     </div>
   </div>
   <div class="bg1" layout="row">
@@ -94,17 +99,22 @@
   <div class="bg5" layout="row" layout-align="center end">
     <div flex="20"></div>
     <div flex layout="row" layout-align="center end" layout-fill>
-      <div flex="33" class="msg">Find out what you can save</div>
-      <div flex>
-        <md-input-container>
-          <div class="border"></div>
-          <label>YOUR ZIP CODE</label>
-          <input name="zip" type="text" ng-model="landing.validateZipAction.field('zip').value">
-        </md-input-container>
-      </div>
-      <div flex="33">
-        <md-button class="md-raised md-primary" ng-click="landing.validateZip()">LET'S GO</md-button>
-      </div>
+      <form name="zipForm" ng-submit="landing.validateZip()">
+        <div flex="33" class="msg">Find out what you can save</div>
+        <div flex>
+          <md-input-container>
+            <div class="border"></div>
+            <label>YOUR ZIP CODE</label>
+            <input ng-model="landing.validateZipAction.field('zip').value" name="zip" type="text">
+            <div ng-messages="landing.validateZipAction.field('zip').$error" ng-show="landing.validateZipAction.field('zip').$error">
+              <div ng-message="message" class="messages">{{ landing.validateZipAction.field('zip').$error.message }}</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div flex="33">
+          <md-button class="md-raised md-primary" ng-click="landing.validateZip()">LET'S GO</md-button>
+        </div>
+      </form>
     </div>
     <div flex="20"></div>
   </div>

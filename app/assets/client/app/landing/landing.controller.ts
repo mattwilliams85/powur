@@ -6,7 +6,7 @@ module powur {
 
   export class LandingController extends BaseController {
     static ControllerId = 'LandingController';
-    static $inject = ['$stateParams', '$scope', 'rep'];
+    static $inject = ['$stateParams', '$scope', 'rep', 'lead'];
 
     get validateZipAction(): Action {
       return this.rep.action('validate_zip');
@@ -17,7 +17,8 @@ module powur {
     }
 
     get leadAction(): Action {
-      return this.rep.action('submit_lead');
+      if (this.lead) return this.lead.action('update');
+      return this.rep.action('create_lead');
     }
 
     get params(): any {
@@ -44,7 +45,9 @@ module powur {
     validateZip(): void {
       this.validateZipAction.submit().then((response) => {
         this.leadAction.field('zip').value = this.validateZipAction.field('zip').value;
-        this.state.go('landing-step2', { rep_id: this.params.rep_id });
+        this.state.go('landing-step2', {
+          repId: this.params.repId,
+          inviteCode: this.params.inviteCode });
       });
     }
 

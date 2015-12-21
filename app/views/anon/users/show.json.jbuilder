@@ -3,25 +3,30 @@ siren json
 klass :lead
 
 json.properties do
-  json.first_name @lead.first_name
-  json.last_name @lead.last_name
-  json.user_id @lead.user_id
-  json.sponsor @lead.user.full_name
+  json.id @user.id
+  json.first_name @user.first_name
+  json.last_name @user.last_name
+  json.avatar do
+    [ :thumb, :medium, :large ].each do |key|
+      json.set! key, asset_path(@user.avatar.url(key))
+    end
+  end if @user.avatar?
 end
 
 actions_list = [
-  action(:validate_zip, :post, zip_validator_path)
+  action(:validate_zip, :post, validate_zip_validator_path)
     .field(:zip, :text)
-    .field(:code, :text, value: @lead.user_id),
-  action(:submit_lead, :put, users_path(@lead.user_id))
-    .field(:first_name, :text, value: @lead.first_name)
-    .field(:last_name, :text, value: @lead.last_name)
-    .field(:email, :email, value: @lead.email)
-    .field(:phone, :text, value: @lead.phone)
-    .field(:address, :text, value: @lead.address)
-    .field(:city, :text, value: @lead.city)
-    .field(:state, :text, value: @lead.state)
-    .field(:zip, :text, value: @lead.zip)
+    .field(:user_id, :number, value: @user.id),
+  action(:create_lead, :post, leads_path)
+    .field(:user_id, :text, value: @user.id)
+    .field(:first_name, :text)
+    .field(:last_name, :text)
+    .field(:email, :email)
+    .field(:phone, :text)
+    .field(:address, :text)
+    .field(:city, :text)
+    .field(:state, :text)
+    .field(:zip, :text)
     .field(:average_bill, :text) ]
 
 actions(*actions_list)
