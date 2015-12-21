@@ -54,33 +54,46 @@
     font-size: x-large;
   }
 
-  .header {
-    height: 45px;
-  }
-
   .bg0 {
     height: 335px;
     background-color: #219fd5;
     color: white;
 
+    .align-center {
+      text-align: center;
+    }
+
     .quote {
       text-align: center;
       font-size: x-large;
+
       .who {
         font-size: initial;
       }
+    }
+
+    input[type=text] {
+      color: #fff;
+      margin-bottom: .5em;
+    }
+
+    button {
+      padding: 0 2em;
     }
   }
 
   .bg1 {
     height: 627px;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center top;
     background-color: #248ba3;
     background-image: image-url("img/landing/landing-bg1.jpg");
+    background-size: cover;
     color: white;
+
     ul {
       padding-top: 20px;
+
       li {
         padding-bottom: 20px;
       }
@@ -94,18 +107,22 @@
   .bg2 {
     height: 568px;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center top;
     background-color: white;
     background-image: image-url("img/landing/housess.jpg");
+    background-size: cover;
     color: black;
   }
 
   .bg3 {
-    height: 695px;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center top;
     background-color: #2faac8;
     background-image: image-url("img/landing/landing-bg3.jpg");
+    background-size: cover;
+    padding-top: 5em;
+    padding-bottom: 5em;
+
     .promises {
       padding-top: 30px;
     }
@@ -123,13 +140,18 @@
     .msg {
       color: white;
     }
+    .item {
+      min-height: 200px;
+    }
   }
 
   .bg4 {
-    height: 445px;
     background-color: #353535;
     color: white;
     text-align: center;
+    padding-top: 5em;
+    padding-bottom: 5em;
+
     .companies {
       padding-top: 70px;
       width: 100%;
@@ -141,23 +163,38 @@
       width: 80%;
     }
   }
+
   .bg5 {
     background-color: #219fd5;
     color: white;
+
+    .form-section {
+      height: 70px;
+    }
+
+    .form-actions {
+      width: 100%;
+      text-align: center;
+    }
+
     button {
       height: 40px;
     }
 
     .msg {
       padding: 15px;
+      white-space: nowrap;
+      line-height: 50px;
     }
 
     md-input-container {
       margin: 0;
       padding: 10px;
     }
+
     input {
       width: 200px;
+      color: #fff;
     }
   }
 
@@ -235,10 +272,14 @@
     }
   }
 
+  .corp-wrapper {
+    text-align: center;
+  }
+
   .corp {
-      background: image-url('img/landing/corp-sprite.png');
-      background-repeat: no-repeat;
-      display: block;
+    background: image-url('img/landing/corp-sprite.png');
+    background-repeat: no-repeat;
+    display: inline-block;
   }
 
   .corp-citibank {

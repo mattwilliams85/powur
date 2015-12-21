@@ -22,8 +22,14 @@ module Anon
 
     def validate
       require_input :zip
-      @is_valid = Lead.eligible_zip?(params[:zip])
-      render 'validate'
+      error!(:invalid_zip, :zip) unless Lead.valid_zip?(params[:zip])
+
+      if Lead.eligible_zip?(params[:zip])
+        @is_valid = true
+        render 'validate'
+      else
+        error!(:unqualified_zip, :zip)
+      end
     rescue Lead::ZipApiError
       error!(:zip_api)
     end
