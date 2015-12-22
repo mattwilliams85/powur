@@ -6,7 +6,8 @@ json.properties do
   json.call(lead, :id, :data_status, :sales_status, :invite_status,
             :submitted_at, :provider_uid, :created_at, :action_badge,
             :first_name, :last_name, :email, :phone, :code,
-            :address, :city, :state, :zip, :notes, :last_viewed_at, :updated_at)
+            :address, :city, :state, :zip, :notes, :reach_concent,
+            :last_viewed_at, :updated_at)
   json.call(lead, :action_copy, :completion_chance) if lead.lead_action?
   [ :converted_at, :closed_won_at,
     :contracted_at, :installed_at ].each do |key_date|
@@ -38,6 +39,7 @@ unless lead.submitted?
     .field(:state, :text, required: false, value: lead.state)
     .field(:zip, :text, required: false, value: lead.zip)
     .field(:notes, :text, required: false, value: lead.notes)
+    .field(:reach_concent, :boolean, required: false, value: lead.reach_concent)
 
   lead.product.quote_fields.each do |field|
     opts = {

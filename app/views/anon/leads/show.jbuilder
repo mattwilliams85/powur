@@ -5,7 +5,7 @@ klass :lead
 json.properties do
   json.call(@lead, :email, :phone,
             :address, :city, :state, :zip, :notes, :last_viewed_at,
-            :data_status, :sales_status, :invite_status)
+            :data_status, :sales_status, :invite_status, :reach_concent)
   json.product_fields @lead.data.each { |key, value| json.set! key, value }
   json.owner do
     json.call(@lead.user, :id, :first_name, :last_name)
@@ -15,7 +15,7 @@ end
 actions_list = []
 
 unless @lead.submitted_at?
-  update = action(:update, :patch, lead_path(@lead.code))
+  update = action(:update, :patch, anon_lead_path(@lead.code))
     .field(:first_name, :text, value: @lead.first_name)
     .field(:last_name, :text, value: @lead.last_name)
     .field(:email, :email, required: false, value: @lead.email)
@@ -25,6 +25,7 @@ unless @lead.submitted_at?
     .field(:state, :text, required: false, value: @lead.state)
     .field(:zip, :text, required: false, value: @lead.zip)
     .field(:notes, :text, required: false, value: @lead.notes)
+    .field(:reach_concent, :boolean, required: false, value: @lead.reach_concent)
 
   @lead.product.quote_fields.each do |field|
     opts = {

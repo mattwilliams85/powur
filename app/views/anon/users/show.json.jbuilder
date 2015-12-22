@@ -27,6 +27,7 @@ actions_list = [
     .field(:city, :text)
     .field(:state, :text)
     .field(:zip, :text)
-    .field(:average_bill, :text) ]
+    .field(:average_bill, :text)
+    .field(:reach_concent, :boolean, value: true) ]
 
 actions(*actions_list)
