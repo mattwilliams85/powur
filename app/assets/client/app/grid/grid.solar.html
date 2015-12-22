@@ -121,10 +121,10 @@
       <div class="chip search" layout="row" layout-align="center center">
       <i class="material-icons" 
          ng-class="{ 'active': search }" 
-         ng-click="search = !search; grid.activeFilters['search'] = null">
+         ng-click="search = !search">
          search
       </i>
-      <span ng-show="grid.activeFilters['search']">{{ grid.activeFilters['search'].value }}</span>
+      <span ng-show="grid.activeFilters['search']" class="lowercase">{{ grid.activeFilters['search'].value }}</span>
       <i class="material-icons close" 
          ng-show="grid.activeFilters['search']" 
          ng-click="grid.removeFilter('search')">close</i>
