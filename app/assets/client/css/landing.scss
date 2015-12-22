@@ -219,6 +219,10 @@
       text-align: left;
     }
 
+    input[type=text], input[type=email] {
+      margin-bottom: .5em;
+    }
+
     .border {
       border-color: #36c6f4 !important;
     }
@@ -230,6 +234,7 @@
     button {
       width: 100%;
     }
+
     .disclaimer {
       font-size: xx-small;
     }

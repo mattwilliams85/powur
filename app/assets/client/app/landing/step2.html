@@ -1,24 +1,24 @@
 <div layout="column" class="landing">
-  <div class="header" layout="row">
-    <div flex="50" layout="row" layout-fill>
-      <div flex="30"></div>
-      <div flex layout="column" layout-align="center start">
-        <img class="powur-logo" src="/assets/img/landing/powur-logo.png">
-      </div>
+  <div class="header" layout="row" layout-padding>
+    <div flex-gt-sm="50" layout="row" layout-fill>
+      <div flex-gt-sm="30"></div>
+      <div flex layout="column" layout-align="center start" class="logo-wrapper"></div>
     </div>
-    <div flex="50"></div>
+    <div flex-gt-sm="50" show-gt-sm></div>
   </div>
-  <div class="bg0" layout="row" layout-align="center center" layout-fill>
-    <div flex="20"></div>
+
+  <div class="bg0" layout="row" layout-align="center center" layout-padding>
+    <div flex-gt-sm="20"></div>
     <div flex class="quote">
       “You could power the entire United States with about 150 to 200 square kilometers of solar panels..., the entire United States.”
       <br><br>
       <div class="who">- Elon Musk, Founder of SolarCity</div>
     </div>
-    <div flex="20"></div>
+    <div flex-gt-sm="20"></div>
   </div>
-  <div class="bg6" layout="row">
-    <div flex="20"></div>
+
+  <div class="bg6" layout="row" layout-padding>
+    <div flex-gt-sm="20"></div>
     <div flex>
       <div class="title">Take your first step at solar savings</div>
       <div class="subtitle">Hundreds of your neighbors have gone solar with us in Portland, OR.</div>
@@ -29,8 +29,8 @@
             <md-input-container flex="50">
               <div class="border"></div>
               <label>First Name</label>
-              <input ng-model="landing.leadAction.field('first_name').value" type="text">
-              <div ng-messages="landing.leadAction.field('first_name').$error" ng-show="landing.leadAction.field('first_name').$error">
+              <input name="first_name" ng-model="landing.leadAction.field('first_name').value" type="text">
+              <div ng-messages="landing.leadAction.field('first_name').$error">
                 <div class="capitalize">{{ landing.leadAction.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
@@ -40,7 +40,7 @@
               <label>Last Name</label>
               <input name="last_name" ng-model="landing.leadAction.field('last_name').value" type="text" required="">
               <div ng-messages="landing.leadAction.field('last_name').$error">
-                  <div class="capitalize">{{ landing.leadAction.field('last_name').$error.message }}</div>
+                <div class="capitalize">{{ landing.leadAction.field('last_name').$error.message }}</div>
               </div>
             </md-input-container>
           </div>
@@ -82,7 +82,7 @@
           <md-input-container>
             <div class="border"></div>
             <label>Phone</label>
-            <input name="phone" ng-model="landing.leadAction.field('phone').value">
+            <input name="phone" ng-model="landing.leadAction.field('phone').value" type="text">
             <div ng-messages="landing.leadAction.field('phone').$error">
                 <div class="capitalize">{{ landing.leadAction.field('phone').$error.message }}</div>
             </div>
@@ -113,19 +113,20 @@
         <div class="disclaimer">By clicking here, I agree that SolarCity can contact me via automated technology and/or pre-recorded messages using the number provided. I understand that this consent is not required to make a purchase.</div>
       </form>
     </div>
-    <div flex="20"></div>
+    <div flex-gt-sm="20"></div>
   </div>
-  <div class="bg4" layout="column" layout-align="center center">
+
+  <div class="bg4" layout="column" layout-align="center center" layout-padding>
     <div layout="column" layout-align="center center">
       <div class="headline">Truly Reliable Partnership</div>
       <div class="msg">SolarCity’s revolutionizing the energy industry with the strong support of partners who have funded billions of dollars worth of solar projects with us. They know that clean, more affordable solar power is the bright solution for homeowners, their investors, the environment and the future.</div>
     </div>
-    <div class="companies" layout="row" layout-align="space-around end">
-      <i class="corp corp-google"></i>
-      <i class="corp corp-goldman-sachs"></i>
-      <i class="corp corp-honda"></i>
-      <i class="corp corp-citibank"></i>
-      <i class="corp corp-usbancorp"></i>
+    <div class="companies" layout="column" layout-gt-sm="row" layout-wrap layout-padding>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-google"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-goldman-sachs"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-honda"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-citibank"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-usbancorp"></i></div>
     </div>
   </div>
 </div>
