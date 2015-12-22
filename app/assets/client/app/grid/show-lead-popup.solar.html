@@ -49,7 +49,7 @@
                 <div class="node"></div>
                 <div class="highlight stage-1" ng-class="{ 'active': dialog.lead.properties.stage >= 1 }"></div>
               </div>
-              <span class="header">QUALIFY</span>
+              <span class="header">QUALIFIED</span>
             </div>
             <div layout="column" layout-align="center center" flex="20">
             <div class="node-wrap">
@@ -78,7 +78,7 @@
         <div class="column info">
           <div>LEAD <b>INTEL</b></div>
           <div class="detail">
-            The lead was last updated on 
+            The lead was last updated on
             {{ (dialog.lead.properties.updated_at | date:'M/d/yyyy') || 'No Updates Available' }}
             @ {{ dialog.lead.properties.updated_at | date:'mediumTime'}}
           </div>
@@ -87,7 +87,7 @@
         <div class="column info" ng-if="dialog.lead.properties.action_copy">
           <div>POWUR <b>ACTION</b></div>
           <div>
-            <div class="side-bar"></div> 
+            <div class="side-bar"></div>
             <span class="detail">{{ dialog.lead.properties.action_copy }}</span>
           </div>
         </div>

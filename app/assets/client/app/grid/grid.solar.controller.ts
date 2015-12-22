@@ -213,6 +213,11 @@ module powur {
       return item.invite_status;
     }
 
+    prepareFilterName(name) {
+      if (name === 'proposal') return 'qualified';
+      return name;
+    }
+
     iconStatus(lead) {
       var item = lead.properties;
       if (item.sales_status === 'ineligible' || item.data_status === 'ineligible_location') return;
