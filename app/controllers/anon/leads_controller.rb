@@ -73,7 +73,7 @@ module Anon
       @lead.accepted!
       Lead.where.not(id: @lead.id)
         .where(email: @lead.email)
-        .where.not(status: Lead.statuses[:accepted])
+        .where.not(invite_status: Lead.invite_statuses[:accepted])
         .delete_all
     rescue Lead::SolarCityApiError => e
       Airbrake.notify(e)
