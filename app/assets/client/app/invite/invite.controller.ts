@@ -117,9 +117,7 @@ module powur {
     }
 
     showLink(invite, path): string {
-      if (path === 'grid') { return 'https://powur.com/next/join/grid/' + invite.id }
-      else { return 'https://powur.com/next/join/solar/' + invite.code  }
-
+      return 'https://powur.com/next/join/grid/' + invite.id
     }
 
     cancel() {

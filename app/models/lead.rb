@@ -171,7 +171,8 @@ class Lead < ActiveRecord::Base
     opts = Rails.configuration.action_mailer.default_url_options
     # TODO: this will change when the new public page is ready
     join_url = URI.join("#{opts[:protocol]}://#{opts[:host]}",
-                        'next/join/solar/',
+                        'next/getsolar/',
+                        user_id.to_s + '/',
                         code).to_s
 
     message = I18n.t('sms.solar_invite', name: user.full_name, url: join_url)

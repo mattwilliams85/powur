@@ -31,7 +31,7 @@ class PromoterMailer < ActionMailer::Base
   end
 
   def product_invitation(lead)
-    url = root_url + 'next/join/solar/' + lead.code
+    url = URI.join(root_url, '/next/getsolar/', lead.user_id.to_s + '/', lead.code).to_s
     sponsor = User.find(lead.user_id)
     merge_vars = { invite_url:          url,
                    sponsor_full_name:   sponsor.full_name,
