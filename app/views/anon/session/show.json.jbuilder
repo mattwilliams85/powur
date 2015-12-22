@@ -66,7 +66,7 @@ entity_list << entity(%w(search leads),
 entity_list << entity(%w(user), 'user-profile', profile_path)
 entity_list << entity(%w(summary leads),
                       'user-leads_summary',
-                      summary_user_leads_path(current_user, days: '{days}'))
+                      summary_user_leads_path(current_user, days: '{days}', personal: '{personal}'))
 entity_list << entity(%w(grid_summary user),
                       'user-grid_summary',
                       grid_summary_user_path(current_user, days: '{days}'))

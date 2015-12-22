@@ -92,6 +92,21 @@ module Auth
       show
     end
 
+    def summary
+      metrics = @user.metrics
+      data_scope =
+        params[:personal].present? ? :leads_personal_count : :leads_count
+      days = params[:days]
+
+      @metrics_data = {
+        leads:     metrics.send(data_scope, :submitted, days),
+        proposals: metrics.send(data_scope, :converted, days),
+        closed:    metrics.send(data_scope, :closed_won, days),
+        contracts: metrics.send(data_scope, :contracted, days),
+        installs:  metrics.send(data_scope, :installed, days)
+      }
+    end
+
     private
 
     def fetch_leads

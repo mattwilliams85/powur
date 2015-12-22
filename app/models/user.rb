@@ -277,6 +277,12 @@ class User < ActiveRecord::Base
         query:   Lead.send(scope.to_sym, from: days ? days.to_i.days.ago : nil))
     end
 
+    def leads_personal_count(scope, days = nil)
+      Lead.send(scope.to_sym, from: days ? days.to_i.days.ago : nil)
+        .where(user_id: user.id)
+        .count
+    end
+
     def login_streak
       user.login_streak
     end
