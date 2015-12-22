@@ -97,8 +97,6 @@ class Lead < ActiveRecord::Base
   def submit!
     fail 'Lead is not ready for submission' unless ready_to_submit?
 
-    Rails.logger.info("Submitting lead to SC: #{id}")
-
     ENV['SIMULATE_LEAD_SUBMIT'] ? simulate_submit : submit_to_provider
   end
 
