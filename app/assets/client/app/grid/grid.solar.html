@@ -5,18 +5,52 @@
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
       GRID <b>SUMMARY</b>
     </span>
+
+    <md-menu md-position-mode="target-right target" md-offset="0 10">
+      <div class="chip" layout="row" layout-align="center center">
+        <div  ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
+          <i class="material-icons">people</i>
+          <span ng-hide="grid.summaryFilters['grid']">Team</span>
+          <span ng-show="grid.summaryFilters['grid']">Personal</span>
+        </div>
+        <i class="material-icons close" 
+           ng-show="grid.summaryFilters['grid']" 
+           ng-click="grid.removeFilter('grid'); selected = null">
+           close
+        </i>
+      </div>
+      <md-menu-content class="filter-menu" width="4">
+        <md-menu-item class="header"><span>SELECT <b>GRID</b></span></md-menu-item>
+        <div class="filter-box small">
+          <md-radio-group ng-model="selected">
+              <md-radio-button aria-label="team" 
+                               ng-click="grid.summaryFilter('grid', null, 'user-team_leads')" 
+                               ng-value="null">
+                               Team Leads
+              </md-radio-button>
+              <md-radio-button  aria-label="personal" 
+                                ng-click="grid.summaryFilter('grid', 'personal_leads', 'user-leads')" 
+                                ng-value="'personal'">
+                                Personal Leads
+              </md-radio-button>
+          </md-radio-group>
+        </div>
+      </md-menu-content>
+    </md-menu>
+
     <md-menu md-position-mode="target-right target" md-offset="0 10">
       <div class="chip" layout="row" layout-align="center center">
         <div  ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
           <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
-          <span>{{ grid.dateFilterLabel }}</span>
+          <span ng-show="grid.summaryFilters['date']">Last {{ grid.summaryFilters['date'].value }} days</span>
+          <span ng-hide="grid.summaryFilters['date']">Lifetime</span>
         </div>
-        <i class="material-icons close" ng-click="grid.filterSummary(0)" ng-show="grid.summaryFilter !== 0">close</i>
+        <i class="material-icons close" ng-click="grid.filterSummary('date', 'days', null)" ng-show="grid.summaryFilters['date']">close</i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
         <md-menu-item ng-repeat="d in [7, 30, 60]">
-          <md-button ng-click="grid.filterSummary(d)" aria-label="{{d}}">
+          <md-button ng-click="grid.filterSummary('date', 'days', d)" aria-label="{{d}}">
             <div layout="row">
               <p flex>In last {{ d }} days</p>
             </div>
@@ -125,10 +159,12 @@
          search
       </i>
       <span ng-show="grid.activeFilters['search']" class="lowercase">{{ grid.activeFilters['search'].value }}</span>
-      <i class="material-icons close"
-         ng-show="grid.activeFilters['search']"
-         ng-click="grid.removeFilter('search')">close</i>
-      <form ng-hide="grid.activeFilters['search']"
+      <i class="material-icons close" 
+         ng-show="grid.activeFilters['search']" 
+         ng-click="grid.removeFilter('search')">
+         close
+      </i>
+      <form ng-hide="grid.activeFilters['search']" 
             ng-submit="grid.filter('search', 'search', grid.searchQuery); search = false" \
             novalidate
             autocomplete="off">
@@ -172,6 +208,7 @@
           </div>
         </md-menu-content>
       </md-menu>
+
       <md-menu md-position-mode="target-right target" md-offset="0 10">
         <div class="chip" layout="row" layout-align="center center">
           <div  ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
@@ -294,8 +331,14 @@
               <span>{{ lead.properties.first_name[0] }}{{ lead.properties.last_name[0] }}</span>
             </div>
             <div class="detail">
-              <div class="uppercase text-lg">{{ lead.properties.first_name }} <b>{{ lead.properties.last_name }}</b></div>
-              <div class="uppercase text-sm">{{ lead.properties.city }}<span ng-if="lead.properties.state">, {{ lead.properties.state }}</span></div>
+              <div class="uppercase text-lg">
+                {{ lead.properties.first_name }} 
+                <b>{{ lead.properties.last_name }}</b>
+              </div>
+              <div class="uppercase text-sm">
+                {{ lead.properties.city }}
+                <span ng-if="lead.properties.state">, {{ lead.properties.state }}</span>
+              </div>
             </div>
           </div>
           <!-- COLUMN #progress -->

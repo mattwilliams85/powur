@@ -160,16 +160,12 @@ module powur {
     barRight: number;
     radio: string;
     activeFilters: any = {};
+    summaryFilters: any = {};
     phaseFilter: string = 'pending';
-    summaryFilter: number = 0;
     reloading: boolean;
 
     get insight(): any {
       return this.leadsSummary.properties;
-    }
-
-    get dateFilterLabel() {
-      return this.summaryFilter == 0 ? 'Lifetime' : 'Last ' + this.summaryFilter + ' days';
     }
 
     get getSolarPageLink(): string {
@@ -359,10 +355,22 @@ module powur {
       this.reloadList()
     }
 
-    filterSummary(days){
-      var filterOpts = {};
-      this.summaryFilter = days;
-      if (days) filterOpts = { days: days }
+    filterSummary(group: string, key: any, value: any) {
+      var filterOpts = {};  
+      this.summaryFilters[group] = {
+        group: group,
+        key: key,
+        value: value
+      };
+      if (Object.keys(this.summaryFilters).length) {
+        _.forEach(this.summaryFilters, (filter: any) => {
+          if (!filter.value) {
+             delete this.summaryFilters[group];
+             return;
+          };
+          filterOpts[filter.key] = filter.value;
+        });
+      }
       this.session.getEntity(SirenModel, 'user-leads_summary', filterOpts, true).then((data: any) => {
         this.leadsSummary.properties = data.properties;
       });
