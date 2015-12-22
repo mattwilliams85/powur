@@ -70,7 +70,7 @@ module Anon
     def submit_to_sc
       @lead.submit!
       @lead.email_customer if @lead.can_email?
-      @customer.accepted!
+      @lead.accepted!
       Lead.where.not(id: @lead.id)
         .where(email: @lead.email)
         .where.not(status: Lead.statuses[:accepted])
