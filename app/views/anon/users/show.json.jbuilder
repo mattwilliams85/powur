@@ -28,6 +28,6 @@ actions_list = [
     .field(:state, :text)
     .field(:zip, :text)
     .field(:average_bill, :text)
-    .field(:reach_concent, :boolean, value: true) ]
+    .field(:reach_consent, :boolean, value: true) ]
 
 actions(*actions_list)
