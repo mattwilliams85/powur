@@ -31,6 +31,11 @@
           <ng-include src="'admin/users/templates/tabs/user-info.html'"></ng-include>
         </div>
 
+        <!-- Invite Content -->
+        <div class="content" ng-class="{'active': tab === 'invites'}">
+          <ng-include src="'admin/users/templates/tabs/invites.html'"></ng-include>
+        </div>
+
         <!-- Team Content -->
         <div class="content" ng-class="{'active': tab === 'team'}">
           <ng-include src="'admin/users/templates/tabs/team.html'"></ng-include>
