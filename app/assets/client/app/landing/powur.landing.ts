@@ -13,7 +13,7 @@ module powur {
 
     var root = RootController.get();
     var defer = $q.defer();
-    session.getEntity(SirenModel, 'user-lead', { code: $stateParams.inviteCode })
+    session.getEntity(SirenModel, 'user-anon_lead', { code: $stateParams.inviteCode })
       .then((response: ng.IHttpPromiseCallbackArg<any>) => {
         defer.resolve(response);
     }, () => {

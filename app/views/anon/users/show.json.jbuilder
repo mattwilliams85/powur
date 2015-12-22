@@ -17,7 +17,7 @@ actions_list = [
   action(:validate_zip, :post, validate_zip_validator_path)
     .field(:zip, :text)
     .field(:user_id, :number, value: @user.id),
-  action(:create_lead, :post, leads_path)
+  action(:create_lead, :post, anon_leads_path)
     .field(:user_id, :text, value: @user.id)
     .field(:first_name, :text)
     .field(:last_name, :text)

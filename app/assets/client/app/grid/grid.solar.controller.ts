@@ -135,7 +135,8 @@ module powur {
     }
 
     showLink(lead): string {
-      return 'https://powur.com/next/join/solar/' + lead.code;
+      return 'https://powur.com/next/getsolar/' +
+        lead.owner.id + '/' + lead.code;
     }
 
     cancel() {

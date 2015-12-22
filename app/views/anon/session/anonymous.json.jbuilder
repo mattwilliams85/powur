@@ -17,11 +17,11 @@ actions_list = [
 actions(*actions_list)
 
 entity_list = [ entity(%w(lead),
-                       'user-lead',
-                       lead_path('{code}')),
+                       'user-anon_lead',
+                       anon_lead_path('{code}')),
                 entity(%w(rep_invite),
                        'user-rep_invite',
-                       user_path('{rep_id}')),
+                       anon_user_path('{rep_id}')),
                 entity(%w(grid_invite),
                        'user-grid_invite',
                        anon_invite_path('{code}')),

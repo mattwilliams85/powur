@@ -59,8 +59,8 @@ Rails.application.routes.draw do
 
     resources :customers, only: [ :show, :update ]
 
-    resources :users, only: [ :show ]
-    resources :leads, only: [ :show, :create, :update ]
+    resources :users, as: :anon_users, only: [ :show ]
+    resources :leads, as: :anon_leads, only: [ :show, :create, :update ]
   end
 
   # logged in user routes

@@ -72,6 +72,12 @@ entity_list << entity(%w(grid_summary user),
                       grid_summary_user_path(current_user, days: '{days}'))
 entity_list << entity(%w(video_assets),
                       'user-video_assets', assets_login_path)
+entity_list << entity(%w(lead),
+                      'user-anon_lead',
+                      anon_lead_path('{code}'))
+entity_list << entity(%w(rep_invite),
+                      'user-rep_invite',
+                      anon_user_path('{rep_id}'))
 
 link_list << link(:index, dashboard_path)
 
