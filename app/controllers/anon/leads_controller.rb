@@ -56,7 +56,7 @@ module Anon
 
     def lead_input
       allow_input(:first_name, :last_name, :email,
-                  :phone, :address, :city, :state, :zip, :reach_consent)
+                  :phone, :address, :city, :state, :zip, :call_consented)
     end
 
     def lead_data_input
