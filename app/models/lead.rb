@@ -57,6 +57,9 @@ class Lead < ActiveRecord::Base
                to:            to)
     }
   end
+  scope :in_progress, lambda {
+    submitted.where(sales_status: Lead.sales_statuses[:in_progress])
+  }
 
   before_validation do
     self.code ||= self.class.generate_code
