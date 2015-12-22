@@ -390,9 +390,9 @@
         <md-divider hide show-gt-sm></md-divider>
       </div>
     </div>
-    <div ng-show="!grid.leads.entities.length" layout-padding><i>No Results Found</i></div>
+    <div ng-show="!grid.leads.entities.length && !grid.reloading" layout-padding><i>No Results Found</i></div>
     <section ng-if="grid.leads.properties.paging.current_page < grid.leads.properties.paging.page_count">
-      <md-button ng-click="grid.loadMore()" class="load-more">Load More</md-button>
+      <md-button ng-click="grid.loadMore()" class="load-more" ng-show="!grid.reloading">Load More</md-button>
     </section>
   </div>
 </div>

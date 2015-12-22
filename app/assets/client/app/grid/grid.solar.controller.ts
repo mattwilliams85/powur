@@ -162,6 +162,7 @@ module powur {
     activeFilters: any = {};
     phaseFilter: string = 'pending';
     summaryFilter: number = 0;
+    reloading: boolean;
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -308,6 +309,7 @@ module powur {
       }
       filterOpts['page'] = page;
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
+        this.reloading = false;
         this.leads.properties = data.properties;
         if (!data.entities.length) return;
         this.leads.entities = this.leads.entities.concat(data.entities);
@@ -333,6 +335,7 @@ module powur {
     }
 
     filter(group: string, key: any, value: any) {
+      this.reloading = true;
       var label, opt = {};
 
       if (group === 'status') {
