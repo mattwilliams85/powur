@@ -173,7 +173,7 @@ module powur {
     }
 
     get getSolarPageLink(): string {
-      return 'https://www.powur.com/next/getsolar/' + this.root.$session.properties.id + '/';
+      return 'https://www.powur.com/next/getsolar/' + this.root.$session.properties.id;
     }
 
     constructor(public leadsSummary: ISirenModel,
