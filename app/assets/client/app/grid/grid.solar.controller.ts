@@ -179,6 +179,10 @@ module powur {
       return this.summaryFilter == 0 ? 'Lifetime' : 'Last ' + this.summaryFilter + ' days';
     }
 
+    get getSolarPageLink(): string {
+      return 'https://www.powur.com/next/getsolar/' + this.root.$session.properties.id + '/';
+    }
+
     constructor(public leadsSummary: ISirenModel,
       public leads: ISirenModel,
       public $scope: any,
@@ -349,7 +353,7 @@ module powur {
 
       if (group === 'status') {
         delete this.activeFilters[group];
-      } 
+      }
       if (!key) {
         delete this.activeFilters[group];
         this.reloadList()
