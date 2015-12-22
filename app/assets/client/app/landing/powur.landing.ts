@@ -26,6 +26,10 @@ module powur {
 
   function landingConfig($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
+    .state('landing-thanks', {
+      url: '/getsolar/thanks',
+      templateUrl: 'app/landing/thanks.html'
+    })
     .state('landing-step2', {
       url: '/getsolar/step2/{repId}{inviteCode}',
       templateUrl: 'app/landing/step2.html',
@@ -61,11 +65,6 @@ module powur {
         rep: ['SessionService', '$stateParams', user],
         lead: ['SessionService', '$stateParams', '$q', lead]
       }
-    })
-    .state('landing-thanks', {
-      url: '/getsolar/thanks',
-      templateUrl: 'app/landing/thanks.html',
-      controller: 'LandingController as landing'
     });
   }
 
