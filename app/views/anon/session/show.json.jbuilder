@@ -28,6 +28,8 @@ json.properties do
     json.call(current_user.metrics,
               :team_count, :earnings, :co2_saved, :login_streak)
   end
+
+  json.getsolar_page_url(current_user.getsolar_page_url) if current_user.partner?
 end
 
 actions_list = [

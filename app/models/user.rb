@@ -218,6 +218,12 @@ class User < ActiveRecord::Base
     role?(:breakage_account)
   end
 
+  def getsolar_page_url
+    opts = Rails.configuration.action_mailer.default_url_options
+    URI.join("#{opts[:protocol]}://#{opts[:host]}",
+             'next/getsolar/', id.to_s).to_s
+  end
+
   # def reconcile_invites
   #   update_column(:available_invites, 0) if available_invites < 0
   #   return if available_invites > 0
