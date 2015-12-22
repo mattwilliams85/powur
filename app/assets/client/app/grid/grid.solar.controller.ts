@@ -153,9 +153,7 @@ module powur {
     static ControllerId = 'GridSolarController';
     static $inject = ['leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
 
-    days: number = 0;
     searchQuery: string[];
-    showSearch: boolean;
     stage: string[] = ['submit', 'proposal', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
     barLeft: number;
     barRight: number;
@@ -166,13 +164,6 @@ module powur {
 
     get insight(): any {
       return this.leadsSummary.properties;
-    }
-
-    get filters(): any {
-      var keys = _.keys(this.leads.properties.filters);
-      return _.filter(keys, function(k) {
-        return k !== 'options';
-      });
     }
 
     get dateFilterLabel() {
@@ -212,17 +203,19 @@ module powur {
     }
 
     leadStatus(lead) {
-      if (!lead.properties.invite_status) { return 'incomplete' }
-      if (lead.properties.sales_status === 'ineligible') { return 'ineligible' }
-      if (lead.properties.data_status === 'ineligible_location') { return 'ineligible' }
-      if (lead.properties.sales_status === 'closed_lost' || lead.properties.sales_status === 'duplicate') return;
-      return lead.properties.invite_status;
+      var item = lead.properties;
+      if (!item.invite_status) { return 'incomplete' }
+      if (item.sales_status === 'ineligible') { return 'ineligible' }
+      if (item.data_status === 'ineligible_location') { return 'ineligible' }
+      if (item.sales_status === 'closed_lost' || item.sales_status === 'duplicate') return;
+      return item.invite_status;
     }
 
     iconStatus(lead) {
-      if (lead.properties.sales_status === 'ineligible' || lead.properties.data_status === 'ineligible_location') return;
-      if (lead.properties.sales_status === 'closed_lost' || lead.properties.sales_status === 'duplicate') return 'cancel';
-      if (lead.properties.invite_status === 'initiated') return 'drafts';
+      var item = lead.properties;
+      if (item.sales_status === 'ineligible' || item.data_status === 'ineligible_location') return;
+      if (item.sales_status === 'closed_lost' || item.sales_status === 'duplicate') return 'cancel';
+      if (item.invite_status === 'initiated') return 'drafts';
       return 'mail';
     }
 
@@ -300,15 +293,6 @@ module powur {
       this.barRight = e.target.parentElement.offsetWidth - (this.barLeft + e.target.offsetWidth);
     }
 
-    search() {
-      var entityType = 'user-team_leads_search';
-      this.session.getEntity(SirenModel, entityType,
-        { search: this.searchQuery, days: this.days, page: 1 }, true).then((data: ISirenModel) => {
-          this.leads = data;
-          this.leads.properties.entityType = entityType;
-        });
-    }
-
     loadMore() {
       var entityType = 'user-team_leads',
         filterOpts = {},
@@ -324,7 +308,6 @@ module powur {
       filterOpts['page'] = page;
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leads.properties = data.properties;
-        this.leads.properties.entityType = entityType;
         if (!data.entities.length) return;
         this.leads.entities = this.leads.entities.concat(data.entities);
       });

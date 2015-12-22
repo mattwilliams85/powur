@@ -1,4 +1,5 @@
 <div class="pw-grid solar">
+
   <div class="accordion" layout="row" layout-align="space-between-center">
     <span class="toggle-wrapper" ng-click="hideInsight = !hideInsight">
       <span class="toggle" ng-class="{'closed': hideInsight }"></span>
@@ -118,11 +119,26 @@
     </span>
     <div layout="row" layout-align="center center">
       <div class="chip search" layout="row" layout-align="center center">
-      <i class="material-icons" ng-class="{ 'active': search }" ng-click="search = !search; grid.activeFilters['search'] = null">search</i>
+      <i class="material-icons" 
+         ng-class="{ 'active': search }" 
+         ng-click="search = !search; grid.activeFilters['search'] = null">
+         search
+      </i>
       <span ng-show="grid.activeFilters['search']">{{ grid.activeFilters['search'].value }}</span>
-      <i class="material-icons close" ng-show="grid.activeFilters['search']" ng-click="grid.removeFilter('search')">close</i>
-      <form ng-hide="grid.activeFilters['search']" ng-submit="grid.filter('search', 'search', grid.searchQuery); search = false" novalidate autocomplete="off">
-        <input ng-model="grid.searchQuery" ng-class="{ 'collapsed': !search }" focus-if="search" ng-blur="search = false" type="text" class="search" placeholder="SEARCH" autofocus>
+      <i class="material-icons close" 
+         ng-show="grid.activeFilters['search']" 
+         ng-click="grid.removeFilter('search')">close</i>
+      <form ng-hide="grid.activeFilters['search']" 
+            ng-submit="grid.filter('search', 'search', grid.searchQuery); search = false" \
+            novalidate 
+            autocomplete="off">
+        <input ng-model="grid.searchQuery" 
+               ng-class="{ 'collapsed': !search }" 
+               focus-if="search" ng-blur="search = false" 
+               type="text" 
+               class="search" 
+               placeholder="SEARCH" 
+               autofocus>
       </form>
     </div>
       <md-menu md-position-mode="target-right target" md-offset="0 10">
@@ -132,39 +148,30 @@
             <span ng-hide="grid.activeFilters['grid']">Team</span>
             <span ng-show="grid.activeFilters['grid']">Personal</span>
           </div>
-          <i class="material-icons close" ng-show="grid.activeFilters['grid']" ng-click="grid.removeFilter('grid'); selected = null">close</i>
+          <i class="material-icons close" 
+             ng-show="grid.activeFilters['grid']" 
+             ng-click="grid.removeFilter('grid'); selected = null">
+             close
+          </i>
         </div>
         <md-menu-content class="filter-menu" width="4">
           <md-menu-item class="header"><span>SELECT <b>GRID</b></span></md-menu-item>
           <div class="filter-box small">
             <md-radio-group ng-model="selected">
-                <md-radio-button aria-label="team" ng-click="grid.filter('grid', null, 'user-team_leads')" ng-value="null">
-                       Team Leads
+                <md-radio-button aria-label="team" 
+                                 ng-click="grid.filter('grid', null, 'user-team_leads')" 
+                                 ng-value="null">
+                                 Team Leads
                 </md-radio-button>
-                <md-radio-button  aria-label="personal" ng-click="grid.filter('grid', 'personal_leads', 'user-leads')" ng-value="'personal'">
-                       Personal Leads
+                <md-radio-button  aria-label="personal" 
+                                  ng-click="grid.filter('grid', 'personal_leads', 'user-leads')" 
+                                  ng-value="'personal'">
+                                  Personal Leads
                 </md-radio-button>
             </md-radio-group>
           </div>
-        <!--   <md-menu-item>
-            <md-button ng-click="grid.filter('grid', null, 'user-team_leads');">
-              <div layout="row">
-                <p flex>Team Leads</p>
-              </div>
-            </md-button>
-          </md-menu-item>
-          <md-menu-item>
-            <md-button ng-click="grid.filter('grid', 'personal_leads', 'user-leads');">
-              <div layout="row">
-                <p flex>Personal leads</p>
-              </div>
-            </md-button>
-          </md-menu-item> -->
         </md-menu-content>
       </md-menu>
-
-<!--       <md-menu md-position-mode="target-right target" md-offset="0 10">
-        <i class="material-icons" ng-click="$mdOpenMenu($event)">filter_list</i> -->
       <md-menu md-position-mode="target-right target" md-offset="0 10">
         <div class="chip" layout="row" layout-align="center center">
           <div  ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
@@ -172,36 +179,51 @@
             <span ng-hide="grid.activeFilters['status']">All Phases</span>
             <span ng-show="grid.activeFilters['status']">{{ grid.activeFilters['status'].value | humanizeString }}</span>
           </div>
-          <i class="material-icons close" ng-show="grid.activeFilters['status']" ng-click="grid.removeFilter('status');">close</i>
+          <i class="material-icons close" 
+             ng-show="grid.activeFilters['status']" 
+             ng-click="grid.removeFilter('status');">
+             close
+          </i>
         </div>
         <md-menu-content class="filter-menu rigid" width="5">
           <md-menu-item class="header"><span>LEAD PHASE <b>FILTER</b></span></md-menu-item>
           <div class="filter-header" layout="row">
-<!--             <div ng-class="{ 'active': !grid.phaseFilter }" ng-click="grid.phaseFilter = null; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="25" class="tab">All
-              <div class="md-ripple-container"></div>
-            </div> -->
-            <div ng-class="{ 'active': grid.phaseFilter === 'pending' }" ng-click="grid.phaseFilter = 'pending'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="50" class="tab">PENDING</div>
-            <div ng-class="{ 'active': grid.phaseFilter === 'submitted' }" ng-click="grid.phaseFilter = 'submitted'; grid.tabBar($event)" md-prevent-menu-close="md-prevent-menu-close" flex="50" class="tab">SUBMITTED</div>
+            <div ng-class="{ 'active': grid.phaseFilter === 'pending' }" 
+                 ng-click="grid.phaseFilter = 'pending'; grid.tabBar($event)" 
+                 md-prevent-menu-close="md-prevent-menu-close" 
+                 flex="50" 
+                 class="tab">PENDING</div>
+            <div ng-class="{ 'active': grid.phaseFilter === 'submitted' }" 
+                 ng-click="grid.phaseFilter = 'submitted'; grid.tabBar($event)" 
+                 md-prevent-menu-close="md-prevent-menu-close" 
+                 flex="50" 
+                 class="tab">SUBMITTED</div>
             <md-ink-bar class="md-secondary"
                         style="left:{{ grid.barLeft }}px;right:{{ grid.barRight }}px"
-                        ng-class="{ 'md-right': grid.barLeft < grid.barRight, 'md-left': grid.barLeft >= grid.barRight || !grid.barLeft }">
+                        ng-class="{ 'md-right': grid.barLeft < grid.barRight, 
+                                    'md-left': grid.barLeft >= grid.barRight || !grid.barLeft }">
             </md-ink-bar>
           </div>
           <div class="filter-box">
             <md-radio-group ng-model="grid.radio">
-<!--               <div ng-hide="grid.phaseFilter" ng-click="grid.filter('status', null, null)"ng-show="grid.phaseFilter === 'pending'" ng-model="grid.activeFilters['all']">
-                <md-radio-button ng-value="" aria-label="{{ f.label }}">
-                       All Leads
-                </md-radio-button>
-              </div> -->
               <div ng-show="grid.phaseFilter === 'pending'" layout="column" layout-align="center start">
-                <md-radio-button ng-click="grid.filter('status', 'data_status', val)" ng-repeat="val in grid.leads.properties.filters.options['data_status']" ng-value="val" aria-label="{{ val }}" >
-                       {{ val | humanizeString }}
+                <md-radio-button ng-click="grid.filter('status', 'data_status', val)" 
+                                 ng-repeat="val in grid.leads.properties.filters.options['data_status']" 
+                                 ng-value="val" 
+                                 aria-label="{{ val }}" >
+                                 {{ val | humanizeString }}
                 </md-radio-button>
               </div>
-              <div ng-show="grid.phaseFilter === 'submitted'" layout="row" layout-align="start center" class="flex-wrap">
-                <md-radio-button ng-click="grid.filter('status', 'sales_status', val)"  ng-repeat="val in grid.leads.properties.filters.options['sales_status']" ng-value="val" aria-label="{{ val }}" class="short" >
-                       {{ val | humanizeString }}
+              <div ng-show="grid.phaseFilter === 'submitted'" 
+                   layout="row" 
+                   layout-align="start center" 
+                   class="flex-wrap">
+                <md-radio-button ng-click="grid.filter('status', 'sales_status', val)"  
+                                 ng-repeat="val in grid.leads.properties.filters.options['sales_status']" 
+                                 ng-value="val" 
+                                 aria-label="{{ val }}" 
+                                 class="short" >
+                                 {{ val | humanizeString }}
                 </md-radio-button>
               </div>
             </md-radio-group>
@@ -216,7 +238,11 @@
             <span ng-hide="grid.activeFilters['date']">Lifetime</span>
             <span ng-show="grid.activeFilters['date']">Last {{ grid.activeFilters['date'].value }} Days</span>
           </div>
-          <i class="material-icons close" ng-click="grid.removeFilter('date');" ng-show="grid.activeFilters['date']">close</i>
+          <i class="material-icons close" 
+             ng-click="grid.removeFilter('date');" 
+             ng-show="grid.activeFilters['date']">
+             close
+          </i>
         </div>
         <md-menu-content class="filter-menu" width="4">
           <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
@@ -235,7 +261,10 @@
   <div class="grid" ng-hide="hideGrid" layout="column" layout-align="center center">
     <div class="summary" layout="column">
       <div class="grid-row new" layout="row">
-        <div flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.addLead($event)">
+        <div flex="50" flex-gt-md="25" 
+             layout="row" 
+             layout-align="start center" 
+             ng-click="grid.addLead($event)">
           <md-button class="md-fab md-primary" layout-align="center center" layout="row">
             <i class="material-icons">add</i>
           </md-button>
@@ -270,19 +299,32 @@
             </div>
           </div>
           <!-- COLUMN #progress -->
-          <div ng-if="!lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
+          <div ng-if="!lead.properties.submitted_at" 
+               class="uppercase right" 
+               flex="50" flex-gt-md="25" 
+               layout="row" 
+               layout-align="start center">
             <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             <div class="uppercase text-sm">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
           </div>
-          <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" class="uppercase right" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
+          <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at" 
+               class="uppercase right" 
+               flex="50" flex-gt-md="25"  
+               layout="row" 
+               layout-align="start center">
             <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             <div class="uppercase text-sm">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
           </div>
-          <div ng-if="lead.properties.data_status === 'submitted' && lead.properties.stage < 5" class="uppercase right" flex="50" flex-gt-md="25"  layout="column" layout-align="center start">
+          <div ng-if="lead.properties.data_status === 'submitted' && lead.properties.stage < 5" 
+               class="uppercase right" 
+               flex="50" 
+               flex-gt-md="25"  
+               layout="column" 
+               layout-align="center start">
             <div layout="row" layout-align="space-between" class="progress-bar">
               <div class="bar"></div>
               <div class="bar overlay" style="width:{{ lead.properties.stage * 20 }}%">
@@ -322,7 +364,11 @@
             <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
-          <div class="left" flex="50" flex-gt-md="25" hide show-gt-sm layout="row" layout-align="start center">
+          <div class="left" 
+               flex="50" flex-gt-md="25" 
+               hide show-gt-sm 
+               layout="row" 
+               layout-align="start center">
             <div class="circle" layout-align="center center" layout="row">
               <img ng-src="{{ lead.properties.owner.avatar.thumb || grid.defaultAvatar }}">
             </div>
@@ -333,7 +379,11 @@
             </div>
           </div>
           <!-- COLUMN #move -->
-          <div class="left" flex="50" flex-gt-md="25" hide show-gt-sm layout="row" layout-align="start center">
+          <div class="left" 
+               flex="50" flex-gt-md="25" 
+               hide show-gt-sm 
+               layout="row" 
+               layout-align="start center">
             <span class="text-sm">{{ lead.properties.action_copy || '---' }}</span>
           </div>
         </div>
