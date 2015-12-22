@@ -7,6 +7,9 @@ json.properties do
             :address, :city, :state, :zip, :notes, :last_viewed_at,
             :data_status, :sales_status, :invite_status)
   json.product_fields @lead.data.each { |key, value| json.set! key, value }
+  json.owner do
+    json.call(@lead.user, :id, :first_name, :last_name)
+  end
 end
 
 actions_list = []

@@ -65,37 +65,15 @@ module powur {
             var root = RootController.get();
             var defer = $q.defer();
             root.$session
-                .getCustomer($stateParams.inviteCode)
-                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
-              defer.resolve(response);
+              .getEntity(SirenModel, 'user-anon_lead', { code: $stateParams.inviteCode })
+              .then((response: ng.IHttpPromiseCallbackArg<any>) => {
+                defer.resolve(response);
             }, () => {
-              defer.resolve({});
+              defer.resolve();
             });
             return defer.promise;
           }
         }
-      })
-      .state('join.solar2', {
-        url: '/solar/{inviteCode}',
-        templateUrl: 'app/join/join-solar2.html',
-        controller: 'JoinSolarController as join',
-        params: {
-          leadData: null
-        },
-        resolve: {
-          customer: function($stateParams, $q) {
-            var root = RootController.get();
-            var fail = function(response) {
-              var reason: any = (response.status === 404) ? 'invalid_code' : response;
-              return $q.reject(reason);
-            }
-            return root.$session.getCustomer($stateParams.inviteCode).then(null, fail);
-          }
-        }
-      })
-      .state('join.solar3', {
-        url: '/solar',
-        templateUrl: 'app/join/join-solar3.html'
       });
   }
 

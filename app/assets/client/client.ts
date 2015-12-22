@@ -41,8 +41,6 @@
 //= require join/trailer
 //= require join/trailer2
 //= require join/join-solar
-//= require join/join-solar2
-//= require join/join-solar3
 //= require join/join-grid
 //= require join/join-grid2
 
