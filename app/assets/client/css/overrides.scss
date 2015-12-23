@@ -100,3 +100,10 @@ button:disabled {
 .hud md-progress-linear.md-default-theme, md-progress-linear .md-bar.md-bar1{
     background-color:#fff !important;
 }
+
+@media (min-width: 600px) and (max-width: 959px) {
+  md-dialog.md-dialog-fullscreen {
+    min-height: inherit !important;
+    min-width: inherit !important;
+  }
+}

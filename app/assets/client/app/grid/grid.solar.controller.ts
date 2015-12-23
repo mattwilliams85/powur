@@ -193,6 +193,7 @@ module powur {
         templateUrl: 'app/grid/new-lead-popup.html',
         parent: angular.element('body'),
         targetEvent: e,
+        fullscreen: true,
         clickOutsideToClose: true,
         locals: {
           leads: this.leads,
@@ -240,6 +241,7 @@ module powur {
           templateUrl: 'app/grid/show-lead-popup.solar.html',
           parent: angular.element('body'),
           targetEvent: e,
+          fullscreen: true,
           clickOutsideToClose: true,
           locals: {
             parentCtrl: this,
@@ -253,6 +255,7 @@ module powur {
           templateUrl: 'app/grid/show-invite-popup.solar.html',
           parent: angular.element('body'),
           targetEvent: e,
+          fullscreen: true,
           clickOutsideToClose: true,
           locals: {
             parentCtrl: this,
@@ -271,6 +274,7 @@ module powur {
         templateUrl: 'app/grid/update-invite-popup.solar.html',
         parent: angular.element('body'),
         targetEvent: e,
+        fullscreen: true,
         clickOutsideToClose: true,
         locals: {
           parentCtrl: this,

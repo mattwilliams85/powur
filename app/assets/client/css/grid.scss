@@ -74,7 +74,7 @@
 }
 
 .pw-grid {
-  padding: 20px 0 70px 0;
+  // padding: 20px 0 50px 0;
   text-align: center;
   color: #666;
 
@@ -85,8 +85,8 @@
   .progress-bar {
     position: relative;
     width: 100%;
-    max-width: 220px;
-    margin: 10px 0 10px -7%;
+    max-width: 320px;
+    margin: 10px 0 10px -18px;
 
     .node-wrap {
       position: relative;
@@ -265,7 +265,7 @@
 
   .insight {
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 10px 0;
     height: 50px;
 
     .count {
@@ -506,6 +506,7 @@
       font-size: 8pt;
     }
     .insight {
+      margin: 20px 0;;
       .count {
         font-size: 28pt;
       }
@@ -598,6 +599,7 @@
       font-size: 10pt;
     }
     .insight {
+      margin: 0 auto;
       height: 130px;
 
       .material-icons {
@@ -674,6 +676,7 @@
 .grid-popup {
   font-size: 7pt;
   text-align: left;
+  overflow-x: hidden;
 
   md-tabs {
     background: #fff;
@@ -690,7 +693,6 @@
     }
 
     md-ink-bar {
-      // background-color: #31a6ce !important;
       height: 3px;
     }
   }
@@ -703,7 +705,6 @@
 
   md-dialog-content {
     padding: 20px 20px 10px 20px;
-    max-width: 350px;
   }
 
   .messages, .md-errors-spacer {
@@ -752,10 +753,6 @@
     }
   }
 
-  .dialog {
-    max-width: 500px;
-    margin: auto auto;
-  }
 
   .close {
     background-color: #4d4c4d;
@@ -773,7 +770,6 @@
   }
 
   .progress-bar {
-    max-width: none;
     .bar {
       width: 80%;
       left: 30px;
@@ -805,7 +801,6 @@
   }
 
   .info {
-
     div {
       position: relative;
 
@@ -843,9 +838,11 @@
 
 @media screen and (min-width: 600px) {
   .grid-popup {
-    .dialog {
-      font-size: 12pt;
-      max-width: 500px;
+    font-size: 12pt;
+    width: 500px;
+
+    md-dialog-content.rigid {
+      height: 540px;
     }
 
     .side-bg {

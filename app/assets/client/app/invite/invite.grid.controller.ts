@@ -36,6 +36,7 @@ module powur {
         templateUrl: 'app/invite/new-invite-popup.grid.html',
         parent: angular.element('body'),
         targetEvent: e,
+        fullscreen: true,
         clickOutsideToClose: true,
         locals: {
           invites: this.invites
@@ -53,6 +54,7 @@ module powur {
         parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
+        fullscreen: true,
         locals: {
           parentCtrl: this,
           invite: invite
@@ -73,6 +75,7 @@ module powur {
         parent: angular.element('body'),
         targetEvent: e,
         clickOutsideToClose: true,
+        fullscreen: true,
         locals: {
           parentCtrl: this,
           invite: invite
