@@ -245,34 +245,34 @@
           <div class="filter-box">
             <md-radio-group ng-model="grid.radio">
               <div ng-show="grid.phaseFilter === 'pending'" layout="column" layout-align="center start">
+                <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'not_submitted')"
+                                 ng-value="'pending'"
+                                 aria-label="not_submitted" >
+                                 All
+                </md-radio-button>
                 <md-radio-button ng-click="grid.filter('status', 'data_status', val)"
                                  ng-repeat="val in grid.leads.properties.filters.options['data_status']"
                                  ng-value="val"
                                  aria-label="{{ val }}" >
                                  {{ val | humanizeString }}
                 </md-radio-button>
-                <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'not_submitted')"
-                                 ng-value="'pending'"
-                                 aria-label="not_submitted" >
-                                 All
-                </md-radio-button>
               </div>
               <div ng-show="grid.phaseFilter === 'submitted'"
                    layout="row"
                    layout-align="start center"
                    class="flex-wrap">
+                <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
+                                 ng-value="'submitted'"
+                                 aria-label="submitted" 
+                                 class="short">
+                                 All
+                </md-radio-button>
                 <md-radio-button ng-click="grid.filter('status', 'sales_status', val)"
                                  ng-repeat="val in grid.leads.properties.filters.options['sales_status']"
                                  ng-value="val"
                                  aria-label="{{ val }}"
                                  class="short" >
                                  {{ grid.prepareFilterName(val) | humanizeString }}
-                </md-radio-button>
-                <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
-                                 ng-value="'submitted'"
-                                 aria-label="submitted" 
-                                 class="short">
-                                 All
                 </md-radio-button>
               </div>
             </md-radio-group>
