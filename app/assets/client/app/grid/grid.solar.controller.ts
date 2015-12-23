@@ -298,7 +298,7 @@ module powur {
     loadMore() {
       var entityType = 'user-team_leads',
         filterOpts = {},
-        page = this.leads.properties.paging.current_page;
+        page = this.leads.properties.paging.current_page += 1;
 
       if (this.activeFilters['grid']) entityType = 'user-leads';
       if (this.activeFilters['search']) entityType = entityType + '_search';
@@ -371,7 +371,7 @@ module powur {
           filterOpts[filter.key] = filter.value;
         });
       }
-      // debugger
+
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leadsSummary.properties = data.properties;
       });
