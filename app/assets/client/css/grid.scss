@@ -22,7 +22,8 @@
     }
   }
   &.rigid {
-    height: 500px;
+    height: 550px;
+    min-height: 320px;
     width: 330px;
   }
   md-radio-button {

@@ -251,6 +251,11 @@
                                  aria-label="{{ val }}" >
                                  {{ val | humanizeString }}
                 </md-radio-button>
+                <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'not_submitted')"
+                                 ng-value="'pending'"
+                                 aria-label="not_submitted" >
+                                 All
+                </md-radio-button>
               </div>
               <div ng-show="grid.phaseFilter === 'submitted'"
                    layout="row"
@@ -262,6 +267,12 @@
                                  aria-label="{{ val }}"
                                  class="short" >
                                  {{ grid.prepareFilterName(val) | humanizeString }}
+                </md-radio-button>
+                <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
+                                 ng-value="'submitted'"
+                                 aria-label="submitted" 
+                                 class="short">
+                                 All
                 </md-radio-button>
               </div>
             </md-radio-group>
@@ -315,7 +326,7 @@
           </div>
         </div>
       </div>
-      
+
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
         <span class="label left" flex="50" flex-gt-sm="25">CONTACT INFO</span>
         <span class="label left" flex="50" flex-gt-sm="25">PROGRESS</span>

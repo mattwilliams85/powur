@@ -157,7 +157,7 @@ module powur {
     stage: string[] = ['submit', 'proposal', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
     barLeft: number;
     barRight: number;
-    radio: string;
+    radio: string = 'none';
     activeFilters: any = {};
     summaryFilters: any = {};
     phaseFilter: string = 'pending';
