@@ -27,7 +27,7 @@
               <div class="header">LIKELIHOOD TO CONVERT</div>
               <div class="number">{{ dialog.lead.properties.completion_chance }}%</div>
             </div>
-            <div layout="column" flex="50">
+            <div layout="column" flex="50" ng-if="dialog.ownedByCurrentUser">
               <div class="header">COMMISSION POTENTIAL</div>
               <div class="number secondary">$250</div>
             </div>

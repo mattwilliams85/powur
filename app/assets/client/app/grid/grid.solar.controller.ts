@@ -89,6 +89,10 @@ module powur {
     leads: ISirenModel;
     editMode: boolean;
 
+    get ownedByCurrentUser(): boolean {
+      return this.lead.properties.owner.id === this.parentCtrl.session.properties.id;
+    }
+
     constructor(private $log: ng.ILogService,
       public $mdDialog: ng.material.IDialogService,
       parentCtrl: ng.IScope,
