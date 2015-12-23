@@ -1,4 +1,7 @@
 <div class="pw-grid solar">
+  <div class="accordion light" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
+    <span>Your solar landing page url: <b>{{ grid.getSolarPageLink }}</b></span>
+  </div>
 
   <div class="accordion" layout="row" layout-align="space-between-center">
     <span class="toggle-wrapper" ng-click="hideInsight = !hideInsight">
@@ -13,8 +16,8 @@
           <span ng-hide="grid.summaryFilters['grid']">Team</span>
           <span ng-show="grid.summaryFilters['grid']">Personal</span>
         </div>
-        <i class="material-icons close" 
-           ng-show="grid.summaryFilters['grid']" 
+        <i class="material-icons close"
+           ng-show="grid.summaryFilters['grid']"
            ng-click="grid.filterSummary('grid', 'personal', false);
                      selectedSummary = null">
            close
@@ -24,13 +27,13 @@
         <md-menu-item class="header"><span>SELECT <b>GRID</b></span></md-menu-item>
         <div class="filter-box small">
           <md-radio-group ng-model="selectedSummary">
-              <md-radio-button aria-label="team" 
-                               ng-click="grid.filterSummary('grid', 'personal', false)" 
+              <md-radio-button aria-label="team"
+                               ng-click="grid.filterSummary('grid', 'personal', false)"
                                ng-value="null">
                                Team Leads
               </md-radio-button>
-              <md-radio-button  aria-label="personal" 
-                                ng-click="grid.filterSummary('grid', 'personal', true)" 
+              <md-radio-button  aria-label="personal"
+                                ng-click="grid.filterSummary('grid', 'personal', true)"
                                 ng-value="'personal'">
                                 Personal Leads
               </md-radio-button>
@@ -160,12 +163,12 @@
          search
       </i>
       <span ng-show="grid.activeFilters['search']" class="lowercase">{{ grid.activeFilters['search'].value }}</span>
-      <i class="material-icons close" 
-         ng-show="grid.activeFilters['search']" 
+      <i class="material-icons close"
+         ng-show="grid.activeFilters['search']"
          ng-click="grid.removeFilter('search')">
          close
       </i>
-      <form ng-hide="grid.activeFilters['search']" 
+      <form ng-hide="grid.activeFilters['search']"
             ng-submit="grid.filter('search', 'search', grid.searchQuery); search = false" \
             novalidate
             autocomplete="off">
@@ -270,7 +273,7 @@
                 </md-radio-button>
                 <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
                                  ng-value="'submitted'"
-                                 aria-label="submitted" 
+                                 aria-label="submitted"
                                  class="short">
                                  All
                 </md-radio-button>
@@ -307,10 +310,6 @@
     </div>
   </div>
 
-  <div class="accordion light" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
-    <span>Your solar landing page url: <b>{{ grid.getSolarPageLink }}</b></span>
-  </div>
-
   <div class="grid" ng-hide="hideGrid" layout="column" layout-align="center center">
     <div class="summary" layout="column">
       <div class="grid-row new" layout="row">
@@ -342,7 +341,7 @@
             </div>
             <div class="detail">
               <div class="uppercase text-lg">
-                {{ lead.properties.first_name }} 
+                {{ lead.properties.first_name }}
                 <b>{{ lead.properties.last_name }}</b>
               </div>
               <div class="uppercase text-sm">

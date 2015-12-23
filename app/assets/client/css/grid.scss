@@ -183,7 +183,7 @@
       background-color: #F3F3F3;
       color: #666;
       cursor: auto;
-      margin-top: 0;
+      margin-bottom: 25px;
       text-align: center;
       padding: .5em 0;
       user-select: initial;
@@ -314,7 +314,7 @@
       padding: 0 10px;
       &:nth-child(odd) {
         background: #f3f3f3;
-      } 
+      }
       &:nth-child(even) {
         background: #e5e5e5;
       }
