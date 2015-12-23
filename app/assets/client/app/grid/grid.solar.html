@@ -61,7 +61,7 @@
     </md-menu>
   </div>
 
-  <div class="insight" layout="row" ng-hide="hideInsight">
+  <div class="insight" layout="row" layout-align="center center" ng-hide="hideInsight">
     <div layout="column" layout-align="space-around" flex="20">
       <div class="label">LEADS</div>
       <div class="count" layout="row" layout-align="center center">
@@ -315,7 +315,7 @@
           </div>
         </div>
       </div>
-
+      
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
         <span class="label left" flex="50" flex-gt-sm="25">CONTACT INFO</span>
         <span class="label left" flex="50" flex-gt-sm="25">PROGRESS</span>
@@ -426,7 +426,7 @@
                hide show-gt-sm
                layout="row"
                layout-align="start center">
-            <span class="text-sm">{{ lead.properties.action_copy || '---' }}</span>
+            <span class="text-sm move">{{ lead.properties.action_copy || '---' }}</span>
           </div>
         </div>
         <md-divider hide show-gt-sm></md-divider>
