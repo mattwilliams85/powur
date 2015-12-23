@@ -355,7 +355,8 @@ module powur {
     }
 
     filterSummary(group: string, key: any, value: any) {
-      var filterOpts = {};  
+      var filterOpts = {},
+          entityType = 'user-leads_summary';
       this.summaryFilters[group] = {
         group: group,
         key: key,
@@ -370,7 +371,8 @@ module powur {
           filterOpts[filter.key] = filter.value;
         });
       }
-      this.session.getEntity(SirenModel, 'user-leads_summary', filterOpts, true).then((data: any) => {
+      // debugger
+      this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leadsSummary.properties = data.properties;
       });
     }

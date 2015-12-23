@@ -15,21 +15,22 @@
         </div>
         <i class="material-icons close" 
            ng-show="grid.summaryFilters['grid']" 
-           ng-click="grid.removeFilter('grid'); selected = null">
+           ng-click="grid.filterSummary('grid', 'personal', false);
+                     selectedSummary = null">
            close
         </i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>GRID</b></span></md-menu-item>
         <div class="filter-box small">
-          <md-radio-group ng-model="selected">
+          <md-radio-group ng-model="selectedSummary">
               <md-radio-button aria-label="team" 
-                               ng-click="grid.summaryFilter('grid', null, 'user-team_leads')" 
+                               ng-click="grid.filterSummary('grid', 'personal', false)" 
                                ng-value="null">
                                Team Leads
               </md-radio-button>
               <md-radio-button  aria-label="personal" 
-                                ng-click="grid.summaryFilter('grid', 'personal_leads', 'user-leads')" 
+                                ng-click="grid.filterSummary('grid', 'personal', true)" 
                                 ng-value="'personal'">
                                 Personal Leads
               </md-radio-button>
