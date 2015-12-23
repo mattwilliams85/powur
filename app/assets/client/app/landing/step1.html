@@ -1,5 +1,5 @@
 <div layout="column" class="landing">
-  <div class="header" layout="row" layout-padding>
+  <div class="header" layout="row">
     <div flex-gt-sm="50" layout="row" layout-fill>
       <div flex-gt-sm="30"></div>
       <div flex layout="column" layout-align="center start" class="logo-wrapper"></div>
@@ -21,7 +21,7 @@
         </md-input-container>
       </div>
       <div class="align-center">
-        <md-button class="md-raised md-primary" ng-click="landing.validateZip()">CHECK AVAILABILITY</md-button>
+        <md-button class="md-primary" ng-click="landing.validateZip()">CHECK ELIGIBILITY</md-button>
       </div>
     </form>
   </div>
@@ -47,15 +47,15 @@
   <div class="bg2" layout="row" layout-padding>
     <div flex-gt-sm="50" show-gt-sm></div>
     <div flex-gt-sm="50" layout="row" layout-fill>
-      <div flex layout="column" layout-align="center start">
+      <div flex-gt-md="70" layout="column" layout-align="center start">
         <div class="profile-pic" layout-align="center center" layout="row">
           <img ng-src="{{ landing.rep.properties.avatar.thumb || landing.defaultAvatar }}">
         </div>
         <div class="headline">Meet {{ landing.rep.properties.first_name }},</div>
-        <div class="headline">your Personal Solar Advocate</div>
-        <p>Suspendisse potenti. Proin at elit id dolor feugiat pellentesque. Sed ullamcorper, urna ac scelerisque commodo, orci odio malesuada lacus, in venenatis ligula mauris in risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec consectetur porttitor sodales. Phasellus tincidunt ipsum nec dolor pellentesque suscipit. Sed tempus orci purus, sed varius magna venenatis sed.<br><br>Vestibulum nec posuere libero. Mauris sed elementum arcu. Donec lacinia dui ut turpis pellentesque gravida.</p>
+        <div class="headline">your Personal Solar Concierge</div>
+        <p>I'm passionate about solar for many reasons. It's free to install, it saves my customers money each month, and it's the right thing to do for the environment and the health of future generations.  I encourage you to get your free proposal below, and discover the benefits for you and your family.</p>
         <div>
-          <md-button class="md-raised md-primary" ng-click="landing.getSavings()">GET YOUR SOLAR SAVINGS</md-button>
+          <md-button class="md-primary" ng-click="landing.getSavings()">GET YOUR SOLAR SAVINGS</md-button>
         </div>
       </div>
       <div flex-gt-sm="30"></div>
@@ -63,22 +63,26 @@
   </div>
 
   <div class="bg3" layout="column" layout-align="center center" layout-padding>
-    <div layout="column" layout-align="center center">
-      <div class="headline">The powur Promise</div>
+    <div layout="column" layout-align="start center">
+    <div flex-gt-sm="33"></div>
+    <div class="headline">The <div class="pow-sc"></div> Promise</div>
       <div class="swash-img-wrapper"></div>
     </div>
-    <div layout="column" layout-gt-sm="row" layout-align="center center" class="promises">
+    <div layout="column" layout-gt-sm="row" layout-align="center start" class="promises">
       <div flex-gt-sm="33" layout="column" layout-align="center center" class="item">
+        <div class="vertical-bar" hide show-gt-sm></div>
         <i class="promise promise-best-coverage"></i>
         <div class="title">Best Coverage.</div>
         <div class="msg">Our coverage is the best in the industry, with repairs and a production guarantee at no additional cost. We stand by our work long after we've put the solar panels up on your roof and you’ve turned on the power.</div>
       </div>
       <div flex-gt-sm="33" layout="column" layout-align="center center" class="item">
+        <div class="vertical-bar"  hide show-gt-sm></div>
         <i class="promise promise-lowest-rates"></i>
         <div class="title">Lowest Rates.</div>
         <div class="msg">Our team will put together a custom solar quote based on your home’s architecture and energy needs. It will include all of your options and project your energy savings for years to come. We’ll walk you through it and answer any questions you may have.</div>
       </div>
       <div flex-gt-sm="33" layout="column" layout-align="center center" class="item">
+
         <i class="promise promise-better-world"></i>
         <div class="title">A Better World.</div>
         <div class="msg">For every megawatt of solar power SolarCity installs, our GivePower foundation will donate a solar power system and battery to a school without electricity.</div>
@@ -100,11 +104,11 @@
     </div>
   </div>
 
-  <div class="bg5" layout="row" layout-align="center end" layout-padding>
+  <div class="bg5" layout="row" layout-align="center center ">
     <form name="zipForm" ng-submit="landing.validateZip()">
-      <div layout="column" layout-gt-sm="row" layout-align="center end" layout-padding>
-        <div flex-gt-sm="40" class="form-section msg">Find out what you can save</div>
-        <div flex-gt-sm="45" class="form-section">
+      <div layout="column" layout-gt-sm="row" layout-align="center end">
+        <div flex-gt-sm="40" class="form-section msg" layout="row" layout-align="center center">Find out what you can save</div>
+        <div flex-gt-sm="45" class="form-section" layout="row" layout-align="center center">
           <md-input-container>
             <div class="border"></div>
             <label>YOUR ZIP CODE</label>
@@ -114,8 +118,8 @@
             </div>
           </md-input-container>
         </div>
-        <div flex-gt-sm="15" class="form-section form-actions">
-          <md-button class="md-raised md-primary" ng-click="landing.validateZip()">LET'S GO</md-button>
+        <div flex-gt-sm="15" class="form-section form-actions" layout="row" layout-align="center center">
+          <md-button class="md-primary" ng-click="landing.validateZip()">LET'S GO!</md-button>
         </div>
       </div>
     </form>

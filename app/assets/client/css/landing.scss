@@ -5,6 +5,7 @@
     color: #fff !important;
     width: 100%;
     text-align: center;
+    font-size: small;
   }
 
   input {
@@ -15,18 +16,41 @@
     font-size: 15pt;
   }
 
+  button {
+    background: #36c6f4;
+    color: #fff !important;
+    border-radius: 0;
+    padding: 0 9%;
+    margin: 0;
+    &:hover {
+      background: #60D5FB !important;
+    }
+  }
+
+  p, .msg {
+    line-height: 18pt;
+  }
+
+
+  .header {
+    padding: 8px 0px;
+  }
+
   .logo-wrapper {
     min-height: 32px;
+    margin-left: 15px;
     background-repeat: no-repeat;
     background-position: left center;
     background-image: image-url("img/landing/powur-logo.png");
   }
 
   .swash-img-wrapper {
-    min-height: 26px;
-    width: 217px;
+    min-height: 20px;
+    width: 180px;
     background-repeat: no-repeat;
     background-position: left center;
+    background-size: contain;
+    margin-top: 2px;
     background-image: image-url("img/landing/swash.png");
   }
 
@@ -51,7 +75,8 @@
   }
 
   .headline {
-    font-size: x-large;
+    font-size: xx-large;
+    line-height: 27pt;
   }
 
   .bg0 {
@@ -61,6 +86,11 @@
 
     .align-center {
       text-align: center;
+    }
+
+    md-input-container {
+      padding: 0px 40px;
+      margin: 30px 0 -5px 0;
     }
 
     .quote {
@@ -75,10 +105,7 @@
     input[type=text] {
       color: #fff;
       margin-bottom: .5em;
-    }
-
-    button {
-      padding: 0 2em;
+      text-align: center;
     }
   }
 
@@ -92,7 +119,9 @@
     color: white;
 
     ul {
-      padding-top: 20px;
+      padding: 8px 18px;
+      font-size: large;
+      line-height: 20pt;
 
       li {
         padding-bottom: 20px;
@@ -105,13 +134,21 @@
   }
 
   .bg2 {
-    height: 568px;
+    height: 580px;
     background-repeat: no-repeat;
     background-position: center top;
     background-color: white;
     background-image: image-url("img/landing/housess.jpg");
     background-size: cover;
-    color: black;
+    color: #555;
+
+    .profile-pic {
+      margin-bottom: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+    }
   }
 
   .bg3 {
@@ -125,16 +162,40 @@
 
     .promises {
       padding-top: 30px;
+      width: 75%;
+      .layout-column {
+        position: relative;
+      }
     }
     .promises>div {
-      padding-right: 50px;
+      padding: 0 2vw;
+    }
+    .vertical-bar {
+      background: #eee;
+      background: linear-gradient(to bottom,  #86cdda 0%,#8dcbd0 100%);
+      position: absolute;
+      right: 0;
+      top: 100px;
+      width: 1px;
+      height: 220px;
     }
 
     .headline {
       color: white;
+      padding-left: 6vw;
+      .pow-sc {
+        background: image-url('img/landing/powur-solarcity.png');
+        display: inline-block;
+        height: 33px;
+        width: 238px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: 0 1px -9px 5px;
+      }
     }
     .title {
       font-size: x-large;
+      color: #444;
       padding-bottom: 20px;
     }
     .msg {
@@ -151,6 +212,10 @@
     text-align: center;
     padding-top: 5em;
     padding-bottom: 5em;
+
+    .headline {
+      margin-bottom: 20px;
+    }
 
     .companies {
       padding-top: 70px;
@@ -178,11 +243,10 @@
     }
 
     button {
-      height: 40px;
+      margin-left: 25px;    
     }
 
     .msg {
-      padding: 15px;
       white-space: nowrap;
       line-height: 50px;
     }
@@ -203,9 +267,9 @@
     padding-bottom: 50px;
 
     .title {
-      font-size: x-large;
+      font-size: xx-large;
       text-align: center;
-      margin-top: 70px;
+      margin: 60px 0 10px 0;
     }
 
     .subtitle {
@@ -214,13 +278,17 @@
     }
 
     label {
-      color: black !important;
+      color: #666 !important;
       font-size: small;
       text-align: left;
     }
 
     input[type=text], input[type=email] {
       margin-bottom: .5em;
+    }
+
+    md-input-container {
+      margin: 10px 0;
     }
 
     .border {
@@ -237,17 +305,61 @@
 
     .disclaimer {
       font-size: xx-small;
+      margin-top: 5px;
+      color: #555;
     }
 
     .slider {
-      margin: 20px 0 75px 0;
+      margin: 20px 0 40px 0;
       .md-thumb-text {
         color: white;
       }
     }
 
+    md-slider[md-discrete] .md-sign,
+    md-slider[md-discrete] .md-sign:after {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
     .msg {
       margin-top: 20px;
+    }
+
+    .col.black {
+      max-width: 340px;
+      margin-right: 50px;
+
+      .text-box {
+        background: #353535;
+        height: 600px;
+        color: #fff;
+        padding: 40px 28px;
+        margin-right: 10px;
+        line-height: 18pt;
+        position: relative;
+
+        .header {
+          font-size: 15pt;
+          margin-bottom: 14px;
+          line-height: 20pt;
+        }
+
+        .monitor {
+          background: image-url('img/landing/monitor.png');
+          background-size: contain;
+          background-repeat: no-repeat;
+          height: 350px;
+          width: 350px;
+          position: absolute;
+          bottom: -130px;
+          left: -50px;
+        }
+      }
+    }
+    .col.white {
+      max-width: 500px;
     }
   }
 
@@ -372,5 +484,16 @@
     background-position: -233px -5px;
 }
 
+@media screen and (max-width: 959px) {
+  .bg3 {
+    .headline {
+      padding: 0;
+      text-align: center;
+    }
+    .promises {
+      width: 95%;
+    }
+  }
+}
 
 }
