@@ -178,6 +178,21 @@
 
     position: relative;
 
+    &.light {
+      background-color: #F3F3F3;
+      color: #666;
+      cursor: auto;
+      margin-top: 0;
+      text-align: center;
+      padding: .5em 0;
+      user-select: initial;
+
+      b {
+        color: #2C6C8A;
+        font-weight: normal;
+      }
+    }
+
     .toggle-wrapper {
       cursor: pointer;
 

@@ -296,6 +296,10 @@
     </div>
   </div>
 
+  <div class="accordion light" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
+    <span>Your solar landing page url: <b>{{ grid.getSolarPageLink }}</b></span>
+  </div>
+
   <div class="grid" ng-hide="hideGrid" layout="column" layout-align="center center">
     <div class="summary" layout="column">
       <div class="grid-row new" layout="row">
@@ -309,12 +313,6 @@
           <div class="detail">
             <div class="uppercase text-xl">CREATE A <b>LEAD</b></div>
           </div>
-        </div>
-      </div>
-
-      <div class="grid-row" layout="row">
-        <div flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
-          <span>{{ grid.getSolarPageLink }}</span>
         </div>
       </div>
 
