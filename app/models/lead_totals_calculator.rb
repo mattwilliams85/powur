@@ -1,5 +1,5 @@
 class LeadTotalsCalculator
-  attr_reader :pay_period, :status, :records, :user_id
+  attr_reader :pay_period, :records, :user_id
 
   COUNTS_FIELDS = [ :personal, :personal_lifetime, :team, :team_lifetime ]
 
@@ -14,13 +14,18 @@ class LeadTotalsCalculator
     init_records
   end
 
+  def calculate
+    hydrate_counts
+    hydrate_smaller_legs
+  end
+
+  def save
+    LeadTotals.create!(record_attrs)
+  end
+
   def calculate!
-    statuses.each do |status|
-      @status = status
-      COUNTS_FIELDS.each { |field| hydrate_counts(field) }
-      hydrate_smaller_legs
-      LeadTotals.create!(record_attrs)
-    end
+    calculate
+    save
   end
 
   private
@@ -54,29 +59,30 @@ class LeadTotalsCalculator
     end
   end
 
-  def generate_lead_query(field)
+  def lead_status_query(field, status)
     args = query_args_for_field(field)
     Lead.send(status, args)
   end
 
-  def query_counts(field)
-    lead_query = generate_lead_query(field)
-    if for_team?(field)
-      user_query.team_lead_count(lead_query)
-    else
-      user_query.lead_count(lead_query)
+  def query_counts(field, status)
+    lead_query = lead_status_query(field, status)
+    count_query = for_team?(field) ? :team_lead_count : :lead_count
+    user_query.send(count_query, lead_query)
+  end
+
+  def hydrate_counts
+    COUNTS_FIELDS.each do |field|
+      statuses.each do |status|
+        counts = query_counts(field, status).entries
+        records.each do |record|
+          count = counts.detect { |u| u.id == record[:user].id }
+          record[status][field] = count.attributes['lead_count'] || 0
+        end
+      end
     end
   end
 
-  def hydrate_counts(field)
-    counts = query_counts(field).entries
-    records.each do |record|
-      count = counts.detect { |u| u.id == record[:user].id }
-      record[status][field] = count.attributes['lead_count'] || 0
-    end
-  end
-
-  def smaller_legs_count(user_id, personal)
+  def smaller_legs_count(status, user_id, personal)
     children = records.select { |r| r[:user].parent_id == user_id }
     return personal if children.empty?
 
@@ -88,17 +94,24 @@ class LeadTotalsCalculator
 
   def hydrate_smaller_legs
     records.each do |record|
-      count = smaller_legs_count(record[:user].id, record[status][:personal])
-      record[status][:smaller_legs] = count
+      statuses.each do |status|
+        count = smaller_legs_count(
+          status,
+          record[:user].id,
+          record[status][:personal])
+        record[status][:smaller_legs] = count
+      end
     end
   end
 
   def record_attrs
     records.map do |record|
-      record[status].merge(
-        pay_period_id: pay_period.id,
-        user_id:       record[:user].id,
-        status:        status)
-    end
+      statuses.map do |status|
+        record[status].merge(
+          pay_period_id: pay_period.id,
+          user_id:       record[:user].id,
+          status:        status)
+      end
+    end.flatten
   end
 end
