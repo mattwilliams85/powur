@@ -135,8 +135,7 @@ module powur {
     }
 
     showLink(lead): string {
-      return 'https://powur.com/next/getsolar/' +
-        lead.owner.id + '/' + lead.code;
+      return this.parentCtrl.session.properties.getsolar_page_url + '/' + lead.code;
     }
 
     cancel() {
@@ -169,7 +168,7 @@ module powur {
     }
 
     get getSolarPageLink(): string {
-      return 'https://www.powur.com/next/getsolar/' + this.root.$session.properties.id + '/';
+      return this.session.properties.getsolar_page_url;
     }
 
     constructor(public leadsSummary: ISirenModel,

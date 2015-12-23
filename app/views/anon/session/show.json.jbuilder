@@ -28,6 +28,8 @@ json.properties do
     json.call(current_user.metrics,
               :team_count, :earnings, :co2_saved, :login_streak)
   end
+
+  json.getsolar_page_url(current_user.getsolar_page_url) if current_user.partner?
 end
 
 actions_list = [
@@ -66,7 +68,7 @@ entity_list << entity(%w(search leads),
 entity_list << entity(%w(user), 'user-profile', profile_path)
 entity_list << entity(%w(summary leads),
                       'user-leads_summary',
-                      summary_user_leads_path(current_user, days: '{days}'))
+                      summary_user_leads_path(current_user, days: '{days}', personal: '{personal}'))
 entity_list << entity(%w(grid_summary user),
                       'user-grid_summary',
                       grid_summary_user_path(current_user, days: '{days}'))

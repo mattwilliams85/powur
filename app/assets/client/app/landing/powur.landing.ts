@@ -26,29 +26,46 @@ module powur {
 
   function landingConfig($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
-    .state('landing', {
-        url: '/getsolar/{repId}/:inviteCode',
-        templateUrl: 'app/landing/step1.html',
-        controller: 'LandingController as landing',
-        resolve: {
-          rep: ['SessionService', '$stateParams', user],
-          lead: ['SessionService', '$stateParams', '$q', lead]
-        }
-      })
-    .state('landing-step2', {
-        url: '/getsolar/step2/{repId}/:inviteCode',
-        templateUrl: 'app/landing/step2.html',
-        controller: 'LandingController as landing',
-        resolve: {
-          rep: ['SessionService', '$stateParams', user],
-          lead: ['SessionService', '$stateParams', '$q', lead]
-        }
-      })
     .state('landing-thanks', {
-        url: '/getsolar/thanks',
-        templateUrl: 'app/landing/thanks.html',
-        controller: 'LandingController as landing'
-      });
+      url: '/getsolar/thanks',
+      templateUrl: 'app/landing/thanks.html'
+    })
+    .state('landing-step2', {
+      url: '/getsolar/step2/{repId}{inviteCode}',
+      templateUrl: 'app/landing/step2.html',
+      controller: 'LandingController as landing',
+      resolve: {
+        rep: ['SessionService', '$stateParams', user],
+        lead: ['SessionService', '$stateParams', '$q', lead]
+      }
+    })
+    .state('landing-invite-step2', {
+      url: '/getsolar/step2/{repId}/{inviteCode}',
+      templateUrl: 'app/landing/step2.html',
+      controller: 'LandingController as landing',
+      resolve: {
+        rep: ['SessionService', '$stateParams', user],
+        lead: ['SessionService', '$stateParams', '$q', lead]
+      }
+    })
+    .state('landing', {
+      url: '/getsolar/{repId}',
+      templateUrl: 'app/landing/step1.html',
+      controller: 'LandingController as landing',
+      resolve: {
+        rep: ['SessionService', '$stateParams', user],
+        lead: ['SessionService', '$stateParams', '$q', lead]
+      }
+    })
+    .state('landing-invite', {
+      url: '/getsolar/{repId}/{inviteCode}',
+      templateUrl: 'app/landing/step1.html',
+      controller: 'LandingController as landing',
+      resolve: {
+        rep: ['SessionService', '$stateParams', user],
+        lead: ['SessionService', '$stateParams', '$q', lead]
+      }
+    });
   }
 
   angular

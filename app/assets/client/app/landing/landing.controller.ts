@@ -47,9 +47,13 @@ module powur {
     validateZip(): void {
       this.validateZipAction.submit().then((response) => {
         this.leadAction.field('zip').value = this.validateZipAction.field('zip').value;
-        this.state.go('landing-step2', {
-          repId: this.params.repId,
-          inviteCode: this.params.inviteCode });
+        if (this.params.inviteCode) {
+          this.state.go('landing-invite-step2', {
+            repId: this.params.repId,
+            inviteCode: this.params.inviteCode });
+        } else {
+          this.state.go('landing-step2', { repId: this.params.repId });
+        }
       });
     }
 

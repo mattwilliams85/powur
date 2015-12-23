@@ -63,7 +63,8 @@ class SolarCityForm
   end
 
   def post_body
-    { 'External_ID__c'           => Lead.id_to_external(lead.id),
+    attrs = {
+      'External_ID__c'           => Lead.id_to_external(lead.id),
       'Lead_Generator__c'        => lead.user_id,
       'FirstName'                => lead.first_name,
       'LastName'                 => lead.last_name,
@@ -74,5 +75,7 @@ class SolarCityForm
       'Email'                    => lead.email,
       'Monthly_Electric_Bill__c' => lead.data['average_bill'],
       'Notes_Description__c'     => lead.notes }
+    attrs['Campaign_ID'] = '70114000000uxX9' if lead.call_consented?
+    attrs
   end
 end

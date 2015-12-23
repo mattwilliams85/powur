@@ -45,7 +45,7 @@ module Anon
     private
 
     def fetch_user
-      @user = User.find_by(id: params[:user_id].to_i)
+      @user = User.partners.find_by(id: params[:user_id].to_i)
       not_found!(:user) unless @user
     end
 
@@ -56,7 +56,7 @@ module Anon
 
     def lead_input
       allow_input(:first_name, :last_name, :email,
-                  :phone, :address, :city, :state, :zip, :reach_concent)
+                  :phone, :address, :city, :state, :zip, :call_consented)
     end
 
     def lead_data_input
@@ -70,10 +70,10 @@ module Anon
     def submit_to_sc
       @lead.submit!
       @lead.email_customer if @lead.can_email?
-      @customer.accepted!
+      @lead.accepted!
       Lead.where.not(id: @lead.id)
         .where(email: @lead.email)
-        .where.not(status: Lead.statuses[:accepted])
+        .where.not(invite_status: Lead.invite_statuses[:accepted])
         .delete_all
     rescue Lead::SolarCityApiError => e
       Airbrake.notify(e)
