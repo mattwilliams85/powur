@@ -115,9 +115,9 @@ module powur {
       });
     }
 
-    resendInvite() {
-      this.resend.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$mdDialog.hide(response.data);
+    sendInvite() {
+      this.sendInviteAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.$mdDialog.hide();
       });
     }
 
@@ -143,7 +143,7 @@ module powur {
     }
 
     get delete(): Action { return this.lead.action('delete') }
-    get resend(): Action { return this.lead.action('resend') }
+    get sendInviteAction(): Action { return this.lead.action('invite') }
     get update(): Action { return this.lead.action('update') }
     get submitAction(): Action { return this.lead.action('submit') }
     get customer(): any { return this.lead.properties.customer }
