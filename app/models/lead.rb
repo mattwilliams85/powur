@@ -26,7 +26,11 @@ class Lead < ActiveRecord::Base
     where('data_status = ?', Lead.data_statuses[status])
   }
   scope :sales_status, lambda { |status|
-    where('sales_status = ?', Lead.sales_statuses[status])
+    if status.to_s == 'in_progress'
+      in_progress
+    else
+      where('sales_status = ?', Lead.sales_statuses[status])
+    end
   }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
