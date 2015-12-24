@@ -4,7 +4,7 @@
     <div ng-hide="dialog.editMode" layout="column">
       <div class="side-bg" hide-xs></div>
       <div class="name">{{ dialog.lead.properties.first_name }} <b>{{ dialog.lead.properties.last_name }}</b></div>
-      <div class="detail">Proposal ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
+      <div class="detail">Lead ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
       <div layout="row" class="overview">
         <div layout="column" flex="30">
           <div class="header">AVERAGE BILL</div>
