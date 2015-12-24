@@ -34,8 +34,6 @@ module powur {
                 private rep: ISirenModel,
                 private lead: ISirenModel) {
       super();
-
-      this.leadAction.field('average_bill').value = '0';
     }
 
     submitLead(): any {
