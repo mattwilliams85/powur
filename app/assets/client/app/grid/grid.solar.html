@@ -329,7 +329,7 @@
 
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
         <span class="label left" flex="50" flex-gt-sm="25">CONTACT INFO</span>
-        <span class="label left" flex="50" flex-gt-sm="25">PROGRESS</span>
+        <span class="label left" flex="50" flex-gt-sm="25">STATUS</span>
         <span class="label left" hide show-gt-sm flex="25">LEAD OWNER</span>
         <span class="label left" hide show-gt-sm flex="25">POWUR MOVE</span>
       </div>
@@ -337,28 +337,25 @@
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
           <div class="left" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
-            <div class="circle" layout-align="center center" layout="row">
-              <span>{{ lead.properties.first_name[0] }}{{ lead.properties.last_name[0] }}</span>
+            <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
+               <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             </div>
             <div class="detail">
               <div class="uppercase text-lg">
                 {{ lead.properties.first_name }}
                 <b>{{ lead.properties.last_name }}</b>
               </div>
-              <div class="uppercase text-sm">
-                {{ lead.properties.city }}
-                <span ng-if="lead.properties.state">, {{ lead.properties.state }}</span>
-              </div>
+              <div class="uppercase text-sm"> {{ lead.properties.email }}</div>
+              <div class="uppercase text-sm"> {{ lead.properties.phone }}</div>
             </div>
           </div>
-          <!-- COLUMN #progress -->
+          <!-- COLUMN #status -->
           <div ng-if="!lead.properties.submitted_at"
                class="uppercase right"
                flex="50" flex-gt-md="25"
                layout="row"
                layout-align="start center">
-            <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
-            <div class="uppercase text-sm">
+            <div class="uppercase text-sm move">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
           </div>
@@ -367,8 +364,7 @@
                flex="50" flex-gt-md="25"
                layout="row"
                layout-align="start center">
-            <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
-            <div class="uppercase text-sm">
+            <div class="uppercase text-sm move">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
           </div>

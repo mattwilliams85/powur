@@ -209,7 +209,7 @@ module powur {
       if (!item.invite_status) { return 'incomplete' }
       if (item.sales_status === 'ineligible') { return 'ineligible' }
       if (item.data_status === 'ineligible_location') { return 'ineligible' }
-      if (item.sales_status === 'closed_lost' || item.sales_status === 'duplicate') return;
+      if (item.sales_status === 'closed_lost' || item.sales_status === 'duplicate') return 'lost';
       return item.invite_status;
     }
 
