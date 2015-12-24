@@ -53,7 +53,7 @@
                   <label>Contact Information</label>
                   <div class="customer-info">
                   <!-- Customer Name -->
-                  <p class="name">{{activeLead.properties.customer}}</p>
+                  <p class="name">{{ activeLead.properties.first_name }} {{ activeLead.properties.last_name }}</p>
                   <!-- Address -->
                   <div ng-if="activeLead.properties.address && activeLead.properties.city && activeLead.properties.state && activeLead.properties.zip">
                     <p class="address">{{activeLead.properties.address}}</p>

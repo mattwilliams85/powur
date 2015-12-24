@@ -533,7 +533,7 @@ CREATE TABLE leads (
     id integer NOT NULL,
     user_id integer NOT NULL,
     product_id integer NOT NULL,
-    customer_id integer NOT NULL,
+    customer_id integer,
     data hstore DEFAULT ''::hstore NOT NULL,
     data_status integer DEFAULT 0 NOT NULL,
     sales_status integer DEFAULT 0 NOT NULL,
@@ -544,7 +544,21 @@ CREATE TABLE leads (
     installed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    closed_won_at timestamp without time zone
+    closed_won_at timestamp without time zone,
+    first_name character varying,
+    last_name character varying,
+    email character varying,
+    phone character varying,
+    address character varying,
+    city character varying,
+    state character varying,
+    zip character varying,
+    notes character varying,
+    code character varying,
+    invite_status integer DEFAULT 0,
+    last_viewed_at timestamp without time zone,
+    mandrill_id character varying,
+    call_consented boolean DEFAULT true
 );
 
 
@@ -3077,3 +3091,16 @@ INSERT INTO schema_migrations (version) VALUES ('20151110002252');
 
 INSERT INTO schema_migrations (version) VALUES ('20151113181527');
 
+INSERT INTO schema_migrations (version) VALUES ('20151202191820');
+
+INSERT INTO schema_migrations (version) VALUES ('20151202222303');
+
+INSERT INTO schema_migrations (version) VALUES ('20151203235650');
+
+INSERT INTO schema_migrations (version) VALUES ('20151204001109');
+
+INSERT INTO schema_migrations (version) VALUES ('20151222193105');
+
+INSERT INTO schema_migrations (version) VALUES ('20151222212620');
+
+INSERT INTO schema_migrations (version) VALUES ('20151222213336');

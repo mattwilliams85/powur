@@ -1,8 +1,13 @@
 class Lead < ActiveRecord::Base
+  include NameEmailSearch
+  include Phone
+
   belongs_to :user
   belongs_to :product
   belongs_to :customer
   has_many :lead_updates
+  has_many :bonus_payment_leads
+  has_many :bonus_payments, through: :bonus_payment_leads
 
   enum data_status: [
     :incomplete, :ready_to_submit,
@@ -10,8 +15,10 @@ class Lead < ActiveRecord::Base
   enum sales_status: [
     :in_progress, :proposal, :closed_won, :contract, :installed,
     :duplicate, :ineligible, :closed_lost]
+  enum invite_status: [
+    :not_sent, :sent, :initiated, :accepted ]
 
-  add_search :user, :customer, [ :user, :customer ]
+  add_search :user, [ :user ]
 
   scope :not_submitted, -> { where('submitted_at IS NULL') }
   scope :submitted_status, -> (status) { send(status) }
@@ -19,7 +26,11 @@ class Lead < ActiveRecord::Base
     where('data_status = ?', Lead.data_statuses[status])
   }
   scope :sales_status, lambda { |status|
-    where('sales_status = ?', Lead.sales_statuses[status])
+    if status.to_s == 'in_progress'
+      in_progress
+    else
+      where('sales_status = ?', Lead.sales_statuses[status])
+    end
   }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
@@ -50,8 +61,38 @@ class Lead < ActiveRecord::Base
                to:            to)
     }
   end
+  scope :in_progress, lambda {
+    submitted.where(sales_status: Lead.sales_statuses[:in_progress])
+  }
 
-  validates_presence_of :product_id, :customer_id, :user_id
+  before_validation do
+    self.code ||= self.class.generate_code
+  end
+
+  class << self
+    def generate_code(size = 3)
+      code = SecureRandom.hex(size).upcase
+      find_by(code: code) ? generate_code(size) : code
+    end
+  end
+
+  validates_presence_of :product_id, :user_id
+  validates_presence_of :first_name, :last_name,
+                        :email, :phone, :address, :city, :state, :zip,
+                        allow_nil: true
+  validates_length_of :first_name, maximum: 40
+  validates_length_of :last_name, maximum: 40
+  validates :email, presence:   true,
+                    email:      true, if: :email_present?
+  def email_present?
+    email?
+  end
+  validates :address, length: { maximum: 40 }, if: 'address.present?'
+
+  validates_with ::Phone::Validator, fields: [:phone],
+                                     if:     'phone.present?',
+                                     on:     :create
+
 
   before_create :validate_data_status
   before_update :validate_data_status
@@ -59,8 +100,6 @@ class Lead < ActiveRecord::Base
 
   def submit!
     fail 'Lead is not ready for submission' unless ready_to_submit?
-
-    Rails.logger.info("Submitting lead to SC: #{id}")
 
     ENV['SIMULATE_LEAD_SUBMIT'] ? simulate_submit : submit_to_provider
   end
@@ -84,11 +123,19 @@ class Lead < ActiveRecord::Base
   end
 
   def can_email?
-    customer.email && submitted_at?
+    email && submitted_at?
   end
 
   def email_customer
     PromoterMailer.new_quote(self).deliver_later if can_email?
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def lead_stage
+    Lead.sales_statuses[sales_status]
   end
 
   def converted_count_at_time
@@ -121,6 +168,29 @@ class Lead < ActiveRecord::Base
 
   def action_badge
     lead_action? && !contract? && !installed?
+  end
+
+  def send_sms_invite
+    return if phone.nil? || !valid_phone?(phone)
+
+    opts = Rails.configuration.action_mailer.default_url_options
+    join_url = URI.join("#{opts[:protocol]}://#{opts[:host]}",
+                        'next/getsolar/',
+                        user_id.to_s + '/',
+                        code).to_s
+
+    message = I18n.t('sms.solar_invite', name: user.full_name, url: join_url)
+
+    twilio_client = TwilioClient.new
+    twilio_client.send_message(
+      to:   phone,
+      from: twilio_client.numbers_for_personal_sms.sample,
+      body: message)
+  end
+
+  def mandrill
+    return nil unless mandrill_id
+    @mandrill ||= MandrillMonitor.new(self)
   end
 
   def distinct_update_dates(date)
@@ -180,10 +250,16 @@ class Lead < ActiveRecord::Base
     submitted("simulated:#{SecureRandom.hex(2)}", DateTime.current)
   end
 
+  def complete?
+    %w(first_name last_name email phone address city state zip).all? do |f|
+      !attributes[f].nil?
+    end
+  end
+
   def calculate_data_status
     return :submitted if submitted_at?
-    return :incomplete unless customer.complete?
-    return :ineligible_location unless Lead.eligible_zip?(customer.zip)
+    return :incomplete unless complete?
+    return :ineligible_location unless Lead.eligible_zip?(zip)
     :ready_to_submit
   end
 

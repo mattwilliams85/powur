@@ -1,85 +1,80 @@
-<div class="invite-popup fill-height">
-  <md-dialog aria-label="Invite" class="dialog">
+<md-dialog aria-label="Invite" class="dialog invite-popup fill-height">
 
-    <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate>
-      <div class="side-bg"></div>
-      <div layout="column" flex>
-        <div class="banner grid" hide-sm>
-          <span class="title">Send a<br>new Grid<b> Invite</b></span>
-        </div>
-        <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close" ng-click="dialog.cancel()"></i></a></div>
-
-        <md-dialog-content ng-if="!dialog.create" layout="column">
-          <br hide-gt-sm>
-          <p>You must be a certified partner to build your #PowurGrid</p>
-          <p>Becoming a partner allows you to do more than just spread the word.</p>
-          <p>As a partner, you have the ability to earn an unlimited income disrupting the current energy grid.<br>Get certified today, and discover how to reach your Impact and Income goals.</p>
-          <br hide-gt-sm>
-
-          <div class="actions">
-            <md-button ng-href="/upgrade" class="md-primary">Upgrade</md-button>
-          </div>
-        </md-dialog-content>
-
-        <md-dialog-content ng-if="dialog.create && !dialog.warning" layout="column">
-          <!-- TODO: this is what happens when you code for 16 hours straight -->
-          <br hide-gt-sm>
-          <br hide-gt-sm>
-          <!--  -->
-          <div class="heading"><div class="title">contact<b> name</b></div></div>
-          <md-content layout-padding layout="row">
-            <md-input-container flex="50">
-              <label>first name</label>
-              <input ng-model="dialog.create.field('first_name').value" autocomplete="off" md-autofocus>
-              <div ng-messages="dialog.create.field('first_name').$error" class="messages">
-                <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
-              </div>
-            </md-input-container>
-            <md-input-container flex="50">
-              <label>last name</label>
-              <input ng-model="dialog.create.field('last_name').value" autocomplete="off">
-              <div ng-messages="dialog.create.field('last_name').$error" class="messages">
-                <div ng-message="message">{{ dialog.create.field('last_name').$error.message }}</div>
-              </div>
-            </md-input-container>
-          </md-content>
-
-          <div class="heading"><div class="title">contact<b> method</b></div></div>
-          <md-content layout-padding layout="column">
-            <div ng-messages="dialog.create.$error" class="messages">
-              <div ng-message="message">{{ dialog.create.$error.message }}</div>
-            </div>
-            <md-input-container>
-              <label>phone number</label>
-              <input ng-model="dialog.create.field('phone').value" type="tel">
-              <div ng-messages="dialog.create.field('phone').$error" class="messages">
-                <div ng-message="message">{{ dialog.create.field('phone').$error.message }}</div>
-              </div>
-            </md-input-container>
-            <md-input-container>
-              <label>email</label>
-              <input ng-model="dialog.create.field('email').value" type="text" autocomplete="off" autocapitalize="off">
-              <div ng-messages="dialog.create.field('email').$error" class="messages">
-                <div ng-message="message">{{ dialog.create.field('email').$error.message }}</div>
-              </div>
-            </md-input-container>
-          </md-content>
-
-          <div class="actions">
-            <md-button type="submit" ng-disabled="dialog.create.submitting" class="md-primary">Send Invitation</md-button>
-          </div>
-        </md-dialog-content>
-
-        <md-dialog-content ng-if="dialog.create && dialog.warning" layout="column">
-          <br hide-gt-sm>
-          <br hide-gt-sm>
-          <h5>{{ dialog.warning.message }}</h5>
-
-          <div class="actions">
-            <md-button ng-click="dialog.confirm()" ng-disabled="dialog.create.submitting" class="md-primary">Confirm</md-button>
-          </div>
-        </md-dialog-content>
+  <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate>
+    <div class="side-bg"></div>
+    <div layout="column" flex>
+      <div class="banner grid" hide-sm>
+        <span class="title">Send a<br>new Grid<b> Invite</b></span>
       </div>
-    </form>
-  </md-dialog>
-</div>
+      <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close" ng-click="dialog.cancel()"></i></a></div>
+
+      <md-dialog-content ng-if="!dialog.create" layout="column">
+        <br hide-gt-sm>
+        <p>You must be a certified partner to build your #PowurGrid</p>
+        <p>Becoming a partner allows you to do more than just spread the word.</p>
+        <p>As a partner, you have the ability to earn an unlimited income disrupting the current energy grid.<br>Get certified today, and discover how to reach your Impact and Income goals.</p>
+        <br hide-gt-sm>
+
+        <div class="actions">
+          <md-button ng-href="/upgrade" class="md-primary md-raised">Upgrade</md-button>
+        </div>
+      </md-dialog-content>
+
+      <md-dialog-content ng-if="dialog.create && !dialog.warning" layout="column">
+
+        <div class="heading"><div class="title">contact<b> name</b></div></div>
+        <md-content layout="row">
+          <md-input-container flex="50">
+            <label>first name</label>
+            <input ng-model="dialog.create.field('first_name').value" autocomplete="off" md-autofocus>
+            <div ng-messages="dialog.create.field('first_name').$error" ng-show="dialog.create.field('first_name').$error" class="messages">
+              <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50">
+            <label>last name</label>
+            <input ng-model="dialog.create.field('last_name').value" autocomplete="off">
+            <div ng-messages="dialog.create.field('last_name').$error" ng-show="dialog.create.field('last_name').$error" class="messages">
+              <div ng-message="message">{{ dialog.create.field('last_name').$error.message }}</div>
+            </div>
+          </md-input-container>
+        </md-content>
+
+        <div class="heading"><div class="title">contact<b> method</b></div></div>
+        <md-content layout="column">
+          <div ng-messages="dialog.create.$error" ng-show="dialog.create.$error" class="messages">
+            <div ng-message="message">{{ dialog.create.$error.message }}</div>
+          </div>
+          <md-input-container>
+            <label>phone number</label>
+            <input ng-model="dialog.create.field('phone').value" type="tel">
+            <div ng-messages="dialog.create.field('phone').$error" ng-show="dialog.create.field('phone').$error" class="messages">
+              <div ng-message="message">{{ dialog.create.field('phone').$error.message }}</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>email</label>
+            <input ng-model="dialog.create.field('email').value" type="text" autocomplete="off" autocapitalize="off">
+            <div ng-messages="dialog.create.field('email').$error" ng-show="dialog.create.field('email').$error" class="messages">
+              <div ng-message="message">{{ dialog.create.field('email').$error.message }}</div>
+            </div>
+          </md-input-container>
+        </md-content>
+
+        <div class="actions">
+          <md-button type="submit" ng-disabled="dialog.create.submitting" class="md-primary md-raised">Send Invitation</md-button>
+        </div>
+      </md-dialog-content>
+
+      <md-dialog-content ng-if="dialog.create && dialog.warning" layout="column">
+        <br hide-gt-sm>
+        <br hide-gt-sm>
+        <h5>{{ dialog.warning.message }}</h5>
+
+        <div class="actions">
+          <md-button ng-click="dialog.confirm()" ng-disabled="dialog.create.submitting" class="md-primary md-raised">Confirm</md-button>
+        </div>
+      </md-dialog-content>
+    </div>
+  </form>
+</md-dialog>

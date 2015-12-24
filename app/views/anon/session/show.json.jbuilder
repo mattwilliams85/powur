@@ -29,8 +29,7 @@ json.properties do
               :team_count, :earnings, :co2_saved, :login_streak)
   end
 
-  json.preview_video_embed_url(
-    SystemSettings.get!('preview_video_embed_url'))
+  json.getsolar_page_url(current_user.getsolar_page_url) if current_user.partner?
 end
 
 actions_list = [
@@ -46,13 +45,42 @@ entity_list << entity(%w(goals), 'user-goals', user_goals_path(current_user))
 entity_list << entity(%w(goals), 'user-kpis', kpi_metrics_path)
 entity_list << entity(%w(list invites),
                       'user-invites',
-                      invites_path(page: '{page}', status: '{status}'))
-entity_list << entity(%w(list solar_invites),
-                      'user-solar_invites',
-                      product_invites_path(page: '{page}', status: '{status}'))
+                      invites_path(page: '{page}'))
 entity_list << entity(%w(list users), 'user-users', users_path)
-entity_list << entity(%w(list leads), 'user-leads', leads_path(current_user))
+leads_routes_options = {
+  days: '{days}',
+  page: '{page}',
+  data_status: '{data_status}',
+  submitted_status: '{submitted_status}',
+  sales_status: '{sales_status}' }
+entity_list << entity(%w(list leads),
+                      'user-leads',
+                      user_leads_path(current_user, leads_routes_options))
+entity_list << entity(%w(search leads),
+                      'user-leads_search',
+                      user_leads_path(current_user, leads_routes_options.merge(search: '{search}')))
+entity_list << entity(%w(list leads),
+                      'user-team_leads',
+                      team_leads_path(leads_routes_options))
+entity_list << entity(%w(search leads),
+                      'user-team_leads_search',
+                      team_leads_path(leads_routes_options.merge(search: '{search}')))
 entity_list << entity(%w(user), 'user-profile', profile_path)
+entity_list << entity(%w(summary leads),
+                      'user-leads_summary',
+                      summary_user_leads_path(current_user, days: '{days}', personal: '{personal}'))
+entity_list << entity(%w(grid_summary user),
+                      'user-grid_summary',
+                      grid_summary_user_path(current_user, days: '{days}'))
+entity_list << entity(%w(video_assets),
+                      'user-video_assets', assets_login_path)
+entity_list << entity(%w(lead),
+                      'user-anon_lead',
+                      anon_lead_path('{code}'))
+entity_list << entity(%w(rep_invite),
+                      'user-rep_invite',
+                      anon_user_path('{rep_id}'))
+
 link_list << link(:index, dashboard_path)
 
 # if current_user.accepted_latest_terms?

@@ -1,25 +1,24 @@
 module Anon
   class CustomersController < AnonController
-    before_action :fetch_customer, only: [ :show, :update ]
+    before_action :fetch_lead, only: [ :show, :update ]
 
     def show
-      @customer.touch(:last_viewed_at)
+      @lead.touch(:last_viewed_at)
     end
 
     def update
       require_input :first_name, :last_name, :email,
                     :phone, :address, :city, :state, :zip
 
-      @customer.update_attributes!(customer_input)
+      @lead.update_attributes!(lead_input.merge(data: lead_data_input))
 
-      @lead = find_or_create_lead
       if @lead.ready_to_submit?
         @lead.submit!
         @lead.email_customer if @lead.can_email?
         @customer.accepted!
-        Customer.where.not(id: @customer.id)
-          .where(email: @customer.email)
-          .where.not(status: Customer.statuses[:accepted])
+        Lead.where.not(id: @lead.id)
+          .where(email: @lead.email)
+          .where.not(status: Lead.statuses[:accepted])
           .delete_all
       end
 
@@ -28,32 +27,22 @@ module Anon
 
     private
 
-    def fetch_customer
-      @customer = Customer.find_by(code: params[:id])
-      not_found!(:customer) if @customer.nil? || @customer.lead_submitted?
+    def fetch_lead
+      @lead = Lead.find_by(code: params[:id])
+      not_found!(:customer) if @lead.nil? || @lead.submitted?
     end
 
-    def customer_input
+    def lead_input
       allow_input(:first_name, :last_name, :email,
                   :phone, :address, :city, :state, :zip)
     end
 
-    def product
-      @product ||= Product.default
-    end
-
-    def lead_input
+    def lead_data_input
       allow_input(*product.quote_fields.map(&:name))
     end
 
-    def find_or_create_lead
-      product.quote_fields.each { |field| require_input field.name }
-
-      attrs = { product_id: product.id, customer_id: @customer.id }
-      Lead.find_or_create_by(attrs) do |lead|
-        lead.user_id = @customer.user_id
-        lead.data = lead_input
-      end
+    def product
+      @product ||= Product.default
     end
   end
 end

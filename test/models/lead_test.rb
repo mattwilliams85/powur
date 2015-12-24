@@ -1,11 +1,11 @@
 require 'test_helper'
- 
+
 class LeadTest < ActiveSupport::TestCase
   def test_ready_to_submit_status
     lead = leads(:incomplete)
     lead.data_status.must_equal 'incomplete'
 
-    lead.customer.phone = '310.922.2629'
+    lead.phone = '310.922.2629'
     VCR.use_cassette('zip_validation/valid') do
       lead.validate_data_status.must_equal :ready_to_submit
     end
@@ -14,8 +14,8 @@ class LeadTest < ActiveSupport::TestCase
   def test_bad_zip_ineligible_location
     lead = leads(:incomplete)
 
-    lead.customer.phone = '310.922.2629'
-    lead.customer.zip = '00000'
+    lead.phone = '310.922.2629'
+    lead.zip = '00000'
     VCR.use_cassette('zip_validation/invalid') do
       lead.validate_data_status.must_equal :ineligible_location
     end
@@ -25,7 +25,7 @@ class LeadTest < ActiveSupport::TestCase
     lead = leads(:ready_to_submit)
     lead.data_status.must_equal 'ready_to_submit'
 
-    lead.customer.phone = nil
+    lead.phone = nil
     lead.validate_data_status.must_equal :incomplete
   end
 
@@ -57,4 +57,3 @@ class LeadTest < ActiveSupport::TestCase
     lead.sales_status.must_equal 'installed'
   end
 end
-

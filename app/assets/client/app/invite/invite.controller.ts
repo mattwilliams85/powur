@@ -25,7 +25,7 @@ module powur {
         status: name || ''
       };
 
-      this.session.getEntity(SirenModel, this.invites.rel[0], opts, true)
+      this.session.getEntity(SirenModel, 'user-invites', opts, true)
         .then((data: any) => {
           success(data, this);
         });
@@ -117,9 +117,7 @@ module powur {
     }
 
     showLink(invite, path): string {
-      if (path === 'grid') { return 'https://powur.com/next/join/grid/' + invite.id }
-      else { return 'https://powur.com/next/join/solar/' + invite.code  }
-
+      return 'https://powur.com/next/join/grid/' + invite.id
     }
 
     cancel() {

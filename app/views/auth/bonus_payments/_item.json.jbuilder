@@ -11,9 +11,9 @@ json.properties do
       json.converted_at lead.converted_at
       json.contracted_at lead.contracted_at
       json.installed_at lead.installed_at
-      json.customer lead.customer.full_name
+      json.customer lead.full_name
       json.owner lead.user.full_name
     end
   end
-  
+
 end

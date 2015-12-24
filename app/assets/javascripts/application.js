@@ -23,12 +23,6 @@
 //= require angular-messages/angular-messages
 
 /*
- * TODO: this lib is still in the repo,
- * need to either remove or request from bower
- */
-//= require angular-slider.min
-
-/*
  * Templates
  */
 //= require angular-rails-templates

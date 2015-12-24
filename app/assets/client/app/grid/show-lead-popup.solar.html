@@ -1,0 +1,94 @@
+<md-dialog aria-label="Invite" class="dialog grid-popup solar pw-grid">
+    <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
+    <md-dialog-content layout="column">
+      <div class="side-bg" hide-xs layout-fill></div>
+      <div class="name">{{ dialog.lead.properties.first_name }} <b>{{ dialog.lead.properties.last_name }}</b></div>
+      <div class="detail">Proposal ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
+      <div layout="row" class="overview">
+        <div layout="column" flex="30">
+          <div class="header">AVERAGE BILL</div>
+          <div class="number">${{ dialog.lead.properties.average_bill || 0 }}<sup>00</sup></div>
+        </div>
+        <div layout="column" flex="35">
+          <div class="header">ADDRESS</div>
+          <div>{{ dialog.lead.properties.address }}</div>
+        </div>
+        <div layout="column" flex="35">
+          <div class="header">CONTACT INFO</div>
+          <div>{{ dialog.lead.properties.phone }}</div>
+          <a href="mailto:{{ dialog.lead.properties.email }}" class="email"><div>{{ dialog.lead.properties.email }}</div></a>
+        </div>
+      </div>
+      <md-divider></md-divider>
+      <div class="progress" ng-if="dialog.lead.properties.stage < 5">
+        <div layout="row">
+          <div layout="column" flex="50" ng-if="dialog.lead.properties.completion_chance">
+            <div class="header">LIKELIHOOD TO CONVERT</div>
+            <div class="number">{{ dialog.lead.properties.completion_chance }}%</div>
+          </div>
+          <div layout="column" flex="50" ng-if="dialog.ownedByCurrentUser">
+            <div class="header">COMMISSION POTENTIAL</div>
+            <div class="number secondary">$250</div>
+          </div>
+        </div>
+        <div layout="row" layout-align="space-between" class="progress-bar">
+          <div class="bar"></div>
+          <div class="bar overlay" style="width:{{ dialog.lead.properties.stage * 20 }}%">
+            <div class="bar animated stage-{{ dialog.lead.properties.stage }}"></div>
+          </div>
+          <div layout="column" layout-align="center center" flex="20">
+            <div class="node-wrap">
+              <div class="node"></div>
+              <div class="highlight stage-0" ng-class="{ 'active': dialog.lead.properties.stage >= 0 }"></div>
+            </div>
+            <span class="header">SUBMIT</span>
+          </div>
+          <div layout="column" layout-align="center center" flex="20">
+            <div class="node-wrap">
+              <div class="node"></div>
+              <div class="highlight stage-1" ng-class="{ 'active': dialog.lead.properties.stage >= 1 }"></div>
+            </div>
+            <span class="header">QUALIFIED</span>
+          </div>
+          <div layout="column" layout-align="center center" flex="20">
+          <div class="node-wrap">
+            <div class="node"></div>
+            <div class="highlight stage-2" ng-class="{ 'active': dialog.lead.properties.stage >= 2 }"></div>
+          </div>
+            <span class="header">CLOSED WON</span>
+          </div>
+          <div layout="column" layout-align="center center" flex="20">
+          <div class="node-wrap">
+            <div class="node"></div>
+            <div class="highlight stage-3" ng-class="{ 'active': dialog.lead.properties.stage >= 3 }"></div>
+          </div>
+            <span class="header">CONTRACT</span>
+          </div>
+          <div layout="column" layout-align="center center" flex="20">
+          <div class="node-wrap">
+            <div class="node"></div>
+            <div class="highlight stage-4" ng-class="{ 'active': dialog.lead.properties.stage >= 4}"></div>
+          </div>
+            <span class="header">INSTALL</span>
+          </div>
+        </div>
+      </div>
+      <md-divider></md-divider>
+      <div class="column info">
+        <div>LEAD <b>INTEL</b></div>
+        <div class="detail">
+          The lead was last updated on
+          {{ (dialog.lead.properties.updated_at | date:'M/d/yyyy') || 'No Updates Available' }}
+          @ {{ dialog.lead.properties.updated_at | date:'mediumTime'}}
+        </div>
+      </div>
+      <md-divider ng-if="dialog.lead.properties.action_copy"></md-divider>
+      <div class="column info" ng-if="dialog.lead.properties.action_copy">
+        <div>POWUR <b>ACTION</b></div>
+        <div>
+          <div class="side-bar"></div>
+          <span class="detail">{{ dialog.lead.properties.action_copy }}</span>
+        </div>
+      </div>
+    </md-dialog-content>
+</md-dialog>

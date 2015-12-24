@@ -1,5 +1,3 @@
-require 'valid_email'
-
 class Invite < ActiveRecord::Base
   include NameEmailSearch
   include Phone
@@ -10,9 +8,6 @@ class Invite < ActiveRecord::Base
   # Validates with https://github.com/hallelujah/valid_email
   validates :email, presence: true,
                     email:    true
-  def email_present?
-    email?
-  end
 
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
@@ -32,8 +27,7 @@ class Invite < ActiveRecord::Base
     self.expires ||= expires_timespan
   end
 
-  scope :pending, -> { where(user_id: nil).where('expires > ?', Time.zone.now) }
-  scope :expired, -> { where(user_id: nil).where('expires < ?', Time.zone.now) }
+  scope :pending, -> { where(user_id: nil) }
   scope :redeemed, -> { where.not(user_id: nil) }
 
   scope :status, ->(s) { send(s) }
@@ -49,10 +43,6 @@ class Invite < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def expired?
-    expires < Time.zone.now
-  end
-
   def redeemed?
     !user_id.nil?
   end
@@ -60,8 +50,6 @@ class Invite < ActiveRecord::Base
   def status
     if redeemed?
       :redeemed
-    elsif expired?
-      :expired
     else
       :pending
     end
@@ -71,8 +59,8 @@ class Invite < ActiveRecord::Base
     status == :pending
   end
 
-  def renew
-    update_attributes(expires: expires_timespan)
+  def expires_timespan
+    SystemSettings.invite_valid_days.days.from_now
   end
 
   def accept(params)
@@ -95,15 +83,6 @@ class Invite < ActiveRecord::Base
     end
 
     user
-  end
-
-  def expires_timespan
-    SystemSettings.invite_valid_days.days.from_now
-  end
-
-  def time_left
-    time_left = (expires.in_time_zone - Time.zone.now) * 1000.0
-    (time_left <= 0 ? 0 : time_left).round
   end
 
   def send_sms

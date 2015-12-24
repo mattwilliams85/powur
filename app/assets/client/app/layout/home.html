@@ -1,10 +1,9 @@
-<div layout="row" ng-controller="NavController as nav">
+<div layout="row">
   <div class="parent-height" pw-nav="home"></div>
-  
+  <div class="parent-height" pw-hud="home"></div>
 
-  <!-- HOME SIDE NAV -->
-  <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-sidenav-left md-whiteframe-z2 left-menu" layout="row">
-    <div class="parent-height" pw-hud="home"></div>
+  <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2 left-menu" layout="row">
+    
   </md-sidenav>
   <div flex layout="column" class="main-view">
     <div ui-view></div>

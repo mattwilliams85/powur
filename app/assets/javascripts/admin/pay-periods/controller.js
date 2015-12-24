@@ -29,10 +29,12 @@
                                 { value: 'weekly', title: 'Weekly' } ];
     $scope.selectedFilter = { span: 'monthly' };
 
+    $scope.indexPath = '';
+
     // TODO: Have one 'pagination' function instead of defining it in every controller
     $scope.pagination = function(direction, path) {
       if (typeof direction === 'undefined') direction = 0;
-      if (typeof path === 'undefined') path = '/u/pay_periods';
+      if (typeof path === 'undefined') path = $scope.indexPath;
       var page = 1,
           sort;
       if ($scope.index.data) {
@@ -109,6 +111,7 @@
 
     if ($scope.mode === 'index') {
       $rootScope.breadcrumbs.push({title: $scope.templateData.index.title});
+      $scope.indexPath = '/u/pay_periods';
       $scope.pagination();
     } else if ($scope.mode === 'show') {
       $scope.withPayPeriod($routeParams.payPeriodId, function(data) {
@@ -119,7 +122,8 @@
         $rootScope.breadcrumbs.push({title: data.properties.id});
 
         var entity = findByRel('pay_period-users', data.entities);
-        $scope.pagination(0, entity.href);
+        $scope.indexPath = entity.href;
+        $scope.pagination(0, $scope.indexPath);
       });
     } else if ($scope.mode === 'bonuses') {
       $scope.forUser($routeParams.payPeriodId, $routeParams.userId, function(data) {
@@ -130,11 +134,10 @@
         $scope.user = data.properties;
         $scope.leadTotals = Utility.findBranch(
           data.entities, {'rel': 'user-lead_totals'}).entities;
-        $scope.bonuses = Utility.findBranch(
-          data.entities, {'rel': 'user-bonus_payments'}).entities;
-        for (var b in $scope.bonuses) {
-          $scope.sum += parseInt($scope.bonuses[b].properties.amount);
-        }
+        $scope.bonusesData = Utility.findBranch(
+          data.entities, {'rel': 'user-bonus_payments'})
+        $scope.sum = $scope.bonusesData.properties.grand_total;
+        $scope.bonuses = $scope.bonusesData.entities;
       });
     }
   };

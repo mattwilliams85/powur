@@ -4,12 +4,6 @@ klass :session, :anonymous
 
 json.properties do
   json.latest_terms ApplicationAgreement.current
-  json.join_grid_step1_youtube_embed_url(
-    SystemSettings.get!('join_grid_step1_youtube_embed_url'))
-  json.join_grid_step2_youtube_embed_url(
-    SystemSettings.get!('join_grid_step2_youtube_embed_url'))
-  json.preview_video_embed_url(
-    SystemSettings.get!('preview_video_embed_url'))
 end
 
 actions_list = [
@@ -22,15 +16,20 @@ actions_list = [
 
 actions(*actions_list)
 
-entity_list = [ entity(%w(solar_invite),
-                       'customer-solar_invite',
-                       customer_path('{code}')),
+entity_list = [ entity(%w(lead),
+                       'user-anon_lead',
+                       anon_lead_path('{code}')),
+                entity(%w(rep_invite),
+                       'user-rep_invite',
+                       anon_user_path('{rep_id}')),
                 entity(%w(grid_invite),
-                       'user-solar_invite',
+                       'user-grid_invite',
                        anon_invite_path('{code}')),
                 entity(%w(password_token),
                        'user-password_token',
-                       reset_token_password_path('{code}')) ]
+                       reset_token_password_path('{code}')),
+                entity(%w(video_assets),
+                       'user-video_assets', assets_login_path) ]
 
 entities(*entity_list)
 

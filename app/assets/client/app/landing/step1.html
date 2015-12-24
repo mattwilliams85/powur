@@ -1,0 +1,127 @@
+<div layout="column" class="landing">
+  <div class="header" layout="row">
+    <div flex-gt-sm="50" layout="row" layout-fill>
+      <div flex-gt-sm="30"></div>
+      <div flex layout="column" layout-align="center start" class="logo-wrapper"></div>
+    </div>
+    <div flex-gt-sm="50" show-gt-sm></div>
+  </div>
+
+  <div class="bg0" layout="column" layout-align="center center" layout-padding>
+    <form name="zipForm" ng-submit="landing.validateZip()">
+      <div class="headline align-center">Going Solar has never been easier. See if solar is right for you.</div>
+      <div class="align-center">
+        <md-input-container>
+          <div class="border"></div>
+          <label>YOUR ZIP CODE</label>
+          <input ng-model="landing.validateZipAction.field('zip').value" name="zip" type="text">
+          <div ng-messages="landing.validateZipAction.field('zip').$error" ng-show="landing.validateZipAction.field('zip').$error">
+            <div ng-message="message" class="messages">{{ landing.validateZipAction.field('zip').$error.message }}</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div class="align-center">
+        <md-button class="md-primary" ng-click="landing.validateZip()">CHECK ELIGIBILITY</md-button>
+      </div>
+    </form>
+  </div>
+
+  <div class="bg1" layout="row" layout-padding>
+    <div flex-gt-sm="50" layout="row" layout-fill>
+      <div flex-gt-sm="30"></div>
+      <div flex layout="column" layout-align="center start">
+        <div class="headline">Solar Savings are big.</div>
+        <div class="headline">We are making them bigger.</div>
+        <div layout="row">
+          <ul class="points">
+            <li>Lock in your monthly elextricity rate and save up to 20% off existing monthly bill.</li>
+            <li>Free home installation with 0 down, 0 monthly payments, and 0 interest.</li>
+            <li>100% performance gauranteed. Backed by SolarCity, enjoy peace of mind  that your system is monitored and supported by America's #1 solar provider.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div flex-gt-sm="50" show-gt-sm></div>
+  </div>
+
+  <div class="bg2" layout="row" layout-padding>
+    <div flex-gt-sm="50" show-gt-sm></div>
+    <div flex-gt-sm="50" layout="row" layout-fill>
+      <div flex-gt-md="70" layout="column" layout-align="center start">
+        <div class="profile-pic" layout-align="center center" layout="row">
+          <img ng-src="{{ landing.rep.properties.avatar.thumb || landing.defaultAvatar }}">
+        </div>
+        <div class="headline">Meet {{ landing.rep.properties.first_name }},</div>
+        <div class="headline">your Personal Solar Concierge</div>
+        <p>I'm passionate about solar for many reasons. It's free to install, it saves my customers money each month, and it's the right thing to do for the environment and the health of future generations.  I encourage you to get your free proposal below, and discover the benefits for you and your family.</p>
+        <div>
+          <md-button class="md-primary" ng-click="landing.getSavings()">GET YOUR SOLAR SAVINGS</md-button>
+        </div>
+      </div>
+      <div flex-gt-sm="30"></div>
+    </div>
+  </div>
+
+  <div class="bg3" layout="column" layout-align="center center" layout-padding>
+    <div layout="column" layout-align="start center">
+    <div flex-gt-sm="33"></div>
+    <div class="headline">The <div class="pow-sc"></div> Promise</div>
+      <div class="swash-img-wrapper"></div>
+    </div>
+    <div layout="column" layout-gt-sm="row" layout-align="center start" class="promises">
+      <div flex-gt-sm="33" layout="column" layout-align="center center" class="item">
+        <div class="vertical-bar" hide show-gt-sm></div>
+        <i class="promise promise-best-coverage"></i>
+        <div class="title">Best Coverage.</div>
+        <div class="msg">Our coverage is the best in the industry, with repairs and a production guarantee at no additional cost. We stand by our work long after we've put the solar panels up on your roof and you’ve turned on the power.</div>
+      </div>
+      <div flex-gt-sm="33" layout="column" layout-align="center center" class="item">
+        <div class="vertical-bar"  hide show-gt-sm></div>
+        <i class="promise promise-lowest-rates"></i>
+        <div class="title">Lowest Rates.</div>
+        <div class="msg">Our team will put together a custom solar quote based on your home’s architecture and energy needs. It will include all of your options and project your energy savings for years to come. We’ll walk you through it and answer any questions you may have.</div>
+      </div>
+      <div flex-gt-sm="33" layout="column" layout-align="center center" class="item">
+
+        <i class="promise promise-better-world"></i>
+        <div class="title">A Better World.</div>
+        <div class="msg">For every megawatt of solar power SolarCity installs, our GivePower foundation will donate a solar power system and battery to a school without electricity.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg4" layout="column" layout-align="center center" layout-padding>
+    <div layout="column" layout-align="center center">
+      <div class="headline">Truly Reliable Partnership</div>
+      <div class="msg">SolarCity’s revolutionizing the energy industry with the strong support of partners who have funded billions of dollars worth of solar projects with us. They know that clean, more affordable solar power is the bright solution for homeowners, their investors, the environment and the future.</div>
+    </div>
+    <div class="companies" layout="column" layout-gt-sm="row" layout-wrap layout-padding>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-google"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-goldman-sachs"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-honda"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-citibank"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-usbancorp"></i></div>
+    </div>
+  </div>
+
+  <div class="bg5" layout="row" layout-align="center center ">
+    <form name="zipForm" ng-submit="landing.validateZip()">
+      <div layout="column" layout-gt-sm="row" layout-align="center end">
+        <div flex-gt-sm="40" class="form-section msg" layout="row" layout-align="center center">Find out what you can save</div>
+        <div flex-gt-sm="45" class="form-section" layout="row" layout-align="center center">
+          <md-input-container>
+            <div class="border"></div>
+            <label>YOUR ZIP CODE</label>
+            <input ng-model="landing.validateZipAction.field('zip').value" name="zip" type="text">
+            <div ng-messages="landing.validateZipAction.field('zip').$error" ng-show="landing.validateZipAction.field('zip').$error">
+              <div ng-message="message" class="messages">{{ landing.validateZipAction.field('zip').$error.message }}</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div flex-gt-sm="15" class="form-section form-actions" layout="row" layout-align="center center">
+          <md-button class="md-primary" ng-click="landing.validateZip()">LET'S GO!</md-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

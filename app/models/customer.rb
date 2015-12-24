@@ -1,5 +1,3 @@
-require 'valid_email'
-
 class Customer < ActiveRecord::Base
   include NameEmailSearch
   include Phone
@@ -60,10 +58,6 @@ class Customer < ActiveRecord::Base
 
   def lead?
     !lead.nil?
-  end
-
-  def lead_submitted?
-    lead? && lead.submitted?
   end
 
   def send_sms

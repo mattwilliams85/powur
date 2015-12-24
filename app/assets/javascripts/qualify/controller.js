@@ -60,14 +60,16 @@
         SolarCityZipValidator.check({
           zip: $scope.zip.code
         }).then(function(data){
-          if (data.properties.is_valid) {
+          if (data.error) {
+            $scope.zipErrorMessages = { zip: data.error.message };
+          } else if (data.properties.is_valid) {
             $scope.proposalStatus = 'new';
             $scope.proposal = {};
             $scope.proposal.zip = $scope.zip.code;
-            $scope.disableProposalForm = false;
           } else {
             $scope.proposalStatus = 'invalidZip';
           }
+          $scope.disableProposalForm = false;
         });
       } else {
         $scope.zipErrorMessages = {

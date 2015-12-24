@@ -13,7 +13,7 @@ module UserScopes
     }
 
     scope :within_date_range, lambda { |begin_date, end_date|
-      where('created_at between ? and ?', begin_date, end_date)
+      where('users.created_at between ? and ?', begin_date, end_date)
     }
 
     scope :growth_performance, lambda { |user_id|

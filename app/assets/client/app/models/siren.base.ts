@@ -39,6 +39,7 @@ module powur {
         var re = new RegExp(`\{${k}\}`);
         href = href.replace(re, v);
       });
+      href = href.replace(/[\w]+\=\{[\w]+\}/g, '');
       return href;
     }
 
@@ -187,6 +188,7 @@ module powur {
     }
 
     clearValues(): void {
+      this.clearErrors();
       this.fields.forEach(f => {
         delete f.value;
       });

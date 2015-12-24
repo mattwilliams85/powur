@@ -29,7 +29,6 @@ module powur {
           if (!data.entities.length) return;
           entity.entities = entity.entities.concat(data.entities);
           entity.properties = data.properties;
-          scope.invite.buildPies();
         });
       }
 
@@ -43,9 +42,12 @@ module powur {
                 setTimeout(function(){
                   loading = false;
                   loadMore(scope.$apply(attributes.pwScrolled), scope);
-                  
                 }, 500);
             }
+          });
+
+          scope.$on('$destroy', function cleanup() {
+            angular.element($window).off('scroll');
           });
         }
       };

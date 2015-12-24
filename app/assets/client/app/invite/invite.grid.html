@@ -1,70 +1,71 @@
-<div class="counter">
-  <ul layout="row" layout-align="start center" class="fadeIn">
-    <li flex="33" layout="column" layout-align="center center">
-      <div class="label kpi">pending</div>
-      <div layout="row" layout-align="center center"><i class="sprite sprite-pending"></i><span class="count">{{ invite.pending }}</span></div>
-    </li>
-    <li flex="33" layout="column" layout-align="center center">
-      <div class="label kpi">expired</div>
-      <div layout="row" layout-align="center center"><i class="sprite sprite-expired"></i><span class="count">{{ invite.expired }}</span></div>
-    </li>
-    <li flex="33" layout="column" layout-align="center center">
-      <div class="label kpi">accepted</div>
-      <div layout="row" layout-align="center center"><i class="sprite sprite-accepted"></i><span class="count">{{ invite.accepted }}</span></div>
-    </li>
-  </ul>
+
+
+<div class="accordion" layout="row" layout-align="space-between-center">
+  <span class="toggle-wrapper" ng-click="hideSummary = !hideSummary">
+    <span class="toggle" ng-class="{'closed': hideSummary }"></span>
+    INVITES <b>SUMMARY</b>
+  </span>
 </div>
 
-<div class="invite-list-bg">
-  <md-tabs ng-show="invite.showFilters" class="md-accent">
-    <md-tab md-active="!invite.listProps.filters.status">
-      <div ng-click="invite.filter('', invite.filterSuccess)"></div>All
-    </md-tab>
-    <md-tab md-active="invite.listProps.filters.status === 'pending'" ng-if="invite.pending !== 0">
-      <div ng-click="invite.filter('pending', invite.filterSuccess)"></div>Pending
-    </md-tab>
-    <md-tab md-active="invite.listProps.filters.status === 'expired'" ng-if="invite.expired">
-      <div ng-click="invite.filter('expired', invite.filterSuccess)"></div>Expired
-    </md-tab>
-  </md-tabs>
+<div class="insight" layout="row" ng-hide="hideSummary">
+  <div layout="column" layout-align="space-around center" flex="50">
+    <div class="label">PENDING</div>
+    <div class="count" layout="row" layout-align="center center">
+      <i class="material-icons">access_time</i>
+      {{ invite.pending }}
+    </div>
+  </div>
+  <div layout="column" layout-align="space-around center" flex="50">
+    <div class="label">ACCEPTED</div>
+    <div class="count" layout="row" layout-align="center center">
+      <i class="material-icons">assignment_turned_in</i>
+      {{ invite.accepted }}
+    </div>
+  </div>
+</div>
 
+<div class="accordion" layout="row" layout-align="space-between-center">
+  <span class="toggle-wrapper" ng-click="hideInvites = !hideInvites">
+    <span class="toggle" ng-class="{'closed': hideInvites }"></span>
+    GRID <b>INVITES</b>
+  </span>
+</div>
+
+
+<div class="invite-list-bg" ng-hide="hideInvites">
   <div layout="row" layout-wrap class="invite-list" pw-scrolled="invite.invites">
-    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" flex-sm="100"  class="list-item">
+    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)" flex="100"  class="list-item">
       <div layout="row">
         <div class="invite-item">
           <div class="invite-bg ellipse"></div>
           <span class="add counter">
             <i class="sprite sprite-invite"></i>
-            <div class="label hoverable" hide-sm>Click to <b>Invite</b></div>
+            <!-- <div class="label hoverable" hide show-gt-xs>Click to <b>Invite</b></div> -->
           </span>
         </div>
-        <div class="side-text-box" hide-gt-sm>
-          <div class="label">Tap to <b>Invite</b></div>
+        <div class="side-text-box">
+          <div class="label">Click to <b>Invite</b></div>
         </div>
     </div>
     </a>
 
-    <div ng-repeat="item in invite.list track by $index"  flex-sm="100" class="list-item">
+    <div ng-repeat="item in invite.list track by $index"  flex="100" class="list-item">
       <div layout="row">
-        <div class="invite-item" ng-class="{ 'expired': !item.properties.time_left }" ng-click="invite.showInvite($event, item)">
+        <div class="invite-item" ng-click="invite.showInvite($event, item)">
           <div class="invite-bg"></div>
-          <div ng-hide="item.properties.time_left" class="warning-bg"></div>
-          <canvas ng-show="item.properties.time_left" id="pie-{{item.properties.id}}" width="170" height="170"></canvas>
-          <div class="text-box" flex layout="column" layout-align="start center" hide-sm>
-            <div ng-show="item.properties.time_left" class="time">{{ invite.dateFormat(item, 'H:mm') }}<span class="superscript">{{ invite.dateFormat(item, 'ss')  }}</span></div>
-            <div class="exp-label">EXPIRED</div>
+          <div class="text-box" flex layout="column" layout-align="start center">
             <div class="full-name">
-              {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name | truncateName}}</b>
+              {{ item.properties.first_name.charAt(0) }}
+              <b>{{ item.properties.last_name.charAt(0) }}</b>
             </div>
           </div>
         </div>
-        <div class="side-text-box" hide-gt-sm>
-        <br>
+        <div class="side-text-box">
+          <br>
           <div class="full-name">
-            {{item.properties.first_name | truncateName}} <b>{{item.properties.last_name}}</b>
+            {{ item.properties.first_name | truncateName }}<br>
+            <b>{{ item.properties.last_name }}</b>
           </div>
-          <div ng-show="item.properties.time_left" class="time">{{ invite.dateFormat(item, 'H:mm') }}<span class="superscript">{{ invite.dateFormat(item, 'ss')  }}</span></div>
-          <div class="full-name" ng-show="!item.properties.time_left">EXPIRED</div>
         </div>
       </div>
     </div>

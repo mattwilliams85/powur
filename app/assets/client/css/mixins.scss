@@ -1,0 +1,18 @@
+@mixin linearGradient($start, $stop, $direction-start: left) {
+    background: $start;
+    background: -moz-linear-gradient($direction-start, $start 0%, $stop 100%);
+    background: -webkit-linear-gradient($direction-start, $start 0%, $stop 100%);
+    background: -o-linear-gradient($direction-start, $start 0%, $stop 100%);
+    background: -ms-linear-gradient($direction-start, $start 0%, $stop 100%);
+
+    @if $direction-start == "left" {
+        background: linear-gradient(to right, $start 0%, $stop 100%);
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, $start), color-stop(100%, $stop));
+    }
+    @else {
+        background: linear-gradient(to bottom, $start 0%, $stop 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start), color-stop(100%, $stop));
+    }
+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 );
+}

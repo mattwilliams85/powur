@@ -14,5 +14,9 @@ module powur {
     'templates',
     // cross-app/util modules
     'powur.services'
-  ]);
+  ]).config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('light-blue', { 'default': '500' })
+      .accentPalette('teal', {'default': '400'})
+  });
 }

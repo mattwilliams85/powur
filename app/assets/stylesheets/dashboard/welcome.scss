@@ -60,8 +60,13 @@
     }
 
     .pay-period-goals {
-      margin-top: 40px;
+      padding-top: 100px;
       padding-right: 20px;
+
+      h5 {
+        text-transform: uppercase;
+        font-size: 20pt;
+      }
 
       // Progress Bars
       // (from http://blog.eyecuelab.com/2015/03/18/progress-bars-with-css-tooltips/)

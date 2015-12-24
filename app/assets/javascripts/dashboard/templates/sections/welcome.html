@@ -1,26 +1,23 @@
 <div class="row">
   <div class="large-6 medium-8 columns">
-
-    <!-- Row: Name and Welcome Quote -->
+<!-- 
     <div class="welcome-message row">
-      <!-- Photo -->
       <div class="large-2 medium-3 small-4 columns">
         <div class="avatar">
-          <img ng-src="{{currentUser.avatar.large || legacyImagePaths.defaultAvatar}}">
+          <img ng-src="{{currentUser.avatar.large || legacyImagePaths.defaultProfile}}">
         </div>
       </div>
-      <!-- Name and Welcome Quote -->
       <div class="large-9 medium-8 small-7 columns">
         <h2>Welcome, {{currentUser.first_name}}</h2>
         <h5>The world needs you.</h5>
       </div>
-    </div>
+    </div> -->
 
     <!-- Row: Pay Period Goals -->
     <div ng-show="goals" class="pay-period-goals row">
       <div class="large-10 large-offset-1 medium-10 small-12 columns">
         <!-- Label -->
-        <h5>Your Pay Period Goals</h5>
+        <h5>Pay Period Goals</h5>
         <!-- Legend -->
         <div class="legend">
           <div ng-repeat="goal in progress track by $index">

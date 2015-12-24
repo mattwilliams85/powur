@@ -1,4 +1,5 @@
 .invite {
+  color: #666;
   position: relative;
   a {
     text-decoration: none;
@@ -214,8 +215,11 @@
   }
 
   .invite-list-bg {
-    background-color: #fafafa;
+    // background-color: #fafafa;
     min-height: 100vh;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 100px;
 
     md-tabs {
       background-color: #8f8f8f;
@@ -332,7 +336,7 @@
       height: 100%;
       width: 100%;
       border-radius: 50%;
-      background-color: #c5c5c5;
+      background-color: #2C6C8A;
       z-index: 1;
       transition: transform .2s;
       transition: -webkit-transform .2s;
@@ -369,6 +373,9 @@
       position: relative;
       text-align: center;
       height: 32px;
+      font-size: 15pt;
+      padding-top: 8px;
+      top: 20%;
     }
 
     .text-box {
@@ -667,7 +674,7 @@
   }
 }
 
-@media screen and (max-width : 600px) {
+// @media screen and (max-width : 600px) {
 
   .list-item {
     border-bottom: 1px solid #ccc;
@@ -704,7 +711,7 @@
       padding: 10px;
 
     }
-    
+
     .counter {
       height: 80px;
 
@@ -794,7 +801,7 @@
       }
 
       .full-name {
-        top: 35px;
+        top: 20%;
       }
 
       &.solar {
@@ -824,6 +831,152 @@
           top: 26px;
           font-size: 9pt;
         }
+      }
+    }
+  }
+
+  .accordion {
+    text-align: left;
+    background: #5A5A5A;
+    padding: 0 10px 0 20px;
+    margin-top: 5px;
+    color: #fff;
+    font-size: 10pt;
+    line-height: 10pt;
+    user-select: none;
+
+    position: relative;
+
+    .toggle-wrapper {
+      cursor: pointer;
+
+      .toggle {
+        font-size: 16pt;
+        line-height: 7pt;
+        font-weight: 500;
+        position: absolute;
+        margin-left: -13px;
+
+        &:after {
+          content: '-';
+        }
+
+        &.closed {
+          font-size: 12pt;
+
+          &:after {
+            content: '+';
+          }
+        }
+      }
+    }
+
+    input {
+      position: absolute;
+      z-index: 2;
+      -webkit-appearance: none;
+      border-radius: 0;
+      right: 0;
+      top: 42px;
+      height: 33px;
+      width: 100%;
+      background: #444;
+      border: 0;
+      padding: 4px 5px;
+      font-size: 11pt;
+      color: #ccc;
+      transition: all .3s;
+      &.collapsed {
+        width: 0;
+        padding: 0;
+      }
+    }
+    .material-icons {
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    .toggle-wrapper {
+      flex: 1;
+      padding: 10px 0;
+    }
+  }
+
+  .insight {
+    height: 50px;
+    margin: 20px 0;
+
+    .count {
+      font-size: 20pt;
+      color: #2C6C8A;
+    }
+    .material-icons {
+      font-size: 24pt;
+      color: #bbb;
+      margin-left: -5px;
+      margin-right: 10px;
+      display: none;
+    }
+    & > div:last-child {
+      .material-icons {
+        font-size: 26pt;
+      }
+    }
+  }
+
+@media screen and (min-width: 600px) {
+  .insight {
+    .count {
+      font-size: 28pt;
+    }
+  }
+  .accordion {
+    padding: 5px 10px 5px 30px;
+    font-size: 12pt;
+    line-height: 12pt;
+    cursor: pointer;
+
+    input {
+      position: initial;
+      height: 25px;
+      width: 200px;
+      z-index: inherit;
+    }
+
+    .icon {
+      height: 20px;
+      width: 20px;
+    }
+    .toggle {
+      font-size: 16pt;
+      line-height: 9pt;
+      margin-left: -17px;
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .label {
+    font-size: 10pt;
+  }
+  .insight {
+    height: 130px;
+    margin: 10px 0;
+
+    .material-icons {
+      display: block;
+    }
+
+    & > div {
+      border-left: 1px solid #ccc;
+
+      .count {
+        color: #666;
+        font-size: 40pt;
+        position: relative;
+      }
+
+      div:first-child {
+        order: 1;
       }
     }
   }

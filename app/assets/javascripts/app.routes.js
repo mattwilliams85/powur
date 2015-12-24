@@ -110,6 +110,7 @@
     }).
 
     // User's Profile page
+    
     when('/profile', {
       templateUrl: 'profile/templates/edit.html',
       controller: 'ProfileCtrl'

@@ -3,6 +3,10 @@
 module powur {
   'use strict';
 
+  function userVideoAssets(session: ISessionService) {
+    return session.getEntity(SirenModel, 'user-video_assets');
+  }
+
   joinConfig.$inject = ['$stateProvider'];
 
   function joinConfig($stateProvider: ng.ui.IStateProvider) {
@@ -29,7 +33,8 @@ module powur {
               defer.resolve({});
             });
             return defer.promise;
-          }
+          },
+          videoAssets: ['SessionService', userVideoAssets]
         }
       })
       .state('join.grid2', {
@@ -44,7 +49,8 @@ module powur {
               return $q.reject(reason);
             }
             return root.$session.getInvite($stateParams.inviteCode).then(null, fail);
-          }
+          },
+          videoAssets: ['SessionService', userVideoAssets]
         }
       })
       .state('join.solar', {
@@ -59,37 +65,15 @@ module powur {
             var root = RootController.get();
             var defer = $q.defer();
             root.$session
-                .getCustomer($stateParams.inviteCode)
-                .then((response: ng.IHttpPromiseCallbackArg<any>) => {
-              defer.resolve(response);
+              .getEntity(SirenModel, 'user-anon_lead', { code: $stateParams.inviteCode })
+              .then((response: ng.IHttpPromiseCallbackArg<any>) => {
+                defer.resolve(response);
             }, () => {
-              defer.resolve({});
+              defer.resolve();
             });
             return defer.promise;
           }
         }
-      })
-      .state('join.solar2', {
-        url: '/solar/{inviteCode}',
-        templateUrl: 'app/join/join-solar2.html',
-        controller: 'JoinSolarController as join',
-        params: {
-          leadData: null
-        },
-        resolve: {
-          customer: function($stateParams, $q) {
-            var root = RootController.get();
-            var fail = function(response) {
-              var reason: any = (response.status === 404) ? 'invalid_code' : response;
-              return $q.reject(reason);
-            }
-            return root.$session.getCustomer($stateParams.inviteCode).then(null, fail);
-          }
-        }
-      })
-      .state('join.solar3', {
-        url: '/solar',
-        templateUrl: 'app/join/join-solar3.html'
       });
   }
 

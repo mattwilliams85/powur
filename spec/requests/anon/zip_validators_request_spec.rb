@@ -4,7 +4,7 @@ describe '/zip_validator' do
   describe '#create' do
     let(:zip) { '12345' }
     let(:code) { 'qwerty' }
-    let!(:customer) { create(:customer, code: code) }
+    let!(:lead) { create(:lead, code: code) }
 
     context 'when valid zip' do
       before do

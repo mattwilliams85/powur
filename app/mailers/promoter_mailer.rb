@@ -30,17 +30,17 @@ class PromoterMailer < ActionMailer::Base
     invite.update_column(:mandrill_id, result.first['_id'])
   end
 
-  def product_invitation(customer)
-    url = root_url + 'next/join/solar/' + customer.code
-    sponsor = User.find(customer.user_id)
+  def product_invitation(lead)
+    url = URI.join(root_url, '/next/getsolar/', lead.user_id.to_s + '/', lead.code).to_s
+    sponsor = User.find(lead.user_id)
     merge_vars = { invite_url:          url,
                    sponsor_full_name:   sponsor.full_name,
                    sponsor_photo:       sponsor.avatar.url(:thumb),
-                   customer_first_name: customer.first_name,
-                   customer_full_name:  customer.full_name }
+                   customer_first_name: lead.first_name,
+                   customer_full_name:  lead.full_name }
 
-    result = mandrill(customer.email, customer.full_name, 'solar-invite', merge_vars)
-    customer.update_column(:mandrill_id, result.first['_id'])
+    result = mandrill(lead.email, lead.full_name, 'solar-invite', merge_vars)
+    lead.update_column(:mandrill_id, result.first['_id'])
   end
 
   def reset_password(user)
@@ -54,10 +54,10 @@ class PromoterMailer < ActionMailer::Base
   end
 
   def new_quote(lead)
-    to = lead.customer.name_and_email
+    to = lead.name_and_email
     pdf_url = "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-home-solar-guide.pdf"
     merge_vars = {
-      customer_full_name: lead.customer.full_name,
+      customer_full_name: lead.full_name,
       sponsor_full_name:  lead.user.full_name,
       sponsor_photo:      lead.user.avatar.url(:thumb),
       solar_guide_url:    pdf_url }

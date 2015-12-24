@@ -54,15 +54,6 @@ describe Invite do
         end
       end
     end
-
-    describe '#time_left' do
-      it 'returns remaning time for invite' do
-        invite
-        expect(invite.time_left).to be > 8.6e+7;
-        invite.update_attribute(:expires, Time.zone.now + 6.hours)
-        expect(invite.time_left).to be > (2.15e+7)
-      end
-    end
   end
 
   context 'invalid phone number' do

@@ -1,67 +1,65 @@
-<div class="invite-popup">
-  <md-dialog aria-label="Invite" class="dialog">
-    <form ng-submit="dialog.updateInvite()" name="updateInviteForm" novalidate autocomplete="off">
-      <div class="side-bg"></div>
-      <div layout="column" flex>
-        <div class="banner grid" hide-sm>
-          <span class="title">Update a<br> Grid<b> Invite</b></span>
-        </div>
-        <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
-        <md-dialog-content layout="column">
-          <!-- TODO: this is what happens when you code for 16 hours straight -->
-          <br hide-gt-sm>
-          <br hide-gt-sm>
-          <!--  -->
-          <div class="heading"><div class="title">contact<b> name</b></div></div>
-          <md-content layout-padding layout="row">
-            <md-input-container flex="50">
-              <label>first name</label>
-              <input ng-model="dialog.update.field('first_name').value" autocomplete="off">
-              <div ng-messages="dialog.update.field('first_name').$error" class="messages">
-                <div ng-message="message">{{ dialog.update.field('first_name').$error.message }}</div>
-              </div>
-            </md-input-container>
-            <md-input-container flex="50">
-              <label>last name</label>
-              <input ng-model="dialog.update.field('last_name').value" autocomplete="off">
-              <div ng-messages="dialog.update.field('last_name').$error" class="messages">
-                <div ng-message="message">{{ dialog.update.field('last_name').$error.message }}</div>
-              </div>
-            </md-input-container>
-          </md-content>
-
-          <div class="heading"><div class="title">contact<b> method</b></div></div>
-          <md-content layout-padding layout="column">
-            <div ng-messages="dialog.update.$error" class="messages">
-              <div ng-message="message">{{ dialog.update.$error.message }}</div>
-            </div>
-            <md-input-container>
-              <label>phone number</label>
-              <input ng-model="dialog.update.field('phone').value" type="tel">
-              <div ng-messages="dialog.update.field('phone').$error" class="messages">
-                <div ng-message="message">{{ dialog.update.field('phone').$error.message }}</div>
-              </div>
-            </md-input-container>
-            <md-input-container>
-              <label>email</label>
-              <input ng-model="dialog.update.field('email').value" type="text" autocomplete="off" autocapitalize="off">
-              <div ng-messages="dialog.update.field('email').$error" class="messages">
-                <div ng-message="message">{{ dialog.update.field('email').$error.message }}</div>
-              </div>
-            </md-input-container>
-
-            <md-input-container>
-              <md-checkbox ng-model="dialog.update.field('resend').value" class="resend">
-                resend invite
-              </md-checkbox>
-            </md-input-container>
-          </md-content>
-
-          <div class="actions">
-            <md-button type="submit" ng-disabled="dialog.update.submitting" class="md-primary">Update Invite</md-button>
-          </div>
-        </md-dialog-content>
+<md-dialog aria-label="Invite" class="dialog invite-popup">
+  <form ng-submit="dialog.updateInvite()" name="updateInviteForm" novalidate autocomplete="off">
+    <div class="side-bg"></div>
+    <div layout="column" flex>
+      <div class="banner grid" hide-sm>
+        <span class="title">Update a<br> Grid<b> Invite</b></span>
       </div>
-    </form>
-  </md-dialog>
-</div>
+      <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
+      <md-dialog-content layout="column">
+        <!-- TODO: this is what happens when you code for 16 hours straight -->
+        <br hide-gt-sm>
+        <br hide-gt-sm>
+        <!--  -->
+        <div class="heading"><div class="title">contact<b> name</b></div></div>
+        <md-content layout="row">
+          <md-input-container flex="50">
+            <label>first name</label>
+            <input ng-model="dialog.update.field('first_name').value" autocomplete="off">
+            <div ng-messages="dialog.update.field('first_name').$error" ng-show="dialog.update.field('first_name').$error" class="messages">
+              <div ng-message="message">{{ dialog.update.field('first_name').$error.message }}</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50">
+            <label>last name</label>
+            <input ng-model="dialog.update.field('last_name').value" autocomplete="off">
+            <div ng-messages="dialog.update.field('last_name').$error" ng-show="dialog.update.field('last_name').$error" class="messages">
+              <div ng-message="message">{{ dialog.update.field('last_name').$error.message }}</div>
+            </div>
+          </md-input-container>
+        </md-content>
+
+        <div class="heading"><div class="title">contact<b> method</b></div></div>
+        <md-content layout="column">
+          <div ng-messages="dialog.update.$error" ng-show="dialog.update.$error" class="messages">
+            <div ng-message="message">{{ dialog.update.$error.message }}</div>
+          </div>
+          <md-input-container>
+            <label>phone number</label>
+            <input ng-model="dialog.update.field('phone').value" type="tel">
+            <div ng-messages="dialog.update.field('phone').$error" ng-show="dialog.update.field('phone').$error" class="messages">
+              <div ng-message="message">{{ dialog.update.field('phone').$error.message }}</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>email</label>
+            <input ng-model="dialog.update.field('email').value" type="text" autocomplete="off" autocapitalize="off">
+            <div ng-messages="dialog.update.field('email').$error" ng-show="dialog.update.field('email').$error" class="messages">
+              <div ng-message="message">{{ dialog.update.field('email').$error.message }}</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <md-checkbox ng-model="dialog.update.field('resend').value" class="resend">
+              resend invite
+            </md-checkbox>
+          </md-input-container>
+        </md-content>
+
+        <div class="actions">
+          <md-button type="submit" ng-disabled="dialog.update.submitting" class="md-primary md-raised">Update Invite</md-button>
+        </div>
+      </md-dialog-content>
+    </div>
+  </form>
+</md-dialog>

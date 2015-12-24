@@ -349,7 +349,7 @@
           $scope.closeForm();
           $anchorScroll();
           $scope.showModal('This lead email was successfully re-sent to ' +
-            $scope.lead.customer + ' at ' +
+            $scope.lead.first_name + ' at ' +
             $scope.lead.email + '.');
         }
       };

@@ -181,7 +181,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
         csv << [
           user.id, user.first_name, user.last_name, payment.bonus.name,
           bpl.lead_id, lead.user_id,
-          lead.user.full_name, lead.customer.full_name,
+          lead.user.full_name, lead.full_name,
           bpl.status,
           lead.converted_at && lead.converted_at.strftime('%F'),
           lead.contracted_at && lead.contracted_at.strftime('%F'),

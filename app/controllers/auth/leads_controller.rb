@@ -1,13 +1,13 @@
 module Auth
   class LeadsController < AuthController
     before_action :fetch_user!
-    before_action :fetch_leads, only: [ :index ]
+    before_action :fetch_leads, only: [ :index, :team, :destroy, :resend ]
     before_action :fetch_lead,
-                  only: [ :show, :update, :destroy, :resend, :submit ]
+                  only: [ :show, :update, :destroy, :resend, :submit, :invite ]
 
-    page max_limit: 500
+    page max_limit: 10
     sort created:  { created_at: :desc },
-         customer: 'customers.last_name asc, customers.first_name asc'
+         customer: 'leads.last_name asc, leads.first_name asc'
     filter :submitted_status,
            options:  [ :not_submitted, :submitted ],
            required: false
@@ -24,26 +24,34 @@ module Auth
       render 'index'
     end
 
+    def team
+      @leads = apply_list_query_options(
+        Lead.team_leads(user_id: current_user.id, query: @leads))
+
+      render 'index'
+    end
+
     def show
       render 'show'
     end
 
     def create
-      customer = find_or_create_customer
+      require_input :first_name, :last_name, :email, :phone
+
       @lead = Lead.create!(
-        product_id: product.id,
-        customer:   customer,
-        user:       current_user,
-        data:       lead_input)
+        lead_input.merge(
+          product_id: product.id,
+          user:       current_user,
+          data:       lead_data_input))
 
       show
     end
 
     def update
       error!(:update_lead) if @lead.submitted_at?
+      require_input :first_name, :last_name, :email, :phone
 
-      @lead.customer.update_attributes!(customer_input)
-      @lead.update(data: lead_input)
+      @lead.update!(lead_input.merge(data: lead_data_input))
 
       show
     end
@@ -53,13 +61,13 @@ module Auth
 
       @lead.destroy
 
-      head :no_content
+      head :ok
     end
 
     def resend
       @lead.email_customer if @lead.can_email?
 
-      show
+      index
     end
 
     def submit
@@ -74,15 +82,42 @@ module Auth
       error!(:solarcity_api)
     end
 
+    def invite
+      if @lead.not_sent?
+        PromoterMailer.product_invitation(@lead).deliver_later if @lead.email?
+        @lead.delay.send_sms_invite
+        @lead.sent!
+      end
+
+      show
+    end
+
+    def summary
+      metrics = @user.metrics
+      data_scope =
+        params[:personal].present? ? :leads_personal_count : :leads_count
+      days = params[:days]
+
+      @metrics_data = {
+        leads:     metrics.send(data_scope, :submitted, days),
+        proposals: metrics.send(data_scope, :converted, days),
+        closed:    metrics.send(data_scope, :closed_won, days),
+        contracts: metrics.send(data_scope, :contracted, days),
+        installs:  metrics.send(data_scope, :installed, days)
+      }
+    end
+
     private
 
     def fetch_leads
       scope = Lead
-        .includes(:customer, :user, :product)
-        .references(:customer, :user, :product)
-        .joins(:customer)
+        .includes(:user, :product)
+        .references(:user, :product)
       scope = scope.where(user_id: @user.id) if @user
-      scope = scope.merge(Customer.search(params[:search])) if params[:search]
+      days = params[:days].to_i
+      scope = scope.where('leads.created_at > ?',
+                          days.days.ago) if days > 0
+      scope = scope.merge(Lead.search(params[:search])) if params[:search]
       @leads = scope
     end
 
@@ -97,28 +132,16 @@ module Auth
       not_found!(:lead) unless @lead
     end
 
-    def find_or_create_customer
-      customer = Customer.where(
-        email:   customer_input['email'],
-        user_id: current_user.id).first
-      if customer && !customer.lead?
-        customer.update_attributes!(customer_input)
-        customer
-      else
-        Customer.create!(customer_input)
-      end
-    end
-
-    def customer_input
+    def lead_input
       allow_input(:first_name, :last_name, :email,
-                  :phone, :address, :city, :state, :zip, :notes)
+                  :phone, :address, :city, :state, :zip, :notes, :call_consented)
     end
 
     def product
       @product ||= Product.default
     end
 
-    def lead_input
+    def lead_data_input
       allow_input(*product.quote_fields.map(&:name))
     end
   end

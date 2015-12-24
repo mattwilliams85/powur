@@ -1,5 +1,6 @@
 .invite-popup {
   max-width: 450px;
+  min-width: 450px;
 
   .side-bg {
     width: 30px;
@@ -33,7 +34,7 @@
     .title{
       display:block;
       margin-top: 50px;
-      margin-left: 5vw;
+      margin-left: 3vw;
       font-size: 2em;
     }
   }
@@ -66,6 +67,10 @@
 
   md-dialog-content {
     padding: 0 3vw 0 3vw;
+
+    .messages, .md-errors-spacer {
+      min-height: initial;
+    }
   }
 
   .close {
@@ -81,6 +86,9 @@
     .title {
       font-size: large;
       text-transform: uppercase;
+    }
+    &.padded {
+      padding-top: 30px;
     }
   }
 
@@ -101,7 +109,6 @@
   }
 
   label {
-    top: -10px;
     text-transform: uppercase;
     font-size: small;
   }
@@ -169,6 +176,10 @@
 
     .detail {
       line-height: 15pt;
+
+      &.small {
+        font-size: .8em;
+      }
     }
 
     .link {
@@ -176,6 +187,7 @@
       font-size: 11pt;
       font-weight: 400;
       border: 0;
+      width: 100%;
     }
 
     button {

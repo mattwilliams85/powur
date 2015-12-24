@@ -1,37 +1,41 @@
 /// <reference path='../../typings/tsd.d.ts' />
 
 module powur {
-    class TitleDirective {
-        static DirectiveId: string = 'pwTitle';
-        static $inject: Array<string> = ['$rootScope', '$log', '$timeout'];
+  class TitleDirective {
+    static DirectiveId: string = 'pwTitle';
+    static $inject: Array<string> = ['$rootScope', '$timeout'];
 
-        constructor($rootScope: ng.IRootScopeService, $log: ng.ILogService, $timeout: ng.ITimeoutService) {
+    constructor($rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService) {
 
-            function capitalizeFirstLetter(string) {
-                return string.charAt(0).toUpperCase() + string.slice(1);
-            }
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
-            return <any>{
-              link: function(scope: ng.IScope, element: JQuery) {
-                var listener = function(event, toState) {
+      function htmlToPlainText(text) {
+        return String(text).replace(/<[^>]+>/gm, '');
+      }
 
-                    var title = 'Welcome to Powur';
-                    if (toState.params && toState.params.title) {
-                        title = 'Powur ' + capitalizeFirstLetter(toState.params.title);
-                    }
+      function link(scope: ng.IScope, element: JQuery) {
+        $rootScope.$on('$stateChangeSuccess', function listener(event, toState) {
+          var title = 'Welcome to Powur';
 
-                    $timeout(function() {
-                        element.text(title);
-                    }, 0, false);
-                };
+          if (toState.params && toState.params.title) {
+            title = capitalizeFirstLetter(htmlToPlainText(toState.params.title));
+          }
 
-                $rootScope.$on('$stateChangeSuccess', listener);
-              }
-            }; // return
-        } // ctor
-    } // class
+          $timeout(function() {
+            element.text(title);
+          }, 0, false);
+        });
+      }
 
-    angular
-        .module('powur.components')
-        .directive(TitleDirective.DirectiveId, <any>TitleDirective);
+      return <any>{
+        link: link
+      };
+    }
+  }
+
+  angular
+    .module('powur.components')
+    .directive(TitleDirective.DirectiveId, <any>TitleDirective);
 }

@@ -1,6 +1,6 @@
 module Anon
   class ZipValidatorsController < AnonController
-    before_action :fetch_customer, only: [ :create ]
+    before_action :fetch_lead, only: [ :create ]
 
     def create
       require_input :zip
@@ -8,12 +8,12 @@ module Anon
 
       if Lead.eligible_zip?(params[:zip])
         @is_valid = true
-        @customer.zip = params[:zip]
-        @customer.status = :initiated
-        @customer.save!
+        @lead.zip = params[:zip]
+        @lead.invite_status = :initiated
+        @lead.save!
       else
-        status = Customer.statuses[:ineligible_location]
-        @customer.update_attributes(status: status, zip: nil)
+        status = Lead.data_statuses[:ineligible_location]
+        @lead.update_attributes(data_status: status, zip: nil)
         error!(:unqualified_zip, :zip)
       end
     rescue Lead::ZipApiError
@@ -22,17 +22,23 @@ module Anon
 
     def validate
       require_input :zip
+      error!(:invalid_zip, :zip) unless Lead.valid_zip?(params[:zip])
 
-      @is_valid = Lead.eligible_zip?(params[:zip])
-      
-      render 'validate'
+      if Lead.eligible_zip?(params[:zip])
+        @is_valid = true
+        render 'validate'
+      else
+        error!(:unqualified_zip, :zip)
+      end
+    rescue Lead::ZipApiError
+      error!(:zip_api)
     end
 
     private
 
-    def fetch_customer
-      @customer = Customer.find_by(code: params[:code])
-      not_found!(:product_invite) unless @customer
+    def fetch_lead
+      @lead = Lead.find_by(code: params[:code])
+      not_found!(:product_invite) unless @lead
     end
   end
 end

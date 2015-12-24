@@ -61,6 +61,11 @@ module SirenJson
             filters.keys.each do |scope|
               json.set! scope, params[scope]
             end
+            json.options do
+              filters.each do |k, v|
+                json.set! k, v[:options]
+              end
+            end
           end
         end
       end

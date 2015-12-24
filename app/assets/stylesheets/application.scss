@@ -2,14 +2,13 @@
 @import "foundation_and_overrides";
 
 // Bower components
-@import "angular-slider.min";
 html.piling-on {
   @import "pagepiling.js/jquery.pagepiling";
 }
 
 @import "owlcarousel/owl-carousel/owl.carousel";
 @import "owlcarousel/owl-carousel/owl.theme";
-@import 'angular-material/angular-material.scss';
+// @import 'angular-material/angular-material.scss';
 
 // Sprites
 @import "compass/utilities/sprites";

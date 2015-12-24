@@ -8,6 +8,8 @@ module powur {
     static ControllerId: string = 'ResetDialogController';
     static $inject = ['$mdDialog', '$stateParams', 'resetToken'];
 
+    resetPasswordEmailSent: boolean;
+
     constructor(private $mdDialog: ng.material.IDialogService,
                 private $stateParams: ng.ui.IStateParamsService,
                 private resetToken: ISirenModel) {
@@ -31,7 +33,7 @@ module powur {
 
     resetSubmit(): void {
       this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.cancel();
+        this.resetPasswordEmailSent = true;
       });
     }
 

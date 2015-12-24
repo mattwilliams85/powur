@@ -1,8 +1,8 @@
 <div class="join step2" flex layout="column" layout-align="start center">
     <div class="bg-img g2"></div>
-    <div class="trailer-box smaller" ng-if="join.videoStep2">
+    <div class="trailer-box smaller" ng-if="join.videoAssets.properties.join_grid_step2_youtube_embed_url">
         <div class="intro" flex>
-          <iframe src="{{ join.videoStep2 }}" width="100%" height="100%" frameborder="0" ></iframe>
+          <iframe src="{{ join.trustedUrl(join.videoAssets.properties.join_grid_step2_youtube_embed_url) }}" width="100%" height="100%" frameborder="0" ></iframe>
         </div>
     </div>
     <form ng-submit="join.acceptSubmit()" name="acceptGridInviteForm" layout-padding novalidate ng-class="{ 'opaque': join.leadSubmitAllowed }" class="grid">
@@ -17,7 +17,7 @@
             <div class="border"></div>
             <label>First Name</label>
             <input ng-model="join.acceptAction.field('first_name').value" type="text">
-            <div ng-messages="join.acceptAction.field('first_name').$error">
+            <div ng-messages="join.acceptAction.field('first_name').$error" ng-show="join.acceptAction.field('first_name').$error">
               <div ng-message="message">{{ join.acceptAction.field('first_name').$error.message }}</div>
             </div>
           </md-input-container>
@@ -25,7 +25,7 @@
             <div class="border"></div>
             <label>Last Name</label>
             <input ng-model="join.acceptAction.field('last_name').value" type="text">
-            <div ng-messages="join.acceptAction.field('last_name').$error">
+            <div ng-messages="join.acceptAction.field('last_name').$error" ng-show="join.acceptAction.field('last_name').$error">
               <div ng-message="message">{{ join.acceptAction.field('last_name').$error.message }}</div>
             </div>
           </md-input-container>
@@ -35,7 +35,7 @@
             <div class="border"></div>
             <label>Email</label>
             <input ng-model="join.acceptAction.field('email').value"  type="text" autocomplete="off">
-            <div ng-messages="join.acceptAction.field('email').$error">
+            <div ng-messages="join.acceptAction.field('email').$error" ng-show="join.acceptAction.field('email').$error">
               <div ng-message="message">{{ join.acceptAction.field('email').$error.message }}</div>
             </div>
           </md-input-container>
@@ -43,7 +43,7 @@
             <div class="border"></div>
             <label>Create Password</label>
             <input ng-model="join.acceptAction.field('password').value" type="password">
-            <div ng-messages="join.acceptAction.field('password').$error" class="input-message">
+            <div ng-messages="join.acceptAction.field('password').$error" ng-show="join.acceptAction.field('password').$error" class="input-message">
               <div ng-message="message">{{ join.acceptAction.field('password').$error.message }}</div>
             </div>
           </md-input-container>
@@ -53,7 +53,7 @@
             <div class="border"></div>
             <label>Phone</label>
             <input ng-model="join.acceptAction.field('phone').value" type="text">
-            <div ng-messages="join.acceptAction.field('phone').$error" class="input-message">
+            <div ng-messages="join.acceptAction.field('phone').$error" ng-show="join.acceptAction.field('phone').$error" class="input-message">
               <div ng-message="message">{{ join.acceptAction.field('phone').$error.message }}</div>
             </div>
           </md-input-container>
@@ -61,7 +61,7 @@
             <div class="border"></div>
             <label>State/Province</label>
             <input ng-model="join.acceptAction.field('state').value" type="text">
-            <div ng-messages="join.acceptAction.field('state').$error" class="input-message">
+            <div ng-messages="join.acceptAction.field('state').$error" ng-show="join.acceptAction.field('state').$error" class="input-message">
               <div ng-message="required">required</div>
               <div ng-message="message">{{ join.acceptAction.field('state').$error.message }}</div>
             </div>
@@ -70,14 +70,14 @@
             <div class="border"></div>
             <label>Postal Code</label>
             <input ng-model="join.acceptAction.field('zip').value" type="text">
-            <div ng-messages="join.acceptAction.field('zip').$error" class="input-message">
+            <div ng-messages="join.acceptAction.field('zip').$error" ng-show="join.acceptAction.field('zip').$error" class="input-message">
               <div ng-message="required">required</div>
               <div ng-message="message">{{ join.acceptAction.field('zip').$error.message }}</div>
             </div>
           </md-input-container>
         </div>
         <div layout="column" layout-align="center center">
-          <md-button ng-disabled="join.acceptAction.submitting" class="md-raised">enter <b>the powur grid</b></md-button>
+          <md-button ng-click="join.acceptSubmit()" ng-disabled="join.acceptAction.submitting" class="md-raised">enter <b>the powur grid</b></md-button>
         </div>
         <div class="terms" layout="column" layout-align="center center">
           <div>By clicking on this button, you also accept the <a href="{{ join.termsPath }}" target="_blank">terms & conditions</a></div>

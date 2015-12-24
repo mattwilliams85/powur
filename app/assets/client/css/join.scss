@@ -87,7 +87,7 @@
     }
 
     .key {
-    
+
       text-transform: uppercase;
 
       label {
@@ -176,6 +176,11 @@
           font-size: medium;
           font-weight: 600;
         }
+
+        .border {
+          margin-top: 25px;
+        }
+
         &:last-child {
           .border {
             width: 100%;

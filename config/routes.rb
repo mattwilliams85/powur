@@ -37,7 +37,11 @@ Rails.application.routes.draw do
 
   # anonymous routes
   scope module: :anon do
-    resource :login, controller: :session, only: [ :show, :create, :destroy ]
+    resource :login, controller: :session, only: [ :show, :create, :destroy ] do
+      member do
+        get :assets
+      end
+    end
 
     resource :password, only: [ :show, :create, :new ] do
       member do
@@ -54,6 +58,9 @@ Rails.application.routes.draw do
     end
 
     resources :customers, only: [ :show, :update ]
+
+    resources :users, as: :anon_users, only: [ :show ]
+    resources :leads, as: :anon_leads, only: [ :show, :create, :update ]
   end
 
   # logged in user routes
@@ -69,8 +76,10 @@ Rails.application.routes.draw do
 
     resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
       member do
-        post :resend
-        post :submit
+        post :resend, :submit, :invite
+      end
+      collection do
+        get :team
       end
     end
 
@@ -124,14 +133,6 @@ Rails.application.routes.draw do
         get :leaderboard
       end
 
-      resources :leads, only: [ :index ]
-      resource :goals, only: [ :show ]
-      resources :order_totals, only: [ :index ]
-      resources :user_activities, only:       [ :index, :show ],
-                                  controller: :user_activities
-      resources :pay_periods, only:       [ :index, :show ],
-                              controller: :user_pay_periods
-
       member do
         get :downline
         get :full_downline
@@ -139,7 +140,20 @@ Rails.application.routes.draw do
         post :move
         get :eligible_parents
         get :sponsors
+        get :grid_summary
       end
+
+      resources :leads, only: [ :index ] do
+        collection do
+          get :summary
+        end
+      end
+      resource :goals, only: [ :show ]
+      resources :order_totals, only: [ :index ]
+      resources :user_activities, only:       [ :index, :show ],
+                                  controller: :user_activities
+      resources :pay_periods, only:       [ :index, :show ],
+                              controller: :user_pay_periods
     end
 
     resources :earnings,

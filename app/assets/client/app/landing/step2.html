@@ -1,0 +1,155 @@
+<div layout="column" class="landing">
+  <div class="header" layout="row" layout-padding>
+    <div flex-gt-sm="50" layout="row" layout-fill>
+      <div flex-gt-sm="30"></div>
+      <div flex layout="column" layout-align="center start" class="logo-wrapper"></div>
+    </div>
+    <div flex-gt-sm="50" show-gt-sm></div>
+  </div>
+
+  <div class="bg0" layout="row" layout-align="center center" layout-padding>
+    <div flex-gt-sm="20"></div>
+    <div flex class="quote">
+      “You could power the entire United States with about 150 to 200 square kilometers of solar panels..., the entire United States.”
+      <br><br>
+      <div class="who">- Elon Musk, Founder of SolarCity</div>
+    </div>
+    <div flex-gt-sm="20"></div>
+  </div>
+
+  <div class="bg6" layout="column">
+    <div class="title">Congratulations, solar is available in your area!</div>
+    <div class="subtitle">Hundreds of your neighbors have gone solar with us already.</div>
+    <div layout="row" layout-align="center start">
+      <div class="col black" flex="50" hide show-gt-xs>
+        <div class="text-box">
+          <div class="header">Get A Free Quote from SolarCity</div>
+          <span>It starts with a 10-minute call. That’s how long it typically takes to see if your home is a good candidate for solar panels. We’ll ask a few easy questions about your energy use and take a look at your roof with satellite imaging.</span>
+          <div class="monitor"></div>
+        </div>
+      </div>
+      <div class="col white" flex="100" flex-gt-xs="50">
+        <form ng-submit="landing.submitLead()" name="leadSubmitForm" novalidate layout-padding>
+          <div class="form" layout="column">
+            <md-input-container>
+              <div class="border"></div>
+              <label>First Name</label>
+              <input name="first_name" ng-model="landing.leadAction.field('first_name').value" type="text">
+              <div ng-messages="landing.leadAction.field('first_name').$error">
+                <div class="capitalize">{{ landing.leadAction.field('first_name').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>Last Name</label>
+              <input name="last_name" ng-model="landing.leadAction.field('last_name').value" type="text" required="">
+              <div ng-messages="landing.leadAction.field('last_name').$error">
+                <div class="capitalize">{{ landing.leadAction.field('last_name').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>Street Address</label>
+              <input name="address" ng-model="landing.leadAction.field('address').value" type="text">
+              <div ng-messages="landing.leadAction.field('address').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('address').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>City</label>
+              <input name="city" ng-model="landing.leadAction.field('city').value" type="text">
+              <div ng-messages="landing.leadAction.field('city').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('city').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>State</label>
+              <input name="state" ng-model="landing.leadAction.field('state').value" type="text">
+              <div ng-messages="landing.leadAction.field('state').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('state').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>Zip</label>
+              <input name="zip" ng-model="landing.leadAction.field('zip').value" type="text">
+              <div ng-messages="landing.leadAction.field('zip').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('zip').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>Phone</label>
+              <input name="phone" ng-model="landing.leadAction.field('phone').value" type="text">
+              <div ng-messages="landing.leadAction.field('phone').$error">
+                  <div class="capitalize">{{ landing.leadAction.field('phone').$error.message }}</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>Email </label>
+              <input name="email" ng-model="landing.leadAction.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+              <div ng-messages="landing.leadAction.field('email').$error">
+                <div class="capitalize">{{ landing.leadAction.field('email').$error.message }}</div>
+                <div ng-message="pattern">Must be a valid email address</div>
+              </div>
+            </md-input-container>
+            <div class="spacer"></div>
+            <div class="msg">The more you spend on electricity, the more we can save you. <br>What’s your average electricity bill?</div>
+            <md-input-container>
+              <div class="border"></div>
+              <label>Average Bill </label>
+              <input name="average_bill" ng-model="landing.leadAction.field('average_bill').value" type="average_bill" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+              <div ng-messages="landing.leadAction.field('average_bill').$error">
+                <div class="capitalize">{{ landing.leadAction.field('average_bill').$error.message }}</div>
+                <div ng-message="pattern">Must be a valid average_bill address</div>
+              </div>
+            </md-input-container>
+
+<!--             <div>
+              <input name="reach_concent" ng-model="landing.leadAction.field('reach_concent').value" type="checkbox">
+              <span>I consent to have SolarCity reach out to me via phone to inquire about solar</span>
+            </div> -->
+          </div>
+
+<!--           <div class="msg">The more you spend on electricity, the more we can save you. <br>What’s your average electricity bill?</div>
+          <div class="slider">
+            <md-slider flex min="0" max="500" md-discrete ng-model="landing.leadAction.field('average_bill').value" aria-label="monthly" id="monthly-slider" class="md-primary"></md-slider>
+          </div> -->
+
+          <md-button class="md-raised md-primary" ng-click="landing.submitLead()" ng-disabled="landing.leadAction.submitting">CALCULATE YOUR SOLAR SAVINGS</md-button>
+          <md-input-container ng-show="landing.leadAction.$error">
+            <div ng-messages="landing.leadAction.$error">
+              <div class="capitalize">{{ landing.leadAction.$error.message }}</div>
+            </div>
+          </md-input-container>
+
+          <div class="disclaimer">By clicking here, I agree that SolarCity can contact me via automated technology and/or pre-recorded messages using the number provided. I understand that this consent is not required to make a purchase. I consent to have SolarCity reach out to me via phone to inquire about solar.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg4" layout="column" layout-align="center center" layout-padding>
+    <div layout="column" layout-align="center center">
+      <div class="headline">Truly Reliable Partnership</div>
+      <div class="msg">SolarCity’s revolutionizing the energy industry with the strong support of partners who have funded billions of dollars worth of solar projects with us. They know that clean, more affordable solar power is the bright solution for homeowners, their investors, the environment and the future.</div>
+    </div>
+    <div class="companies" layout="column" layout-gt-sm="row" layout-wrap layout-padding>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-google"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-goldman-sachs"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-honda"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-citibank"></i></div>
+      <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-usbancorp"></i></div>
+    </div>
+  </div>
+</div>

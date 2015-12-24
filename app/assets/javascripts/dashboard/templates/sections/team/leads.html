@@ -72,7 +72,7 @@
                   <span>{{ leadPipelineSection.statusText(lead) }}</span>
                 </div>
                 <div class="customer-name">
-                  <span>{{lead.properties.customer}}</span>
+                  <span>{{ lead.properties.first_name }} {{ lead.properties.last_name }}</span>
                 </div>
                 <div class="date-text">
                   <span>Created {{ lead.properties.created_at | dateToLocalDate }}</span>

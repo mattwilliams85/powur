@@ -1,10 +1,17 @@
 DEFAULTS: &DEFAULTS
   user: advocate
   product: solar
-  customer: bob
   data_status: <%= Lead.data_statuses['submitted'] %>
   submitted_at: <%= 1.day.ago %>
   provider_uid: $LABEL_uid
+  first_name: Bob
+  last_name: Sanford
+  email: bob.sanford@eyecuelab.com
+  phone: 310.555.1212
+  address: 42 Cherry Lane
+  city: Shellnob
+  state: MO
+  zip: 90210
 
 unowned:
   <<: *DEFAULTS
@@ -14,10 +21,10 @@ unowned:
   provider_uid:
 incomplete:
   <<: *DEFAULTS
-  customer: no_phone
   data_status: <%= Lead.data_statuses['incomplete'] %>
   submitted_at:
   provider_uid:
+  phone:
 ready_to_submit:
   <<: *DEFAULTS
   submitted_at:
@@ -29,10 +36,12 @@ submitted_new_update:
   <<: *DEFAULTS
 search_hit1:
   <<: *DEFAULTS
-  customer: garey
+  first_name: Garey
+  last_name: Aaaa
 search_hit2:
   <<: *DEFAULTS
-  customer: garry
+  first_name: Garry
+  last_name: Zzzz
 search_miss:
   <<: *DEFAULTS
 child:

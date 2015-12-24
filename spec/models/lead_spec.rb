@@ -1,6 +1,24 @@
 require 'spec_helper'
 
 describe Lead do
+  describe '#save' do
+    let(:lead) { create(:lead) }
+
+    context 'when address is longer that 40 chars' do
+      it 'should fail' do
+        lead.address = 's' * 41
+        expect(lead.save).to be false
+      end
+    end
+
+    context 'when address is under 41 chars' do
+      it 'should save' do
+        lead.address = 's' * 40
+        expect(lead.save).to be true
+      end
+    end
+  end
+
   describe '#destroy' do
     before do
       allow(Lead).to receive(:eligible_zip?).and_return(true)
