@@ -4,6 +4,8 @@ module Auth
     before_action :fetch_leads, only: [ :index, :team, :destroy, :resend ]
     before_action :fetch_lead,
                   only: [ :show, :update, :destroy, :resend, :submit, :invite ]
+    before_action :validate_owner,
+                  only: [ :update, :destroy, :submit ]
 
     page max_limit: 10
     sort created:  { created_at: :desc },
@@ -143,6 +145,10 @@ module Auth
 
     def lead_data_input
       allow_input(*product.quote_fields.map(&:name))
+    end
+
+    def validate_owner
+      not_found!(:lead) unless @lead.user_id == current_user.id
     end
   end
 end
