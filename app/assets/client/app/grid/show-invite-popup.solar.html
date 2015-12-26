@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <md-button class="md-primary md-raised" ng-click="dialog.editMode = true">Edit</md-button>
+      <md-button ng-if="dialog.ownedByCurrentUser" class="md-primary md-raised" ng-click="dialog.editMode = true">Edit</md-button>
 
       <br>
       <md-divider></md-divider>
@@ -39,15 +39,15 @@
       </md-content>
 
       <br>
-      <md-divider></md-divider>
+      <md-divider ng-if="dialog.ownedByCurrentUser"></md-divider>
       <br>
 
-      <md-button class="md-primary md-raised" ng-show="dialog.submitAction" ng-click="dialog.submitToSC()" ng-disabled="dialog.submitAction.submitting">Submit To Solar City</md-button>
+      <md-button ng-if="dialog.ownedByCurrentUser" class="md-primary md-raised" ng-show="dialog.submitAction" ng-click="dialog.submitToSC()" ng-disabled="dialog.submitAction.submitting">Submit To Solar City</md-button>
       <div ng-messages="dialog.submitAction.$error" ng-show="dialog.submitAction && dialog.submitAction.$error" class="messages">
         <div ng-message="message">{{ dialog.submitAction.$error.message }}</div>
       </div>
       <md-button class="md-primary md-raised" ng-click="dialog.sendInvite()" ng-disabled="dialog.sendInviteAction.submitting" ng-if="dialog.sendInviteAction">Send Invite</md-button>
-      <md-button class="md-warn md-raised" ng-click="dialog.remove()" ng-disabled="dialog.delete.submitting">Delete</md-button>
+      <md-button ng-if="dialog.ownedByCurrentUser" class="md-warn md-raised" ng-click="dialog.remove()" ng-disabled="dialog.delete.submitting">Delete</md-button>
     </div>
 
     <div aria-label="Invite" ng-show="dialog.editMode">
