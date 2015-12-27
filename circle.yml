@@ -29,3 +29,4 @@ test:
     - bundle exec rspec spec:
         parallel: true
     - rake test
+    - gulp test
