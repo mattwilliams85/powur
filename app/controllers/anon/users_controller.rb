@@ -5,7 +5,7 @@ module Anon
     private
 
     def fetch_user
-      @user = User.partners.find_by(id: params[:id])
+      @user = User.find_by(id: params[:id])
       not_found!(:user) if @user.nil?
     end
   end
