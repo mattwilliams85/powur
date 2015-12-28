@@ -558,7 +558,7 @@ CREATE TABLE leads (
     invite_status integer DEFAULT 0,
     last_viewed_at timestamp without time zone,
     mandrill_id character varying,
-    call_consented boolean DEFAULT true
+    call_consented boolean DEFAULT false
 );
 
 
@@ -3104,3 +3104,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151222193105');
 INSERT INTO schema_migrations (version) VALUES ('20151222212620');
 
 INSERT INTO schema_migrations (version) VALUES ('20151222213336');
+
+INSERT INTO schema_migrations (version) VALUES ('20151228173756');
+

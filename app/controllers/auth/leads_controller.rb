@@ -113,7 +113,8 @@ module Auth
       scope = Lead
         .includes(:user, :product)
         .references(:user, :product)
-      scope = scope.where(user_id: @user.id) if @user
+      scope = scope
+        .where(user_id: @user.id) if @user && action_name != 'team'
       days = params[:days].to_i
       scope = scope.where('leads.created_at > ?',
                           days.days.ago) if days > 0
@@ -134,7 +135,8 @@ module Auth
 
     def lead_input
       allow_input(:first_name, :last_name, :email,
-                  :phone, :address, :city, :state, :zip, :notes, :call_consented)
+                  :phone, :address, :city, :state, :zip,
+                  :notes, :call_consented)
     end
 
     def product

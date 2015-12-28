@@ -39,7 +39,8 @@ unless lead.submitted?
     .field(:state, :text, required: false, value: lead.state)
     .field(:zip, :text, required: false, value: lead.zip)
     .field(:notes, :text, required: false, value: lead.notes)
-    .field(:call_consented, :boolean, required: false, value: lead.call_consented)
+    .field(:call_consented, :boolean,
+           required: false, value: lead.call_consented)
 
   lead.product.quote_fields.each do |field|
     opts = {
@@ -63,16 +64,14 @@ unless lead.submitted?
   actions_list << update
   actions_list << action(:resend, :post, resend_lead_path(lead))
   actions_list << action(:delete, :delete, lead_path(lead))
-  actions_list << action(:submit, :post, submit_lead_path(lead)) if lead.ready_to_submit?
-  actions_list << action(:invite, :post, invite_lead_path(lead)) if lead.not_sent?
+  if lead.ready_to_submit?
+    actions_list << action(:submit, :post, submit_lead_path(lead))
+  end
+  if lead.not_sent?
+    actions_list << action(:invite, :post, invite_lead_path(lead))
+  end
 end
 
 actions(*actions_list)
-
-# entity_list = []
-# entity_list << entity(%w(email),
-#                       'invite-email',
-#                       email_product_invite_path(lead.customer.id)) if lead.customer
-# entities(*entity_list)
 
 self_link lead_path(lead)

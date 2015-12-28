@@ -11,7 +11,7 @@
 //= require angular-aria/angular-aria.min
 //= require angular-animate/angular-animate.min
 //= require angular-material/angular-material.min
-//= require angular-messages/angular-messages.min
+//= require angular-messages/angular-messages
 //= require eyecue-chartjs/Chart
 
 // NOTE: make sure to load template first
