@@ -59,10 +59,9 @@ unless lead.submitted?
     end
 
     update.field(field.name, field.view_type, opts)
-
-    actions_list << update
   end
 
+  actions_list << update
   actions_list << action(:resend, :post, resend_lead_path(lead))
   actions_list << action(:delete, :delete, lead_path(lead))
   if lead.ready_to_submit?
