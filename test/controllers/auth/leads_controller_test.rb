@@ -112,11 +112,12 @@ module Auth
         post :submit, id: lead.id
       end
 
+      siren.wont_be_error
       siren.properties.provider_uid.wont_be_nil
       siren.props_must_equal(data_status: 'submitted')
     end
 
-  #   # TODO: tests for resend and submit
+    #   # TODO: tests for resend and submit
 
     class AdminTest < ActionController::TestCase
       def setup

@@ -114,6 +114,10 @@ module TestResponse
       error.wont_be_nil
     end
 
+    def wont_be_error
+      error.must_be_nil
+    end
+
     def link(rel)
       links && (link = links.find { |l| l.rel == rel.to_s }) && link.href
     end
