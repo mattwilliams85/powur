@@ -106,6 +106,8 @@ module Auth
     def test_submit_lead
       lead = leads(:ready_to_submit)
 
+      # ENV.delete('SIMULATE_LEAD_SUBMIT')
+      # ENV['SOLAR_CITY_LEAD_URL'] = 'https://sctypowur.cloudhub.io/powur'
       VCR.use_cassette('quotes/success') do
         post :submit, id: lead.id
       end
