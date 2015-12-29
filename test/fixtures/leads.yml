@@ -9,9 +9,11 @@ DEFAULTS: &DEFAULTS
   email: bob.sanford@eyecuelab.com
   phone: 310.555.1212
   address: 42 Cherry Lane
-  city: Shellnob
-  state: MO
+  city: Los Angeles
+  state: CA
   zip: 90210
+  data:
+    average_bill: 175
 
 unowned:
   <<: *DEFAULTS
@@ -30,6 +32,7 @@ ready_to_submit:
   submitted_at:
   provider_uid:
   data_status: <%= Lead.data_statuses['ready_to_submit'] %>
+  notes: "Powur Test Lead, please ignore"
 submitted:
   <<: *DEFAULTS
 submitted_new_update:

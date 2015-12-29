@@ -8,7 +8,7 @@ class SolarCityForm
   def post
     url = ENV['SOLAR_CITY_LEAD_URL']
     @response = RestClient::Request.execute(
-      method:       :post,
+      method:       :put,
       url:          url,
       payload:      post_body,
       timeout:      10,
