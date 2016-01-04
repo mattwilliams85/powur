@@ -21,9 +21,13 @@
 
     $scope.updateProfile = function() {
       if ($scope.userProfile) {
-        UserProfile.update({user: $scope.userProfile}).then(function() {
-          $anchorScroll();
-          $scope.showModal('Personal information successfully updated');
+        UserProfile.update({user: $scope.userProfile}).then(function(data) {
+          if (data.error) {
+            $scope.showModal(data.error.message);
+          } else {
+            $anchorScroll();
+            $scope.showModal('Personal information successfully updated');
+          }
         });
       }
     };
