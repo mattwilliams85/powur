@@ -390,6 +390,9 @@
         &.lost, &.not_sent, &.incomplete {
           background: #aaa;
         }
+        img {
+          width: 100%;
+        }
       }
 
       .state {
