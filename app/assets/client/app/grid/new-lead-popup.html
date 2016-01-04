@@ -1,15 +1,12 @@
-<md-dialog aria-label="Lead" class="dialog invite-popup fill-height">
+<md-dialog aria-label="Lead" class="pw-dialog">
   <form ng-show="!dialog.isEligible" layout="row" ng-submit="dialog.verifyEligibility()" novalidate autocomplete="off">
     <div class="side-bg"></div>
     <div layout="column" flex>
-      <div class="banner solar" hide-sm>
-        <span class="title">Add Lead</span>
-      </div>
       <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
       <md-dialog-content layout="column">
         <div class="heading padded"><div class="title">verify<b> eligibility</b></div></div>
         <md-content layout="row">
-          <md-input-container>
+          <md-input-container flex="70">
             <label>homeowner zipcode</label>
             <input ng-model="dialog.verifyEligibilityAction.field('zip').value" autocomplete="off" md-autofocus>
             <div ng-messages="dialog.verifyEligibilityAction.field('zip').$error" ng-show="dialog.verifyEligibilityAction.field('zip').$error" class="messages">
@@ -28,9 +25,6 @@
   <form ng-show="dialog.isEligible && !dialog.lead" ng-submit="dialog.create()" layout="row" novalidate autocomplete="off">
     <div class="side-bg"></div>
     <div layout="column" flex>
-      <div class="banner solar" hide-sm>
-        <span class="title">Add Lead</span>
-      </div>
       <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
       <md-dialog-content layout="column">
         <div class="heading padded"><div class="title">enter<b> contact information</b></div></div>
@@ -45,8 +39,8 @@
           </md-input-container>
         </md-content>
 
-        <md-content>
-          <md-input-container class="no-margin">
+        <!-- <md-content> -->
+          <md-input-container class="no-margin no-padding">
             <div ng-messages="dialog.createAction.field('first_name').$error" ng-show="dialog.createAction.field('first_name').$error" class="messages">
               <div ng-message="message">{{ dialog.createAction.field('first_name').$error.message }}</div>
             </div>
@@ -54,7 +48,7 @@
               <div ng-message="message">{{ dialog.createAction.field('last_name').$error.message }}</div>
             </div>
           </md-input-container>
-        </md-content>
+        <!-- </md-content> -->
 
         <md-content layout="column">
           <md-input-container>
@@ -83,9 +77,6 @@
   <form ng-show="dialog.isEligible && dialog.lead" layout="row" novalidate autocomplete="off">
     <div class="side-bg"></div>
     <div layout="column" flex>
-      <div class="banner solar" hide-sm>
-        <span class="title">Add Lead</span>
-      </div>
       <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
       <md-dialog-content layout="column">
         <div class="heading padded"><div class="title">enter<b> household information</b></div></div>

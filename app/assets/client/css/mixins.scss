@@ -16,3 +16,9 @@
 
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 );
 }
+
+// Greater than medium screen
+$gt-md: 'screen and (min-width: 1281px)';
+
+// smaller screens and smart phones
+$sm: 'screen and (max-width: 720px)';

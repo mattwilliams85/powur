@@ -1,8 +1,8 @@
-<md-dialog aria-label="Invite" class="dialog grid-popup solar pw-grid">
+<md-dialog aria-label="Invite" class="solar pw-grid pw-dialog">
   <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
-  <md-dialog-content layout="column" class="rigid">
+  <md-dialog-content layout="column">
     <div ng-hide="dialog.editMode" layout="column">
-      <div class="side-bg" hide-xs></div>
+      <div class="side-bg"></div>
       <div class="name">{{ dialog.lead.properties.first_name }} <b>{{ dialog.lead.properties.last_name }}</b></div>
       <div class="detail">Lead ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
       <div layout="row" class="overview">
@@ -55,7 +55,7 @@
       <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
       <form ng-submit="dialog.updateInvite()" name="updateInviteForm" novalidate autocomplete="off">
         <div-content layout="column">
-          <div class="side-bg" hide-xs></div>
+          <div class="side-bg"></div>
 
           <md-tabs md-stretch-tabs md-no-pagination>
             <md-tab ng-click="dialog.editTab = null">Contact Info</md-tab>
@@ -64,7 +64,7 @@
 
           <br>
 
-          <section layout="column" ng-hide="dialog.editTab">
+          <section layout="column" ng-hide="dialog.editTab" class="fixed-lg">
             <br hide-gt-sm>
             <md-content layout="row">
               <md-input-container flex="50">
@@ -109,7 +109,7 @@
           </section>
 
 
-          <section layout="column" ng-show="dialog.editTab">
+          <section layout="column" ng-show="dialog.editTab" class="fixed-lg">
             <md-content layout="column">
               <md-input-container>
                 <label>STREET ADDRESS</label>

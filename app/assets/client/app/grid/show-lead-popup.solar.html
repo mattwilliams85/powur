@@ -1,7 +1,7 @@
-<md-dialog aria-label="Invite" class="dialog grid-popup solar pw-grid">
+<md-dialog aria-label="Invite" class="pw-dialog solar pw-grid">
     <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
     <md-dialog-content layout="column">
-      <div class="side-bg" hide-xs layout-fill></div>
+      <div class="side-bg" layout-fill></div>
       <div class="name">{{ dialog.lead.properties.first_name }} <b>{{ dialog.lead.properties.last_name }}</b></div>
       <div class="detail">Proposal ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
       <div layout="row" class="overview">

@@ -1,11 +1,13 @@
-<md-dialog aria-label="Invite" class="dialog invite-popup show">
+<md-dialog aria-label="Invite" class="pw-dialog show">
   <div class="side-bg"></div>
     <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
     <md-dialog-content layout="column">
       <div class="full-name">{{dialog.invite.properties.first_name}}<b> {{dialog.invite.properties.last_name}}</b></div>
       <div class="detail">{{dialog.invite.properties.phone}}</div>
       <div class="detail">{{dialog.invite.properties.email}}</div>
+      <br>
       <md-button class="md-primary md-raised" ng-click="dialog.parentCtrl.inviteUpdate($event,dialog.invite)">Edit</md-button>
+      <br>
       <md-content layout="column" class="link-wrap">
         <div class="header">Invite Link: </div>
         <input class="link" value="{{dialog.showLink(dialog.invite.properties, 'grid')}}" readonly>
@@ -25,6 +27,7 @@
       <md-content layout="column" class="status-wrap">
         <div ng-if="dialog.invite.properties.email_data">{{ dialog.invite.properties.email_data.state_description }}</div>
       </md-content>
+      <br>
       <md-button ng-if="!dialog.invite.properties.time_left" class="md-primary md-raised" ng-disabled="dialog.resend.submitting" ng-click="dialog.resendInvite()">Resend</md-button>
       <md-button class="md-warn md-raised" ng-click="dialog.remove()" ng-disabled="dialog.delete.submitting">Delete</md-button>
     </md-dialog-content>
