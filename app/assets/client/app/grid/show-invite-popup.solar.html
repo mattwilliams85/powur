@@ -13,6 +13,7 @@
         <div layout="column" flex="35">
           <div class="header">ADDRESS</div>
           <div>{{ dialog.lead.properties.address }}</div>
+          <div>{{ dialog.lead.properties.city }}<span ng-if="dialog.lead.properties.city && dialog.lead.properties.state">,</span> {{ dialog.lead.properties.state }}</div>
         </div>
         <div layout="column" flex="35">
           <div class="header">CONTACT INFO</div>
