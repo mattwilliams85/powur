@@ -85,6 +85,7 @@ class MatchingBonus < Bonus
     return :no_sponsor unless user.sponsor_id?
     sponsor = sponsors[user.sponsor_id]
     return :unqualified_sponsor if sponsor.nil?
+    return :terminated_sponsor if sponsor.terminated?
 
     bonus_data = { matched_user: user.id }
 

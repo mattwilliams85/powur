@@ -35,7 +35,10 @@ class GenerationalBonus < Bonus
     user = nil
     loop do
       user = upline.shift
-      break if user.nil? || user_qualified?(user, bonus_level, pay_period_id)
+      break if user.nil?
+      if !user.terminated? && user_qualified?(user, bonus_level, pay_period_id)
+        break
+      end
     end
     user
   end

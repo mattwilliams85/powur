@@ -151,6 +151,7 @@ class CodedBonus < Bonus
 
     code = user_code(lead.user_id)
     return :not_coded unless code
+    return :terminated if code.coded_user.terminated?
 
     payment = new_bonus_payment(calculator, lead, code, status)
     unless qualified_lead_number?(payment.lead_number)

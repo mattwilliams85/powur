@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
-                 :notifications_read_at,
-                 :ewallet_username, :mailchimp_id, :last_login_streak_at
+                 :notifications_read_at, :ewallet_username, :mailchimp_id,
+                 :last_login_streak_at, :terminated
 
   EMAIL_UNIQUE = { message: 'This email is taken', case_sensitive: false }
   validates :email,
@@ -222,6 +222,10 @@ class User < ActiveRecord::Base
     opts = Rails.configuration.action_mailer.default_url_options
     URI.join("#{opts[:protocol]}://#{opts[:host]}",
              'next/getsolar/', id.to_s).to_s
+  end
+
+  def terminated?
+    terminated == 'true'
   end
 
   # def reconcile_invites

@@ -85,6 +85,8 @@ class DifferentialBonus < Bonus
 
     percentage_used = 0.0
     while (user = upline.shift)
+      next if user.terminated?
+
       pay_as_rank = user.pay_period_rank(calculator.pay_period.id)
       percentage = calculate_payment_percent(pay_as_rank, percentage_used)
       next unless percentage

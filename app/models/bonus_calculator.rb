@@ -55,11 +55,14 @@ class BonusCalculator
   end
 
   def user_upline(user, sponsor = false)
-    if sponsor
-      sponsor_upline(user)
-    else
-      user.parent_ids.reverse.map { |user_id| find_user(user_id) }
-    end
+    upline =
+      if sponsor
+        sponsor_upline(user)
+      else
+        user.parent_ids.reverse.map { |user_id| find_user(user_id) }
+      end
+
+    upline.reject(&:terminated?)
   end
 
   def compressed_user_upline(user)
