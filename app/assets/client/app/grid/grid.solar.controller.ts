@@ -121,6 +121,9 @@ module powur {
 
     sendInvite() {
       this.sendInviteAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var newLead = new SirenModel(response.data);
+        this.lead.properties = newLead.properties;
+        this.lead.actions = newLead.actions;
         this.$mdDialog.hide();
       });
     }
@@ -134,7 +137,11 @@ module powur {
 
     submitToSC() {
       this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var newLead = new SirenModel(response.data);
+        this.lead.properties = newLead.properties;
+        this.lead.actions = newLead.actions;
         this.$mdDialog.cancel();
+        this.parentCtrl.showLead(null, this.lead);
       });
     }
 

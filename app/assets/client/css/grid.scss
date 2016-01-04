@@ -180,6 +180,10 @@
     user-select: none;
     position: relative;
 
+    &.no-margin {
+      margin: 0;
+    }
+
     &.light {
       background-color: #F3F3F3;
       color: #666;
