@@ -103,25 +103,6 @@
       <div flex-gt-sm="20" class="corp-wrapper"><i class="corp corp-usbancorp"></i></div>
     </div>
   </div>
-
-  <div class="bg5" layout="row" layout-align="center center ">
-    <form name="zipForm" ng-submit="landing.validateZip()">
-      <div layout="column" layout-gt-sm="row" layout-align="center end">
-        <div flex-gt-sm="40" class="form-section msg" layout="row" layout-align="center center">Find out what you can save</div>
-        <div flex-gt-sm="45" class="form-section" layout="row" layout-align="center center">
-          <md-input-container>
-            <div class="border"></div>
-            <label>YOUR ZIP CODE</label>
-            <input ng-model="landing.validateZipAction.field('zip').value" name="zip" type="text">
-            <div ng-messages="landing.validateZipAction.field('zip').$error" ng-show="landing.validateZipAction.field('zip').$error">
-              <div ng-message="message" class="messages">{{ landing.validateZipAction.field('zip').$error.message }}</div>
-            </div>
-          </md-input-container>
-        </div>
-        <div flex-gt-sm="15" class="form-section form-actions" layout="row" layout-align="center center">
-          <md-button class="md-primary" ng-click="landing.validateZip()">LET'S GO!</md-button>
-        </div>
-      </div>
-    </form>
-  </div>
 </div>
+
+<pw-footer></pw-footer>

@@ -1,0 +1,57 @@
+.pw-footer {
+  font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans-serif;
+  padding: 64px 96px 160px;
+  overflow: auto;
+  background: #383838;
+  text-align: center;
+  color: white;
+  text-align: left;
+
+  // No Select
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .col {
+    width: 224px;
+    float: left;
+  }
+
+  .clearfix {
+    &:before, &:after {
+      content: " ";
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
+  }
+
+  ul {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  li {
+    list-style: none;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 32px;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}

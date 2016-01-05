@@ -21,6 +21,7 @@
 //= require layout/hud
 //= require layout/home
 //= require components/activity
+//= require components/footer
 
 //= require invite/layout
 //= require invite/new-invite-popup.grid
@@ -85,6 +86,7 @@
 /// <reference path='app/components/title.directive.ts' />
 /// <reference path='app/components/activity.controller.ts' />
 /// <reference path='app/components/activity.directive.ts' />
+/// <reference path='app/components/footer.directive.ts' />
 
 /// <reference path='app/layout/powur.layout.ts' />
 /// <reference path='app/layout/root.controller.ts' />
