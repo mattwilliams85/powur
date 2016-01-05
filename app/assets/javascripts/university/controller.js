@@ -7,6 +7,7 @@
     UserProfile.get().then(function(data) {
       $rootScope.currentUser = data.properties;
     });
+    $scope.legacyImagePaths = legacyImagePaths;
 
     function getAction(actions, name) {
       for (var i in actions) {

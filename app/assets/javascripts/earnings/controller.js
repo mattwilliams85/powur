@@ -8,6 +8,7 @@
                                 { value: 'weekly', title: 'Weekly' } ];
     $scope.selectedFilter = { span: 'monthly' };
     $scope.animating = false;
+    $scope.legacyImagePaths = legacyImagePaths;
 
     UserProfile.get().then(function(data) {
       $scope.currentUser = data.properties;
