@@ -54,9 +54,19 @@
         <div class="headline">Meet {{ landing.rep.properties.first_name }},</div>
         <div class="headline">your Personal Solar Concierge</div>
         <p>I'm passionate about solar for many reasons. It's free to install, it saves my customers money each month, and it's the right thing to do for the environment and the health of future generations.  I encourage you to get your free proposal below, and discover the benefits for you and your family.</p>
-        <!-- <div>
-          <md-button class="md-primary" ng-click="landing.getSavings()">GET YOUR SOLAR SAVINGS</md-button>
-        </div> -->
+        <div>
+          <md-input-container>
+            <div class="border"></div>
+            <label>YOUR ZIP CODE</label>
+            <input ng-model="landing.validateZipAction.field('zip').value" name="zip" type="text">
+            <div ng-messages="landing.validateZipAction.field('zip').$error" ng-show="landing.validateZipAction.field('zip').$error">
+              <div ng-message="message" class="messages">{{ landing.validateZipAction.field('zip').$error.message }}</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div>
+          <md-button class="md-primary" ng-click="landing.validateZip()">GET YOUR SOLAR SAVINGS</md-button>
+        </div>
       </div>
       <div flex-gt-sm="30"></div>
     </div>
