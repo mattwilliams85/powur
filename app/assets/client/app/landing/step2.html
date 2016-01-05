@@ -126,7 +126,7 @@
             <md-slider flex min="0" max="500" md-discrete ng-model="landing.leadAction.field('average_bill').value" aria-label="monthly" id="monthly-slider" class="md-primary"></md-slider>
           </div> -->
 
-          <md-button class="md-raised md-primary" ng-click="landing.submitLead()" ng-disabled="landing.leadAction.submitting">CALCULATE YOUR SOLAR SAVINGS</md-button>
+          <md-button class="md-raised md-primary" ng-click="landing.submitLead()" ng-disabled="landing.leadAction.submitting">GET A FREE QUOTE</md-button>
           <md-input-container ng-show="landing.leadAction.$error">
             <div ng-messages="landing.leadAction.$error">
               <div class="capitalize">{{ landing.leadAction.$error.message }}</div>
