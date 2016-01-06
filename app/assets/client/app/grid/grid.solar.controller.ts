@@ -361,7 +361,7 @@ module powur {
 
     reloadPage() {
       this.searchQuery = null;
-      this.leads.properties.paging.current_page = 0;
+      this.leads.properties.paging.current_page = 1;
       this.leads.entities = [];
       this.changePage(this.currentPage);
     }
