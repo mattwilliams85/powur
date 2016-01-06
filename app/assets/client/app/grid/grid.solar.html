@@ -267,7 +267,7 @@
                    class="flex-wrap">
                 <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
                                  ng-value="'submitted'"
-                                 aria-label="submitted" 
+                                 aria-label="submitted"
                                  class="short">
                                  All
                 </md-radio-button>
@@ -433,7 +433,7 @@
                hide show-gt-sm
                layout="row"
                layout-align="start center">
-            <span class="text-sm move">{{ lead.properties.action_copy || '---' }}</span>
+            <span class="text-sm move">{{ lead.properties.action_copy || 'This lead is ready to submit. Examine the information, and submit to SolarCity at your earliest convenience.' }}</span>
           </div>
         </div>
         <md-divider hide show-gt-sm></md-divider>
