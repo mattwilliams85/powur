@@ -173,6 +173,7 @@ module powur {
     summaryFilters: any = {};
     phaseFilter: string = 'pending';
     reloading: boolean;
+    pageList: number[] = [];
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -192,6 +193,8 @@ module powur {
       $timeout(function() {
         angular.element('.test').trigger('click');
       }, 100);
+
+      this.pageArray();
     }
 
     addLead(e: MouseEvent) {
@@ -300,24 +303,27 @@ module powur {
       return this.home.assets.defaultProfileImg;
     }
 
-    get currentPage(): any {
+    get currentPage(): number {
       return this.leads.properties.paging.current_page;
     }
 
-    get pageArray(): number[] {
-      var array = [];
-      var n = 0;
-      if (this.currentPage > 5) n = this.currentPage - 5;
-      for (var i = n; i < 9 + n; i ++) {
-        if (i === this.leads.properties.paging.page_count) break;
-        array.push(i)
-      }
-      return array;
+    get pageCount(): number {
+      return this.leads.properties.paging.page_count;
     }
 
-    changePage(i): any {
-      this.leads.properties.paging.current_page = i;
-      this.loadMore();
+    pageArray() {
+      var count = 9;
+      if (this.pageCount < 9) count = this.pageCount;
+
+      for (var i = 0; i < count; i ++) {
+        if (this.currentPage < 5) {
+          this.pageList[i] = i + 1; 
+        } else if (this.currentPage + 5 > this.pageCount) {
+          this.pageList[i] = this.pageCount - (8 - i);
+        } else {
+          this.pageList[i] = this.currentPage + (i - 4);
+        }
+      }
     }
 
     tabBar(e) {
@@ -330,10 +336,10 @@ module powur {
       this.barRight = e.target.parentElement.offsetWidth - (this.barLeft + e.target.offsetWidth);
     }
 
-    loadMore() {
+    changePage(i) {
       var entityType = 'user-team_leads',
         filterOpts = {},
-        page = this.leads.properties.paging.current_page;
+        page = i;
 
       if (this.activeFilters['grid']) entityType = 'user-leads';
       if (this.activeFilters['search']) entityType = entityType + '_search';
@@ -348,14 +354,16 @@ module powur {
         this.leads.properties = data.properties;
         if (!data.entities.length) return;
         this.leads.entities = data.entities;
+        this.leads.properties.paging.current_page = i;
+        this.pageArray();
       });
     }
 
-    reloadList() {
+    reloadPage() {
       this.searchQuery = null;
       this.leads.properties.paging.current_page = 0;
       this.leads.entities = [];
-      this.loadMore();
+      this.changePage(this.currentPage);
     }
 
     removeFilter(filter) {
@@ -366,7 +374,7 @@ module powur {
       }
       if (filter === 'grid') {}
       delete this.activeFilters[filter];
-      this.reloadList()
+      this.reloadPage()
     }
 
     filter(group: string, key: any, value: any) {
@@ -378,7 +386,7 @@ module powur {
       }
       if (!key) {
         delete this.activeFilters[group];
-        this.reloadList()
+        this.reloadPage()
         return;
       }
       this.activeFilters[group] = {
@@ -386,7 +394,7 @@ module powur {
         key: key,
         value: value
       };
-      this.reloadList()
+      this.reloadPage()
     }
 
     filterSummary(group: string, key: any, value: any) {
