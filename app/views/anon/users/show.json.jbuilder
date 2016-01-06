@@ -1,6 +1,6 @@
 siren json
 
-klass :lead
+klass :user
 
 json.properties do
   json.id @user.id

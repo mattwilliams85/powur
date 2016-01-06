@@ -34,7 +34,8 @@ class User < ActiveRecord::Base
                  :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
                  :notifications_read_at, :ewallet_username, :mailchimp_id,
-                 :last_login_streak_at, :terminated
+                 :last_login_streak_at, :terminated,
+                 :solar_landing_views_count, :solar_landing_leads_count
 
   EMAIL_UNIQUE = { message: 'This email is taken', case_sensitive: false }
   validates :email,
