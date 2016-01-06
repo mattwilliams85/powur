@@ -300,6 +300,26 @@ module powur {
       return this.home.assets.defaultProfileImg;
     }
 
+    get currentPage(): any {
+      return this.leads.properties.paging.current_page;
+    }
+
+    get pageArray(): number[] {
+      var array = [];
+      var n = 0;
+      if (this.currentPage > 5) n = this.currentPage - 5;
+      for (var i = n; i < 9 + n; i ++) {
+        if (i === this.leads.properties.paging.page_count) break;
+        array.push(i)
+      }
+      return array;
+    }
+
+    changePage(i): any {
+      this.leads.properties.paging.current_page = i;
+      this.loadMore();
+    }
+
     tabBar(e) {
       if (!e) {
         this.barLeft = 0;
@@ -313,7 +333,7 @@ module powur {
     loadMore() {
       var entityType = 'user-team_leads',
         filterOpts = {},
-        page = this.leads.properties.paging.current_page += 1;
+        page = this.leads.properties.paging.current_page;
 
       if (this.activeFilters['grid']) entityType = 'user-leads';
       if (this.activeFilters['search']) entityType = entityType + '_search';
@@ -327,7 +347,7 @@ module powur {
         this.reloading = false;
         this.leads.properties = data.properties;
         if (!data.entities.length) return;
-        this.leads.entities = this.leads.entities.concat(data.entities);
+        this.leads.entities = data.entities;
       });
     }
 

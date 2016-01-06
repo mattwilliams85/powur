@@ -440,8 +440,29 @@
       </div>
     </div>
     <div ng-show="!grid.leads.entities.length && !grid.reloading" layout-padding><i>No Results Found</i></div>
-    <section ng-if="grid.leads.properties.paging.current_page < grid.leads.properties.paging.page_count">
+<!--     <section ng-if="grid.leads.properties.paging.current_page < grid.leads.properties.paging.page_count">
       <md-button ng-click="grid.loadMore()" class="load-more" ng-show="!grid.reloading">Load More</md-button>
-    </section>
+    </section> -->
+    <ul class="pagination">
+      <li class="jump" ng-class="{ 'disabled': grid.currentPage === 1 }" ng-click="grid.changePage(1)">
+        FIRST
+      </li>
+      <li ng-class="{ 'disabled': grid.currentPage === 1 }" ng-click="grid.changePage(grid.currentPage - 1)">
+        <i class="material-icons">chevron_left</i>
+      </li>
+      <li 
+        ng-repeat="i in grid.pageArray track by $index" 
+        md-ink-ripple="#20c2f1" 
+        ng-class="{ 'active': (i + 1) === grid.currentPage }"
+        ng-click="grid.changePage(i + 1)">
+        {{ i + 1 }}
+      </li>
+      <li ng-class="{ 'disabled': grid.currentPage === grid.leads.properties.paging.page_count }" ng-click="grid.changePage(grid.currentPage + 1)">
+        <i class="material-icons" >chevron_right</i>
+      </li>
+      <li class="jump" ng-class="{ 'disabled': grid.currentPage === grid.leads.properties.paging.page_count }" ng-click="grid.changePage(grid.leads.properties.paging.page_count)">
+        LAST
+      </li>
+    </ul> 
   </div>
 </div>
