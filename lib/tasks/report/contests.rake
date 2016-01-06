@@ -7,19 +7,22 @@ namespace :powur do
     #
     task nov_dec_2015: :environment do
       leads = Lead
+        .converted
         .includes(:user).references(:user)
-        .where('sales_status = ? OR sales_status = ?',
-               Lead.sales_statuses[:closed_won],
+        .where('(closed_won_at IS NOT NULL OR sales_status = ?)',
                Lead.sales_statuses[:closed_lost])
+        .order(:submitted_at)
 
       CSV.open('/tmp/nov_dec_2015_leads.csv', 'w') do |csv|
-        csv << %w(lead_id user_id name email closed_won_at)
+        csv << %w(lead_id user_id name email status submitted_at closed_won_at)
         %w(2015-11 2015-12).each do |pp|
           leads.submitted(pay_period_id: pp).each do |lead|
             csv << [ lead.id,
                      lead.user_id,
                      lead.user.full_name,
                      lead.user.email,
+                     lead.sales_status,
+                     lead.submitted_at.to_s(:long),
                      lead.closed_won_at.try(:to_s, :long) ]
           end
         end
