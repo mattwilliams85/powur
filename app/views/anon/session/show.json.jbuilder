@@ -30,7 +30,7 @@ json.properties do
               :team_count, :earnings, :co2_saved, :login_streak)
   end
 
-  json.getsolar_page_url(current_user.getsolar_page_url) if current_user.partner?
+  json.getsolar_page_url(current_user.getsolar_page_url)
 end
 
 actions_list = [
