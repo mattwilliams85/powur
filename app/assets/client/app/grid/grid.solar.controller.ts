@@ -312,8 +312,12 @@ module powur {
     }
 
     pageArray() {
+
       var count = 9;
-      if (this.pageCount < 9) count = this.pageCount;
+      if (this.pageCount < 9) {
+        count = this.pageCount;
+        this.pageList = [];
+      }
 
       for (var i = 0; i < count; i ++) {
         if (this.currentPage < 5) {
@@ -350,12 +354,12 @@ module powur {
       }
       filterOpts['page'] = page;
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
-        this.reloading = false;
+        this.leads.properties.paging.current_page = i;
         this.leads.properties = data.properties;
+        this.pageArray();
+        this.reloading = false;
         if (!data.entities.length) return;
         this.leads.entities = data.entities;
-        this.leads.properties.paging.current_page = i;
-        this.pageArray();
       });
     }
 
