@@ -18,8 +18,6 @@ module Anon
           user:       @user,
           data:       lead_data_input))
 
-      increment_solar_landing_leads_count
-
       if @lead.ready_to_submit?
         submit_to_sc
       else
@@ -80,11 +78,6 @@ module Anon
     rescue Lead::SolarCityApiError => e
       Airbrake.notify(e)
       error!(:solarcity_api)
-    end
-
-    def increment_solar_landing_leads_count
-      count = (@user.solar_landing_leads_count || 0).to_i
-      @user.update_attribute(:solar_landing_leads_count, count + 1)
     end
   end
 end
