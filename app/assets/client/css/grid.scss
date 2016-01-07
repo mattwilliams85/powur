@@ -88,7 +88,7 @@
     position: relative;
     width: 100%;
     max-width: 320px;
-    margin: 10px 0 10px -18px;
+    margin: 10px 0 10px -7px;
 
     .node-wrap {
       position: relative;
@@ -282,6 +282,7 @@
 
   .right {
     text-align: right;
+    padding-left: 25px;
   }
 
   .insight {
@@ -323,8 +324,15 @@
     }
 
     .header-row {
-      margin-bottom: 10px;
-      padding: 10px 0 0 5vw;
+      max-width: 700px;
+      padding: 10px 5vw;
+      margin: auto;
+      width: 100%;
+
+      span:nth-child(2) {
+        padding-left: 20px;
+      }
+
       .label {
         max-width: 300px;
       }
@@ -494,6 +502,10 @@
       padding-bottom: 100px;
     }
 
+    .right {
+      padding-left: 0;
+    }
+
     .accordion {
       padding: 5px 10px 5px 30px;
       font-size: 12pt;
@@ -543,25 +555,29 @@
       font-size: 14pt;
     }
 
-    // md-dialog-content {
-    //   padding: 20px 20px 10px 40px;
-    // }
     .label {
       font-size: 8pt;
     }
+
     .insight {
       margin: 20px 0;;
       .count {
         font-size: 28pt;
       }
     }
+
     .summary {
       .co2 {
         font-size: 14pt;
         margin-top: 16px;
       }
-      .header-row .label {
-        max-width: 350px;
+      .header-row {
+        .label {
+          max-width: 350px;
+        }
+        span:nth-child(2) {
+          padding-left: 0;
+        }
       }
       .grid-row {
         height: 75px;
@@ -618,6 +634,8 @@
     }
     .progress-bar {
       max-width: none;
+      margin: 10px 0 10px -18px;
+
       .bar {
         top: 7px;
         height: 6px;
