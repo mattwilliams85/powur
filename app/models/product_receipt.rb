@@ -16,4 +16,13 @@ class ProductReceipt < ActiveRecord::Base
     joins("INNER JOIN (#{query.to_sql}) iu
           ON product_receipts.user_id = iu.user_id")
   }
+  scope :by_team, lambda { |user_id|
+    joins(:user).merge(User.with_ancestor(user_id)).references(:user)
+  }
+  scope :purchased_at, lambda { |from: nil, to: nil|
+    query = current_scope
+    query = query.where('purchased_at >= ?', from) if from
+    query = query.where('purchased_at <= ?', to) if to
+    query
+  }
 end

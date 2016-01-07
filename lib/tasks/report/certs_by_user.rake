@@ -7,13 +7,10 @@ namespace :powur do
       start_date = Date.parse(args[:start_date]) if args[:start_date]
       end_date = Date.parse(args[:end_date]) if args[:end_date]
 
-      purchases = ProductReceipt
-        .joins(:user).references(:user)
-        .where('? = ANY (users.upline) AND users.id != ?', user_id, user_id)
+      purchases = ProductReceipt.by_team(user_id)
         .where(product_id: 3)
+        .purchased_at(from: start_date, to: end_date)
         .order(purchased_at: :asc)
-      purchases = purchases.where('purchased_at >= ?', start_date) if start_date
-      purchases = purchases.where('purchased_at <= ?', end_date) if end_date
 
       CSV.open("/tmp/certs_by_user_#{user_id}.csv", 'w') do |csv|
         csv << %w(user_id, name, email, date_of_purchase)
