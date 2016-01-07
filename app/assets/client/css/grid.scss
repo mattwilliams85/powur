@@ -133,23 +133,22 @@
       background: #e0e0e0;
       position: absolute;
       top: 5px;
-      left: 18px;
+      left: 11%;
 
       &.overlay {
         z-index: 3;
         background: transparent;
         position: absolute;
-        top: 0;
-        left: 0;
+      }
 
-        .animated {
-          width: 0;
-          background: #01b598;
-          &.stage-1 { animation: grow .2s .1s forwards; }
-          &.stage-2 { animation: grow .2s .2s forwards; }
-          &.stage-3 { animation: grow .2s .3s forwards; }
-          &.stage-4 { animation: grow .2s .4s forwards; }
-        }
+      .animated {
+        width: 0;
+        height: 4px;
+        background: #01b598;
+        &.stage-1 { animation: grow .2s .1s forwards; }
+        &.stage-2 { animation: grow .2s .2s forwards; }
+        &.stage-3 { animation: grow .2s .3s forwards; }
+        &.stage-4 { animation: grow .2s .4s forwards; }
       }
     }
 
@@ -359,7 +358,7 @@
       }
       &:nth-child(even) {
         background: #e5e5e5;
-        .bar:not(.overlay):not(.animated) {
+        .bar:not(.overlay) {
           background: #d3d3d3;
         }
         .node {
@@ -665,7 +664,11 @@
       .bar {
         top: 7px;
         height: 6px;
-        left: 25px;
+        left: 11%;
+
+        .animated {
+          height: 6px;
+        }
       }
       .node {
         height: 20px;
@@ -741,7 +744,7 @@
       }
       .grid-row {
         border: 0;
-        height: 85px;
+        height: 100px;
         padding: 0 15px;
         max-width: 1100px;
         margin: 0 auto;
@@ -769,6 +772,7 @@
 
 // GRID POP-UP CSS
 .pw-dialog.pw-grid {
+  max-width: 650px;
 
   .name {
     font-size: 14pt;
@@ -798,10 +802,6 @@
   .progress-bar {
     .bar {
       width: 80%;
-      left: 30px;
-      &.overlay {
-        left: 0;
-      }
     }
     .highlight {
       &.stage-0 { animation: pop-in .3s 0s forwards; }
@@ -815,6 +815,7 @@
     }
     .header {
       margin: 10px 0 0 0;
+      font-size: 5pt;
     }
   }
 
@@ -883,7 +884,10 @@
       .bar {
         top: 8px;
         height: 7px;
-        left: 35px;
+
+        .animated {
+          height: 7px;
+        }
       }
       .node {
         height: 24px;
