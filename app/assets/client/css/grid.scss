@@ -263,10 +263,13 @@
           background-color: initial;
           position: initial;
           z-index: inherit;
+          width: 100%;
+          // min-width: 200px;
         }
         .url-overlay {
           position: absolute;
-          left: 5px;
+          left: 0;
+          right: 0;
           color: #2C6C8A;
           pointer-events: none;
           top: 4pt;
@@ -524,6 +527,9 @@
 
       &.light {
         line-height: 24pt;
+        .url .url-overlay {
+          left: 5px;
+        }
       }
 
       .chip {
