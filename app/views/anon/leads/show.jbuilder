@@ -25,7 +25,7 @@ unless @lead.submitted_at?
     .field(:state, :text, required: false, value: @lead.state)
     .field(:zip, :text, required: false, value: @lead.zip)
     .field(:notes, :text, required: false, value: @lead.notes)
-    .field(:call_consented, :boolean, required: false, value: @lead.call_consented)
+    .field(:call_consented, :boolean, required: false, value: true)
 
   @lead.product.quote_fields.each do |field|
     opts = {
