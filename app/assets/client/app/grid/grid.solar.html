@@ -2,14 +2,13 @@
   <div class="accordion" layout="row" layout-align="space-between-center">
     <span class="toggle-wrapper" ng-click="hideProposal = !hideProposal">
       <span class="toggle" ng-class="{'closed': hideProposal }"></span>
-      GRID <b>PROPOSALS</b>
+      GRID <b>MARKETING</b>
     </span>
   </div>
 
   <div ng-hide="hideProposal">
-    <div class="url-box" layout="column" layout-gt-xs="row" layout-align="center center" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
-      <div class="text">Your solar landing page url:</div>
-      <div class="url"><input value="{{ grid.getSolarPageLink }}" onclick="this.select()" readonly><span class="url-overlay text">{{ grid.getSolarPageLink }}</span></div>
+    <div class="url-box" layout="column" layout-align="center center" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
+      <input value="{{ grid.getSolarPageLink }}" onclick="this.select()" readonly>
     </div>
     <div layout="row" layout-align="center center" class="insight small">
       <div layout="column" layout-align="space-around" flex="20">

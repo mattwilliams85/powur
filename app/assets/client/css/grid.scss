@@ -243,38 +243,25 @@
     cursor: auto;
     margin: 0;
     margin-top: -5px;
-    padding: 10px 0;
+    padding: 5px 0;
     background: #efefef;
     text-align: center;
     user-select: initial;
 
-    & * {
-      font-size: 10pt;
-      line-height: 8pt;
+    input {
+      color: transparent;
+      background-color: initial;
+      position: initial;
+      z-index: inherit;
+      width: 100%;
+      text-align: center;
+      color: #2C6C8A;
+      border: 0;
+      margin: 5px 0;
+      font-size: 12pt;
+      letter-spacing: .05em;
     }
-
-    .url {
-      font-size: large;
-      position: relative;
-      margin-left: 0;
-      input {
-        color: transparent;
-        background-color: initial;
-        position: initial;
-        z-index: inherit;
-        width: 100%;
-        border: 0;
-      }
-      .url-overlay {
-        position: absolute;
-        left: 0;
-        right: 0;
-        color: #2C6C8A;
-        pointer-events: none;
-        top: 4pt;
-        white-space: nowrap;
-      }
-    }
+    
   }
 
   .label {
@@ -521,16 +508,9 @@
     }
 
     .url-box {
-      .url {
-        margin-left: 5px;
-        .url-overlay {
-          left: 5px;
-        }
-      }
-
-      & * {
-        font-size: 14pt;
-        line-height: 12pt;
+      padding: 10px 0;
+      input {
+        font-size: 16pt;
       }
     }
 
