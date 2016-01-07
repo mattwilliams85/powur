@@ -8,11 +8,20 @@
                                 { value: 'weekly', title: 'Weekly' } ];
     $scope.selectedFilter = { span: 'monthly' };
     $scope.animating = false;
+    $scope.legacyImagePaths = legacyImagePaths;
 
     UserProfile.get().then(function(data) {
       $scope.currentUser = data.properties;
 
       $scope.requestEarnings();
+    });
+
+    $scope.userProfile = {};
+    $http({
+      method: 'GET',
+      url: '/u/profile'
+    }).success(function(data) {
+      $scope.userProfile = data.properties;
     });
 
     $scope.requestEarnings = function() {

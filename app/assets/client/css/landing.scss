@@ -31,7 +31,6 @@
     line-height: 18pt;
   }
 
-
   .header {
     padding: 8px 0px;
   }
@@ -142,12 +141,20 @@
     background-size: cover;
     color: #555;
 
-    .profile-pic {
-      margin-bottom: 15px;
+    label {
+      color: #666 !important;
     }
 
-    button {
-      margin-top: 15px;
+    input {
+      margin-bottom: 5px;
+    }
+
+    .border {
+      border-color: #36c6f4 !important;
+    }
+
+    .profile-pic {
+      margin-bottom: 15px;
     }
   }
 
@@ -182,7 +189,7 @@
 
     .headline {
       color: white;
-      padding-left: 6vw;
+
       .pow-sc {
         background: image-url('img/landing/powur-solarcity.png');
         display: inline-block;
@@ -243,7 +250,7 @@
     }
 
     button {
-      margin-left: 25px;    
+      margin-left: 25px;
     }
 
     .msg {

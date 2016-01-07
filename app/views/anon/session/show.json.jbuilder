@@ -6,7 +6,8 @@ json.properties do
   json.call(current_user, :id, :first_name, :last_name, :full_name,
             :email, :phone, :address, :city, :state, :zip,
             :bio, :twitter_url, :facebook_url, :linkedin_url,
-            :lifetime_rank, :organic_rank, :level, :partner?)
+            :lifetime_rank, :organic_rank, :level, :partner?,
+            :solar_landing_leads_count, :solar_landing_views_count)
 
   json.avatar do
     [ :thumb, :preview, :large ].each do |key|
@@ -29,7 +30,7 @@ json.properties do
               :team_count, :earnings, :co2_saved, :login_streak)
   end
 
-  json.getsolar_page_url(current_user.getsolar_page_url) if current_user.partner?
+  json.getsolar_page_url(current_user.getsolar_page_url)
 end
 
 actions_list = [

@@ -69,6 +69,8 @@ class SellerBonus < Bonus
   end
 
   def create_lead_payments(calculator, lead, status)
+    return if lead.user.terminated?
+
     pay_as_rank = lead.user.pay_period_rank(calculator.pay_period.id)
     amount = payment_amounts[pay_as_rank] * percent_allocated(status)
 

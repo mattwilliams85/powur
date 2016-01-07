@@ -23,7 +23,7 @@ module Powur
       host:     ENV['EMAIL_HOST'] || 'localhost:3000',
       protocol: ENV['EMAIL_PROTO'] || 'http' }
     config.action_mailer.default_options = {
-      from: "Powur <no-reply-#{Rails.env}@powur.com>" }
+      from: 'Powur <noreply@powur.com>' }
 
     config.paperclip_defaults = {
       storage:        :s3,

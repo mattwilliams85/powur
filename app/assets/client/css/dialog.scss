@@ -1,0 +1,138 @@
+.pw-dialog {
+  font-size: 7pt;
+  overflow-x: hidden;
+  max-width: inherit;
+  max-height: inherit;
+
+  md-dialog-content {
+    padding: 20px 20px 20px 40px;
+    text-align: left;
+  }
+
+  .actions {
+    button {
+      width: 100%;
+    }
+  }
+
+  span.highlight {
+    color: #f00;
+  }
+
+  .header {
+    font-size: 6pt;
+    font-weight: 400;
+    color: #aaa;
+    margin-bottom: 5px;
+  }
+
+  .title {
+    font-size: small;
+    text-transform: uppercase;
+  }
+
+  .close {
+    background-color: #4d4c4d;
+    padding: 13px;
+    position:absolute;
+    top:0;
+    right:0;
+    z-index:99;
+  }
+
+  .sprite-close {
+    background-image: image-url("img/invite-popup-sprite.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-position: -40px -5px;
+  }
+
+  .side-bg {
+    width: 20px;
+    @include linearGradient(#197394, #2d6f75, top);
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+
+  .messages, .md-errors-spacer {
+    min-height: initial;
+  }
+
+  .overview, .progress, .info {
+    padding: 15px 0;
+  }
+
+  label {
+    text-transform: uppercase;
+  }
+
+  .email {
+    color: #0a7fa1;
+    text-decoration: inherit;
+
+    div {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  //TABS
+  md-tabs {
+    background: #fff;
+
+    .md-tab {
+      max-width: none !important;
+      font-size: 9pt;
+    }
+
+    md-tab-item {
+      span {
+        color: #666 !important;
+        transition: color .2s;
+      }
+    }
+
+    md-ink-bar {
+      height: 3px;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .pw-dialog {
+    font-size: 12pt;
+    min-width: 450px !important;
+
+    md-dialog-content {
+      padding: 30px 30px 20px 50px;
+      min-height: 225px;
+    }
+
+    .fixed-lg {
+      height: 400px;
+      width: 450px !important;
+    }
+
+    .header {
+      font-size: 11pt;
+    }
+    .detail {
+      font-size: 12pt;
+    }
+    .title {
+      font-size: large;
+    }
+  }
+}
+
+//NG-MATERIAL OVERIDES
+@media (max-width: 959px) and (min-width: 600px) {
+  md-dialog.md-dialog-fullscreen {
+    min-width: 450px !important;
+  }
+}

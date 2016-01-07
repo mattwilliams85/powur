@@ -78,6 +78,10 @@ module powur {
     cancel() {
       this.$mdDialog.cancel();
     }
+
+    processNumberInput(model) {
+      model.value = model.value.replace(/[^\d\.]+/, '');
+    }
   }
 
   class UpdateLeadDialogController {
@@ -121,6 +125,9 @@ module powur {
 
     sendInvite() {
       this.sendInviteAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var newLead = new SirenModel(response.data);
+        this.lead.properties = newLead.properties;
+        this.lead.actions = newLead.actions;
         this.$mdDialog.hide();
       });
     }
@@ -134,7 +141,11 @@ module powur {
 
     submitToSC() {
       this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var newLead = new SirenModel(response.data);
+        this.lead.properties = newLead.properties;
+        this.lead.actions = newLead.actions;
         this.$mdDialog.cancel();
+        this.parentCtrl.showLead(null, this.lead);
       });
     }
 
@@ -144,6 +155,10 @@ module powur {
 
     cancel() {
       this.$mdDialog.cancel();
+    }
+
+    processNumberInput(model) {
+      model.value = model.value.replace(/[^\d\.]+/, '');
     }
 
     get delete(): Action { return this.lead.action('delete') }
@@ -166,6 +181,7 @@ module powur {
     summaryFilters: any = {};
     phaseFilter: string = 'pending';
     reloading: boolean;
+    pageList: number[] = [];
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -185,6 +201,8 @@ module powur {
       $timeout(function() {
         angular.element('.test').trigger('click');
       }, 100);
+
+      this.pageArray();
     }
 
     addLead(e: MouseEvent) {
@@ -225,7 +243,7 @@ module powur {
       if (item.invite_status === 'initiated') return 'drafts';
       return 'mail';
     }
-
+    
     updateEntity(lead) {
       for (var i = 0; i < this.leads.entities.length; i++) {
         if (this.leads.entities[i].properties.id === lead.properties.id) {
@@ -293,6 +311,33 @@ module powur {
       return this.home.assets.defaultProfileImg;
     }
 
+    get currentPage(): number {
+      return this.leads.properties.paging.current_page;
+    }
+
+    get pageCount(): number {
+      return this.leads.properties.paging.page_count;
+    }
+
+    pageArray() {
+
+      var count = 9;
+      if (this.pageCount < 9) {
+        count = this.pageCount;
+        this.pageList = [];
+      }
+
+      for (var i = 0; i < count; i ++) {
+        if (this.currentPage < 6 || this.pageCount < 10) {
+          this.pageList[i] = i + 1;
+        } else if (this.currentPage + 5 > this.pageCount) {
+          this.pageList[i] = this.pageCount - (8 - i);
+        } else {
+          this.pageList[i] = this.currentPage + (i - 4);
+        }
+      }
+    }
+
     tabBar(e) {
       if (!e) {
         this.barLeft = 0;
@@ -303,10 +348,11 @@ module powur {
       this.barRight = e.target.parentElement.offsetWidth - (this.barLeft + e.target.offsetWidth);
     }
 
-    loadMore() {
+    changePage(i) {
+      this.reloading = true;
       var entityType = 'user-team_leads',
         filterOpts = {},
-        page = this.leads.properties.paging.current_page += 1;
+        page = i;
 
       if (this.activeFilters['grid']) entityType = 'user-leads';
       if (this.activeFilters['search']) entityType = entityType + '_search';
@@ -317,18 +363,20 @@ module powur {
       }
       filterOpts['page'] = page;
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
-        this.reloading = false;
+        this.leads.properties.paging.current_page = i;
         this.leads.properties = data.properties;
+        this.pageArray();
+        this.reloading = false;
         if (!data.entities.length) return;
-        this.leads.entities = this.leads.entities.concat(data.entities);
+        this.leads.entities = data.entities;
       });
     }
 
-    reloadList() {
+    reloadPage() {
       this.searchQuery = null;
-      this.leads.properties.paging.current_page = 0;
+      this.leads.properties.paging.current_page = 1;
       this.leads.entities = [];
-      this.loadMore();
+      this.changePage(this.currentPage);
     }
 
     removeFilter(filter) {
@@ -339,11 +387,10 @@ module powur {
       }
       if (filter === 'grid') {}
       delete this.activeFilters[filter];
-      this.reloadList()
+      this.reloadPage()
     }
 
     filter(group: string, key: any, value: any) {
-      this.reloading = true;
       var label, opt = {};
 
       if (group === 'status') {
@@ -351,7 +398,7 @@ module powur {
       }
       if (!key) {
         delete this.activeFilters[group];
-        this.reloadList()
+        this.reloadPage()
         return;
       }
       this.activeFilters[group] = {
@@ -359,7 +406,7 @@ module powur {
         key: key,
         value: value
       };
-      this.reloadList()
+      this.reloadPage()
     }
 
     filterSummary(group: string, key: any, value: any) {

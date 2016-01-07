@@ -1,11 +1,8 @@
-<md-dialog aria-label="Invite" class="dialog invite-popup fill-height">
+<md-dialog aria-label="Invite" class="pw-dialog">
 
   <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate>
     <div class="side-bg"></div>
     <div layout="column" flex>
-      <div class="banner grid" hide-sm>
-        <span class="title">Send a<br>new Grid<b> Invite</b></span>
-      </div>
       <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close" ng-click="dialog.cancel()"></i></a></div>
 
       <md-dialog-content ng-if="!dialog.create" layout="column">

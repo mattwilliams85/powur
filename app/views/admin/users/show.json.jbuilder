@@ -6,6 +6,7 @@ users_json.detail_properties
 
 json.properties do
   json.sponsor_id @user.sponsor_id
+  json.terminated @user.terminated
 end
 
 if params[:user_totals]
@@ -50,6 +51,9 @@ action_list << action(:update_sponsor,
                       update_sponsor_admin_user_path(@user)).field(
                         :sponsor_id,
                         :number)
+action_list << action(:terminate,
+                      :post,
+                      terminate_admin_user_path(@user))
 
 actions(*action_list)
 

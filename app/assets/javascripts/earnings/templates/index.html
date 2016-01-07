@@ -101,6 +101,12 @@
       </table>
     </div>
   </div>
+
+  <div class="row" ng-if="userProfile.ewallet_auto_login_url">
+    <div class="large-12 columns">
+      <a href="{{ userProfile.ewallet_auto_login_url }}" target="_blank" class="button">Go to my eWallet</a>
+    </div>
+  </div>
 </main>
 
-<ng-include src="'shared/footer-signed-in.html'"></ng-include>
+<ng-include src="'shared/footer.html'"></ng-include>

@@ -1,6 +1,6 @@
 siren json
 
-klass :lead
+klass :user
 
 json.properties do
   json.id @user.id
@@ -27,7 +27,7 @@ actions_list = [
     .field(:city, :text)
     .field(:state, :text)
     .field(:zip, :text)
-    .field(:average_bill, :text)
+    .field(:average_bill, :number)
     .field(:call_consented, :boolean, value: true) ]
 
 actions(*actions_list)

@@ -108,25 +108,15 @@
             <md-input-container>
               <div class="border"></div>
               <label>Average Bill </label>
-              <input name="average_bill" ng-model="landing.leadAction.field('average_bill').value" type="average_bill" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+              <input name="average_bill" ng-model="landing.leadAction.field('average_bill').value" ng-change="landing.processNumberInput(landing.leadAction.field('average_bill'))" autocomplete="off">
               <div ng-messages="landing.leadAction.field('average_bill').$error">
                 <div class="capitalize">{{ landing.leadAction.field('average_bill').$error.message }}</div>
                 <div ng-message="pattern">Must be a valid average_bill address</div>
               </div>
             </md-input-container>
-
-<!--             <div>
-              <input name="reach_concent" ng-model="landing.leadAction.field('reach_concent').value" type="checkbox">
-              <span>I consent to have SolarCity reach out to me via phone to inquire about solar</span>
-            </div> -->
           </div>
 
-<!--           <div class="msg">The more you spend on electricity, the more we can save you. <br>What’s your average electricity bill?</div>
-          <div class="slider">
-            <md-slider flex min="0" max="500" md-discrete ng-model="landing.leadAction.field('average_bill').value" aria-label="monthly" id="monthly-slider" class="md-primary"></md-slider>
-          </div> -->
-
-          <md-button class="md-raised md-primary" ng-click="landing.submitLead()" ng-disabled="landing.leadAction.submitting">CALCULATE YOUR SOLAR SAVINGS</md-button>
+          <md-button class="md-raised md-primary" ng-click="landing.submitLead()" ng-disabled="landing.leadAction.submitting">GET A FREE QUOTE</md-button>
           <md-input-container ng-show="landing.leadAction.$error">
             <div ng-messages="landing.leadAction.$error">
               <div class="capitalize">{{ landing.leadAction.$error.message }}</div>
@@ -153,3 +143,5 @@
     </div>
   </div>
 </div>
+
+<pw-footer></pw-footer>

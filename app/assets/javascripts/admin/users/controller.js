@@ -151,6 +151,18 @@
       });
     };
 
+    $scope.terminateUser = function() {
+      var action = getAction($scope.user.actions, 'terminate');
+
+      $http({
+        method: action.method,
+        url: action.href,
+      }).success(function() {
+        $scope.user.properties.terminated = true;
+        $scope.showModal('This user has been terminated');
+      });
+    };
+
 
     // Sponsor actions
     $scope.setNewSponsor = function(newSponsor) {

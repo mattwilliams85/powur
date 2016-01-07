@@ -21,6 +21,7 @@
 //= require layout/hud
 //= require layout/home
 //= require components/activity
+//= require components/footer
 
 //= require invite/layout
 //= require invite/new-invite-popup.grid
@@ -77,6 +78,7 @@
 /// <reference path='app/core/humanize.filter.ts' />
 /// <reference path='app/core/humanize-string.filter.ts' />
 /// <reference path='app/core/truncate-name.filter.ts' />
+/// <reference path='app/core/format-phone-number.filter.ts' />
 
 /// <reference path='app/components/powur.components.ts' />
 /// <reference path='app/components/invite-progress.directive.ts' />
@@ -85,6 +87,8 @@
 /// <reference path='app/components/title.directive.ts' />
 /// <reference path='app/components/activity.controller.ts' />
 /// <reference path='app/components/activity.directive.ts' />
+/// <reference path='app/components/footer.directive.ts' />
+/// <reference path='app/components/string-to-number.directive.ts' />
 
 /// <reference path='app/layout/powur.layout.ts' />
 /// <reference path='app/layout/root.controller.ts' />

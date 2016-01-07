@@ -1,7 +1,7 @@
-<md-dialog aria-label="Invite" class="dialog grid-popup solar pw-grid">
+<md-dialog aria-label="Invite" class="pw-dialog solar pw-grid">
     <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
     <md-dialog-content layout="column">
-      <div class="side-bg" hide-xs layout-fill></div>
+      <div class="side-bg" layout-fill></div>
       <div class="name">{{ dialog.lead.properties.first_name }} <b>{{ dialog.lead.properties.last_name }}</b></div>
       <div class="detail">Proposal ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
       <div layout="row" class="overview">
@@ -12,10 +12,11 @@
         <div layout="column" flex="35">
           <div class="header">ADDRESS</div>
           <div>{{ dialog.lead.properties.address }}</div>
+          <div>{{ dialog.lead.properties.city }}<span ng-if="dialog.lead.properties.city && dialog.lead.properties.state">,</span> {{ dialog.lead.properties.state }}</div>
         </div>
         <div layout="column" flex="35">
           <div class="header">CONTACT INFO</div>
-          <div>{{ dialog.lead.properties.phone }}</div>
+          <div>{{ dialog.lead.properties.phone | formatPhoneNumber }}</div>
           <a href="mailto:{{ dialog.lead.properties.email }}" class="email"><div>{{ dialog.lead.properties.email }}</div></a>
         </div>
       </div>
@@ -34,7 +35,7 @@
         <div layout="row" layout-align="space-between" class="progress-bar">
           <div class="bar"></div>
           <div class="bar overlay" style="width:{{ dialog.lead.properties.stage * 20 }}%">
-            <div class="bar animated stage-{{ dialog.lead.properties.stage }}"></div>
+            <div class="animated stage-{{ dialog.lead.properties.stage }}"></div>
           </div>
           <div layout="column" layout-align="center center" flex="20">
             <div class="node-wrap">

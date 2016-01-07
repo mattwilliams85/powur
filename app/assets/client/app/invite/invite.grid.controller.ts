@@ -42,7 +42,7 @@ module powur {
           invites: this.invites
         }
       }).then((data: any) => {
-        this.invites.entities.push(new SirenModel(data));
+        this.invites.entities.unshift(new SirenModel(data));
         this.invites.properties.pending_count += 1;
       });
     }

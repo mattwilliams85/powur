@@ -40,9 +40,10 @@ module Auth
 
       @lead = Lead.create!(
         lead_input.merge(
-          product_id: product.id,
-          user:       current_user,
-          data:       lead_data_input))
+          product_id:     product.id,
+          user:           current_user,
+          call_consented: false,
+          data:           lead_data_input))
 
       show
     end
@@ -136,7 +137,7 @@ module Auth
     def lead_input
       allow_input(:first_name, :last_name, :email,
                   :phone, :address, :city, :state, :zip,
-                  :notes, :call_consented)
+                  :notes)
     end
 
     def product

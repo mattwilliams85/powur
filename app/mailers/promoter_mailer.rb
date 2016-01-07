@@ -144,7 +144,7 @@ class PromoterMailer < ActionMailer::Base
     message = {
       'track_clicks'    => true,
       'tracking_domain' => nil,
-      'from_email'      => "no-reply-#{Rails.env}@powur.com",
+      'from_email'      => 'noreply@powur.com',
       'to'              => [ { 'email' => email, 'name' => name } ],
       'from_name'       => 'Powur',
       'merge'           => true,

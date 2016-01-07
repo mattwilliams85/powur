@@ -33,8 +33,9 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
-                 :notifications_read_at,
-                 :ewallet_username, :mailchimp_id, :last_login_streak_at
+                 :notifications_read_at, :ewallet_username, :mailchimp_id,
+                 :last_login_streak_at, :terminated,
+                 :solar_landing_views_count
 
   EMAIL_UNIQUE = { message: 'This email is taken', case_sensitive: false }
   validates :email,
@@ -224,6 +225,10 @@ class User < ActiveRecord::Base
              'next/getsolar/', id.to_s).to_s
   end
 
+  def terminated?
+    terminated == 'true'
+  end
+
   # def reconcile_invites
   #   update_column(:available_invites, 0) if available_invites < 0
   #   return if available_invites > 0
@@ -237,6 +242,10 @@ class User < ActiveRecord::Base
   #   return if amount_to_add < 1
   #   update_column(:available_invites, amount_to_add)
   # end
+
+  def solar_landing_leads_count
+    Lead.team_count(user_id: id, query: Lead.where(call_consented: true))
+  end
 
   def metrics
     @metrics ||= Metrics.new(self)

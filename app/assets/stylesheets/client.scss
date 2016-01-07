@@ -17,27 +17,20 @@
 // @import 'angular-material/angular-material.scss';
 @import 'angular-chart.js/dist/angular-chart';
 
-/*
- * Mixins
- */
-// Greater than medium screen
-$gt-md: 'screen and (min-width: 1281px)';
-
-// smaller screens and smart phones
-$sm: 'screen and (max-width: 720px)';
-
 // Next UX
 //@import "css/safari.scss";
+@import "css/mixins.scss";
 @import "css/general.scss";
 @import "css/overrides.scss";
 @import "css/nav.scss";
+@import "css/pagination.scss";
 @import "css/hud.scss";
 @import "css/activity.scss";
 @import "css/invite.scss";
-@import "css/invite-popup.scss";
-@import "css/modal.scss";
+@import "css/dialog.scss";
 @import "css/grid.scss";
 @import "css/events.scss";
 @import "css/join.scss";
 @import "css/login.scss";
 @import "css/landing.scss";
+@import "css/footer.scss";
