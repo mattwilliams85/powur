@@ -108,7 +108,7 @@
             <md-input-container>
               <div class="border"></div>
               <label>Average Bill </label>
-              <input name="average_bill" ng-model="landing.leadAction.field('average_bill').value" type="number" autocomplete="off">
+              <input name="average_bill" ng-model="landing.leadAction.field('average_bill').value" type="number" pattern="^[0-9\.]*$" autocomplete="off">
               <div ng-messages="landing.leadAction.field('average_bill').$error">
                 <div class="capitalize">{{ landing.leadAction.field('average_bill').$error.message }}</div>
                 <div ng-message="pattern">Must be a valid average_bill address</div>
