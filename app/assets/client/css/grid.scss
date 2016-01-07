@@ -184,37 +184,6 @@
       margin: 0;
     }
 
-    &.light {
-      background-color: #F3F3F3;
-      color: #666;
-      cursor: auto;
-      margin: 0;
-      text-align: center;
-      padding: .5em 0;
-      user-select: initial;
-      line-height: 12pt;
-
-      .url {
-        font-size: large;
-        position: relative;
-        input {
-          color: transparent;
-          height: 20px;
-          background-color: initial;
-          position: initial;
-          z-index: inherit;
-        }
-        .url-overlay {
-          position: absolute;
-          left: 5px;
-          font-size: 11pt;
-          color: #2C6C8A;
-          pointer-events: none;
-          top: 0;
-        }
-      }
-    }
-
     .toggle-wrapper {
       cursor: pointer;
 
@@ -269,6 +238,41 @@
     .toggle-wrapper {
       flex: 1;
       padding: 10px 0;
+    }
+
+
+    &.light {
+      background-color: #F3F3F3;
+      color: #666;
+      cursor: auto;
+      margin: 0;
+      text-align: center;
+      padding: .5em 0;
+      user-select: initial;
+
+      & * {
+        font-size: 11pt;
+        line-height: 12pt;
+      }
+
+      .url {
+        font-size: large;
+        position: relative;
+        input {
+          color: transparent;
+          background-color: initial;
+          position: initial;
+          z-index: inherit;
+        }
+        .url-overlay {
+          position: absolute;
+          left: 5px;
+          color: #2C6C8A;
+          pointer-events: none;
+          top: 4pt;
+          white-space: nowrap;
+        }
+      }
     }
   }
 
@@ -519,7 +523,7 @@
       cursor: pointer;
 
       &.light {
-        line-height: 25pt;
+        line-height: 24pt;
       }
 
       .chip {

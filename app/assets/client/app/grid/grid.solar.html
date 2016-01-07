@@ -1,9 +1,9 @@
 <div class="pw-grid solar">
   <div layout="column" layout-gt-xs="row" layout-align="center center" class="accordion light no-margin" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
-    <div>Your solar landing page url:</div>
-    <div class="url"><input value="{{ grid.getSolarPageLink }}" onclick="this.select()" readonly><span class="url-overlay">{{ grid.getSolarPageLink }}</span></div>
+    <div class="text">Your solar landing page url:</div>
+    <div class="url"><input value="{{ grid.getSolarPageLink }}" onclick="this.select()" readonly><span class="url-overlay text">{{ grid.getSolarPageLink }}</span></div>
   </div>
-  <div layout="column" layout-padding layout-gt-xs="row" layout-align="center center" class="accordion light no-margin" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
+  <div layout="row" layout-padding layout-align="center center" class="accordion light no-margin" layout-align="space-between-center" ng-if="grid.getSolarPageLink">
     <div>views:</div>
     <div class="url">{{ grid.session.properties.solar_landing_views_count || 0 }}</div>
     <div>leads:</div>
