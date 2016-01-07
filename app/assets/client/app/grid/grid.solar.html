@@ -446,8 +446,8 @@
       </div>
     </div>
     <div ng-show="!grid.leads.entities.length && !grid.reloading" layout-padding><i>No Results Found</i></div>
-    
-    <ul class="pagination">
+
+    <ul class="pagination" ng-hide="grid.pageCount < 2">
       <li 
         class="jump" 
         ng-class="{ 'disabled': grid.currentPage === 1 }" 
