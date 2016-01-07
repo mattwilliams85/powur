@@ -115,7 +115,7 @@
         <md-content layout="column">
           <md-input-container>
             <label>average bill</label>
-            <input ng-model="dialog.updateAction.field('average_bill').value" type="number" pattern="^[0-9\.]*$">
+            <input ng-model="dialog.updateAction.field('average_bill').value" ng-change="dialog.processNumberInput(dialog.updateAction.field('average_bill'))">
             <div ng-messages="dialog.updateAction.field('average_bill').$error" ng-show="dialog.updateAction.field('average_bill').$error" class="messages">
               <div ng-message="message">{{ dialog.updateAction.field('average_bill').$error.message }}</div>
             </div>

@@ -55,8 +55,8 @@ module powur {
       });
     }
 
-    getSavings(): void {
-
+    processNumberInput(model) {
+      model.value = model.value.replace(/[^\d\.]+/, '');
     }
   }
 

@@ -78,6 +78,10 @@ module powur {
     cancel() {
       this.$mdDialog.cancel();
     }
+
+    processNumberInput(model) {
+      model.value = model.value.replace(/[^\d\.]+/, '');
+    }
   }
 
   class UpdateLeadDialogController {
@@ -151,6 +155,10 @@ module powur {
 
     cancel() {
       this.$mdDialog.cancel();
+    }
+
+    processNumberInput(model) {
+      model.value = model.value.replace(/[^\d\.]+/, '');
     }
 
     get delete(): Action { return this.lead.action('delete') }
@@ -321,7 +329,7 @@ module powur {
 
       for (var i = 0; i < count; i ++) {
         if (this.currentPage < 6 || this.pageCount < 10) {
-          this.pageList[i] = i + 1; 
+          this.pageList[i] = i + 1;
         } else if (this.currentPage + 5 > this.pageCount) {
           this.pageList[i] = this.pageCount - (8 - i);
         } else {
