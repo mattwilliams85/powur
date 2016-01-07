@@ -471,13 +471,15 @@
       <li 
         class="jump" 
         ng-class="{ 'disabled': grid.currentPage === 1 }" 
-        ng-click="grid.changePage(1)">
+        ng-click="grid.changePage(1)"
+        ng-disabled="grid.reloading">
         FIRST
       </li>
       <li 
         class="chevron" 
         ng-class="{ 'disabled': grid.currentPage === 1 }" 
-        ng-click="grid.changePage(grid.currentPage - 1)">
+        ng-click="grid.changePage(grid.currentPage - 1)"
+        ng-disabled="grid.reloading">
         <i class="material-icons">chevron_left</i>
       </li>
       <li 
@@ -485,20 +487,23 @@
         md-ink-ripple="#20c2f1" 
         ng-class="{ 'active': i === grid.currentPage }"
         ng-click="grid.changePage(i)"
-        ng-hide="!i">
+        ng-hide="!i"
+        ng-disabled="grid.reloading">
         {{ i }}
       </li>
       <li 
         class="chevron" 
         ng-class="{ 'disabled': grid.currentPage === grid.pageCount }" 
         ng-click="grid.changePage(grid.currentPage + 1)">
-        <i class="material-icons" >chevron_right</i>
+        <i class="material-icons"
+        ng-disabled="grid.reloading">chevron_right</i>
       </li>
       <li 
         class="jump" 
         ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
                                 grid.pageCount < 10 }" 
-        ng-click="grid.changePage(grid.pageCount)">
+        ng-click="grid.changePage(grid.pageCount)"
+        ng-disabled="grid.reloading">
         LAST
       </li>
     </ul> 

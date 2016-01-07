@@ -320,7 +320,7 @@ module powur {
       }
 
       for (var i = 0; i < count; i ++) {
-        if (this.currentPage < 5) {
+        if (this.currentPage < 6 || this.pageCount < 10) {
           this.pageList[i] = i + 1; 
         } else if (this.currentPage + 5 > this.pageCount) {
           this.pageList[i] = this.pageCount - (8 - i);
@@ -341,6 +341,7 @@ module powur {
     }
 
     changePage(i) {
+      this.reloading = true;
       var entityType = 'user-team_leads',
         filterOpts = {},
         page = i;
@@ -382,7 +383,6 @@ module powur {
     }
 
     filter(group: string, key: any, value: any) {
-      this.reloading = true;
       var label, opt = {};
 
       if (group === 'status') {
