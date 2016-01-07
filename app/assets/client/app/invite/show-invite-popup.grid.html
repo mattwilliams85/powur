@@ -3,7 +3,7 @@
     <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
     <md-dialog-content layout="column">
       <div class="full-name">{{dialog.invite.properties.first_name}}<b> {{dialog.invite.properties.last_name}}</b></div>
-      <div class="detail">{{dialog.invite.properties.phone}}</div>
+      <div class="detail">{{dialog.invite.properties.phone | formatPhoneNumber }}</div>
       <div class="detail">{{dialog.invite.properties.email}}</div>
       <br>
       <md-button class="md-primary md-raised" ng-click="dialog.parentCtrl.inviteUpdate($event,dialog.invite)">Edit</md-button>

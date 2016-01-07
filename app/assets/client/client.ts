@@ -78,6 +78,7 @@
 /// <reference path='app/core/humanize.filter.ts' />
 /// <reference path='app/core/humanize-string.filter.ts' />
 /// <reference path='app/core/truncate-name.filter.ts' />
+/// <reference path='app/core/format-phone-number.filter.ts' />
 
 /// <reference path='app/components/powur.components.ts' />
 /// <reference path='app/components/invite-progress.directive.ts' />

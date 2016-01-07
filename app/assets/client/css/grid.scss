@@ -350,6 +350,12 @@
       }
       &:nth-child(even) {
         background: #e5e5e5;
+        .bar {
+          background: #d3d3d3;
+        }
+        .node {
+          border-color: #d3d3d3;
+        }
       }
     }
 

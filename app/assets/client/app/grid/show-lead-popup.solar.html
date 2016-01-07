@@ -16,7 +16,7 @@
         </div>
         <div layout="column" flex="35">
           <div class="header">CONTACT INFO</div>
-          <div>{{ dialog.lead.properties.phone }}</div>
+          <div>{{ dialog.lead.properties.phone | formatPhoneNumber }}</div>
           <a href="mailto:{{ dialog.lead.properties.email }}" class="email"><div>{{ dialog.lead.properties.email }}</div></a>
         </div>
       </div>
