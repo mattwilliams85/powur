@@ -496,7 +496,8 @@
       </li>
       <li 
         class="jump" 
-        ng-class="{ 'disabled': grid.currentPage === grid.pageCount }" 
+        ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
+                                grid.pageCount < 10 }" 
         ng-click="grid.changePage(grid.pageCount)">
         LAST
       </li>
