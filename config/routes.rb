@@ -274,7 +274,7 @@ Rails.application.routes.draw do
       end
       member do
         get :downline, :upline, :eligible_parents, :sponsors
-        post :move
+        post :move, :terminate
         patch :update_sponsor
       end
 

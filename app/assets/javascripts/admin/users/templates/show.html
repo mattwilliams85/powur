@@ -3,10 +3,10 @@
   <!-- User Name Header and Action Buttons -->
   <div class="row">
     <div class="large-6 columns">
+      <span class="round alert label" ng-if="user.properties.terminated">This user is terminated</span>
       <h2>{{ fullName(user) }}</h2>
     </div>
-    <div class="large-6 columns">
-    </div>
+    <div class="large-6 columns"></div>
   </div>
 
   <!-- Tabs Section -->
@@ -45,6 +45,8 @@
         <div class="content" ng-class="{'active': tab === 'proposals'}">
           <ng-include src="'admin/users/templates/tabs/proposals.html'"></ng-include>
         </div>
+
+        <a ng-if="!user.properties.terminated" ng-click="confirm('Are you sure you want to terminate this user?', 'terminateUser')" class="button alert">Terminate this user</a>
       </div>
     </div>
   </div>

@@ -2,7 +2,8 @@ module Admin
   class UsersController < AdminController
     before_action :fetch_user,
                   only: [ :downline, :upline, :show, :update,
-                          :sponsors, :eligible_parents, :move, :update_sponsor ]
+                          :sponsors, :eligible_parents, :move, :update_sponsor,
+                          :terminate ]
 
     page max_limit: 25
     sort id_desc:         { id: :desc },
@@ -106,6 +107,11 @@ module Admin
       User.move_user(@user, parent)
 
       show
+    end
+
+    def terminate
+      @user.update_attribute(:terminated, 'true')
+      head :ok
     end
 
     protected
