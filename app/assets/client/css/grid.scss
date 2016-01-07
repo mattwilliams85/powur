@@ -173,23 +173,20 @@
     text-align: left;
     background: #5A5A5A;
     padding: 0 5px 0 20px;
-    margin: 0;
+    margin: 0 0 5px 0;
     color: #fff;
     font-size: 10pt;
     line-height: 15pt;
+    min-height: 40px;
     user-select: none;
     position: relative;
-
-    &.no-margin {
-      margin: 0;
-    }
 
     .toggle-wrapper {
       cursor: pointer;
 
       .toggle {
         font-size: 16pt;
-        line-height: 7pt;
+        line-height: 12pt;
         font-weight: 500;
         position: absolute;
         margin-left: -13px;
@@ -239,42 +236,44 @@
       flex: 1;
       padding: 10px 0;
     }
+  }
 
+  .url-box {
+    background-color: #fff;
+    color: #666;
+    cursor: auto;
+    margin: 0;
+    margin-top: -5px;
+    padding: 10px 0;
+    background: #efefef;
+    text-align: center;
+    user-select: initial;
 
-    &.light {
-      background-color: #F3F3F3;
-      color: #666;
-      cursor: auto;
-      margin: 0;
-      text-align: center;
-      padding: .5em 0;
-      user-select: initial;
+    & * {
+      font-size: 10pt;
+      line-height: 8pt;
+    }
 
-      & * {
-        font-size: 11pt;
-        line-height: 12pt;
+    .url {
+      font-size: large;
+      position: relative;
+      margin-left: 0;
+      input {
+        color: transparent;
+        background-color: initial;
+        position: initial;
+        z-index: inherit;
+        width: 100%;
+        border: 0;
       }
-
-      .url {
-        font-size: large;
-        position: relative;
-        input {
-          color: transparent;
-          background-color: initial;
-          position: initial;
-          z-index: inherit;
-          width: 100%;
-          // min-width: 200px;
-        }
-        .url-overlay {
-          position: absolute;
-          left: 0;
-          right: 0;
-          color: #2C6C8A;
-          pointer-events: none;
-          top: 4pt;
-          white-space: nowrap;
-        }
+      .url-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        color: #2C6C8A;
+        pointer-events: none;
+        top: 4pt;
+        white-space: nowrap;
       }
     }
   }
@@ -296,6 +295,10 @@
     max-width: 1100px;
     margin: 10px 0;
     height: 50px;
+
+    &.small {
+      height: 40px
+    }
 
     .count {
       font-size: 20pt;
@@ -321,7 +324,6 @@
 
   .summary {
     width: 100%;
-    padding: 20px 0;
 
     .header {
       height: 20px;
@@ -519,18 +521,26 @@
       padding-left: 0;
     }
 
+    .url-box {
+      .url {
+        margin-left: 5px;
+        .url-overlay {
+          left: 5px;
+        }
+      }
+
+      & * {
+        font-size: 14pt;
+        line-height: 12pt;
+      }
+    }
+
     .accordion {
+      min-height: 56px;
       padding: 5px 10px 5px 30px;
       font-size: 12pt;
       line-height: 12pt;
       cursor: pointer;
-
-      &.light {
-        line-height: 24pt;
-        .url .url-overlay {
-          left: 5px;
-        }
-      }
 
       .chip {
         height: 30px;
@@ -561,7 +571,7 @@
         width: 20px;
       }
       .toggle {
-        font-size: 16pt;
+        font-size: 11pt;
         line-height: 9pt;
         margin-left: -17px;
       }
@@ -682,8 +692,12 @@
       font-size: 10pt;
     }
     .insight {
-      margin: 0 auto;
+      margin: 10px auto;
       height: 130px;
+
+      &.small {
+        height: 100px;
+      }
 
       .material-icons {
         display: block;
