@@ -435,7 +435,7 @@
                 </div>
               </div>
             </div>
-            <div class="uppercase text-sm progress-detail">{{ grid.prepareFilterName(grid.stage[lead.properties.stage]) }}</div>
+            <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
           <div class="left"
@@ -458,7 +458,7 @@
                hide show-gt-sm
                layout="row"
                layout-align="start center">
-            <span class="text-sm move">{{ lead.properties.action_copy || 'This lead is ready to submit. Examine the information, and submit to SolarCity at your earliest convenience.' }}</span>
+            <span class="text-sm move">{{ lead.properties.action_copy }}</span>
           </div>
         </div>
         <md-divider hide show-gt-sm></md-divider>
