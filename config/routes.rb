@@ -251,7 +251,11 @@ Rails.application.routes.draw do
     # Product Receipts
     resources :product_receipts,
               only: [ :index ],
-              as:   :admin_product_receipts
+              as:   :admin_product_receipts do
+      member do
+        post :refund
+      end
+    end
 
     resources :system_settings,
               only: [ :index, :show, :update ],

@@ -111,7 +111,9 @@ module UserScopes
       partners.where('organic_rank <> 1')
     }
 
-    scope :with_purchases, -> { joins(:product_receipts) }
+    scope :with_purchases, lambda {
+      joins(:product_receipts).where(product_receipts: { refunded_at: nil })
+    }
     scope :purchased, lambda { |product_id|
       joins(:product_receipts)
         .where(product_receipts: { product_id: product_id })
@@ -122,7 +124,10 @@ module UserScopes
     }
 
     scope :partners, lambda {
-      join = ProductReceipt.partner.select('distinct(user_id) user_id')
+      join = ProductReceipt
+        .partner
+        .where(refunded_at: nil)
+        .select('distinct(user_id) user_id')
       joins("INNER JOIN (#{join.to_sql}) pr ON pr.user_id = users.id")
     }
 

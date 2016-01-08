@@ -31,6 +31,24 @@
       });
     };
 
+    $scope.confirm = function(msg, clickAction, arg) {
+      if (window.confirm(msg)) {
+        return $scope.$eval(clickAction)(arg);
+      }
+    };
+
+    $scope.markAsRefunded = function(item) {
+      var action = getAction(item.actions, 'refund');
+
+      $http({
+        method: action.method,
+        url: action.href,
+      }).success(function(data) {
+        item.properties = data.properties;
+        $scope.showModal('This purchase has been marked as refunded');
+      });
+    };
+
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
   }
@@ -48,6 +66,17 @@
       $scope.pagination(0);
     }
   };
+
+  /*
+   * Utility Functions
+   */
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+  }
 
   AdminProductReceiptsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$http', '$anchorScroll', 'CommonService'];
   angular.module('powurApp').controller('AdminProductReceiptsCtrl', AdminProductReceiptsCtrl);

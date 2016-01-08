@@ -11,6 +11,7 @@ module Admin
          amount_desc:     { amount: :desc }
 
     before_filter :fetch_user, only: [ :index, :create ]
+    before_filter :fetch_receipt, only: [ :refund ]
 
     def index
       scope = ProductReceipt
@@ -31,10 +32,20 @@ module Admin
       head 200
     end
 
+    def refund
+      @product_receipt.touch(:refunded_at)
+
+      render :show
+    end
+
     private
 
     def fetch_user
       @user = User.find_by_id(params[:admin_user_id].to_i)
+    end
+
+    def fetch_receipt
+      @product_receipt = ProductReceipt.find_by(id: params[:id].to_i)
     end
 
     def update_mailchimp

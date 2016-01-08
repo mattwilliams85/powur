@@ -10,6 +10,7 @@
       <th>Authorization Code</th>
       <th>Amount <powur-sorter control="index" field="amount"></powur-sorter></th>
       <th>Date <powur-sorter control="index" field="date"></powur-sorter></th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -21,8 +22,11 @@
       <td><a href="mailto:{{item.properties.user.email}}">{{item.properties.user.email}}</a></td>
       <td>{{item.properties.transaction_id}}</td>
       <td>{{item.properties.auth_code}}</td>
-      <td>${{item.properties.amount | formattedPrice }}</td>
+      <td>${{item.properties.amount | formattedPrice }} <b ng-if="item.properties.refunded_at">(refunded)</b></td>
       <td>{{item.properties.purchased_at | dateTimeToLocal}}</td>
+      <td>
+        <a ng-if="!item.properties.refunded_at" ng-click="confirm('Are you sure you want to mark this receipt as refunded?', 'markAsRefunded', item)">mark as refunded</a>
+      </td>
     </tr>
   </tbody>
 </table>
