@@ -3,7 +3,7 @@ module Admin
     before_action :fetch_user,
                   only: [ :downline, :upline, :show, :update,
                           :sponsors, :eligible_parents, :move, :update_sponsor,
-                          :terminate ]
+                          :terminate, :sign_in ]
 
     page max_limit: 25
     sort id_desc:         { id: :desc },
@@ -111,6 +111,13 @@ module Admin
 
     def terminate
       @user.update_attribute(:terminated, 'true')
+      head :ok
+    end
+
+    def sign_in
+      reset_session
+      session[:user_id] = @user.id
+      session[:expires_at] = Time.current + 1.hour
       head :ok
     end
 

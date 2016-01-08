@@ -163,6 +163,16 @@
       });
     };
 
+    $scope.logInAsUser = function() {
+      var action = getAction($scope.user.actions, 'sign_in');
+
+      $http({
+        method: action.method,
+        url: action.href,
+      }).success(function() {
+        window.location = '/';
+      });
+    };
 
     // Sponsor actions
     $scope.setNewSponsor = function(newSponsor) {

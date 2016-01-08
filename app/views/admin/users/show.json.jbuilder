@@ -54,6 +54,9 @@ action_list << action(:update_sponsor,
 action_list << action(:terminate,
                       :post,
                       terminate_admin_user_path(@user))
+action_list << action(:sign_in,
+                      :post,
+                      sign_in_admin_user_path(@user))
 
 actions(*action_list)
 
