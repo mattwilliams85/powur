@@ -173,7 +173,7 @@ module powur {
     static $inject = ['leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
 
     searchQuery: string[];
-    stage: string[] = ['submit', 'proposal', 'closed won', 'contract', 'install', 'duplicate', 'ineligible', 'closed lost'];
+    stage: string[] = ['submitted', 'qualified', 'closed won', 'contract', 'installed', 'duplicate', 'ineligible', 'closed lost'];
     barLeft: number;
     barRight: number;
     radio: string = 'none';
