@@ -32,23 +32,18 @@
           <md-input-container flex="50">
             <label>first name</label>
             <input ng-model="dialog.createAction.field('first_name').value" autocomplete="off" md-autofocus>
+            <div ng-messages="dialog.createAction.field('first_name').$error" ng-show="dialog.createAction.field('first_name').$error" class="messages">
+              <div ng-message="message">{{ dialog.createAction.field('first_name').$error.message }}</div>
+            </div>
           </md-input-container>
           <md-input-container flex="50">
             <label>last name</label>
             <input ng-model="dialog.createAction.field('last_name').value" autocomplete="off">
-          </md-input-container>
-        </md-content>
-
-        <!-- <md-content> -->
-          <md-input-container class="no-margin no-padding">
-            <div ng-messages="dialog.createAction.field('first_name').$error" ng-show="dialog.createAction.field('first_name').$error" class="messages">
-              <div ng-message="message">{{ dialog.createAction.field('first_name').$error.message }}</div>
-            </div>
             <div ng-messages="dialog.createAction.field('last_name').$error" ng-show="dialog.createAction.field('last_name').$error" class="messages">
               <div ng-message="message">{{ dialog.createAction.field('last_name').$error.message }}</div>
             </div>
           </md-input-container>
-        <!-- </md-content> -->
+        </md-content>
 
         <md-content layout="column">
           <md-input-container>
