@@ -5,6 +5,7 @@
       <th>Product Name <powur-sorter control="index" field="product_id"></powur-sorter></th>
       <th width="30">User ID</th>
       <th>User</th>
+      <th>Email</th>
       <th>Transaction ID</th>
       <th>Authorization Code</th>
       <th>Amount <powur-sorter control="index" field="amount"></powur-sorter></th>
@@ -17,6 +18,7 @@
       <td>{{item.properties.product.name}}</td>
       <td>{{item.properties.user.id}}</td>
       <td><a ng-href="/admin/users/{{item.properties.user.id}}">{{item.properties.user.first_name}} {{item.properties.user.last_name}}</a></td>
+      <td><a href="mailto:{{item.properties.user.email}}">{{item.properties.user.email}}</a></td>
       <td>{{item.properties.transaction_id}}</td>
       <td>{{item.properties.auth_code}}</td>
       <td>${{item.properties.amount | formattedPrice }}</td>
