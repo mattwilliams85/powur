@@ -244,7 +244,7 @@ class User < ActiveRecord::Base
   # end
 
   def solar_landing_leads_count
-    Lead.team_count(user_id: id, query: Lead.where(call_consented: true))
+    leads.where(call_consented: true).count
   end
 
   def metrics
