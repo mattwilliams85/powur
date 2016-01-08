@@ -846,7 +846,7 @@ CREATE TABLE product_receipts (
     id integer NOT NULL,
     product_id integer NOT NULL,
     user_id integer NOT NULL,
-    amount numeric(10,2) NOT NULL,
+    amount double precision NOT NULL,
     transaction_id character varying NOT NULL,
     auth_code character varying,
     created_at timestamp without time zone,
@@ -881,7 +881,7 @@ ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
 CREATE TABLE products (
     id integer NOT NULL,
     name character varying NOT NULL,
-    bonus_volume integer,
+    bonus_volume double precision,
     commission_percentage integer DEFAULT 100 NOT NULL,
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -3101,11 +3101,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151204001109');
 
 INSERT INTO schema_migrations (version) VALUES ('20151222193105');
 
-INSERT INTO schema_migrations (version) VALUES ('20151222212620');
-
-INSERT INTO schema_migrations (version) VALUES ('20151222213336');
-
 INSERT INTO schema_migrations (version) VALUES ('20151228173756');
 
 INSERT INTO schema_migrations (version) VALUES ('20160105220528');
 
+INSERT INTO schema_migrations (version) VALUES ('20160108191248');

@@ -46,11 +46,11 @@ module Forms
               presence: true
 
     validates :amount,
-              format:   {
-                with:    /\A[0-9]+\Z/i,
-                message: 'Incorrect amount'
+              numericality: {
+                greater_than: 0,
+                message:      'Incorrect amount'
               },
-              presence: true
+              presence:     true
 
     validates :product_id, presence: true
 

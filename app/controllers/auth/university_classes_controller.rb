@@ -67,7 +67,7 @@ module Auth
       @puchase_form ||= begin
         form_args = params[:card].merge(
           product_id: @university_class.id,
-          amount:     @university_class.bonus_volume / 100)
+          amount:     @university_class.bonus_volume)
         Forms::PurchaseUniversityClass.new(form_args)
       end
     end

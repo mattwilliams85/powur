@@ -45,14 +45,10 @@
     // Create Product Action
     $scope.create = function() {
       if ($scope.product) {
-        // dollars to cents
-        $scope.product.bonus_volume *= 100;
-
         $scope.isSubmitDisabled = true;
         CommonService.execute($scope.formAction, $scope.product).then(function success(data) {
           $scope.isSubmitDisabled = false;
           if (data.error) {
-            $scope.product.bonus_volume /= 100;
             $scope.showModal('Error, while saving data, please check input');
             return;
           }
@@ -65,13 +61,9 @@
     // Update Product Action
     $scope.update = function() {
       if ($scope.product) {
-        // dollars to cents
-        $scope.product.bonus_volume *= 100;
-
         CommonService.execute($scope.formAction, $scope.product).then(function success(data) {
           $scope.isSubmitDisabled = false;
           if (data.error) {
-            $scope.product.bonus_volume /= 100;
             $scope.showModal('Error, while saving data, please check input');
             return;
           }
@@ -132,7 +124,6 @@
       }).then(function(item) {
         // Cents to dollars
         var bonusVolumeField = getField(getAction(item.actions, 'update').fields, 'bonus_volume');
-        bonusVolumeField.value /= 100;
         $scope.product = item.properties;
         $scope.productObj = item;
         $scope.formAction = getAction($scope.productObj.actions, 'update');
