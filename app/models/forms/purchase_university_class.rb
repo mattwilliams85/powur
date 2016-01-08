@@ -3,7 +3,8 @@ module Forms
     include ActiveModel::Validations
 
     attr_accessor :amount, :number, :expiration, :cvv,
-                  :firstname, :lastname, :zip, :product_id
+                  :firstname, :lastname, :zip, :email,
+                  :product_id
 
     validates :number,
               format:   {
@@ -70,6 +71,7 @@ module Forms
         product_id:    product_id,
         firstname:     firstname,
         lastname:      lastname,
+        email:         email,
         zip:           zip
       }
     end
