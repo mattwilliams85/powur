@@ -16,6 +16,13 @@
     margin-left: 10px;
   }
 
+  input.search {
+    max-width: 250px;
+    background: image-url('search.svg');
+    max-width: 250px;
+    padding-left: 30px;
+    background-repeat: no-repeat;
+  }
 }
 
 .pow-admin-show {

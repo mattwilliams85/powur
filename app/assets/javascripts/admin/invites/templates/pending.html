@@ -1,9 +1,13 @@
-<main class="pow-admin-index">
+<main class="pow-admin-index">  
   <div class="row">
     <div class="large-12 columns">
       <h2>Pending Invites</h2>
     </div>
   </div>
+
+  <form ng-submit="pagination()">
+    <input placeholder="SEARCH" type="search" class="right search" ng-model="search.string" ng-click="clearSearch()">
+  </form>
 
   <div class="row">
     <div class="large-12 columns">

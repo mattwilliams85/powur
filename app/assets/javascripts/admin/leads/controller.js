@@ -5,9 +5,10 @@
     .controller('AdminLeadsCtrl', controller)
     .config(routes);
 
-  controller.$inject = ['$scope', '$rootScope', '$anchorScroll', '$http'];
-  function controller($scope, $rootScope, $anchorScroll, $http) {
+  controller.$inject = ['$scope', '$rootScope', '$anchorScroll', '$http', 'CommonService', '$timeout'];
+  function controller($scope, $rootScope, $anchorScroll, $http, CommonService, $timeout) {
     $scope.redirectUnlessSignedIn();
+    $scope.search = {};
 
     $scope.templateData = {
       index: {
@@ -18,7 +19,6 @@
 
     // TODO: Have one 'pagination' function instead of defining it in every controller
     $scope.pagination = function(direction, path) {
-      if (typeof direction === 'undefined') direction = 0;
       var page = 1,
           sort;
       if ($scope.index.data) {
@@ -26,6 +26,7 @@
         sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
+      if (!direction) page = 1;
 
       return $http({
         method: 'GET',
@@ -33,11 +34,20 @@
         params: {
           page: page,
           sort: sort,
-          limit: 50
+          limit: 10,
+          search: $scope.search.string
         }
       }).success(function(data) {
         $scope.index.data = data;
         $anchorScroll();
+      });
+    };
+
+    $scope.clearSearch = function() {
+      $timeout(function(){
+        if (!$scope.search.string) {
+          $scope.pagination();
+        }
       });
     };
 
@@ -46,6 +56,8 @@
     $rootScope.breadcrumbs.push({title: $scope.templateData.index.title});
     $scope.pagination(0, $scope.listPath = '/u/leads');
   }
+
+
 
   routes.$inject = ['$routeProvider'];
   function routes($routeProvider) {

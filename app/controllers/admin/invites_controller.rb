@@ -8,7 +8,8 @@ module Admin
     filter :pending, scope_opts: { type: :boolean }
 
     def index
-      scope = @user ? @user.sent_invites : Invite
+      scope = @user ? @user.sent_invites : Invite.all
+      scope = scope.merge(Invite.search(params[:search])) if params[:search]
       @invites = apply_list_query_options(scope)
     end
 

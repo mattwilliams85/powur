@@ -5,13 +5,13 @@
     .controller('AdminInvitesCtrl', controller)
     .config(routes);
 
-  controller.$inject = ['$scope', '$rootScope', '$location', '$anchorScroll', '$http'];
-  function controller($scope, $rootScope, $location, $anchorScroll, $http) {
+  controller.$inject = ['$scope', '$rootScope', '$location', '$anchorScroll', '$http', '$timeout', 'CommonService'];
+  function controller($scope, $rootScope, $location, $anchorScroll, $http, $timeout, CommonService) {
     $scope.redirectUnlessSignedIn();
+    $scope.search = {};
 
     // TODO: Have one 'pagination' function instead of defining it in every controller
     $scope.pagination = function(direction, path) {
-      if (typeof direction === 'undefined') direction = 0;
       var page = 1,
           sort;
       if ($scope.index.data) {
@@ -19,6 +19,7 @@
         sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
+      if (!direction) page = 1;
 
       return $http({
         method: 'GET',
@@ -26,7 +27,8 @@
         params: {
           page: page,
           sort: sort,
-          search: $scope.searchInvites
+          limit: 10,
+          search: $scope.search.string
         }
       }).success(function(data) {
         $scope.index.data = data;
@@ -34,9 +36,12 @@
       });
     };
 
-    $scope.search = function() {
-      $scope.index = {};
-      $scope.pagination();
+    $scope.clearSearch = function() {
+      $timeout(function(){
+        if (!$scope.search.string) {
+          $scope.pagination();
+        }
+      });
     };
 
     this.init($scope, $location);

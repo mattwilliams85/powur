@@ -27,6 +27,8 @@ class Invite < ActiveRecord::Base
     self.expires ||= expires_timespan
   end
 
+  add_search :user, [ :user ]
+
   scope :pending, -> { where(user_id: nil) }
   scope :redeemed, -> { where.not(user_id: nil) }
 
