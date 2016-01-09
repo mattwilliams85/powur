@@ -25,7 +25,7 @@
       <td>${{item.properties.amount | formattedPrice }} <b ng-if="item.properties.refunded_at">(refunded)</b></td>
       <td>{{item.properties.purchased_at | dateTimeToLocal}}</td>
       <td>
-        <a ng-if="!item.properties.refunded_at" ng-click="confirm('Are you sure you want to mark this receipt as refunded?', 'markAsRefunded', item)">mark as refunded</a>
+        <a ng-if="isRefundable(item)" ng-click="confirm('Are you sure you want to mark this receipt as refunded?', 'markAsRefunded', item)">mark as refunded</a>
       </td>
     </tr>
   </tbody>

@@ -9,7 +9,7 @@ json.properties do
   json.user User.find(product_receipt.user_id)
 end
 
-unless product_receipt.refunded_at
+if product_receipt.refunded_at.nil? && product_receipt.amount > 0
   actions \
     action(:refund,
            :post,

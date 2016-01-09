@@ -49,6 +49,11 @@
       });
     };
 
+    $scope.isRefundable = function(item) {
+      if (getAction(item.actions, 'refund')) return true;
+      return false;
+    };
+
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
   }
