@@ -185,13 +185,6 @@ Rails.application.routes.draw do
 
     resources :resources, only: [:index, :show]
 
-    resources :product_invites do
-      member do
-        post :resend
-        get :email
-      end
-    end
-
     get 'uploader_config', to: 'uploader_config#show'
   end
 

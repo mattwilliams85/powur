@@ -12,6 +12,7 @@ DEFAULTS: &DEFAULTS
   city: Los Angeles
   state: CA
   zip: 90210
+  code: abc
   data:
     average_bill: 175
 
