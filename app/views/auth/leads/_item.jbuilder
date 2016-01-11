@@ -24,6 +24,7 @@ json.properties do
       end
     end if lead.user.avatar?
   end
+  json.getsolar_page_url(lead.getsolar_page_url)
 end
 
 actions_list = []

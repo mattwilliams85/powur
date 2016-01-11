@@ -198,6 +198,12 @@ class Lead < ActiveRecord::Base
       .map { |lu| lu.send(date) }.compact
   end
 
+  def getsolar_page_url
+    opts = Rails.configuration.action_mailer.default_url_options
+    URI.join("#{opts[:protocol]}://#{opts[:host]}",
+             'next/getsolar/', user_id.to_s + '/', code).to_s
+  end
+
   private
 
   def query_status_count(status, product_id = nil)
