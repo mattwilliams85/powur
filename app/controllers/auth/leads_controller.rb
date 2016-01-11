@@ -119,7 +119,8 @@ module Auth
       days = params[:days].to_i
       scope = scope.where('leads.created_at > ?',
                           days.days.ago) if days > 0
-      scope = scope.merge(Lead.user_search(params[:search])) if params[:search]
+      scope = scope.merge(Lead.search(params[:search])) if params[:search]
+      scope = scope.merge(Lead.user_search(params[:user_search])) if params[:user_search]
       @leads = scope
     end
 

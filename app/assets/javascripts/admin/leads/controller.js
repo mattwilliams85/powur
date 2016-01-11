@@ -35,7 +35,7 @@
           page: page,
           sort: sort,
           limit: 10,
-          search: $scope.search.string
+          user_search: $scope.search.string
         }
       }).success(function(data) {
         $scope.index.data = data;
