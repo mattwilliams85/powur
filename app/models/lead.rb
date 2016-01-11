@@ -225,25 +225,30 @@ class Lead < ActiveRecord::Base
                    data_status:  Lead.data_statuses[:submitted])
   end
 
-  class SolarCityApiError < StandardError; end
+  class SolarCityApiError < StandardError
+    attr_reader :error
+
+    def initialize(error)
+      @error = error
+    end
+  end
 
   def submit_to_provider
     form = SolarCityForm.new(self)
     form.post
     if form.error? && !form.dupe?
-      fail(form.error.is_a?(Exception) ? form.error : "Lead post error?: #{form.error.inspect}")
-    end
-
-    if form.dupe?
-      Rails.logger.error(
-        'Lead#submit_to_provider duplicate error. ' \
-        "Request: #{form.post_body} " \
-        "Response: #{form.parsed_response}")
+      msg =
+          if form.error.is_a?(Exception)
+            form.error
+          else
+            "Lead post error?: #{form.error.inspect}"
+          end
+      fail msg
     end
 
     submitted(form.provider_uid, DateTime.parse(form.response.headers[:date]))
   rescue RestClient::RequestFailed => e
-    raise SolarCityApiError.new, "Request failed to solar city: #{e.message}"
+    raise SolarCityApiError.new(e), "Request failed to solar city: #{e.message}"
   rescue => e
     params = {
       response: form.response.inspect,

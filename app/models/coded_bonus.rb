@@ -189,6 +189,5 @@ class CodedBonus < Bonus
 
     #   graph.output(png: '/tmp/coded_graph.png')
     # end
-
   end
 end
