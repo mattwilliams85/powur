@@ -874,6 +874,9 @@
         width: 24px;
         border: 4px solid #e0e0e0;
       }
+      .header {
+        font-size: 8pt;
+      }
       .highlight {
         &.stage-0 { animation: pop-in-xl .3s 0s forwards; }
         &.stage-1 { animation: pop-in-xl .3s .1s forwards; }
