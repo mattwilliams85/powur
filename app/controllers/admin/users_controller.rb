@@ -3,7 +3,7 @@ module Admin
     before_action :fetch_user,
                   only: [ :downline, :upline, :show, :update,
                           :sponsors, :eligible_parents, :move, :update_sponsor,
-                          :terminate, :sign_in ]
+                          :terminate, :unterminate, :sign_in ]
 
     page max_limit: 25
     sort id_desc:         { id: :desc },
@@ -111,7 +111,12 @@ module Admin
 
     def terminate
       @user.update_attribute(:terminated, 'true')
-      head :ok
+      render 'show'
+    end
+
+    def unterminate
+      @user.update_attribute(:terminated, 'false')
+      render 'show'
     end
 
     def sign_in

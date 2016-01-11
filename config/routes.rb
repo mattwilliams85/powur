@@ -271,8 +271,8 @@ Rails.application.routes.draw do
       end
       member do
         get :downline, :upline, :eligible_parents, :sponsors
-        post :move, :terminate, :sign_in
-        patch :update_sponsor
+        post :move, :sign_in
+        patch :update_sponsor, :terminate, :unterminate
       end
 
       # Users / Bonus Payments
