@@ -353,9 +353,27 @@
       </div>
 
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
-        <span class="label left" flex="50" flex-gt-sm="25">CONTACT INFO</span>
-        <span class="label left" flex="50" flex-gt-sm="25">STATUS</span>
-        <span class="label left" hide show-gt-sm flex="25">LEAD OWNER</span>
+        <span class="label left" flex="50" flex-gt-sm="25" layout="row">
+          CONTACT INFO 
+          <span layout="column" class="sort" ng-click="grid.sortLeads('customer')">
+            <i class="material-icons" ng-class="{ 'active': grid.sort === 'customer_desc' }">arrow_drop_up</i>
+            <i class="material-icons" ng-class="{ 'active': grid.sort === 'customer_asc' }">arrow_drop_down</i>
+          </span>
+        </span>
+        <span class="label left" flex="50" flex-gt-sm="25" layout="row">
+          STATUS
+          <span layout="column" class="sort" ng-click="grid.sortLeads('submitted')">
+            <i class="material-icons" ng-class="{ 'active': grid.sort === 'submitted_desc' }">arrow_drop_up</i>
+            <i class="material-icons" ng-class="{ 'active': grid.sort === 'submitted_asc' }">arrow_drop_down</i>
+          </span>
+        </span>
+        <span class="label left" hide show-gt-sm flex="25" layout="row">
+          LEAD OWNER
+          <span layout="column" class="sort" ng-click="grid.sortLeads('owner')">
+            <i class="material-icons" ng-class="{ 'active': grid.sort === 'owner_desc' }">arrow_drop_up</i>
+            <i class="material-icons" ng-class="{ 'active': grid.sort === 'owner_asc' }">arrow_drop_down</i>
+          </span>
+        </span>
         <span class="label left" hide show-gt-sm flex="25">POWUR MOVE</span>
       </div>
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">

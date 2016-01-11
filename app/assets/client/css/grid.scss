@@ -331,6 +331,21 @@
       .label {
         max-width: 300px;
       }
+
+      .sort {
+        cursor: pointer;
+
+        .material-icons {
+          line-height: 0.4;
+          font-size: 9pt;
+          margin-left: 3px;
+          margin-top: 1px;
+          margin-bottom: -1px;
+          &.active {
+            color: $pow-color-blue;
+          }
+        }
+      }
     }
 
     md-divider {
@@ -583,6 +598,12 @@
         span:nth-child(2) {
           padding-left: 0;
         }
+        .sort {
+          .material-icons {
+            margin-top: 0;
+            font-size: 14pt;
+          }
+        }
       }
       .grid-row {
         height: 75px;
@@ -718,6 +739,11 @@
         max-width: 1100px;
         width: 100%;
         margin: 0 auto;
+        .sort {
+          .material-icons {
+            margin-top: 1px;
+          }
+        }
       }
       .grid-row-wrap {
         background: #fff;

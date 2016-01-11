@@ -51,6 +51,7 @@ entity_list << entity(%w(list users), 'user-users', users_path)
 leads_routes_options = {
   days: '{days}',
   page: '{page}',
+  sort: '{sort}',
   data_status: '{data_status}',
   submitted_status: '{submitted_status}',
   sales_status: '{sales_status}' }

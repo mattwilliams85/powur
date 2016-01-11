@@ -178,6 +178,7 @@ module powur {
     phaseFilter: string = 'pending';
     reloading: boolean;
     pageList: number[] = [];
+    sort: string = 'submitted_asc';
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -358,6 +359,8 @@ module powur {
         });
       }
       filterOpts['page'] = page;
+      filterOpts['sort'] = this.sort;
+      
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leads.properties.paging.current_page = i;
         this.leads.properties = data.properties;
@@ -372,6 +375,15 @@ module powur {
       this.searchQuery = null;
       this.leads.properties.paging.current_page = 1;
       this.leads.entities = [];
+      this.changePage(this.currentPage);
+    }
+
+    sortLeads(type) {
+      if (this.sort === type + '_asc') {
+        this.sort = type + '_desc'
+      } else {
+        this.sort = type + '_asc'
+      }
       this.changePage(this.currentPage);
     }
 
