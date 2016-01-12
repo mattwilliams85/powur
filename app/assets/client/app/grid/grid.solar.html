@@ -4,6 +4,30 @@
       <span class="toggle" ng-class="{'closed': hideProposal }"></span>
       GRID <b>MARKETING</b>
     </span>
+
+    <md-menu md-position-mode="target-right target" md-offset="0 10">
+      <div class="chip" layout="row" layout-align="center center">
+        <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
+          <i class="material-icons">people</i>
+          <span ng-hide="grid.leadsMarketing.properties.showPersonal">Team</span>
+          <span ng-show="grid.leadsMarketing.properties.showPersonal">Personal</span>
+        </div>
+        <i class="material-icons close"
+           ng-show="grid.leadsMarketing.properties.showPersonal"
+           ng-click="grid.leadsMarketing.properties.showPersonal = null">
+           close
+        </i>
+      </div>
+      <md-menu-content class="filter-menu" width="4">
+        <md-menu-item class="header"><span>SELECT <b>MODE</b></span></md-menu-item>
+        <div class="filter-box small">
+          <md-radio-group ng-model="grid.leadsMarketing.properties.showPersonal">
+            <md-radio-button aria-label="team" ng-value="null">Team Leads</md-radio-button>
+            <md-radio-button aria-label="personal" ng-value="true">Personal Leads</md-radio-button>
+          </md-radio-group>
+        </div>
+      </md-menu-content>
+    </md-menu>
   </div>
 
   <div ng-hide="hideProposal">
@@ -15,19 +39,21 @@
         <div class="label">VIEWS</div>
         <div class="count" layout="row" layout-align="center center">
           <i class="material-icons">visibility</i>
-          {{ grid.session.properties.solar_landing_views_count || 0 }}
+          <span ng-show="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_views_count || 0 }}</span>
+          <span ng-hide="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_team_views_count || 0 }}</span>
         </div>
       </div>
       <div layout="column" layout-align="space-around" flex="20">
         <div class="label">LEADS</div>
         <div class="count" layout="row" layout-align="center center">
           <i class="material-icons">assignment</i>
-          {{ grid.session.properties.solar_landing_leads_count || 0 }}
+          <span ng-show="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_leads_count || 0 }}</span>
+          <span ng-hide="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_team_leads_count || 0 }}</span>
         </div>
       </div>
     </div>
   </div>
- 
+
 
   <div class="accordion" layout="row" layout-align="space-between-center">
     <span class="toggle-wrapper" ng-click="hideInsight = !hideInsight">
@@ -354,7 +380,7 @@
 
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
         <span class="label left" flex="50" flex-gt-sm="25" layout="row">
-          CONTACT INFO 
+          CONTACT INFO
           <span layout="column" class="sort" ng-click="grid.sortLeads('customer')">
             <i class="material-icons" ng-class="{ 'active': grid.sort === 'customer_desc' }">arrow_drop_up</i>
             <i class="material-icons" ng-class="{ 'active': grid.sort === 'customer_asc' }">arrow_drop_down</i>
@@ -485,45 +511,45 @@
     <div ng-show="!grid.leads.entities.length && !grid.reloading" layout-padding><i>No Results Found</i></div>
 
     <ul class="pagination" ng-hide="grid.pageCount < 2">
-      <li 
-        class="jump" 
-        ng-class="{ 'disabled': grid.currentPage === 1 }" 
+      <li
+        class="jump"
+        ng-class="{ 'disabled': grid.currentPage === 1 }"
         ng-click="grid.changePage(1)"
         ng-disabled="grid.reloading">
         FIRST
       </li>
-      <li 
-        class="chevron" 
-        ng-class="{ 'disabled': grid.currentPage === 1 }" 
+      <li
+        class="chevron"
+        ng-class="{ 'disabled': grid.currentPage === 1 }"
         ng-click="grid.changePage(grid.currentPage - 1)"
         ng-disabled="grid.reloading">
         <i class="material-icons">chevron_left</i>
       </li>
-      <li 
-        ng-repeat="i in grid.pageList track by $index" 
-        md-ink-ripple="#20c2f1" 
+      <li
+        ng-repeat="i in grid.pageList track by $index"
+        md-ink-ripple="#20c2f1"
         ng-class="{ 'active': i === grid.currentPage }"
         ng-click="grid.changePage(i)"
         ng-hide="!i"
         ng-disabled="grid.reloading">
         {{ i }}
       </li>
-      <li 
-        class="chevron" 
-        ng-class="{ 'disabled': grid.currentPage === grid.pageCount }" 
+      <li
+        class="chevron"
+        ng-class="{ 'disabled': grid.currentPage === grid.pageCount }"
         ng-click="grid.changePage(grid.currentPage + 1)">
         <i class="material-icons"
         ng-disabled="grid.reloading">chevron_right</i>
       </li>
-      <li 
-        class="jump" 
+      <li
+        class="jump"
         ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
-                                grid.pageCount < 10 }" 
+                                grid.pageCount < 10 }"
         ng-click="grid.changePage(grid.pageCount)"
         ng-disabled="grid.reloading">
         LAST
       </li>
-    </ul> 
+    </ul>
 
   </div>
 </div>

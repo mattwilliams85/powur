@@ -247,6 +247,16 @@ class User < ActiveRecord::Base
     leads.where(call_consented: true).count
   end
 
+  def solar_landing_team_leads_count
+    Lead.team_leads(user_id: id).where(call_consented: true).count
+  end
+
+  def solar_landing_team_views_count
+    User.all_team(id)
+      .where("(profile -> 'solar_landing_views_count')::integer > 0")
+      .sum("(profile -> 'solar_landing_views_count')::integer")
+  end
+
   def metrics
     @metrics ||= Metrics.new(self)
   end

@@ -166,7 +166,7 @@ module powur {
 
   class GridSolarController extends AuthController {
     static ControllerId = 'GridSolarController';
-    static $inject = ['leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
+    static $inject = ['leadsMarketing', 'leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
 
     searchQuery: string[];
     stage: string[] = ['submitted', 'qualified', 'closed won', 'contract', 'installed', 'duplicate', 'ineligible', 'closed lost'];
@@ -188,11 +188,12 @@ module powur {
       return this.session.properties.getsolar_page_url;
     }
 
-    constructor(public leadsSummary: ISirenModel,
-      public leads: ISirenModel,
-      public $scope: any,
-      public $mdDialog: ng.material.IDialogService,
-      public $timeout: ng.ITimeoutService) {
+    constructor(public leadsMarketing: ISirenModel,
+                public leadsSummary: ISirenModel,
+                public leads: ISirenModel,
+                public $scope: any,
+                public $mdDialog: ng.material.IDialogService,
+                public $timeout: ng.ITimeoutService) {
       super();
 
       $timeout(function() {
@@ -360,7 +361,7 @@ module powur {
       }
       filterOpts['page'] = page;
       filterOpts['sort'] = this.sort;
-      
+
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leads.properties.paging.current_page = i;
         this.leads.properties = data.properties;

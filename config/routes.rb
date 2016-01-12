@@ -145,7 +145,7 @@ Rails.application.routes.draw do
 
       resources :leads, only: [ :index ] do
         collection do
-          get :summary
+          get :summary, :marketing
         end
       end
       resource :goals, only: [ :show ]

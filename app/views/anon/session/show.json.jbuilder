@@ -6,8 +6,7 @@ json.properties do
   json.call(current_user, :id, :first_name, :last_name, :full_name,
             :email, :phone, :address, :city, :state, :zip,
             :bio, :twitter_url, :facebook_url, :linkedin_url,
-            :lifetime_rank, :organic_rank, :level, :partner?,
-            :solar_landing_leads_count, :solar_landing_views_count)
+            :lifetime_rank, :organic_rank, :level, :partner?)
 
   json.avatar do
     [ :thumb, :preview, :large ].each do |key|
@@ -49,12 +48,12 @@ entity_list << entity(%w(list invites),
                       invites_path(page: '{page}'))
 entity_list << entity(%w(list users), 'user-users', users_path)
 leads_routes_options = {
-  days: '{days}',
-  page: '{page}',
-  sort: '{sort}',
-  data_status: '{data_status}',
+  days:             '{days}',
+  page:             '{page}',
+  sort:             '{sort}',
+  data_status:      '{data_status}',
   submitted_status: '{submitted_status}',
-  sales_status: '{sales_status}' }
+  sales_status:     '{sales_status}' }
 entity_list << entity(%w(list leads),
                       'user-leads',
                       user_leads_path(current_user, leads_routes_options))
@@ -71,6 +70,9 @@ entity_list << entity(%w(user), 'user-profile', profile_path)
 entity_list << entity(%w(summary leads),
                       'user-leads_summary',
                       summary_user_leads_path(current_user, days: '{days}', personal: '{personal}'))
+entity_list << entity(%w(marketing leads),
+                      'user-leads_marketing',
+                      marketing_user_leads_path(current_user))
 entity_list << entity(%w(grid_summary user),
                       'user-grid_summary',
                       grid_summary_user_path(current_user, days: '{days}'))
