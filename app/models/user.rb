@@ -303,6 +303,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def derank
+    update_attributes(lifetime_rank: 0, organic_rank: 0)
+    user_ranks.delete_all
+    User.rank_up
+  end
+
   private
 
   def set_url_slug

@@ -34,6 +34,7 @@ module Admin
 
     def refund
       @product_receipt.touch(:refunded_at)
+      @product_receipt.user.derank if @product_receipt.product.slug == 'partner'
 
       render :show
     end
