@@ -201,7 +201,7 @@ class Lead < ActiveRecord::Base
   def getsolar_page_url
     opts = Rails.configuration.action_mailer.default_url_options
     URI.join("#{opts[:protocol]}://#{opts[:host]}",
-             'next/getsolar/', user_id.to_s + '/', code).to_s
+             'next/getsolar/', user_id.to_s + '/', code.to_s).to_s
   end
 
   private
