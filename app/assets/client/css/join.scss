@@ -18,11 +18,11 @@
   }
 
   .bg-img {
-    &.g1 { @include bg("img/join/join-bg.jpg") }
-    &.g2 { @include bg("img/join/join-bg3.jpg") }
-    &.s1 { @include bg("img/join/join-bg2.jpg") }
-    &.s2 { @include bg("img/join/join-bg4.jpg") }
-    &.s3 { @include bg("img/join/join-bg5-mod.jpg") }
+    &.g1 { @include bg("img/join/backgrounds/join-bg.jpg") }
+    &.g2 { @include bg("img/join/backgrounds/join-bg3.jpg") }
+    &.s1 { @include bg("img/join/backgrounds/join-bg2.jpg") }
+    &.s2 { @include bg("img/join/backgrounds/join-bg4.jpg") }
+    &.s3 { @include bg("img/join/backgrounds/join-bg5.jpg") }
   }
 
   .trailer-box {

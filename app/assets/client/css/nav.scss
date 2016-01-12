@@ -36,7 +36,7 @@
     }
 
     .mobile-menu {
-        background: image-url('img/hud-icon-disabled.png');
+        background: image-url('img/nav/icons/admin.png');
         height: 38px;
         width: 34px;
         background-size: 100%;
@@ -44,7 +44,7 @@
         margin-bottom: 35px;
         cursor: pointer;
         &.active {
-            background: image-url('img/hud-icon.png');
+            background: image-url('img/nav/icons/admin-white.png');
         }
     }
 
@@ -66,7 +66,7 @@
     }
 
     .sprite {
-        background-image: image-url("img/nav-sprite.png");
+        background-image: image-url("img/nav/icons/nav-sprite.png");
         background-repeat: no-repeat;
         display: inline-block;
     }
@@ -74,11 +74,11 @@
     .sprite-library {
         width: 35px;
         height: 43px;
-        background-image: image-url("img/library-icon.png");
+        background-image: image-url("img/nav/icons/library.png");
     }
 
     .sprite-upgrade {
-        background: image-url('img/upgrade-icon.png');
+        background: image-url('img/nav/icons/upgrade.png');
         background-size: contain;
         width: 35px;
         height: 35px;
@@ -86,7 +86,7 @@
     }
 
     .sprite-certs {
-        background: image-url('img/powur-u-icon.png');
+        background: image-url('img/nav/icons/powur-u.png');
         background-size: contain;
         width: 35px;
         height: 35px;
@@ -95,7 +95,7 @@
     .sprite-earnings {
         width: 42px;
         height: 40px;
-        background-image: image-url("img/earnings-icon.png");
+        background-image: image-url("img/nav/icons/earnings.png");
     }
 
     .sprite-events {
@@ -119,7 +119,7 @@
     .sprite-logout {
         width: 33px;
         height: 26px;
-        background-image: image-url("img/logout-icon.png");
+        background-image: image-url("img/nav/icons/logout.png");
     }
 
     .sprite-social {
@@ -131,7 +131,7 @@
     .sprite-stats {
         width: 27px;
         height: 31px;
-        background-image: image-url("img/profile-icon.png");
+        background-image: image-url("img/nav/icons/profile.png");
     }
 
     .sprite-strategy {
@@ -143,13 +143,13 @@
     .sprite-dashboard {
       width: 35px;
       height: 35px;
-      background-image: image-url("img/dashboard-icon.png");
+      background-image: image-url("img/nav/icons/dashboard.png");
     }
 
     .sprite-invite {
       width: 32px;
       height: 38px;
-      background-image: image-url("img/invite-icon.png");
+      background-image: image-url("img/nav/icons/invite.png");
     }
 }
 
@@ -224,21 +224,21 @@
 
   .sprite {
     &.sprite-dashboard {
-      background: image-url('img/dashboard-icon.png');
+      background: image-url('img/nav/icons/dashboard.png');
       width: 39px;
       height: 30px;
       background-size: contain;
       background-repeat: no-repeat;
     }
     &.sprite-invite {
-      background: image-url('img/invite-icon.png');
+      background: image-url('img/nav/icons/invite.png');
       width: 40px;
       height: 33px;
       background-size: contain;
       background-repeat: no-repeat;
     }
     &.sprite-grid-solar {
-      background: image-url('img/grid-solar-icon.png');
+      background: image-url('img/nav/icons/grid-solar.png');
       width: 41px;
       height: 32px;
       margin-left: -2px;
@@ -246,7 +246,7 @@
       background-repeat: no-repeat;
     }
     &.sprite-earnings {
-      background: image-url('img/earnings-icon.png');
+      background: image-url('img/nav/icons/earnings.png');
       width: 40px;
       height: 29px;
       margin: 0 0px 0 -1px;
@@ -254,14 +254,14 @@
       background-repeat: no-repeat;
     }
     &.sprite-library {
-      background: image-url('img/library-icon.png');
+      background: image-url('img/nav/icons/library.png');
       width: 39px;
       height: 32px;
       background-size: contain;
       background-repeat: no-repeat;
     }
     &.sprite-certs {
-      background: image-url('img/powur-u-icon.png');
+      background: image-url('img/nav/icons/powur-u.png');
       width: 29px;
       height: 29px;
       margin-right: 9px;
@@ -269,7 +269,7 @@
       background-repeat: no-repeat;
     }
     &.sprite-upgrade {
-      background: image-url('img/upgrade-icon.png');
+      background: image-url('img/nav/icons/upgrade.png');
       width: 40px;
       height: 29px;
       margin-right: -2px;
@@ -278,7 +278,7 @@
       background-repeat: no-repeat;
     }
     &.sprite-stats {
-      background: image-url('img/profile-icon.png');
+      background: image-url('img/nav/icons/profile.png');
       width: 40px;
       height: 26px;
       margin-left: 2px;
@@ -287,7 +287,7 @@
       background-repeat: no-repeat;
     }
     &.sprite-logout {
-      background: image-url('img/logout-icon.png');
+      background: image-url('img/nav/icons/logout.png');
       width: 40px;
       height: 23px;
       margin-left: 2px;
@@ -296,7 +296,7 @@
       background-repeat: no-repeat;
     }
     &.sprite-admin {
-      background: image-url('img/hud-icon-disabled.png');
+      background: image-url('img/nav/icons/admin.png');
       width: 41px;
       height: 27px;
       background-size: contain;
@@ -334,7 +334,7 @@
     height: 28%;
     text-transform: uppercase;
     color: #fff;
-    background-image: image-url('img/menu-banner.png');
+    background-image: image-url('img/nav/banner.png');
     padding: 0 18%;
     min-height: 120px;
     background-size: cover;
@@ -343,7 +343,7 @@
     }
 
     .logo {
-      background: image-url('img/powur-logo-white.png');
+      background: image-url('img/shared/powur-logo-white.png');
       height: 53px;
       width: 183px;
       margin: 0 0 5px -46px;
@@ -412,7 +412,7 @@
         margin-right: -2px;
       }
       &.sprite-admin {
-        background: image-url('img/hud-icon-disabled.png');
+        background: image-url('img/nav/icons/admin.png');
         width: 19px;
         height: 19px;
         margin-right: 11px;
@@ -425,7 +425,7 @@
       height: 20vh;
 
       .logo {
-        background: image-url('img/powur-logo-white.png');
+        background: image-url('img/shared/powur-logo-white.png');
         height: 30px;
         width: 104px;
         margin: 0 0 5px -26px;
@@ -510,35 +510,35 @@
             width: 13px;
 
             &.medal {
-                background: image-url('img/medal-icon-alt.png');
+                background: image-url('img/medal.png');
                 background-size: contain;
                 height: 14px;
                 width: 9px;
             }
             &.personal-lead {
-                background: image-url('img/personal-lead-icon-alt.png');
+                background: image-url('img/personal-lead.png');
                 background-size: contain;
                 height: 12px;
                 width: 10px;
             }
             &.grid-lead {
-                background: image-url('img/grid-lead-icon-alt.png');
+                background: image-url('img/grid-lead.png');
                 background-size: contain;
             }
             &.grid {
-                background: image-url('img/grid-icon-alt.png');
+                background: image-url('img/grid.png');
                 background-size: contain;
                 height: 11px;
                 width: 12px;
             }
             &.earnings {
-                background: image-url('img/earnings-icon-alt.png');
+                background: image-url('img/earnings.png');
                 background-size: contain;
                 height: 8px;
                 width: 13px;
             }
             &.co2 {
-                background: image-url('img/co2-icon-alt.png');
+                background: image-url('img/co2.png');
                 background-size: contain;
                 height: 11px;
                 width: 13px;

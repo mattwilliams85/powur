@@ -391,7 +391,7 @@
         font-size: 16pt;
 
         &.ineligible {
-          background: image-url("img/solar-invite-ineligible-icon.png");
+          background: image-url("img/leads/icons/ineligible-white.png");
           background-size: contain;
           height: 22px;
           width: 22px;
@@ -422,7 +422,7 @@
       .state {
         height: 38px;
         width: 35px;
-        background: image-url('img/california.png');
+        background: image-url('img/leads/states/california.png');
         background-size: contain;
         background-repeat: no-repeat;
         display: inline-block;

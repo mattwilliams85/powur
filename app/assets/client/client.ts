@@ -29,8 +29,6 @@
 //= require invite/update-invite-popup.grid
 //= require invite/invite.grid
 
-//= require events/events
-
 //= require login/layout
 //= require login/login.public
 //= require login/login.private
@@ -120,8 +118,6 @@
 
 /// <reference path='app/landing/powur.landing.ts' />
 /// <reference path='app/landing/landing.controller.ts' />
-
-/// <reference path='app/events/events.controller.ts' />
 
 /// <reference path='app/powur.module.ts' />
 /// <reference path='app/powur.config.ts' />

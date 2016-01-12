@@ -30,13 +30,13 @@
         font-size: 7pt;
     }
     .icon {
-        background: image-url('img/personal-lead-icon-alt.png');
+        background: image-url('img/hud/icons/personal-lead.png');
         background-size: contain;
         height: 10px;
         width: 8px;
         display: inline-block;
         &.medal {
-            background: image-url('img/medal-icon-alt.png');
+            background: image-url('img/hud/icons/medal.png');
             height: 12px;
             width: 8px;
             background-size: contain;
@@ -156,35 +156,35 @@
             width: 13px;
 
             &.medal {
-                background: image-url('img/medal-icon-alt.png');
+                background: image-url('img/hud/icons/medal.png');
                 background-size: contain;
                 height: 14px;
                 width: 9px;
             }
             &.personal-lead {
-                background: image-url('img/personal-lead-icon-alt.png');
+                background: image-url('img/hud/icons/personal-lead.png');
                 background-size: contain;
                 height: 12px;
                 width: 10px;
             }
             &.grid-lead {
-                background: image-url('img/grid-lead-icon-alt.png');
+                background: image-url('img/hud/icons/grid-lead.png');
                 background-size: contain;
             }
             &.grid {
-                background: image-url('img/grid-icon-alt.png');
+                background: image-url('img/hud/icons/grid.png');
                 background-size: contain;
                 height: 11px;
                 width: 12px;
             }
             &.earnings {
-                background: image-url('img/earnings-icon-alt.png');
+                background: image-url('img/hud/icons/earnings.png');
                 background-size: contain;
                 height: 8px;
                 width: 13px;
             }
             &.co2 {
-                background: image-url('img/co2-icon-alt.png');
+                background: image-url('img/hud/icons/co2.png');
                 background-size: contain;
                 height: 11px;
                 width: 13px;

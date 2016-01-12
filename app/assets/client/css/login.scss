@@ -23,7 +23,7 @@ $textColor: white;
   position: relative;
 
   .bg {
-    @include bg("img/join/join-bg.jpg");
+    @include bg("img/join/backgrounds/join-bg.jpg");
     min-height: 850px;
   }
 
