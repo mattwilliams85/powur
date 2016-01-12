@@ -1,9 +1,9 @@
 module Auth
   class LeadsController < AuthController
     before_action :fetch_user!
-    before_action :fetch_leads, only: [ :index, :team, :destroy, :resend ]
+    before_action :fetch_leads, only: [ :index, :team, :destroy, :resend, :switch_owner ]
     before_action :fetch_lead,
-                  only: [ :show, :update, :destroy, :resend, :submit, :invite ]
+                  only: [ :show, :update, :destroy, :resend, :submit, :invite, :switch_owner ]
 
     page max_limit: 10
     sort submitted_asc:  { submitted_at: :asc, created_at: :asc },
@@ -24,7 +24,6 @@ module Auth
 
     def index
       @leads = apply_list_query_options(@leads)
-
       render 'index'
     end
 
@@ -112,6 +111,12 @@ module Auth
       }
     end
 
+    def switch_owner
+      not_found!(:user, user_id) unless user = User.find(params[:new_owner_id])
+      @lead.update_attribute(:user_id, user.id)
+      index
+    end
+
     private
 
     def fetch_leads
@@ -152,5 +157,6 @@ module Auth
     def lead_data_input
       allow_input(*product.quote_fields.map(&:name))
     end
+
   end
 end

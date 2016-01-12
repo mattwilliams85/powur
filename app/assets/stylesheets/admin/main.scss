@@ -72,3 +72,17 @@
     right: 8px;
   }
 }
+
+.admin-leads {
+  .change {
+  }
+  span {
+    float: left;
+  }
+  input {
+    float: right;
+    width: 3rem;
+    margin: 0;
+    height: 1.5rem;
+  }
+}

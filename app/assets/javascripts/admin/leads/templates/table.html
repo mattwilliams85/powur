@@ -6,21 +6,26 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>User</th>
+      <th>Lead Owner</th>
       <th>Customer</th>
       <th>Created</th>
       <th>Submitted</th>
       <th>Status</th>
+      <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class='admin-leads'>
     <tr ng-repeat="item in index.data.entities">
       <td>{{ item.properties.id }}</td>
-      <td>{{ item.properties.owner.first_name }} {{ item.properties.owner.last_name }}</td>
+      <td>
+          {{ item.properties.owner.first_name }}
+          {{ item.properties.owner.last_name }}
+      </td>
       <td>{{ item.properties.first_name }} {{ item.properties.last_name }}</td>
       <td>{{ item.properties.created_at | dateToLocalDate }}</td>
       <td>{{ item.properties.submitted_at | dateToLocalDate }}</td>
       <td>{{ item.properties.sales_status }}</td>
+      <td><a ng-href="/admin/leads/{{item.properties.id}}/change-leads">Change Lead Owner</a></td>
     </tr>
   </tbody>
 </table>

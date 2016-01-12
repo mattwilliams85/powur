@@ -48,7 +48,7 @@
 
     $scope.isSponsor = function(user) {
       return $scope.user.properties.sponsor_id === user.properties.id;
-    }
+    };
 
     $scope.makeASponsor = function(user) {
       var sponsor_id = user.properties.id,
@@ -63,12 +63,11 @@
         }
       }).success(function success(data) {
         if (data.error) {
-          alert(data.error.message);
         } else {
           $scope.user.properties.sponsor_id = sponsor_id;
         }
       });
-    }
+    };
 
     function getUser(userId, cb) {
       $http({

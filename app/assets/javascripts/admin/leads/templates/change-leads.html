@@ -1,0 +1,29 @@
+<main class="pow-admin-index">
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Assign New Owner for lead #{{ lead.properties.id }}</h2>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="row">
+    <div class="large-4 columns">
+      <div class="row">
+        <form ng-submit="search()">
+          <div class="small-12 columns">
+            <br>
+            <span>Please find a new owner first</span><br>
+            <input type="search" ng-model="index.data.searchQuote" placeholder="Search">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <ng-include src="templateData.changeLeadOwner.tablePath"></ng-include>
+      <ng-include src="'shared/admin/pagination.html'"></ng-include>
+    </div>
+  </div>
+</main>
