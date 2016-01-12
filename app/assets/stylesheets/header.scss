@@ -235,21 +235,21 @@ and (max-device-width : 960px) {
 
   .sprite {
     &.sprite-dashboard {
-      background: image-url('img/dashboard-icon.png');
+      background-image: image-url("img/nav/icons/dashboard.png");
       width: 39px;
       height: 30px;
       background-size: contain;
       background-repeat: no-repeat;
     }
     &.sprite-invite {
-      background: image-url('img/invite-icon.png');
+      background-image: image-url("img/nav/icons/invite.png");
       width: 40px;
       height: 33px;
       background-size: contain;
       background-repeat: no-repeat;
     }
     &.sprite-grid-solar {
-      background: image-url('img/grid-solar-icon.png');
+      background: image-url('img/nav/icons/grid-solar.png');
       width: 42px;
       height: 33px;
       background-size: contain;
@@ -257,7 +257,7 @@ and (max-device-width : 960px) {
       margin-left: -2px;
     }
     &.sprite-earnings {
-      background: image-url('img/earnings-icon.png');
+      background-image: image-url("img/nav/icons/earnings.png");
       width: 40px;
       height: 29px;
       margin: 0 0px 0 -1px;
@@ -265,14 +265,14 @@ and (max-device-width : 960px) {
       background-repeat: no-repeat;
     }
     &.sprite-library {
-      background: image-url('img/library-icon.png');
+      background-image: image-url("img/nav/icons/library.png");
       width: 39px;
       height: 32px;
       background-size: contain;
       background-repeat: no-repeat;
     }
     &.sprite-certs {
-      background: image-url('img/powur-u-icon.png');
+      background: image-url('img/nav/icons/powur-u.png');
       width: 29px;
       height: 29px;
       margin-right: 9px;
@@ -280,7 +280,7 @@ and (max-device-width : 960px) {
       background-repeat: no-repeat;
     }
     &.sprite-upgrade {
-      background: image-url('img/upgrade-icon.png');
+      background: image-url('img/nav/icons/upgrade.png');
       width: 40px;
       height: 29px;
       margin-right: -2px;
@@ -289,7 +289,7 @@ and (max-device-width : 960px) {
       background-repeat: no-repeat;
     }
     &.sprite-stats {
-      background: image-url('img/profile-icon.png');
+      background-image: image-url("img/nav/icons/profile.png");
       width: 40px;
       height: 26px;
       margin-left: 2px;
@@ -298,7 +298,7 @@ and (max-device-width : 960px) {
       background-repeat: no-repeat;
     }
     &.sprite-logout {
-      background: image-url('img/logout-icon.png');
+      background-image: image-url("img/nav/icons/logout.png");
       width: 40px;
       height: 23px;
       margin-left: 2px;
@@ -307,7 +307,7 @@ and (max-device-width : 960px) {
       background-repeat: no-repeat;
     }
     &.sprite-admin {
-      background: image-url('img/hud-icon-disabled.png');
+      background: image-url('img/nav/icons/admin.png');
       width: 19px;
       height: 19px;
       margin-right: 11px;
@@ -344,21 +344,21 @@ and (max-device-width : 960px) {
     height: 23vh;
     text-transform: uppercase;
     color: #fff;
-    background-image: image-url('img/menu-banner.png');
+    background-image: image-url('img/nav/banner.png');
     padding: 0 20%;
     background-size: cover;
 
-      .logo {
-        background: image-url('img/powur-logo-white.png');
-        height: 53px;
-        width: 183px;
-        margin: 0 0 5px -46px;
-        background-size: contain;
-        cursor: pointer;
-      }
-      .motto {
-        font-size: 11pt;
-      }
+    .logo {
+      background: image-url('img/shared/powur-logo-white.png');
+      height: 53px;
+      width: 183px;
+      margin: 0 0 5px -46px;
+      background-size: contain;
+      cursor: pointer;
+    }
+    .motto {
+      font-size: 11pt;
+    }
   }
 
   md-toolbar {
@@ -403,21 +403,21 @@ body {
       }
       .sprite {
         &.sprite-dashboard {
-          background: image-url('img/dashboard-icon.png');
+          background-image: image-url("img/nav/icons/dashboard.png");
           width: 69px;
           height: 60px;
           background-size: contain;
           background-repeat: no-repeat;
         }
         &.sprite-invite {
-          background: image-url('img/invite-icon.png');
+          background-image: image-url("img/nav/icons/invite.png");
           width: 70px;
           height: 63px;
           background-size: contain;
           background-repeat: no-repeat;
         }
         &.sprite-grid-solar {
-          background: image-url('img/grid-solar-icon.png');
+          background: image-url('img/nav/icons/grid-solar.png');
           width: 72px;
           height: 63px;
           background-size: contain;
@@ -425,7 +425,7 @@ body {
           margin-left: -2px;
         }
         &.sprite-earnings {
-          background: image-url('img/earnings-icon.png');
+          background-image: image-url("img/nav/icons/earnings.png");
           width: 70px;
           height: 59px;
           margin: 0 0px 0 -1px;
@@ -433,14 +433,14 @@ body {
           background-repeat: no-repeat;
         }
         &.sprite-library {
-          background: image-url('img/library-icon.png');
+          background-image: image-url("img/nav/icons/library.png");
           width: 69px;
           height: 62px;
           background-size: contain;
           background-repeat: no-repeat;
         }
         &.sprite-certs {
-          background: image-url('img/powur-u-icon.png');
+          background: image-url('img/nav/icons/powur-u.png');
           width: 59px;
           height: 59px;
           margin-right: 9px;
@@ -448,7 +448,7 @@ body {
           background-repeat: no-repeat;
         }
         &.sprite-upgrade {
-          background: image-url('img/upgrade-icon.png');
+          background: image-url('img/nav/icons/upgrade.png');
           width: 70px;
           height: 59px;
           margin-right: -2px;
@@ -457,7 +457,7 @@ body {
           background-repeat: no-repeat;
         }
         &.sprite-stats {
-          background: image-url('img/profile-icon.png');
+          background-image: image-url("img/nav/icons/profile.png");
           width: 70px;
           height: 56px;
           margin-left: 2px;
@@ -466,7 +466,7 @@ body {
           background-repeat: no-repeat;
         }
         &.sprite-logout {
-          background: image-url('img/logout-icon.png');
+          background-image: image-url("img/nav/icons/logout.png");
           width: 70px;
           height: 53px;
           margin-left: 2px;
@@ -475,7 +475,7 @@ body {
           background-repeat: no-repeat;
         }
         &.sprite-admin {
-          background: image-url('img/hud-icon-disabled.png');
+          background: image-url('img/nav/icons/admin.png');
           width: 49px;
           height: 49px;
           margin-right: 11px;
