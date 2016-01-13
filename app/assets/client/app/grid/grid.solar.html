@@ -154,54 +154,6 @@
     </div>
   </div>
 
- <!--  <div class="accordion" layout="row" layout-align="space-between center">
-    <span class="toggle-wrapper" ng-click="hideGeo = !hideGeo">
-      <span class="toggle" ng-class="{'closed': hideGeo }"></span>
-      GRID <b>GEO</b>
-    </span>
-
-    <md-menu md-position-mode="target-right target" md-offset="0 10">
-      <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
-        {{ grid.dateFilterLabel }}
-        <i class="material-icons" ng-click="$mdOpenMenu($event)">date_range</i>
-      </div>
-      <md-menu-content class="filter-menu" width="4">
-        <md-menu-item class="header"><span>SELECT <b>DATE RANGE</b></span></md-menu-item>
-        <md-menu-item ng-repeat="d in [7, 30, 60, 0]">
-          <md-button ng-click="grid.filter('days', d)" aria-label="{{d}}">
-            <div layout="row">
-              <p ng-if="d" flex>In last {{ d }} days</p>
-              <p ng-if="!d" flex>Lifetime (all)</p>
-            </div>
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-  </div>
-
-  <div class="summary geo" ng-hide="hideGeo">
-    <div hide-gt-sm class="header-row" layout="row" layout-align="start center">
-      <span class="label left" flex="50">TERRITORY</span>
-      <span class="label" flex="25">GRID SIZE</span>
-      <span class="label" flex="25">PARTNERS</span>
-    </div>
-    <div hide-gt-sm ng-repeat="i in [1,2,3,4,5,6]">
-      <div class="grid-row" layout="row" layout-align="start center">
-        <span class="left" flex="50" layout="row" layout-align="start center">
-          <div class="state"></div>
-          CALIFORNIA
-        </span>
-        <span class="count" flex="25">4</span>
-        <span class="count" flex="25">12</span>
-      </div>
-      <md-divider></md-divider>
-    </div>
-    <div class="co2">
-      <span></span>
-      <span>You have sequestered <b>1,499 TONS</b> of CO<sup>2</sup></span>
-    </div>
-  </div> -->
-
   <div class="accordion" layout="row" layout-align="space-between-center">
     <span class="toggle-wrapper" ng-click="hideGrid = !hideGrid">
       <span class="toggle" ng-class="{'closed': hideGrid }"></span>
@@ -423,24 +375,12 @@
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
         <span class="label left" flex="50" flex-gt-sm="25" layout="row">
           CONTACT INFO
-          <span layout="column" class="sort" ng-click="grid.sortLeads('customer')">
-            <i class="material-icons" ng-class="{ 'active': grid.sort === 'customer_desc' }">arrow_drop_up</i>
-            <i class="material-icons" ng-class="{ 'active': grid.sort === 'customer_asc' }">arrow_drop_down</i>
-          </span>
         </span>
         <span class="label left" flex="50" flex-gt-sm="25" layout="row">
           STATUS
-          <span layout="column" class="sort" ng-click="grid.sortLeads('submitted')">
-            <i class="material-icons" ng-class="{ 'active': grid.sort === 'submitted_desc' }">arrow_drop_up</i>
-            <i class="material-icons" ng-class="{ 'active': grid.sort === 'submitted_asc' }">arrow_drop_down</i>
-          </span>
         </span>
         <span class="label left" hide show-gt-sm flex="25" layout="row">
           LEAD OWNER
-          <span layout="column" class="sort" ng-click="grid.sortLeads('owner')">
-            <i class="material-icons" ng-class="{ 'active': grid.sort === 'owner_desc' }">arrow_drop_up</i>
-            <i class="material-icons" ng-class="{ 'active': grid.sort === 'owner_asc' }">arrow_drop_down</i>
-          </span>
         </span>
         <span class="label left" hide show-gt-sm flex="25">POWUR MOVE</span>
       </div>
