@@ -17,7 +17,7 @@ module Auth
     end
 
     def test_sorting_index
-      get :index, sort: 'customer_asc'
+      get :index, sort: 'contact'
 
       first = siren.entities.first
       last = siren.entities.last
