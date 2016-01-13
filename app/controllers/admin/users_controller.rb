@@ -111,11 +111,13 @@ module Admin
 
     def terminate
       @user.update_attribute(:terminated, 'true')
+      @user.delay.mailchimp_unsubscribe
       render 'show'
     end
 
     def unterminate
       @user.update_attribute(:terminated, 'false')
+      @user.delay.mailchimp_subscribe
       render 'show'
     end
 
