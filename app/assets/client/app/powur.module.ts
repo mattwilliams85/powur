@@ -12,7 +12,6 @@ module powur {
     'powur.login',
     'powur.invite',
     'powur.join',
-    'powur.events',
     'powur.grid',
     'powur.landing',
   ]);

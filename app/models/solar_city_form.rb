@@ -75,7 +75,14 @@ class SolarCityForm
       'Email'                    => lead.email,
       'Monthly_Electric_Bill__c' => lead.data['average_bill'],
       'Notes_Description__c'     => lead.notes }
-    # attrs['Campaign_ID'] = '70114000000uxX9' if lead.call_consented?
+    if lead.call_consented?
+      attrs['campaignId'] = ENV['SC_CONSENT_CID']
+      attrs['campaignStatus'] = 'Confirmed'
+    else
+      attrs['campaignId'] = ENV['SC_NOCONSENT_CID']
+      attrs['campaignStatus'] = 'Responded'
+    end
+
     attrs
   end
 end

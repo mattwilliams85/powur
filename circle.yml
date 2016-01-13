@@ -9,7 +9,9 @@ machine:
     IPAYOUT_AUTO_LOGIN_ENDPOINT: "https://sunstand.testewallet.com/MemberLogin.aspx?secKey="
     IPAYOUT_MERCHANT_GUID: abc
     IPAYOUT_MERCHANT_PASSWORD: abc
-    SOLAR_CITY_LEAD_URL: 'https://sctyleads-test.cloudhub.io/powur'
+    SOLAR_CITY_LEAD_URL: 'https://sctypowur-test.cloudhub.io/powur'
+    SC_CONSENT_CID: 701180000001Psu
+    SC_NOCONSENT_CID: 701180000001Psp
     TWILIO_ACCOUNT_SID: AC0837ab1675f39523e085037acc3cbc43
     TWILIO_AUTH_TOKEN: 4262f007c3c0bd8d5fe7f6e831b8f898
     MAILCHIMP_API_KEY: abc

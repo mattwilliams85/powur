@@ -16,6 +16,13 @@
     margin-left: 10px;
   }
 
+  input.search {
+    max-width: 250px;
+    background: image-url('search.svg');
+    max-width: 250px;
+    padding-left: 30px;
+    background-repeat: no-repeat;
+  }
 }
 
 .pow-admin-show {
@@ -63,5 +70,19 @@
 
   .ui-datepicker-next {
     right: 8px;
+  }
+}
+
+.admin-leads {
+  .change {
+  }
+  span {
+    float: left;
+  }
+  input {
+    float: right;
+    width: 3rem;
+    margin: 0;
+    height: 1.5rem;
   }
 }

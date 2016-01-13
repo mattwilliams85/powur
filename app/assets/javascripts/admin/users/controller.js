@@ -151,18 +151,28 @@
       });
     };
 
-    $scope.terminateUser = function() {
-      var action = getAction($scope.user.actions, 'terminate');
+    $scope.terminateUser = function(actionName) {
+      var action = getAction($scope.user.actions, actionName);
+
+      $http({
+        method: action.method,
+        url: action.href,
+      }).success(function(data) {
+        $scope.user = data;
+        $scope.showModal('This user has been updated');
+      });
+    };
+
+    $scope.logInAsUser = function() {
+      var action = getAction($scope.user.actions, 'sign_in');
 
       $http({
         method: action.method,
         url: action.href,
       }).success(function() {
-        $scope.user.properties.terminated = true;
-        $scope.showModal('This user has been terminated');
+        window.location = '/';
       });
     };
-
 
     // Sponsor actions
     $scope.setNewSponsor = function(newSponsor) {
@@ -399,5 +409,4 @@
     }
     return formValues;
   }
-
 })();

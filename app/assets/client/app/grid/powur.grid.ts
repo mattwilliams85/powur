@@ -4,6 +4,10 @@
 module powur {
   'use strict';
 
+  function userLeadsMarketing(session: ISessionService) {
+    return session.getEntity(SirenModel, 'user-leads_marketing', {}, true);
+  }
+
   function userLeadsSummary(session: ISessionService) {
     return session.getEntity(SirenModel, 'user-leads_summary', {}, true);
   }
@@ -31,6 +35,7 @@ module powur {
         controller: 'GridSolarController as grid',
         params: { title: 'solar <b>grid</b>' },
         resolve: {
+          leadsMarketing: ['SessionService', userLeadsMarketing],
           leadsSummary: ['SessionService', userLeadsSummary],
           leads: ['SessionService', userTeamLeads]
         }

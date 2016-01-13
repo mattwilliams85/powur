@@ -6,7 +6,7 @@ users_json.detail_properties
 
 json.properties do
   json.sponsor_id @user.sponsor_id
-  json.terminated @user.terminated
+  json.terminated @user.terminated?
 end
 
 if params[:user_totals]
@@ -52,8 +52,14 @@ action_list << action(:update_sponsor,
                         :sponsor_id,
                         :number)
 action_list << action(:terminate,
-                      :post,
+                      :patch,
                       terminate_admin_user_path(@user))
+action_list << action(:unterminate,
+                      :patch,
+                      unterminate_admin_user_path(@user))
+action_list << action(:sign_in,
+                      :post,
+                      sign_in_admin_user_path(@user))
 
 actions(*action_list)
 

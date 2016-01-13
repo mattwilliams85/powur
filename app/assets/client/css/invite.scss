@@ -221,60 +221,60 @@
     margin: 0 auto;
     padding-bottom: 100px;
 
-    md-tabs {
-      background-color: #8f8f8f;
-      background-image: image-url('img/funnel.png');
-      background-repeat: no-repeat;
-      min-height: initial;
-      padding-left: 60px;
-      background-size: 22px 22px;
-      background-position: 23px;
-      border-radius: 0;
+    // md-tabs {
+    //   background-color: #8f8f8f;
+    //   background-image: image-url('img/funnel.png');
+    //   background-repeat: no-repeat;
+    //   min-height: initial;
+    //   padding-left: 60px;
+    //   background-size: 22px 22px;
+    //   background-position: 23px;
+    //   border-radius: 0;
 
-      &.solar {
-        md-ink-bar {
-          background-color: #52BCAF !important;
-        }
-      }
+    //   &.solar {
+    //     md-ink-bar {
+    //       background-color: #52BCAF !important;
+    //     }
+    //   }
 
-      md-tabs-wrapper {
-        background-color: #8f8f8f;
-      }
+    //   md-tabs-wrapper {
+    //     background-color: #8f8f8f;
+    //   }
 
-      md-ink-bar {
-        background-color: #2583A8 !important;
-        height: 3px;
-      }
+    //   md-ink-bar {
+    //     background-color: #2583A8 !important;
+    //     height: 3px;
+    //   }
 
-      .md-tab {
-        border-radius: initial;
-        margin-top: 0;
-        margin-bottom: 0;
-        min-width: 55px;
+    //   .md-tab {
+    //     border-radius: initial;
+    //     margin-top: 0;
+    //     margin-bottom: 0;
+    //     min-width: 55px;
 
-        div {
-          position: absolute;
-          height: 100%;
-          width: 100%;
-          top: 0;
-          left: 0;
-        }
+    //     div {
+    //       position: absolute;
+    //       height: 100%;
+    //       width: 100%;
+    //       top: 0;
+    //       left: 0;
+    //     }
 
-        span {
-          color: rgba(255,255,255, 0.5);
-        }
+    //     span {
+    //       color: rgba(255,255,255, 0.5);
+    //     }
 
-        &.md-active {
-          span {
-            color: #fff;
-          }
-        }
-      }
+    //     &.md-active {
+    //       span {
+    //         color: #fff;
+    //       }
+    //     }
+    //   }
 
-      h3 {
-        margin: 0;
-      }
-    }
+    //   h3 {
+    //     margin: 0;
+    //   }
+    // }
   }
 
   .invite-list {
@@ -440,20 +440,20 @@
         margin: auto auto;
 
         &.sent {
-          background: image-url('img/sent-icon-lt.png');
+          background: image-url('img/invites/icons/sent-white.png');
           background-size: contain;
         }
         &.initiated {
-          background: image-url('img/initiated-icon-lt.png');
+          background: image-url('img/invites/icons/initiated-white.png');
           background-size: contain;
           top: 25px;
         }
         &.ineligible_location {
-          background: image-url('img/ineligible-icon-lt.png');
+          background: image-url('img/invites/icons/ineligible-white.png');
           background-size: contain;
         }
         &.accepted {
-          background: image-url('img/accepted-icon-lt.png');
+          background: image-url('img/invites/icons/accepted-white.png');
           background-size: contain;
         }
       }
@@ -574,42 +574,6 @@
     }
   }
 
-  /* sprites */
-
-  .ellipse {
-    &.border-fill {
-      width: 164px;
-      height: 166px;
-      border: 5px solid;
-      display: block;
-      border-radius: 50%;
-    }
-
-    .sprite {
-      background-image: image-url("img/ellipse-sprite.png");
-      background-repeat: no-repeat;
-      display: block;
-    }
-
-    .sprite-ellipse {
-      width: 165px;
-      height: 165px;
-      background-position: -5px -5px;
-    }
-
-    .sprite-ellipse-invite {
-      width: 165px;
-      height: 165px;
-      background-position: -180px -5px;
-    }
-
-    .sprite-ellipse-locked {
-      width: 164px;
-      height: 166px;
-      background-position: -355px -5px;
-    }
-  }
-
   .counter {
     .sprite {
       background-image: image-url("img/invite-sprite.png");
@@ -723,7 +687,7 @@
       }
       .sprite-invite {
         display: block;
-        background: image-url('img/plus.png');
+        background: image-url('plus.png');
         width: 20px;
         height: 20px;
         background-size: cover !important;

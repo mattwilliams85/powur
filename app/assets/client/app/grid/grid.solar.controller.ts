@@ -149,10 +149,6 @@ module powur {
       });
     }
 
-    showLink(lead): string {
-      return this.parentCtrl.session.properties.getsolar_page_url + '/' + lead.code;
-    }
-
     cancel() {
       this.$mdDialog.cancel();
     }
@@ -170,7 +166,7 @@ module powur {
 
   class GridSolarController extends AuthController {
     static ControllerId = 'GridSolarController';
-    static $inject = ['leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
+    static $inject = ['leadsMarketing', 'leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
 
     searchQuery: string[];
     stage: string[] = ['submitted', 'qualified', 'closed won', 'contract', 'installed', 'duplicate', 'ineligible', 'closed lost'];
@@ -182,6 +178,7 @@ module powur {
     phaseFilter: string = 'pending';
     reloading: boolean;
     pageList: number[] = [];
+    sort: string = 'newest';
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -191,11 +188,12 @@ module powur {
       return this.session.properties.getsolar_page_url;
     }
 
-    constructor(public leadsSummary: ISirenModel,
-      public leads: ISirenModel,
-      public $scope: any,
-      public $mdDialog: ng.material.IDialogService,
-      public $timeout: ng.ITimeoutService) {
+    constructor(public leadsMarketing: ISirenModel,
+                public leadsSummary: ISirenModel,
+                public leads: ISirenModel,
+                public $scope: any,
+                public $mdDialog: ng.material.IDialogService,
+                public $timeout: ng.ITimeoutService) {
       super();
 
       $timeout(function() {
@@ -243,7 +241,7 @@ module powur {
       if (item.invite_status === 'initiated') return 'drafts';
       return 'mail';
     }
-    
+
     updateEntity(lead) {
       for (var i = 0; i < this.leads.entities.length; i++) {
         if (this.leads.entities[i].properties.id === lead.properties.id) {
@@ -362,6 +360,8 @@ module powur {
         });
       }
       filterOpts['page'] = page;
+      filterOpts['sort'] = this.sort;
+
       this.session.getEntity(SirenModel, entityType, filterOpts, true).then((data: any) => {
         this.leads.properties.paging.current_page = i;
         this.leads.properties = data.properties;
@@ -376,6 +376,11 @@ module powur {
       this.searchQuery = null;
       this.leads.properties.paging.current_page = 1;
       this.leads.entities = [];
+      this.changePage(this.currentPage);
+    }
+
+    sortLeads(type) {
+      this.sort = type;
       this.changePage(this.currentPage);
     }
 

@@ -32,23 +32,18 @@
           <md-input-container flex="50">
             <label>first name</label>
             <input ng-model="dialog.createAction.field('first_name').value" autocomplete="off" md-autofocus>
+            <div ng-messages="dialog.createAction.field('first_name').$error" ng-show="dialog.createAction.field('first_name').$error" class="messages">
+              <div ng-message="message">{{ dialog.createAction.field('first_name').$error.message }}</div>
+            </div>
           </md-input-container>
           <md-input-container flex="50">
             <label>last name</label>
             <input ng-model="dialog.createAction.field('last_name').value" autocomplete="off">
-          </md-input-container>
-        </md-content>
-
-        <!-- <md-content> -->
-          <md-input-container class="no-margin no-padding">
-            <div ng-messages="dialog.createAction.field('first_name').$error" ng-show="dialog.createAction.field('first_name').$error" class="messages">
-              <div ng-message="message">{{ dialog.createAction.field('first_name').$error.message }}</div>
-            </div>
             <div ng-messages="dialog.createAction.field('last_name').$error" ng-show="dialog.createAction.field('last_name').$error" class="messages">
               <div ng-message="message">{{ dialog.createAction.field('last_name').$error.message }}</div>
             </div>
           </md-input-container>
-        <!-- </md-content> -->
+        </md-content>
 
         <md-content layout="column">
           <md-input-container>
@@ -68,7 +63,7 @@
         </md-content>
 
         <div class="actions">
-          <md-button type="submit" ng-disabled="dialog.createAction.submitting" class="md-primary md-raised">Next</md-button>
+          <md-button type="submit" ng-disabled="dialog.createAction.submitting" class="md-primary md-raised">Save & Continue</md-button>
         </div>
       </md-dialog-content>
     </div>
@@ -115,7 +110,7 @@
         <md-content layout="column">
           <md-input-container>
             <label>average bill</label>
-            <input ng-model="dialog.updateAction.field('average_bill').value" ng-change="dialog.processNumberInput(dialog.updateAction.field('average_bill'))">
+            <input ng-model="dialog.updateAction.field('average_bill').value" ng-change="dialog.processNumberInput(dialog.updateAction.field('average_bill'))" name="average_bill" id="average_bill">
             <div ng-messages="dialog.updateAction.field('average_bill').$error" ng-show="dialog.updateAction.field('average_bill').$error" class="messages">
               <div ng-message="message">{{ dialog.updateAction.field('average_bill').$error.message }}</div>
             </div>
@@ -130,7 +125,14 @@
         </md-content>
 
         <div class="actions">
-          <md-button ng-disabled="dialog.submitting" ng-click="dialog.update(true)" class="md-primary md-raised" type="submit">Save</md-button>
+          <div layout="row" layout-align="space between">
+            <div flex="50">
+              <md-button ng-disabled="dialog.submitting" ng-click="dialog.update(true)" class="md-primary md-raised" type="submit">Save</md-button>
+            </div>
+            <div flex="50">
+              <md-button ng-disabled="dialog.submitting" ng-click="dialog.update(true); dialog.cancel()" class="md-primary md-raised" type="submit">Save & Close</md-button>
+            </div>
+          </div>
           <md-button ng-disabled="!dialog.submitAction || dialog.submitting" ng-click="dialog.submitToSC()" class="md-primary md-raised" type="submit">Submit To Solar City</md-button>
         </div>
       </md-dialog-content>

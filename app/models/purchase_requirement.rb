@@ -20,7 +20,8 @@ class PurchaseRequirement < RankRequirement
   private
 
   def purchases
-    @purchases ||= ProductReceipt.where(product_id: product_id)
+    @purchases ||= ProductReceipt.where(
+      product_id: product_id, refunded_at: nil)
   end
 
   def pay_period_purchases(pay_period_id)

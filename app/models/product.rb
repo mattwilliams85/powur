@@ -83,7 +83,7 @@ class Product < ActiveRecord::Base
 
     product_receipts.create(
       user_id:        user.id,
-      amount:         form[:amount] * 100,
+      amount:         form[:amount],
       transaction_id: response['transactionid'].first,
       auth_code:      response['authcode'].first,
       purchased_at:   Time.zone.now)

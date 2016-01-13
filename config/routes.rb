@@ -76,7 +76,7 @@ Rails.application.routes.draw do
 
     resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
       member do
-        post :resend, :submit, :invite
+        post :resend, :submit, :invite, :switch_owner
       end
       collection do
         get :team
@@ -145,7 +145,7 @@ Rails.application.routes.draw do
 
       resources :leads, only: [ :index ] do
         collection do
-          get :summary
+          get :summary, :marketing
         end
       end
       resource :goals, only: [ :show ]
@@ -184,13 +184,6 @@ Rails.application.routes.draw do
               as:   :user_social_media_posts
 
     resources :resources, only: [:index, :show]
-
-    resources :product_invites do
-      member do
-        post :resend
-        get :email
-      end
-    end
 
     get 'uploader_config', to: 'uploader_config#show'
   end
@@ -251,7 +244,11 @@ Rails.application.routes.draw do
     # Product Receipts
     resources :product_receipts,
               only: [ :index ],
-              as:   :admin_product_receipts
+              as:   :admin_product_receipts do
+      member do
+        post :refund
+      end
+    end
 
     resources :system_settings,
               only: [ :index, :show, :update ],
@@ -274,8 +271,8 @@ Rails.application.routes.draw do
       end
       member do
         get :downline, :upline, :eligible_parents, :sponsors
-        post :move, :terminate
-        patch :update_sponsor
+        post :move, :sign_in
+        patch :update_sponsor, :terminate, :unterminate
       end
 
       # Users / Bonus Payments

@@ -13,6 +13,14 @@
     button {
       width: 100%;
     }
+    .flex-50 {
+      &:first-child {
+        padding: 0 10px 0 0;
+      }
+      &:last-child {
+        padding: 0 0 0 10px;
+      }
+    }
   }
 
   span.highlight {
@@ -41,7 +49,7 @@
   }
 
   .sprite-close {
-    background-image: image-url("img/invite-popup-sprite.png");
+    background-image: image-url("img/shared/dialog-sprite.png");
     background-repeat: no-repeat;
     display: inline-block;
     width: 13px;

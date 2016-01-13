@@ -1,0 +1,27 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Level</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{ item.properties.id }}</td>
+      <td><a ng-href="/admin/users/{{ item.properties.id }}">{{ fullName(item) }}</a></td>
+      <td>{{ item.properties.email }}</td>
+      <td>{{ item.properties.level }}</td>
+      <td>
+        <a ng-click="confirm(
+          'You are about to set ' + fullName(item) +
+          ' as the owner of of ' + lead.properties.id + '. Are you sure?',
+          'setNewOwner',
+          item.properties.id,
+          lead.properties.id)">set as lead owner</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

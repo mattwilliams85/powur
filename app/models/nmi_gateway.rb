@@ -25,6 +25,7 @@ class NmiGateway
 
     query += '&firstname=' + URI.escape(params[:firstname])
     query += '&lastname=' + URI.escape(params[:lastname])
+    query += '&email=' + URI.escape(params[:email])
     query += '&zip=' + params[:zip].to_s
   end
 

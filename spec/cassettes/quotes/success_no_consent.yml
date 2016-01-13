@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur-test.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=test.powur.com%3A140406&Lead_Generator__c=378456360&FirstName=Bob&LastName=Sanford&Street=42%20Cherry%20Lane&City=Los%20Angeles&PostalCode=90210&Phone=310.555.1212&Email=bob.sanford%40eyecuelab.com&Monthly_Electric_Bill__c=175&Notes_Description__c=Powur%20Test%20Lead%2C%20please%20ignore&campaignId=701180000001Psp&campaignStatus=Responded
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '355'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Mon, 11 Jan 2016 23:03:10 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@5499c29a"
+      Server:
+      - nginx
+      Content-Length:
+      - '121'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q180000023OiaEAE","Message":"Lead successfully
+        created","YourId":"test.powur.com:140406"}'
+    http_version: 
+  recorded_at: Mon, 11 Jan 2016 23:03:10 GMT
+recorded_with: VCR 2.9.3

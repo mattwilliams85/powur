@@ -25,16 +25,6 @@ module powur {
 
       $locationProvider.html5Mode(true);
 
-      $stateProvider
-        .state('home.events', {
-          url: '/events',
-          views: {
-            'main': {
-              templateUrl: 'app/events/events.html',
-              controller: 'EventsController as events',
-            }
-          },
-        });
     }
   }
 

@@ -24,6 +24,7 @@ json.properties do
       end
     end if lead.user.avatar?
   end
+  json.getsolar_page_url(lead.getsolar_page_url)
 end
 
 actions_list = []
@@ -69,6 +70,10 @@ unless lead.submitted?
   end
   if lead.not_sent?
     actions_list << action(:invite, :post, invite_lead_path(lead))
+  end
+  if current_user.role?(:admin)
+    actions_list << action(:switch_owner, :patch, switch_owner_lead_path(lead))
+      .field(:user_id, :number, value: lead.user_id)
   end
 end
 

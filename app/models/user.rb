@@ -247,6 +247,16 @@ class User < ActiveRecord::Base
     leads.where(call_consented: true).count
   end
 
+  def solar_landing_team_leads_count
+    Lead.team_leads(user_id: id).where(call_consented: true).count
+  end
+
+  def solar_landing_team_views_count
+    User.all_team(id)
+      .where("(profile -> 'solar_landing_views_count')::integer > 0")
+      .sum("(profile -> 'solar_landing_views_count')::integer")
+  end
+
   def metrics
     @metrics ||= Metrics.new(self)
   end
@@ -301,6 +311,12 @@ class User < ActiveRecord::Base
     def login_streak
       user.login_streak
     end
+  end
+
+  def derank
+    update_attributes(lifetime_rank: 0, organic_rank: 0)
+    user_ranks.delete_all
+    User.rank_up
   end
 
   private

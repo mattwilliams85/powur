@@ -1,13 +1,15 @@
 module Auth
   class LeadsController < AuthController
     before_action :fetch_user!
-    before_action :fetch_leads, only: [ :index, :team, :destroy, :resend ]
+    before_action :fetch_leads, only: [ :index, :team, :destroy, :resend, :switch_owner ]
     before_action :fetch_lead,
-                  only: [ :show, :update, :destroy, :resend, :submit, :invite ]
+                  only: [ :show, :update, :destroy, :resend, :submit, :invite, :switch_owner ]
 
     page max_limit: 10
-    sort created:  { created_at: :desc },
-         customer: 'leads.last_name asc, leads.first_name asc'
+    sort newest:  { created_at: :desc },
+         submitted_date:  { submitted_at: :asc, created_at: :asc },
+         contact: 'leads.last_name asc, leads.first_name asc',
+         owner: 'users.last_name asc, users.first_name asc'
     filter :submitted_status,
            options:  [ :not_submitted, :submitted ],
            required: false
@@ -20,7 +22,6 @@ module Auth
 
     def index
       @leads = apply_list_query_options(@leads)
-
       render 'index'
     end
 
@@ -108,6 +109,12 @@ module Auth
       }
     end
 
+    def switch_owner
+      not_found!(:user, user_id) unless user = User.find(params[:new_owner_id])
+      @lead.update_attribute(:user_id, user.id)
+      index
+    end
+
     private
 
     def fetch_leads
@@ -120,6 +127,7 @@ module Auth
       scope = scope.where('leads.created_at > ?',
                           days.days.ago) if days > 0
       scope = scope.merge(Lead.search(params[:search])) if params[:search]
+      scope = scope.merge(Lead.user_search(params[:user_search])) if params[:user_search]
       @leads = scope
     end
 
@@ -147,5 +155,6 @@ module Auth
     def lead_data_input
       allow_input(*product.quote_fields.map(&:name))
     end
+
   end
 end

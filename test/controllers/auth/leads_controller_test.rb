@@ -17,7 +17,7 @@ module Auth
     end
 
     def test_sorting_index
-      get :index, sort: 'customer'
+      get :index, sort: 'contact'
 
       first = siren.entities.first
       last = siren.entities.last
@@ -103,12 +103,26 @@ module Auth
       response.status.must_equal 404
     end
 
-    def test_submit_lead
+    def test_submit_noconsent_lead
       lead = leads(:ready_to_submit)
 
       # ENV.delete('SIMULATE_LEAD_SUBMIT')
       # ENV['SOLAR_CITY_LEAD_URL'] = 'https://sctypowur.cloudhub.io/powur'
-      VCR.use_cassette('quotes/success') do
+      VCR.use_cassette('quotes/success_no_consent') do
+        post :submit, id: lead.id
+      end
+
+      siren.wont_be_error
+      siren.properties.provider_uid.wont_be_nil
+      siren.props_must_equal(data_status: 'submitted')
+    end
+
+    def test_submit_consent_lead
+      lead = leads(:consented)
+
+      # ENV.delete('SIMULATE_LEAD_SUBMIT')
+      # ENV['SOLAR_CITY_LEAD_URL'] = 'https://sctypowur.cloudhub.io/powur'
+      VCR.use_cassette('quotes/success_consent') do
         post :submit, id: lead.id
       end
 

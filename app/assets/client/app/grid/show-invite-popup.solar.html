@@ -35,7 +35,7 @@
           {{ dialog.lead.properties.email_data.state_description || 'sent'}} on {{dialog.lead.properties.updated_at | date: 'MMM d, yyyy'}}</div>
         <div layout="row">
           <i class="material-icons">link</i>
-          <input class="link" value="{{dialog.showLink(dialog.lead.properties)}}" onclick="this.select()" readonly>
+          <input class="link" value="{{ dialog.lead.properties.getsolar_page_url }}" onclick="this.select()" readonly>
         </div>
       </md-content>
 

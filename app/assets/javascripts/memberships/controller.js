@@ -22,7 +22,7 @@
 
     $scope.membershipPrice = function(slug) {
       var membership = $scope.memberships[slug];
-      if (membership) return membership.properties.price/100;
+      if (membership) return membership.properties.price;
     };
 
     $scope.purchase = function(item) {

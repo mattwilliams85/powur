@@ -12,6 +12,7 @@ DEFAULTS: &DEFAULTS
   city: Los Angeles
   state: CA
   zip: 90210
+  code: abc
   data:
     average_bill: 175
 
@@ -29,8 +30,17 @@ incomplete:
   phone:
 ready_to_submit:
   <<: *DEFAULTS
+  id: <%= rand(999998) + 1 %>
   submitted_at:
   provider_uid:
+  data_status: <%= Lead.data_statuses['ready_to_submit'] %>
+  notes: "Powur Test Lead, please ignore"
+consented:
+  <<: *DEFAULTS
+  id: <%= rand(999998) + 1 %>
+  submitted_at:
+  provider_uid:
+  call_consented: true
   data_status: <%= Lead.data_statuses['ready_to_submit'] %>
   notes: "Powur Test Lead, please ignore"
 submitted:

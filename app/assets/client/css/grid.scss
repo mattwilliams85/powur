@@ -1,6 +1,11 @@
 .filter-menu {
   padding: 0;
   min-height: 135px;
+  background: #ebebeb;
+
+  .md-button {
+    background: #fff;
+  }
 
   .header {
     background: #999;
@@ -9,6 +14,7 @@
   .filter-header {
     position: relative;
     text-align: center;
+    background: #fff;
     md-ink-bar {
       background-color: #01B598;
       left: 0;
@@ -23,24 +29,36 @@
       }
     }
   }
+  .subheader {
+    color: #fff;
+    background: #666;
+    padding: 7px 15px;
+    font-weight: 400;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 10pt;
+  }
+  .flex-wrap {
+    padding: 10px 0;
+  }
   &.rigid {
     height: 550px;
-    min-height: 320px;
+    min-height: 465px;
     width: 330px;
   }
   md-radio-button {
     font-size: 10pt;
-    margin: 10px 15px 10px 5px;
+    margin: 10px 5px 10px 12px;
     &.short {
-      width: 120px;
+      width: 140px;
     }
   }
   md-radio-group md-radio-button:not(:first-child) {
     margin-top: 10px;
   }
   .filter-box {
-    padding: 20px 15px;
-    background: #ebebeb;
+    padding: 5px 15px 10px 15px;
+
     flex: 1;
     text-transform: uppercase;
     &.small {
@@ -331,6 +349,21 @@
       .label {
         max-width: 300px;
       }
+
+      .sort {
+        cursor: pointer;
+
+        .material-icons {
+          line-height: 0.4;
+          font-size: 9pt;
+          margin-left: 3px;
+          margin-top: 1px;
+          margin-bottom: -1px;
+          &.active {
+            color: $pow-color-blue;
+          }
+        }
+      }
     }
 
     md-divider {
@@ -376,7 +409,7 @@
         font-size: 16pt;
 
         &.ineligible {
-          background: image-url("img/solar-invite-ineligible-icon.png");
+          background: image-url("img/leads/icons/ineligible-white.png");
           background-size: contain;
           height: 22px;
           width: 22px;
@@ -407,7 +440,7 @@
       .state {
         height: 38px;
         width: 35px;
-        background: image-url('img/california.png');
+        background: image-url('img/leads/states/california.png');
         background-size: contain;
         background-repeat: no-repeat;
         display: inline-block;
@@ -583,6 +616,12 @@
         span:nth-child(2) {
           padding-left: 0;
         }
+        .sort {
+          .material-icons {
+            margin-top: 0;
+            font-size: 14pt;
+          }
+        }
       }
       .grid-row {
         height: 75px;
@@ -718,6 +757,11 @@
         max-width: 1100px;
         width: 100%;
         margin: 0 auto;
+        .sort {
+          .material-icons {
+            margin-top: 1px;
+          }
+        }
       }
       .grid-row-wrap {
         background: #fff;
@@ -873,6 +917,9 @@
         height: 24px;
         width: 24px;
         border: 4px solid #e0e0e0;
+      }
+      .header {
+        font-size: 8pt;
       }
       .highlight {
         &.stage-0 { animation: pop-in-xl .3s 0s forwards; }

@@ -3,7 +3,8 @@ module Forms
     include ActiveModel::Validations
 
     attr_accessor :amount, :number, :expiration, :cvv,
-                  :firstname, :lastname, :zip, :product_id
+                  :firstname, :lastname, :zip, :email,
+                  :product_id
 
     validates :number,
               format:   {
@@ -39,18 +40,18 @@ module Forms
     validates :lastname, presence: true
 
     validates :zip,
-              format:   {
+              format: {
                 with:    /\A[0-9]{5}\Z/i,
                 message: 'Incorrect zip code'
               },
-              presence: true
+              if:     'zip.present?'
 
     validates :amount,
-              format:   {
-                with:    /\A[0-9]+\Z/i,
-                message: 'Incorrect amount'
+              numericality: {
+                greater_than: 0,
+                message:      'Incorrect amount'
               },
-              presence: true
+              presence:     true
 
     validates :product_id, presence: true
 
@@ -70,6 +71,7 @@ module Forms
         product_id:    product_id,
         firstname:     firstname,
         lastname:      lastname,
+        email:         email,
         zip:           zip
       }
     end

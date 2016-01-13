@@ -58,7 +58,7 @@ module Admin
         .execute('SELECT SUM(amount) FROM product_receipts WHERE ' \
           "purchased_at > '#{@date_since}' AND " \
           "purchased_at < '#{@date_until}'")
-        .first['sum'].to_i / 100
+        .first['sum'].to_i
     end
 
     def users_count
