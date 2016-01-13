@@ -76,7 +76,8 @@ Rails.application.routes.draw do
 
     resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
       member do
-        post :resend, :submit, :invite, :switch_owner
+        post :resend, :submit, :invite
+        patch :switch_owner
       end
       collection do
         get :team

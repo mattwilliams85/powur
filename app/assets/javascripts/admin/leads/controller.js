@@ -32,9 +32,10 @@
     };
 
     $scope.setNewOwner = function(newOwnerId, leadId) {
-      return $http({
-        method: 'POST',
-        url: '/u/leads/' + leadId + '/switch_owner/',
+      var action = getAction($scope.actions, 'switch_owner');
+      $http({
+        method: action.method,
+        url: action.href,
         params: {
           lead_id: leadId,
           new_owner_id: newOwnerId
@@ -55,7 +56,7 @@
       }
     };
 
-    // TODO: Have one 'pagination' function instead of defining it in every controller
+    // TODO:Have 1 'pagination' fn instead of defining it in every controller
     $scope.pagination = function(direction, path) {
       if (typeof direction === 'undefined') direction = 0;
       var sort;
@@ -124,6 +125,7 @@
       $scope.pagination(0, $scope.listPath = '/a/users');
       getLead($routeParams.leadId, function(item) {
         $scope.lead = item;
+        $scope.actions = item.actions;
       });
     }
     function getLead(leadId, cb) {
@@ -144,6 +146,18 @@
       templateUrl: 'admin/leads/templates/change-leads.html',
       controller: 'AdminLeadsCtrl'
     });
+  }
+
+  /*
+  * Utility Functions
+  */
+
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
   }
 
 })();
