@@ -178,7 +178,7 @@ module powur {
     phaseFilter: string = 'pending';
     reloading: boolean;
     pageList: number[] = [];
-    sort: string = 'submitted_asc';
+    sort: string = 'newest';
 
     get insight(): any {
       return this.leadsSummary.properties;
@@ -380,11 +380,7 @@ module powur {
     }
 
     sortLeads(type) {
-      if (this.sort === type + '_asc') {
-        this.sort = type + '_desc'
-      } else {
-        this.sort = type + '_asc'
-      }
+      this.sort = type;
       this.changePage(this.currentPage);
     }
 

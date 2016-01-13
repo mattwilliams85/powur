@@ -1,6 +1,11 @@
 .filter-menu {
   padding: 0;
   min-height: 135px;
+  background: #ebebeb;
+
+  .md-button {
+    background: #fff;
+  }
 
   .header {
     background: #999;
@@ -9,6 +14,7 @@
   .filter-header {
     position: relative;
     text-align: center;
+    background: #fff;
     md-ink-bar {
       background-color: #01B598;
       left: 0;
@@ -23,24 +29,36 @@
       }
     }
   }
+  .subheader {
+    color: #fff;
+    background: #666;
+    padding: 7px 15px;
+    font-weight: 400;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 10pt;
+  }
+  .flex-wrap {
+    padding: 10px 0;
+  }
   &.rigid {
     height: 550px;
-    min-height: 320px;
+    min-height: 465px;
     width: 330px;
   }
   md-radio-button {
     font-size: 10pt;
-    margin: 10px 15px 10px 5px;
+    margin: 10px 5px 10px 12px;
     &.short {
-      width: 120px;
+      width: 140px;
     }
   }
   md-radio-group md-radio-button:not(:first-child) {
     margin-top: 10px;
   }
   .filter-box {
-    padding: 20px 15px;
-    background: #ebebeb;
+    padding: 5px 15px 10px 15px;
+
     flex: 1;
     text-transform: uppercase;
     &.small {

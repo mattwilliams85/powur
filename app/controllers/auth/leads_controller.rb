@@ -6,12 +6,10 @@ module Auth
                   only: [ :show, :update, :destroy, :resend, :submit, :invite, :switch_owner ]
 
     page max_limit: 10
-    sort submitted_asc:  { submitted_at: :asc, created_at: :asc },
-         submitted_desc:  { submitted_at: :desc, created_at: :desc },
-         customer_asc: 'leads.last_name asc, leads.first_name asc',
-         customer_desc: 'leads.last_name desc, leads.first_name desc',
-         owner_asc: 'users.last_name asc, users.first_name asc',
-         owner_desc: 'users.last_name desc, users.first_name desc'
+    sort newest:  { created_at: :desc },
+         submitted_date:  { submitted_at: :asc, created_at: :asc },
+         contact: 'leads.last_name asc, leads.first_name asc',
+         owner: 'users.last_name asc, users.first_name asc'
     filter :submitted_status,
            options:  [ :not_submitted, :submitted ],
            required: false
