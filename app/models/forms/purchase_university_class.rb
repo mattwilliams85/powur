@@ -40,11 +40,11 @@ module Forms
     validates :lastname, presence: true
 
     validates :zip,
-              format:   {
+              format: {
                 with:    /\A[0-9]{5}\Z/i,
                 message: 'Incorrect zip code'
               },
-              presence: true
+              if:     'zip.present?'
 
     validates :amount,
               numericality: {
