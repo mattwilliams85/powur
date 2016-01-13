@@ -293,7 +293,7 @@ class Lead < ActiveRecord::Base
   end
 
   def post_submission_action
-    return nil if last_update.nil?
+    LeadAction.where(sales_status: 0).first if last_update.nil?
     stage = last_update.opportunity_stage.presence
     status = last_update.lead_status.presence
     return nil unless stage || status
