@@ -122,9 +122,8 @@ module Admin
     end
 
     def sign_in
-      reset_session
+      logout_user
       session[:user_id] = @user.id
-      session[:expires_at] = Time.current + 1.hour
       head :ok
     end
 

@@ -30,7 +30,7 @@ module Anon
       return render json:   {},
                     status: :unauthorized if !user || user.reset_token_expired?
 
-      reset_session
+      logout_user
 
       user.password = params[:password]
       user.reset_token = nil

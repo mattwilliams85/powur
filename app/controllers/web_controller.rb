@@ -13,21 +13,14 @@ class WebController < ApplicationController
     @current_user ||= user_from_session
   end
 
-  def sign_in_expired?
-    # HACKFIX, need better way to mock user session for test
-    current_user.sign_in_expired?(session[:expires_at]) && !Rails.env.test?
-  end
-
   def logged_in?
     return false unless current_user
-    
-    if sign_in_expired? || current_user.terminated?
-      reset_session
-      @current_user = nil
+
+    if current_user.terminated?
+      logout_user
       return false
     end
 
-    session[:expires_at] = Time.current + 1.hour
     true
   end
 
@@ -36,12 +29,23 @@ class WebController < ApplicationController
   end
 
   def login_user(user, remember_me = nil)
-    reset_session
+    logout_user
     session[:user_id] = user.id
-    session[:expires_at] = Time.current + 1.hour
+    if remember_me
+      cookies.permanent.signed[:user_id] = {
+        value:   user.id,
+        expires: 10.days.from_now
+      }
+    end
     user.update_sign_in_timestamps!(remember_me)
     @current_user = user
     track_login_event(user)
+  end
+
+  def logout_user
+    cookies.delete(:user_id)
+    reset_session
+    @current_user = nil
   end
 
   def redirect_to(*args)
@@ -54,7 +58,7 @@ class WebController < ApplicationController
   end
 
   def user_from_session
-    return session[:user] if session[:user]
-    session[:user_id] && User.find_by(id: session[:user_id].to_i)
+    user_id = session[:user_id] || cookies.signed[:user_id]
+    user_id && User.find_by(id: user_id.to_i)
   end
 end
