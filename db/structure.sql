@@ -460,7 +460,8 @@ CREATE TABLE lead_totals (
     team integer NOT NULL,
     personal_lifetime integer NOT NULL,
     team_lifetime integer NOT NULL,
-    smaller_legs integer DEFAULT 0 NOT NULL
+    smaller_legs integer DEFAULT 0 NOT NULL,
+    team_counts integer[]
 );
 
 
@@ -846,12 +847,13 @@ CREATE TABLE product_receipts (
     id integer NOT NULL,
     product_id integer NOT NULL,
     user_id integer NOT NULL,
-    amount numeric(10,2) NOT NULL,
+    amount double precision NOT NULL,
     transaction_id character varying NOT NULL,
     auth_code character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    purchased_at timestamp without time zone
+    purchased_at timestamp without time zone,
+    refunded_at timestamp without time zone
 );
 
 
@@ -881,7 +883,7 @@ ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
 CREATE TABLE products (
     id integer NOT NULL,
     name character varying NOT NULL,
-    bonus_volume integer,
+    bonus_volume double precision,
     commission_percentage integer DEFAULT 100 NOT NULL,
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -1127,11 +1129,13 @@ CREATE TABLE rank_requirements (
     id integer NOT NULL,
     rank_id integer NOT NULL,
     product_id integer NOT NULL,
-    event_type integer NOT NULL,
     time_span integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
     max_leg integer,
-    type character varying NOT NULL
+    type character varying NOT NULL,
+    lead_status integer DEFAULT 1 NOT NULL,
+    leg_count integer,
+    team boolean DEFAULT false NOT NULL
 );
 
 
@@ -2516,14 +2520,6 @@ ALTER TABLE ONLY user_ranks
 
 
 --
--- Name: fk_rails_2df50738a4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT fk_rails_2df50738a4 FOREIGN KEY (pay_as_rank) REFERENCES ranks(id);
-
-
---
 -- Name: fk_rails_3437827c68; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2561,14 +2557,6 @@ ALTER TABLE ONLY user_group_requirements
 
 ALTER TABLE ONLY quote_fields
     ADD CONSTRAINT fk_rails_4d65aace9f FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: fk_rails_54f92f658f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ranks_user_groups
-    ADD CONSTRAINT fk_rails_54f92f658f FOREIGN KEY (rank_id) REFERENCES ranks(id);
 
 
 --
@@ -2617,14 +2605,6 @@ ALTER TABLE ONLY product_receipts
 
 ALTER TABLE ONLY rank_achievements
     ADD CONSTRAINT fk_rails_70967dd465 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_7b5c8c5a94; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rank_requirements
-    ADD CONSTRAINT fk_rails_7b5c8c5a94 FOREIGN KEY (rank_id) REFERENCES ranks(id);
 
 
 --
@@ -3104,4 +3084,10 @@ INSERT INTO schema_migrations (version) VALUES ('20151222193105');
 INSERT INTO schema_migrations (version) VALUES ('20151228173756');
 
 INSERT INTO schema_migrations (version) VALUES ('20160105220528');
+
+INSERT INTO schema_migrations (version) VALUES ('20160108191248');
+
+INSERT INTO schema_migrations (version) VALUES ('20160108222807');
+
+INSERT INTO schema_migrations (version) VALUES ('20160114153056');
 

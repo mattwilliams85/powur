@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105220528) do
+ActiveRecord::Schema.define(version: 20160114153056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 20160105220528) do
     t.integer "personal_lifetime",             null: false
     t.integer "team_lifetime",                 null: false
     t.integer "smaller_legs",      default: 0, null: false
+    t.integer "team_counts",                                array: true
   end
 
   add_index "lead_totals", ["user_id", "pay_period_id", "status"], name: "index_lead_totals_on_user_id_and_pay_period_id_and_status", unique: true, using: :btree
@@ -307,19 +308,20 @@ ActiveRecord::Schema.define(version: 20160105220528) do
   add_index "product_invites", ["status"], name: "index_product_invites_on_status", using: :btree
 
   create_table "product_receipts", force: :cascade do |t|
-    t.integer  "product_id",                              null: false
-    t.integer  "user_id",                                 null: false
-    t.decimal  "amount",         precision: 10, scale: 2, null: false
-    t.string   "transaction_id",                          null: false
+    t.integer  "product_id",     null: false
+    t.integer  "user_id",        null: false
+    t.float    "amount",         null: false
+    t.string   "transaction_id", null: false
     t.string   "auth_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "purchased_at"
+    t.datetime "refunded_at"
   end
 
   create_table "products", force: :cascade do |t|
     t.string   "name",                                             null: false
-    t.integer  "bonus_volume"
+    t.float    "bonus_volume"
     t.integer  "commission_percentage",            default: 100,   null: false
     t.boolean  "distributor_only",                 default: false, null: false
     t.datetime "created_at",                                       null: false
@@ -407,13 +409,15 @@ ActiveRecord::Schema.define(version: 20160105220528) do
   add_index "rank_paths", ["precedence"], name: "index_rank_paths_on_precedence", unique: true, using: :btree
 
   create_table "rank_requirements", force: :cascade do |t|
-    t.integer "rank_id",                null: false
-    t.integer "product_id",             null: false
-    t.integer "event_type",             null: false
-    t.integer "time_span",              null: false
-    t.integer "quantity",   default: 1, null: false
+    t.integer "rank_id",                     null: false
+    t.integer "product_id",                  null: false
+    t.integer "time_span",                   null: false
+    t.integer "quantity",    default: 1,     null: false
     t.integer "max_leg"
-    t.string  "type",                   null: false
+    t.string  "type",                        null: false
+    t.integer "lead_status", default: 1,     null: false
+    t.integer "leg_count"
+    t.boolean "team",        default: false, null: false
   end
 
   create_table "ranks", force: :cascade do |t|
@@ -571,7 +575,6 @@ ActiveRecord::Schema.define(version: 20160105220528) do
   add_foreign_key "bonus_payment_leads", "leads"
   add_foreign_key "bonus_payments", "bonuses"
   add_foreign_key "bonus_payments", "pay_periods"
-  add_foreign_key "bonus_payments", "ranks", column: "pay_as_rank"
   add_foreign_key "bonus_payments", "users"
   add_foreign_key "bonuses", "pay_periods"
   add_foreign_key "invites", "users"
@@ -598,8 +601,6 @@ ActiveRecord::Schema.define(version: 20160105220528) do
   add_foreign_key "rank_achievements", "ranks"
   add_foreign_key "rank_achievements", "users"
   add_foreign_key "rank_requirements", "products"
-  add_foreign_key "rank_requirements", "ranks"
-  add_foreign_key "ranks_user_groups", "ranks"
   add_foreign_key "ranks_user_groups", "user_groups"
   add_foreign_key "user_codes", "bonuses"
   add_foreign_key "user_codes", "users"
