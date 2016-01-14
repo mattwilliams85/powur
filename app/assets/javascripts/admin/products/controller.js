@@ -75,16 +75,27 @@
 
     // Delete Product Action
     $scope.delete = function(productObj) {
-      var action = getAction(productObj.actions, 'delete');
+      var action = $scope.getAction(productObj.actions, 'delete');
       var productName = productObj.properties.name;
       if (window.confirm('Are you sure you want to delete ' + productName + '?')) {
-        return CommonService.execute(action).then(function() {
-          $scope.showModal(productName + ' has been removed from the system.');
-          $location.path('/admin/products');
-        }, function() {
-          $scope.showModal('There was an error deleting this product.');
+        return CommonService.execute(action).then(function(data) {
+          if (data.error) {
+            $scope.showModal(data.error.message);
+          } else {
+            $scope.showModal(productName + ' has been removed from the system.');
+            $location.path('/admin/products');
+          }
         });
       }
+    };
+
+    $scope.getAction = function(actions, name) {
+      for (var i in actions) {
+        if (actions[i].name === name) {
+          return actions[i];
+        }
+      }
+      return;
     };
 
     $scope.cancel = function() {
@@ -113,7 +124,7 @@
         href: '/a/products.json'
       }).then(function(items) {
         $scope.product = {};
-        $scope.formAction = getAction(items.actions, 'create');
+        $scope.formAction = $scope.getAction(items.actions, 'create');
         // Breadcrumbs: Products
         $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/products'});
         $rootScope.breadcrumbs.push({title: 'New Product'});
@@ -123,10 +134,10 @@
         href: '/a/products/' + $routeParams.productId + '.json'
       }).then(function(item) {
         // Cents to dollars
-        var bonusVolumeField = getField(getAction(item.actions, 'update').fields, 'bonus_volume');
+        var bonusVolumeField = getField($scope.getAction(item.actions, 'update').fields, 'bonus_volume');
         $scope.product = item.properties;
         $scope.productObj = item;
-        $scope.formAction = getAction($scope.productObj.actions, 'update');
+        $scope.formAction = $scope.getAction($scope.productObj.actions, 'update');
         var fields = $scope.formAction.fields;
         // Holy Loop to fill form with existing values 🙌
         for (var i in fields) {
@@ -146,16 +157,6 @@
       });
     }
   };
-
-  // Utility Functions
-  function getAction(actions, name) {
-    for (var i in actions) {
-      if (actions[i].name === name) {
-        return actions[i];
-      }
-    }
-    return;
-  }
 
   function getField(fields, name) {
     for (var i in fields) {

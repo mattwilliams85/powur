@@ -36,7 +36,7 @@
       </div>
     </div>
     <!-- Delete Button -->
-    <input ng-if="mode === 'edit'" class="tiny button understated right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(productObj)" value="Delete Product" />
+    <input ng-if="mode === 'edit' && getAction(productObj.actions, 'delete')" class="tiny button understated right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(productObj)" value="Delete Product" />
     <!-- Submit/Cancel Buttons -->
     <div class="row">
       <div class="large-12 columns">
