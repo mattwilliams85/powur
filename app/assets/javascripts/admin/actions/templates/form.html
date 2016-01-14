@@ -1,0 +1,24 @@
+<form>
+  <fieldset>
+    <div ng-repeat="field in formAction.fields" class="row">
+      <div class="large-12 columns">
+        <label for="{{field.name}}" class="capitalize">{{field.name | cleanLabel}}</label>
+        <!-- Text Area Inputs -->
+        <textarea ng-model="updateAction[field.name]" ng-if="field.type === 'text'" name="{{field.name}}" id="{{field.name}}" maxlength="226">asdf</textarea>
+        <!-- Character Counter -->
+        <!-- (116 character limit for a tweet with a link) -->
+        <p ng-if="field.type === 'text'" class="remaining-characters">{{226 - updateAction[field.name].length}} characters remaining</p>
+        <!-- String Inputs -->
+        <input ng-model="updateAction[field.name]" ng-if="field.type === 'integer'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+      </div>
+    </div>
+
+    <!-- Submit/Cancel Buttons -->
+    <div class="row">
+      <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Action" />
+      </div>
+    </div>
+  </fieldset>
+</form>

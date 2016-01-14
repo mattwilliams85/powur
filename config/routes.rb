@@ -206,6 +206,9 @@ Rails.application.routes.draw do
       end
     end
 
+    # Lead Actions
+    resources :lead_actions, only: [ :index, :update, :show ]
+
     # Bonuses
     resources :bonuses, only: [ :index, :destroy, :update, :show ] do
       resources :bonus_amounts, only: [ :create ], as: :amounts, path: :amounts
