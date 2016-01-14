@@ -75,6 +75,7 @@
 
   function formattedPrice() {
     return function(price) {
+      if (!price) return;
       return price.toFixed(2);
     };
   }
