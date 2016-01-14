@@ -58,6 +58,7 @@ class WebController < ApplicationController
   end
 
   def user_from_session
+    return session[:user] if session[:user]
     user_id = session[:user_id] || cookies.signed[:user_id]
     user_id && User.find_by(id: user_id.to_i)
   end
