@@ -75,8 +75,8 @@ module Anon
         .where(email: @lead.email)
         .where.not(invite_status: Lead.invite_statuses[:accepted])
         .delete_all
-    rescue Lead::SolarCityApiError => e
-      Airbrake.notify(e)
+    rescue IntegrationError => e
+      Airbrake.notify(e, error: e.error.inspect, lead_id: @lead.id)
       error!(:solarcity_api)
     end
   end

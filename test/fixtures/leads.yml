@@ -4,9 +4,9 @@ DEFAULTS: &DEFAULTS
   data_status: <%= Lead.data_statuses['submitted'] %>
   submitted_at: <%= 1.day.ago %>
   provider_uid: $LABEL_uid
-  first_name: Bob
-  last_name: Sanford
-  email: bob.sanford@eyecuelab.com
+  first_name: Powur
+  last_name: Test
+  email: powur.test@eyecuelab.com
   phone: 310.555.1212
   address: 42 Cherry Lane
   city: Los Angeles

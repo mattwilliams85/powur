@@ -13,36 +13,35 @@ class SolarCityForm
       payload:      post_body,
       timeout:      10,
       open_timeout: 5)
-  rescue RestClient::RequestFailed => e
-    @request_error = e
-    @response = e.inspect
+    fail(error) if error? && !dupe?
+  rescue => e
+    raise IntegrationError.new(e), "Solar City Lead Submit Error: #{e.message}"
   end
 
   def provider_uid
     created_id || dupe_id
   end
 
+  def response_date
+    @response_date ||= DateTime.parse(response.headers[:date])
+  end
+
   def parsed_response
-    @parsed_response ||= MultiJson.decode(response)
-  rescue => e
-    @error_response = e
-    @response = e.inspect
+    @parsed_response ||= MultiJson.decode(response.gsub("\n", ''))
+  rescue MultiJson::ParseError => e
+    raise IntegrationError.new(e), "Solar City Lead Submit Error: #{response}"
   end
 
   def created_id
     parsed_response['LeadId'].presence
   end
 
-  def error_response
-    @error_response ||= begin
+  def error
+    @error ||= begin
       parsed_response &&
         parsed_response['Status'] != 'SUCCESS' &&
         parsed_response['Message']
     end
-  end
-
-  def error
-    request_error || error_response
   end
 
   def error?
@@ -51,7 +50,7 @@ class SolarCityForm
 
   DUPE_REGEX = /duplicates value on record with id: (?<id>\w+$)/
   def dupe_match
-    @dupe_match ||= error_response && error_response.match(DUPE_REGEX)
+    @dupe_match ||= error && error.match(DUPE_REGEX)
   end
 
   def dupe?
