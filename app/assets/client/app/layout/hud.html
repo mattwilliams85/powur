@@ -1,6 +1,6 @@
 <div class="hud goals mobile">
   <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
-    <div ng-show="req.properties.event_type == 'purchase'" layout="row" layout-align="space-around center" layout-fill class="bar">
+    <div ng-show="req.properties.purchase" layout="row" layout-align="space-around center" layout-fill class="bar">
       <div class="purchase" flex>
         <div class="title">UPGRADE</div>
         <a ng-href="/upgrade"><div class="product">{{ req.properties.product }}</div></a>
@@ -14,8 +14,8 @@
       <div class="medal icon"></div>
     </div>
     <div ng-repeat="req in hud.goalRequirements">
-      <span ng-if="req.properties.event_type === 'grid_proposals'">Grid</span>
-      <span ng-if="req.properties.event_type === 'personal_proposals'">Personal</span>
+      <span ng-if="req.properties.team">Grid</span>
+      <span ng-if="!req.properties.team">Personal</span>
       <span class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
       <div class="icon"></div>
     </div>
@@ -38,16 +38,16 @@
         </div>
         <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
           <div ng-if="hud.rank > 0" layout-align="center center">
-            <div ng-if="req.properties.event_type === 'grid_proposals'" class="icon grid-lead"></div>
-            <div ng-if="req.properties.event_type === 'personal_proposals'" class="icon personal-lead"></div>
+            <div ng-if="req.properties.team" class="icon grid-lead"></div>
+            <div ng-if="!req.properties.team" class="icon personal-lead"></div>
             <span class="number">{{ req.properties.progress }}<span class="sub">/{{ req.properties.quantity }}</span></span>
           </div>
-          <div class="purchase" flex ng-show="req.properties.event_type == 'purchase'">
+          <div class="purchase" flex ng-show="req.properties.purchase">
             <div class="title">UPGRADE</div>
             <a ng-href="/upgrade"><div class="product">{{ req.properties.product }}</div></a>
           </div>
-          <span ng-if="req.properties.event_type === 'personal_proposals'" class="label">Personal Leads</span>
-          <span ng-if="req.properties.event_type === 'grid_proposals'" class="label">Grid Leads</span>
+          <span ng-if="!req.properties.team" class="label">Personal Leads</span>
+          <span ng-if="req.properties.team" class="label">Grid Leads</span>
         </div>
       </div>
     </div>

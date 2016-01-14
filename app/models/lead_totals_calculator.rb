@@ -15,8 +15,8 @@ class LeadTotalsCalculator
   end
 
   def calculate
-    hydrate_counts
-    hydrate_smaller_legs
+    hydrate_personal_counts
+    hydrate_team_counts
   end
 
   def save
@@ -26,6 +26,12 @@ class LeadTotalsCalculator
   def calculate!
     calculate
     save
+  end
+
+  def clear
+    query = LeadTotals.where(pay_period_id: pay_period.id)
+    query = query.joins(:user).merge(User.all_team(user_id)) if user_id
+    query.delete_all
   end
 
   private
@@ -70,7 +76,7 @@ class LeadTotalsCalculator
     user_query.send(count_query, lead_query)
   end
 
-  def hydrate_counts
+  def hydrate_personal_counts
     COUNTS_FIELDS.each do |field|
       statuses.each do |status|
         counts = query_counts(field, status).entries
@@ -82,24 +88,28 @@ class LeadTotalsCalculator
     end
   end
 
-  def smaller_legs_count(status, user_id, personal)
+  def team_counts(status, user_id)
     children = records.select { |r| r[:user].parent_id == user_id }
-    return personal if children.empty?
+    return nil if children.empty?
 
-    counts = children.map { |c| c[status][:team] }
-    # remove highest leg and add personal
-    smaller_legs = counts.inject(&:+) - counts.max
-    smaller_legs + personal
+    children.map { |c| c[status][:team] }
   end
 
-  def hydrate_smaller_legs
+  def hydrate_user_team_counts(record, status)
+    personal = record[status][:personal]
+    counts = team_counts(status, record[:user].id) || [ personal ]
+    # remove highest leg and add personal
+    smaller_legs = counts.inject(&:+) -
+      counts.max + record[status][:personal]
+    
+    record[status][:team_counts] = counts
+    record[status][:smaller_legs] = smaller_legs
+  end
+
+  def hydrate_team_counts
     records.each do |record|
       statuses.each do |status|
-        count = smaller_legs_count(
-          status,
-          record[:user].id,
-          record[status][:personal])
-        record[status][:smaller_legs] = count
+        hydrate_user_team_counts(record, status)
       end
     end
   end

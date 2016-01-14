@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=test.powur.com%3A432496&Lead_Generator__c=378456360&FirstName=Powur&LastName=Test&Street=42%20Cherry%20Lane&City=Los%20Angeles&PostalCode=90210&Phone=310.555.1212&Email=powur.test%40eyecuelab.com&Monthly_Electric_Bill__c=175&Notes_Description__c=Powur%20Test%20Lead%2C%20please%20ignore&campaignId=701180000001Psp&campaignStatus=Responded
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '353'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Jan 2016 23:03:53 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@7efafd05"
+      Server:
+      - nginx
+      X-Mule-Encoding:
+      - UTF-8
+      Content-Length:
+      - '427'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {"Status":"ERROR","LeadId":"","YourId":"test.powur.com:432496","Message":"[InvalidFieldFault [ApiQueryFault [ApiFault  exceptionCode='INVALID_FIELD'
+         exceptionMessage='No such column 'campaignStatus' on entity 'Lead'. If you are attempting to use a custom field, be sure to append the '__c' after the custom field name. Please reference your WSDL or the describe call for the appropriate names.'
+        ]
+         row='-1'
+         column='-1'
+        ]
+        ]
+        "}
+    http_version: 
+  recorded_at: Wed, 13 Jan 2016 23:03:53 GMT
+recorded_with: VCR 2.9.3

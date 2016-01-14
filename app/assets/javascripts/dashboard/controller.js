@@ -123,7 +123,7 @@
     }
 
     function statusText(i, goal) {
-      if (goal.event_type === 'purchase') {
+      if (goal.purchase) {
         if (goal.progress) {
           goal.status = 'Course Complete';
         } else {

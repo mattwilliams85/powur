@@ -142,7 +142,7 @@
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cc54', endColorstr='#55cc85',GradientType=1 ); /* IE6-9 */
           }
 
-          &.personal_sales, &.personal_proposals {
+          &.personal_sales, &.personal_qualified {
            background: rgb(255,191,0); /* Old browsers */
            background: -moz-linear-gradient(left,  rgba(255,191,0,1) 0%, rgba(255,207,86,1) 100%); /* FF3.6+ */
            background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,191,0,1)), color-stop(100%,rgba(255,207,86,1))); /* Chrome,Safari4+ */
@@ -154,7 +154,7 @@
 
           }
 
-          &.grid_sales, &.grid_proposals {
+          &.grid_sales, &.grid_qualified {
             /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#258dc8+0,20c2f1+100 */
             background: rgb(37,141,200); /* Old browsers */
             background: -moz-linear-gradient(left,  rgba(37,141,200,1) 0%, rgba(32,194,241,1) 100%); /* FF3.6+ */
@@ -236,11 +236,11 @@
               background-color: $pow-color-green;
             }
 
-            &.personal_sales, &.personal_proposals {
+            &.personal_sales, &.personal_qualified {
               background-color: $pow-color-orange;
             }
 
-            &.grid_sales, &.grid_proposals {
+            &.grid_sales, &.grid_qualified {
               background-color: $pow-color-blue;
             }
           }

@@ -1,0 +1,91 @@
+ranks:
+  - id: 0
+    title: Advocate
+  - id: 1
+    title: Independent Partner
+    requirements:
+      - product_id: 3
+        time_span: :lifetime
+        type: PurchaseRequirement
+  - id: 2
+    title: Qualified Partner
+    requirements:
+      - lead_status: :converted
+        product_id: 1
+        quantity: 3
+        time_span: :lifetime
+        type: LeadRequirement
+  - id: 3
+    title: Senior Partner
+    requirements:
+      - lead_status: :converted
+        product_id: 1
+        quantity: 5
+        time_span: :lifetime
+        type: LeadRequirement
+      - lead_status: :converted
+        team: true
+        product_id: 1
+        quantity: 25
+        time_span: :lifetime
+        type: LeadRequirement
+  - id: 4
+    title: National Partner
+    requirements:
+      - lead_status: :converted
+        product_id: 1
+        quantity: 10
+        time_span: :lifetime
+        type: LeadRequirement
+      - lead_status: :converted
+        team: true
+        product_id: 1
+        quantity: 75
+        time_span: :lifetime
+        type: LeadRequirement
+  - id: 5
+    title: Game Changer
+    requirements:
+      - lead_status: :converted
+        product_id: 1
+        quantity: 15
+        leg_count: 3
+        time_span: :lifetime
+        type: LeadRequirement
+      - lead_status: :converted
+        team: true
+        product_id: 1
+        quantity: 75
+        leg_count: 3
+        time_span: :lifetime
+        type: LeadRequirement
+  - id: 6
+    title: National Game Changer
+    requirements:
+      - lead_status: :converted
+        product_id: 1
+        quantity: 15
+        time_span: :lifetime
+        type: LeadRequirement
+      - lead_status: :installed
+        team: true
+        product_id: 1
+        quantity: 100
+        leg_count: 3
+        time_span: :lifetime
+        type: LeadRequirement
+  - id: 7
+    title: Hero
+    requirements:
+      - lead_status: :converted
+        product_id: 1
+        quantity: 15
+        time_span: :lifetime
+        type: LeadRequirement
+      - lead_status: :installed
+        team: true
+        product_id: 1
+        quantity: 300
+        leg_count: 3
+        time_span: :lifetime
+        type: LeadRequirement

@@ -3,7 +3,7 @@ class LeadTotals < ActiveRecord::Base
   belongs_to :product
   belongs_to :pay_period
 
-  enum status: [ :converted, :contracted ]
+  enum status: [ :converted, :contracted, :installed ]
 
   scope :exclude_users, lambda { |query|
     joins("LEFT JOIN (#{query.to_sql}) eu
@@ -14,6 +14,46 @@ class LeadTotals < ActiveRecord::Base
     joins("INNER JOIN (#{query.to_sql}) iu
           ON lead_totals.user_id = iu.user_id")
   }
+  scope :leg_counts, lambda { |pay_period_id:, status:|
+    select('user_id, unnest(team_counts) leg_count')
+      .send(status)
+      .where(pay_period: pay_period_id)
+  }
+  scope :having_leg_counts,
+        lambda { |pay_period_id:, status:, count:, quantity:|
+          query = leg_counts(pay_period_id: pay_period_id, status: status)
+          join_sql = "INNER JOIN (#{query.to_sql}) lc"
+          select('lead_totals.user_id')
+            .joins("#{join_sql} ON lc.user_id = lead_totals.user_id")
+            .send(status)
+            .where(pay_period_id: pay_period_id)
+            .where('lc.leg_count >= ?', count)
+            .group(:user_id)
+            .having('count(lc.leg_count) >= ?', quantity)
+        }
+  scope :with_having_leg_counts,
+        lambda { |pay_period_id:, status:, count:, quantity:|
+          query = having_leg_counts(pay_period_id: pay_period_id,
+                                    status:        status,
+                                    count:         count,
+                                    quantity:      quantity)
+          join_sql = "INNER JOIN (#{query.to_sql}) hlc"
+          joins("#{join_sql} ON hlc.user_id = lead_totals.user_id")
+
+        }
+
+  # scope :with_leg_counts, lambda {
+  #   join_sql = "INNER JOIN (#{leg_counts.to_sql}) lc"
+  #   joins("#{join_sql} ON lc.user_id = lead_totals.user_id")
+  # }
+  # scope :has_leg_counts, lambda { |quantity, count|
+  #   select()
+  #     .from('(select user_id, unnest(team_counts) leg_count from lead_totals) leg_counts')
+  #     .where('leg_count >= ?', quantity)
+  #     .group('user_id')
+  #     .having('count(leg_count) >= ?', count)
+
+  # }
 
   def personal_count
     self.personal ||= lead_query.where(user_id: user_id).count
@@ -31,6 +71,11 @@ class LeadTotals < ActiveRecord::Base
     self.team_lifetime ||= begin
       Lead.team_count(user_id: user_id, query: lifetime_lead_query)
     end
+  end
+
+  def qualified_team_legs(quantity)
+    return 0 unless team_counts?
+    team_counts.select { |i| i >= quantity }.size
   end
 
   private

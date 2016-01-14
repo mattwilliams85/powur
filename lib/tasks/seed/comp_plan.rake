@@ -1,12 +1,11 @@
 namespace :powur do
   namespace :seed do
-
     def load_yaml(file_name)
       YAML.load_file(Rails.root.join('db', 'seed', "#{file_name}.yml"))
     end
 
-    def plan_data
-      @plan_data ||= load_yaml('comp_plan')
+    def fetch_plan_data(version)
+      load_yaml("comp_plan_v#{version}")
     end
 
     def bonus_data
@@ -30,26 +29,13 @@ namespace :powur do
       end
     end
 
-    task ranks: :environment do
+    task :ranks, [ :v ] => :environment do |_t, args|
+      plan_data = fetch_plan_data(args[:v])
+
       Rank.destroy_all
       plan_data['ranks'].each do |attrs|
-        rank = Rank.create!(attrs)
+        rank = Rank.from_attrs(attrs)
         puts "Created rank #{rank.id} : #{rank.title}"
-      end
-    end
-
-    task user_groups: :environment do
-      UserGroup.destroy_all
-      plan_data['groups'].each do |attrs|
-        rank_id = attrs.delete('rank_id')
-        requirements = attrs.delete('requirements')
-        group = UserGroup.create!(attrs)
-        group.ranks_user_groups.create!(rank_id: rank_id)
-        requirements.each do |req_attrs|
-          next unless Product.find_by(id: req_attrs['product_id'].to_i)
-          group.requirements.create!(req_attrs)
-        end
-        puts "Created group #{group.title} : #{group.id}"
       end
     end
 
