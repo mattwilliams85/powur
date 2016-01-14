@@ -40,8 +40,8 @@ module Forms
     validates :lastname, presence: true
 
     validates :zip,
-              format: {
-                with:    /\A[0-9]{5}\Z/i,
+              length: {
+                maximum: 10,
                 message: 'Incorrect zip code'
               },
               if:     'zip.present?'
