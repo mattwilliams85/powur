@@ -3,7 +3,7 @@
 
   function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService, Utility) {
     $scope.redirectUnlessSignedIn();
-    //Fetch Profile
+
     UserProfile.get().then(function(data) {
       $rootScope.currentUser = data.properties;
 
@@ -86,7 +86,6 @@
       }
     });
 
-
     $scope.fetchGoals = function() {
       CommonService.execute({
         href: '/u/users/' + $scope.currentUser.id + '/goals'
@@ -97,7 +96,6 @@
           $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
           $scope.progress = {};
           $scope.rank_list = $scope.goals.properties['rank_list=']
-          calculateProgress($scope.requirements);
         }
       });
     };
@@ -108,33 +106,6 @@
         $('.progress-text').fadeIn('slow');
       }, 1000);
     };
-
-    function calculateProgress(requirements) {
-      for (var i = 0; i < requirements.length; i++) {
-        var event_type = requirements[i].properties.event_type;
-        var goal = Utility.findBranch($scope.goals, { event_type: event_type });
-        goal.quantity = goal.quantity || 1;
-        if (goal.progress > goal.quantity) goal.progress = goal.quantity;
-        goal.percentage = ((goal.progress / goal.quantity) * 100);
-        goal = statusText(i, goal);
-
-        $scope.progress[i] = goal;
-      }
-    }
-
-    function statusText(i, goal) {
-      if (goal.purchase) {
-        if (goal.progress) {
-          goal.status = 'Course Complete';
-        } else {
-          goal.status = 'Course Incomplete';
-        }
-      } else {
-        goal.product = goal.event_type.split('_').join(' ');
-        goal.status = goal.progress + ' / ' + goal.quantity;
-      }
-      return goal;
-    }
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];

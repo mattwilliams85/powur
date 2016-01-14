@@ -1,69 +1,14 @@
 <div class="row">
-  <div class="large-6 medium-8 columns">
-<!-- 
-    <div class="welcome-message row">
-      <div class="large-2 medium-3 small-4 columns">
-        <div class="avatar">
-          <img ng-src="{{currentUser.avatar.large || legacyImagePaths.defaultProfile}}">
+  <div class="large-12 columns">
+    <div class="news">
+      <span class="latest-news-label">Latest News</span>
+      <div class="notifications">
+        <div class="notification" ng-repeat="post in news">
+          <p ng-bind-html="post.properties.content" class="text">{{ post.properties.content }}</p>
+          <span class="date">{{ post.properties.created_at | dateToLocalDate }}</span>
         </div>
-      </div>
-      <div class="large-9 medium-8 small-7 columns">
-        <h2>Welcome, {{currentUser.first_name}}</h2>
-        <h5>The world needs you.</h5>
-      </div>
-    </div> -->
-
-    <!-- Row: Pay Period Goals -->
-    <div ng-show="goals" class="pay-period-goals row">
-      <div class="large-10 large-offset-1 medium-10 small-12 columns">
-        <!-- Label -->
-        <h5>Pay Period Goals</h5>
-        <!-- Legend -->
-        <div class="legend">
-          <div ng-repeat="goal in progress track by $index">
-            <div class="legend-item">
-              <div class="legend-key {{progress[$index].event_type}}"></div>
-              <span>{{progress[$index].product}}</span>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="progress-bar-box" ng-class="{ large : requirements.length > 1 }">
-          <!-- Badge -->
-          <div class="badge show-for-medium-up" ng-class="{ half: requirements.length == 2, full: requirements.length === 1 }">
-            <img class="badge" ng-src="{{goals.badge}}">
-            <span class="title">{{rank_list[goals.properties.next_rank].title}}</span>
-          </div>
-          <div ng-repeat="goal in progress track by $index" repeat-end="onEnd()">
-            <div
-              class="progress-bar"
-              ng-class="{ half: requirements.length === 2,
-                          full: requirements.length === 1 }">
-              <span class="progress-text">{{progress[$index].status}}</span>
-              <div class="bar hold {{progress[$index].event_type}}"  style="width: {{progress[$index].percentage || 2}}%"></div>
-            </div>
-          </div>
-        </div><!-- end progress-bar-box -->
-        <span ng-if="!currentUser.organic_rank" class="course-requirement-message">Become a partner by getting certified in <a ng-href="/university">PowurU!</a> </span>
+        <a class="load-more" ng-if="moreNews" ng-click="loadMoreNews()">Load More</a>
       </div>
     </div>
-  </div>
-
-  <div class="large-6 medium-4 columns">
-
-    <!-- News Section -->
-    <div class="news row">
-      <div class="large-11 large-offset-1 medium-11 medium-offset-1 columns">
-        <span class="latest-news-label">Latest News</span>
-        <div class="notifications">
-          <div class="notification" ng-repeat="post in news">
-            <p ng-bind-html="post.properties.content" class="text">{{post.properties.content}}</p>
-            <span class="date">{{ post.properties.created_at | dateToLocalDate }}</span>
-          </div>
-          <a class="load-more" ng-if="moreNews" ng-click="loadMoreNews()">Load More</a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
