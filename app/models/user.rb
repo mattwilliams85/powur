@@ -319,6 +319,14 @@ class User < ActiveRecord::Base
     User.rank_up
   end
 
+  def deletable?
+    return false, :undeletable_user_has_children if !User.with_ancestor(id).count.zero?
+    return false, :undeletable_user_is_sponsoring if !User.where(sponsor_id: id).count.zero?
+    return false, :undeletable_user_has_bonus_payments if !BonusPayment.where(user_id: id).count.zero?
+    return false, :undeletable_user_has_product_receipts if !ProductReceipt.where(user_id: id).count.zero?
+    return true, 'User was deleted'
+  end
+
   private
 
   def set_url_slug
@@ -339,6 +347,14 @@ class User < ActiveRecord::Base
   end
 
   class << self
+
+    def list_deletable
+      list = [];
+      User.all.each { |user| list << user if user.deletable?}
+      return list
+    end
+
+
     def update_organic_ranks
       join = UserRank.highest_lifetime_ranks.to_sql
       sql = "

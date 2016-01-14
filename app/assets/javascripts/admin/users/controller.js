@@ -192,6 +192,23 @@
       });
     };
 
+    $scope.deleteUser = function() {
+      var action = getAction($scope.user.actions, 'delete_user');
+      $http({
+        method: action.method,
+        url: action.href,
+        params: { user_id: $scope.user.properties.id },
+      }).success(function(data) {
+        if (data.error) {
+          $scope.showModal(data.error.message);
+          $anchorScroll();
+        } else {
+          $location.path('/admin/users/');
+          $scope.showModal('You\'ve successfully deleted a user.');
+        }
+      });
+    };
+
 
     //
     // Invite Actions

@@ -3,7 +3,7 @@ module Admin
     before_action :fetch_user,
                   only: [ :downline, :upline, :show, :update,
                           :sponsors, :eligible_parents, :move, :update_sponsor,
-                          :terminate, :unterminate, :sign_in ]
+                          :terminate, :unterminate, :sign_in, :delete_user ]
 
     page max_limit: 25
     sort id_desc:         { id: :desc },
@@ -125,6 +125,17 @@ module Admin
       logout_user
       session[:user_id] = @user.id
       head :ok
+    end
+
+    def delete_user
+      valid, message = @user.deletable?
+      if valid
+        @user.destroy
+        @users = apply_list_query_options(User)
+        render 'index'
+      else
+        return error!(message)
+      end
     end
 
     protected
