@@ -18,11 +18,7 @@ module Anon
           user:       @user,
           data:       lead_data_input))
 
-      if @lead.ready_to_submit?
-        submit_to_sc
-      else
-        error!(:cannot_submit_lead)
-      end
+      submit_to_sc
 
       show
     end
@@ -33,11 +29,7 @@ module Anon
 
       @lead.update_attributes!(lead_input.merge(data: lead_data_input))
 
-      if @lead.ready_to_submit?
-        submit_to_sc
-      else
-        error!(:cannot_submit_lead)
-      end
+      submit_to_sc
 
       show
     end
@@ -68,6 +60,8 @@ module Anon
     end
 
     def submit_to_sc
+      error!(:unqualified_zip, :zip) if @lead.ineligible_location?
+      error!(:cannot_submit_lead) unless @lead.ready_to_submit?
       @lead.submit!
       @lead.email_customer if @lead.can_email?
       @lead.accepted!
