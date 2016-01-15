@@ -26,12 +26,21 @@
         letter-spacing: .05em;
         font-weight: 600;
     }
+
     .rank-title {
       font-weight: bold;
     }
+
+    .material-icons {
+      color: #fff;
+      font-size: 15pt;
+      margin-right: 12pt;
+    }
+
     sup {
         font-size: 7pt;
     }
+
     .icon {
         background: image-url('img/hud/icons/personal-lead.png');
         background-size: contain;
@@ -65,6 +74,7 @@
                 color: #FF9929;
                 font-weight: 400;
                 font-size: 14pt;
+                line-height: 12pt;
             }
         }
     }

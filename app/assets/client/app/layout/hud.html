@@ -28,14 +28,14 @@
       <span>GOAL</span>
     </div>
     <div layout="row" layout-align="center center" layout-fill class="bar">
-      <div class="inner-bar" layout="row" layout-align="space-around center" >
+      <div class="inner-bar" layout="row" layout-align="space-around center">
         <div ng-if="hud.rank > 0" layout="column" layout-align="center center">
           <div layout="row" layout-align="center center" class="medal new-icon">
             <span class="rank-title">{{ hud.rankTitle }}</span>
           </div>
           <span class="label">Next Rank</span>
         </div>
-        <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
+        <div ng-hide="hud.isQualifiedPartnerCase" ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center" class="text-center">
           <div layout="row" ng-if="hud.rank > 0" layout-align="center center" class="new-icon" ng-class="{'grid-lead': req.properties.team, 'personal-lead': !req.properties.team}">
             <span class="number">{{ req.properties.progress }}<span class="sub">/{{ req.properties.quantity }}</span></span>
           </div>
@@ -45,6 +45,18 @@
           </div>
           <span class="label">{{ req.properties.title }}</span>
         </div>
+
+        <div ng-show="hud.isQualifiedPartnerCase" layout="column" layout-align="center center" layout-fill>
+          <div layout="row" layout-align="space-around center">
+            <div ng-repeat="i in hud.nSizeArray(hud.goalRequirements[0].properties.quantity) track by $index" layout="column" layout-align="center center">
+              <div layout="row" layout-align="center center" class="new-icon personal-lead">
+                <i class="material-icons">{{ $index < hud.goalRequirements[0].properties.progress ? 'check_circle' : 'lens' }}</i>
+              </div>
+            </div>
+          </div>
+          <span class="label">{{ hud.goalRequirements[0].properties.title }}</span>
+        </div>
+
       </div>
     </div>
   </div>

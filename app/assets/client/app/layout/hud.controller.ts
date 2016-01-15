@@ -34,10 +34,19 @@ module powur {
       return this.home.requirements.entities;
     }
 
+    get isQualifiedPartnerCase(): boolean {
+      return this.goalRequirements.length == 1 &&
+               this.goalRequirements[0].properties.product_id == 1 &&
+               this.goalRequirements[0].properties.quantity <= 3;
+    }
+
     constructor(private $scope: IHudScope,
                 private $log: ng.ILogService) {
     }
 
+    nSizeArray(n): Array<number> {
+      return new Array(n);
+    }
   }
 
   angular
