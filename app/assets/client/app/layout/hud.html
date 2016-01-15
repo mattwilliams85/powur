@@ -44,7 +44,7 @@
             <div class="title">UPGRADE</div>
             <a ng-href="/upgrade"><div class="product">{{ req.properties.product }}</div></a>
           </div>
-          <span class="label">{{ req.properties.title }}</span>
+          <span ng-hide="req.properties.purchase" class="label">{{ req.properties.title }}</span>
         </div>
 
         <div ng-if="hud.rank == 1" layout="column" layout-align="center center" layout-fill>
