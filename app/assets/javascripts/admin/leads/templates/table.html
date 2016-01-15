@@ -53,18 +53,18 @@
                     <div class='provider'>Provider UID: </div>
                   </div>
                   <div class="small-8 columns">
-                    <div class='heading'>{{ item.properties.id }}</div>
-                    <div class='heading'>
+                    <div>{{ item.properties.id }}</div>
+                    <div>
                       <a ng-href='/admin/users/{{ item.properties.owner.id }}'>
                         {{ item.properties.owner.first_name }}
                         {{ item.properties.owner.last_name }}
                       </a>
                     </div>
-                    <div class='heading'>{{ item.properties.sales_status}}</div>
-                    <div class='heading'>{{ item.properties.invite_status }}</div>
-                    <div class='heading'>{{ item.properties.code }}</div>
-                    <div class='heading'>{{ item.properties.sales_status }}</div>
-                    <div class='heading'>{{ item.properties.provider_uid }}</div>
+                    <div>{{ item.properties.sales_status}}</div>
+                    <div>{{ item.properties.invite_status }}</div>
+                    <div>{{ item.properties.code }}</div>
+                    <div>{{ item.properties.sales_status }}</div>
+                    <div>{{ item.properties.provider_uid }}</div>
                   </div>
                 </div>
 
@@ -77,16 +77,16 @@
                     <div class='installed'> Installed at: </div>
                   </div>
                   <div class="small-8 columns">
-                    <div class='heading'>{{ item.properties.product }}</div>
-                    <div class='heading'>{{ item.properties.submitted_at | date:'medium'}}</div>
-                    <div class='heading'>{{ item.properties.converted_at | date:'medium'}}
-                      <span ng-show='{{ item.properties.converted_at === null }}' class='heading'>Not converted</span>
+                    <div>{{ item.properties.product }}</div>
+                    <div>{{ item.properties.submitted_at | date:'medium'}}</div>
+                    <div>{{ item.properties.converted_at | date:'medium'}}
+                      <span ng-show='{{ item.properties.converted_at === null }}'>Not converted</span>
                     </div>
-                    <div class='heading'>{{ item.properties.contracted_at | date:'medium'}}
-                      <span class='heading' ng-show='{{ item.properties.contracted_at === null }}'>Not contracted</span>
+                    <div>{{ item.properties.contracted_at | date:'medium'}}
+                      <span ng-show='{{ item.properties.contracted_at === null }}'>Not contracted</span>
                     </div>
                     <div >{{ item.properties.installed_at | date:'medium'}}
-                      <span class='heading' ng-show='{{ item.properties.installed_at === null }}'>Not installed</span>
+                      <span ng-show='{{ item.properties.installed_at === null }}'>Not installed</span>
                     </div>
                   </div>
                 </div>
