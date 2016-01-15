@@ -11,13 +11,13 @@ class User < ActiveRecord::Base
   has_many :leads
   has_many :customers
   has_many :bonus_payments
-  has_many :overrides, class_name: 'UserOverride'
-  has_many :user_activities
+  has_many :overrides, class_name: 'UserOverride', dependent: :destroy
+  has_many :user_activities, dependent: :destroy
   has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
   has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :user_ranks, dependent: :destroy
-  has_many :ranks, through: :user_ranks
+  has_many :ranks, through: :user_ranks, dependent: :destroy
   has_many :sent_invites, class_name:  'Invite',
                           foreign_key: :sponsor_id,
                           dependent:   :destroy
@@ -324,7 +324,7 @@ class User < ActiveRecord::Base
     return false, :undeletable_user_is_sponsoring if !User.where(sponsor_id: id).count.zero?
     return false, :undeletable_user_has_bonus_payments if !BonusPayment.where(user_id: id).count.zero?
     return false, :undeletable_user_has_product_receipts if !ProductReceipt.where(user_id: id).count.zero?
-    return true, 'User was deleted'
+    return true, 'User can be deleted'
   end
 
   private
