@@ -2,7 +2,7 @@
   <input placeholder="SEARCH" type="search" class="right search" ng-model="search.string" ng-click="clearSearch()">
 </form>
 
-<table class="index-table">
+<table class='index-table'>
   <thead>
     <tr>
       <th>ID</th>
@@ -12,20 +12,115 @@
       <th>Submitted</th>
       <th>Status</th>
       <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
-  <tbody class='admin-leads'>
-    <tr ng-repeat="item in index.data.entities">
-      <td>{{ item.properties.id }}</td>
-      <td>
-          {{ item.properties.owner.first_name }}
-          {{ item.properties.owner.last_name }}
-      </td>
-      <td>{{ item.properties.first_name }} {{ item.properties.last_name }}</td>
-      <td>{{ item.properties.created_at | dateToLocalDate }}</td>
-      <td>{{ item.properties.submitted_at | dateToLocalDate }}</td>
-      <td>{{ item.properties.sales_status }}</td>
-      <td><a ng-href="/admin/leads/{{item.properties.id}}/change-leads">Change Lead Owner</a></td>
-    </tr>
-  </tbody>
+  <div class='admin-leads'>
+    <tbody ng-repeat="item in index.data.entities">
+      <tr>
+        <td>
+          <a href="/admin/leads/{{ item.properties.id }}">
+            {{ item.properties.id }}
+          </a>
+        </td>
+        <td>
+          <a ng-href='/admin/users/{{ item.properties.owner.id }}'>
+            {{ item.properties.owner.first_name }}
+            {{ item.properties.owner.last_name }}
+          </a>
+        </td>
+        <td>{{ item.properties.first_name }} {{ item.properties.last_name }}</td>
+        <td>{{ item.properties.created_at | dateToLocalDate }}</td>
+        <td>{{ item.properties.submitted_at | dateToLocalDate }}</td>
+        <td>{{ item.properties.sales_status }}</td>
+        <td><a ng-href='/admin/leads/{{item.properties.id}}/change-leads'>Change Lead Owner</a></td>
+        <td><a href='#' ng-click='showDetails(item)'>Detail</a>
+        </td>
+      </tr>
+      <tr class='details-row' ng-show='detailView.id === item.properties.id'>
+        <td colspan='8'>
+          <div class='small-12 columns panel'>
+              <div class='meta row'>
+                <div class='small-12 columns'><h4>Lead Information:</h4></div>
+                <div class='small-6 columns'>
+                  <div class="small-4 columns text-right">
+                    <div class='id'>Lead ID: </div>
+                    <div class='owner'>Lead Owner: </div>
+                    <div class='status'>Lead Status: </div>
+                    <div class='invite'>Invite Status: </div>
+                    <div class='invite-code'>Invite Code: </div>
+                    <div class='sales'>Sales Status: </div>
+                    <div class='provider'>Provider UID: </div>
+                  </div>
+                  <div class="small-8 columns">
+                    <div class='heading'>{{ item.properties.id }}</div>
+                    <div class='heading'>
+                      <a ng-href='/admin/users/{{ item.properties.owner.id }}'>
+                        {{ item.properties.owner.first_name }}
+                        {{ item.properties.owner.last_name }}
+                      </a>
+                    </div>
+                    <div class='heading'>{{ item.properties.sales_status}}</div>
+                    <div class='heading'>{{ item.properties.invite_status }}</div>
+                    <div class='heading'>{{ item.properties.code }}</div>
+                    <div class='heading'>{{ item.properties.sales_status }}</div>
+                    <div class='heading'>{{ item.properties.provider_uid }}</div>
+                  </div>
+                </div>
+
+                <div class='small-6 columns right'>
+                  <div class="small-4 columns text-right">
+                    <div class='product'> Product: </div>
+                    <div class='created'> Submitted at: </div>
+                    <div class='converted'> Converted at: </div>
+                    <div class='contracted'> Contracted at: </div>
+                    <div class='installed'> Installed at: </div>
+                  </div>
+                  <div class="small-8 columns">
+                    <div class='heading'>{{ item.properties.product }}</div>
+                    <div class='heading'>{{ item.properties.submitted_at | date:'medium'}}</div>
+                    <div class='heading'>{{ item.properties.converted_at | date:'medium'}}
+                      <span ng-show='{{ item.properties.converted_at === null }}' class='heading'>Not converted</span>
+                    </div>
+                    <div class='heading'>{{ item.properties.contracted_at | date:'medium'}}
+                      <span class='heading' ng-show='{{ item.properties.contracted_at === null }}'>Not contracted</span>
+                    </div>
+                    <div >{{ item.properties.installed_at | date:'medium'}}
+                      <span class='heading' ng-show='{{ item.properties.installed_at === null }}'>Not installed</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class='customer row'>
+                <h4>Customer Information:</h4>
+                <div class="small-2 columns text-right">
+                  <div class="name">Name: </div>
+                  <div class="bill">Average Bill: </div>
+                  <div class='address'>Address: </div>
+                  <br>
+                  <br>
+                  <div class="phone">Phone: </div><br>
+                  <div class='email'>Email: </div>
+                  <div class="notes">Notes: </div>
+                </div>
+                <div class="small-10 columns">
+                  {{item.properties.first_name}} {{item.properties.last_name}}<br>
+                  ${{ item.properties.average_bill }}<br>
+                  {{ item.properties.address}}
+                  {{ item.properties.street }}<br>
+                  {{ item.properties.city }}, {{item.properties.state}}<br>
+                  {{ item.properties.zip }}<br>
+                  {{ item.properties.phone }}<br>
+                  <span ng-show='{{ !item.properties.call_consented }}'>(<b>Call not consented.</b>)</span><br>
+                  {{ item.properties.email }}<br>
+                  {{ item.properties.notes }}<br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </div>
 </table>

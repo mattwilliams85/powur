@@ -105,6 +105,16 @@
       });
     };
 
+    $scope.showDetails = function(item) {
+      if ($scope.detailView &&
+          $scope.detailView.id === item.properties.id) return clearTable();
+      $scope.detailView = item.properties;
+    };
+
+    function clearTable() {
+      $scope.detailView = null;
+    }
+
     $scope.index = {};
 
     $rootScope.breadcrumbs.push({title: $scope.templateData.index.title});
@@ -114,8 +124,8 @@
 
   controller.prototype.init = function($scope, $location) {
     // Setting mode based on the url
-    $scope.mode = 'index';
     if (/\/change-leads$/.test($location.path())) return $scope.mode = 'change-leads';
+    if (/\/leads$/.test($location.path())) return $scope.mode = 'index';
   };
 
   controller.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
@@ -128,6 +138,7 @@
         $scope.actions = item.actions;
       });
     }
+
     function getLead(leadId, cb) {
       CommonService.execute({
         href: '/u/leads/' + leadId

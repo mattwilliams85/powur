@@ -87,8 +87,13 @@
   }
 }
 
-
 .capitalize {
   text-transform: capitalize;
 }
 
+
+.details-row {
+  .heading {
+    font-size: 1.3rem;
+  }
+}
