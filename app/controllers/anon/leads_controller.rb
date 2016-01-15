@@ -60,6 +60,7 @@ module Anon
     end
 
     def submit_to_sc
+      error!(:invalid_zip, :zip) unless Lead.valid_zip?(lead_input['zip'])
       error!(:unqualified_zip, :zip) if @lead.ineligible_location?
       error!(:cannot_submit_lead) unless @lead.ready_to_submit?
       @lead.submit!
