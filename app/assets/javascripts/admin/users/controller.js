@@ -199,9 +199,9 @@
         url: action.href,
         params: { user_id: $scope.user.properties.id },
       }).success(function(data) {
+        $anchorScroll();
         if (data.error) {
           $scope.showModal(data.error.message);
-          $anchorScroll();
         } else {
           $location.path('/admin/users/');
           $scope.showModal('You\'ve successfully deleted a user.');
