@@ -9,15 +9,15 @@
         title: 'Powur-Move Actions',
         tablePath: 'admin/actions/templates/table.html',
         links: [
-          {href: '/admin/powur-move/new', text: 'New Action'}
+          {href: '/admin/powur-move/new', text: 'New Power Move'}
         ]
       },
       new: {
-        title: 'New Powur-Move Action',
+        title: 'New Powur-Move',
         formPath: 'admin/actions/templates/form.html'
       },
       edit: {
-        title: 'Edit Powur-Move Action',
+        title: 'Edit Powur-Move',
         formPath: 'admin/actions/templates/form.html'
       }
     };
@@ -32,23 +32,23 @@
         CommonService.execute($scope.formAction, $scope.updateAction).then(function success(data) {
           $scope.isSubmitDisabled = false;
           if (data.error) {
-            $scope.showModal('There was an error while updating this action.' + '<br>' + data.error.message);
+            $scope.showModal('There was an error while updating this Powur Move.' + '<br>' + data.error.message);
             return;
           }
           $location.path('/admin/powur-move');
-          $scope.showModal('You\'ve successfully updated this social media post.');
+          $scope.showModal('You\'ve successfully updated this Powur Move.');
         });
       }
     };
 
     $scope.delete = function(leadActionObj) {
       var deleteAction = getAction(leadActionObj.actions, 'delete');
-      if (window.confirm('Are you sure you want to delete this post?')) {
+      if (window.confirm('Are you sure you want to delete this Powur Move?')) {
         return CommonService.execute(deleteAction).then(function() {
-          $scope.showModal('This powur-move action has been deleted.');
+          $scope.showModal('This Powur Move has been deleted.');
           $location.path('/admin/powur-move');
         }, function() {
-          $scope.showModal('There was an error deleting this action.');
+          $scope.showModal('There was an error deleting this Powur Move.');
         });
       }
     };
@@ -59,11 +59,11 @@
         CommonService.execute($scope.formAction, $scope.updateAction).then(function success(data) {
           if (data.error) {
             $scope.isSubmitDisabled = false;
-            $scope.showModal('There was an error while saving this action.' + '<br>' + data.error.message);
+            $scope.showModal('There was an error while saving this Powur Move:' + '<br>' + data.error.message);
             return;
           }
           $location.path('admin/powur-move')
-          $scope.showModal('You\'ve successfully added a powur-move action.');
+          $scope.showModal('You\'ve successfully added a Powur Move.');
         });
       }
     };
@@ -121,8 +121,6 @@
         $scope.leadActions = data;
         $scope.updateAction = data.properties;
       });
-      // Breadcrumbs: Social Media Sharing / Edit Social Media Post
-      // $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/social-media'});
 
     }
   };

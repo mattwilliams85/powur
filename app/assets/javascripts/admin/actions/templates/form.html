@@ -1,7 +1,7 @@
 <form>
   <fieldset>
-    <legend ng-if="mode === 'new'">New Lead Action</legend>
-    <legend ng-if="mode === 'edit'">Edit Lead Action</legend>
+    <legend ng-if="mode === 'new'">New Powur Move</legend>
+    <legend ng-if="mode === 'edit'">Edit Powur Move</legend>
     <!-- New Lead Action Form -->
     <div ng-repeat="field in formAction.fields track by $index" class="row">
       <div class="large-12 columns">
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="large-12 columns">
         <a ng-click="cancel()" class="button secondary">Cancel</a>
-        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Action" />
+        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Powur Move" />
         <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Action" />
       </div>
     </div>
