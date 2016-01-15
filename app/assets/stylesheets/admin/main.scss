@@ -26,9 +26,6 @@
 }
 
 .pow-admin-show {
-  .capitalize {
-    text-transform: capitalize;
-  }
   .index-table {
     width: 100%;
 
@@ -84,6 +81,16 @@
     width: 3rem;
     margin: 0;
     height: 1.5rem;
+  }
+}
+
+.pow-admin-edit, .pow-admin-new {
+  select {
+    text-transform: capitalize;
+    max-width: 300px;
+  }
+  input[type='number'] {
+    max-width: 300px;
   }
 }
 

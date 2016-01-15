@@ -8,8 +8,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in lead_actions.entities">
-      <td class="capitalize">{{ item.properties.lead_stage | cleanLabel }}</td>
+    <tr ng-repeat="item in leadActions.entities">
+      <td class="capitalize" width="200">
+        <div ng-repeat="name in item.properties.stage_names track by $index">{{ name | cleanLabel }}</div>
+      </td>
       <td ng-hide="item.properties.completion_chance">-</td>
       <td ng-show="item.properties.completion_chance">{{ item.properties.completion_chance }}%</td>
       <td>{{ item.properties.action_copy }}</td>

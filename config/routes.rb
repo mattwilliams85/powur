@@ -207,7 +207,7 @@ Rails.application.routes.draw do
     end
 
     # Lead Actions
-    resources :lead_actions, only: [ :index, :update, :show ]
+    resources :lead_actions, only: [ :index, :destroy, :create, :update, :show ]
 
     # Bonuses
     resources :bonuses, only: [ :index, :destroy, :update, :show ] do
