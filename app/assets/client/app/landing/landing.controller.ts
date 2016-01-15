@@ -6,7 +6,7 @@ module powur {
 
   export class LandingController extends BaseController {
     static ControllerId = 'LandingController';
-    static $inject = ['$stateParams', '$scope', 'rep', 'lead'];
+    static $inject = ['$stateParams', '$scope', 'rep', 'lead', '$anchorScroll'];
 
     get validateZipAction(): Action {
       return this.rep.action('validate_zip');
@@ -32,13 +32,15 @@ module powur {
     constructor(private $stateParams: ng.ui.IStateParamsService,
                 private $scope: any,
                 private rep: ISirenModel,
-                private lead: ISirenModel) {
+                private lead: ISirenModel,
+                private $anchorScroll: any) {
       super();
     }
 
     submitLead(): any {
       this.leadAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.state.go('landing-thanks');
+        this.$anchorScroll();
       });
     }
 
