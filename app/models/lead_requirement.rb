@@ -2,14 +2,14 @@ class LeadRequirement < RankRequirement
   enum lead_status: { converted: 1, installed: 2 }
 
   def requirement_for_label
-    team? ? 'Grid' : 'Personal'
+    team? ? 'Team' : 'Your'
   end
 
   STATUS_LABELS = {
-    converted: 'Qualified',
-    installed: 'Installs' }
+    converted: 'Qua.',
+    installed: 'Inst.' }
   def title
-    "#{requirement_for_label} #{STATUS_LABELS[lead_status]} Leads"
+    "#{requirement_for_label} #{STATUS_LABELS[lead_status.to_sym]} Leads"
   end
 
   def progress_for(user_id, pay_period_id = nil)

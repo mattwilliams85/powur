@@ -22,6 +22,10 @@ module powur {
       return this.home.goals.properties.next_rank - 1;
     }
 
+    get rankTitle(): number {
+      return this.home.goals.properties.lifetime_rank_title;
+    }
+
     get rankTotal(): number {
       return this.home.goals.properties.rank_list.length - 1;
     }
