@@ -136,6 +136,7 @@ module powur {
       this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.$mdDialog.hide();
         this.lead.properties = response.data.properties;
+        this.lead.actions = response.data.actions;
       });
     }
 
