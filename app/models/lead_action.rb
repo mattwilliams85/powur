@@ -1,9 +1,9 @@
 class LeadAction < ActiveRecord::Base
   validates :action_copy, presence: true
-  validates :data_status, presence: true, unless: 'opportunity_stage.present? || sales_status.present? || lead_status'
-  validates :sales_status, presence: true, unless: 'opportunity_stage.present? || data_status.present? || lead_status'
-  validates :opportunity_stage, presence: true, unless: 'sales_status.present? || data_status.present? || lead_status'
-  validates :lead_status, presence: true, unless: 'sales_status.present? || data_status.present? || opportunity_stage'
+  validates :data_status, presence: true, unless: 'opportunity_stage.present? || sales_status.present? || lead_status.present?'
+  validates :sales_status, presence: true, unless: 'opportunity_stage.present? || data_status.present? || lead_status.present?'
+  validates :opportunity_stage, presence: true, unless: 'sales_status.present? || data_status.present? || lead_status.present?'
+  validates :lead_status, presence: true, unless: 'sales_status.present? || data_status.present? || opportunity_stage.present?'
   validates :data_status, uniqueness: true, unless: 'sales_status.present? || opportunity_stage || lead_status.present?'
   validates :sales_status, uniqueness: { scope: [:lead_status, :opportunity_stage] }, unless: 'data_status.present?'
 
