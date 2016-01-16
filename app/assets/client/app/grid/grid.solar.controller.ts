@@ -134,9 +134,10 @@ module powur {
 
     updateInvite() {
       this.update.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var newLead = new SirenModel(response.data);
+        this.lead.properties = newLead.properties;
+        this.lead.actions = newLead.actions;
         this.$mdDialog.hide();
-        this.lead.properties = response.data.properties;
-        this.lead.actions = response.data.actions;
       });
     }
 
