@@ -5,11 +5,8 @@ class LeadRequirement < RankRequirement
     team? ? 'Team' : 'Your'
   end
 
-  STATUS_LABELS = {
-    converted: 'Qua.',
-    installed: 'Inst.' }
   def title
-    "#{requirement_for_label} #{STATUS_LABELS[lead_status.to_sym]} Leads"
+    "#{requirement_for_label} Leads"
   end
 
   def progress_for(user_id, pay_period_id = nil)
