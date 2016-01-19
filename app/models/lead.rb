@@ -32,6 +32,7 @@ class Lead < ActiveRecord::Base
       where('sales_status = ?', Lead.sales_statuses[status])
     end
   }
+  scope :call_consented, -> (value) { where(call_consented: value) }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
   scope :team_leads, lambda { |user_id:, query: Lead.unscoped|

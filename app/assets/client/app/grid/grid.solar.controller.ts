@@ -392,7 +392,6 @@ module powur {
         this.phaseFilter = 'pending';
         this.tabBar(null);
       }
-      if (filter === 'grid') {}
       delete this.activeFilters[filter];
       this.reloadPage()
     }

@@ -53,7 +53,8 @@ leads_routes_options = {
   sort:             '{sort}',
   data_status:      '{data_status}',
   submitted_status: '{submitted_status}',
-  sales_status:     '{sales_status}' }
+  sales_status:     '{sales_status}',
+  call_consented:   '{call_consented}' }
 entity_list << entity(%w(list leads),
                       'user-leads',
                       user_leads_path(current_user, leads_routes_options))

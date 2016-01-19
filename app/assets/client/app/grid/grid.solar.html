@@ -190,6 +190,36 @@
 
       <md-menu md-position-mode="target-right target" md-offset="0 10">
         <div class="chip" layout="row" layout-align="center center">
+          <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
+            <i class="material-icons">assignment</i>
+            <span ng-hide="grid.activeFilters['call_consented']">Marketing</span>
+            <span ng-show="grid.activeFilters['call_consented']['value'] == 'true'">Get Solar</span>
+            <span ng-show="grid.activeFilters['call_consented']['value'] == 'false'">Submitted</span>
+          </div>
+          <i class="material-icons close"
+             ng-show="grid.activeFilters['call_consented']"
+             ng-click="grid.removeFilter('call_consented')">
+             close
+          </i>
+        </div>
+        <md-menu-content class="filter-menu" width="4">
+          <md-menu-item class="header"><span>SELECT <b>MARKETING MODE</b></span></md-menu-item>
+          <div class="filter-box small">
+            <md-radio-group ng-model="grid.leads.properties.filters.call_consented">
+              <md-radio-button ng-click="grid.filter('call_consented', 'call_consented', 'true')"
+                               aria-label="Get Solar"
+                               ng-value="'true'">Get Solar</md-radio-button>
+              <md-radio-button ng-click="grid.filter('call_consented', 'call_consented', 'false')"
+                               aria-label="Submitted"
+                               ng-value="'false'">Submitted</md-radio-button>
+            </md-radio-group>
+          </div>
+        </md-menu-content>
+      </md-menu>
+
+
+      <md-menu md-position-mode="target-right target" md-offset="0 10">
+        <div class="chip" layout="row" layout-align="center center">
           <div layout="row" layout-align="center center" ng-click="$mdOpenMenu($event)">
             <i ng-hide="grid.activeFilters['grid']" class="material-icons">group</i>
             <i ng-show="grid.activeFilters['grid']" class="material-icons">person</i>
@@ -248,7 +278,7 @@
                      class="flex-wrap">
                     <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
                                      ng-value="'pending'"
-                                     aria-label="not_submitted" 
+                                     aria-label="not_submitted"
                                      class="short">
                                      All
                     </md-radio-button>
@@ -288,7 +318,7 @@
                      class="flex-wrap">
                     <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
                                      ng-value="'pending'"
-                                     aria-label="not_submitted" 
+                                     aria-label="not_submitted"
                                      class="short">
                                      All
                     </md-radio-button>

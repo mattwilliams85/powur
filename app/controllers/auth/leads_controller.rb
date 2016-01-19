@@ -19,6 +19,9 @@ module Auth
     filter :sales_status,
            options:  Lead.sales_statuses.keys,
            required: false
+    filter :call_consented,
+           options:  [true, false],
+           required: false
 
     def index
       @leads = apply_list_query_options(@leads)
