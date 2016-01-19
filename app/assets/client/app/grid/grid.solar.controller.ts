@@ -320,7 +320,6 @@ module powur {
     }
 
     pageArray() {
-
       var count = 9;
       if (this.pageCount < 9) {
         count = this.pageCount;

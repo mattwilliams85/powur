@@ -9,21 +9,16 @@
       <div class="chip" layout="row" layout-align="center center">
         <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
           <i class="material-icons">people</i>
-          <span ng-hide="grid.leadsMarketing.properties.showPersonal">Team</span>
-          <span ng-show="grid.leadsMarketing.properties.showPersonal">Personal</span>
+          <span ng-show="grid.leadsMarketing.properties.showTeam">Team</span>
+          <span ng-hide="grid.leadsMarketing.properties.showTeam">Personal</span>
         </div>
-        <i class="material-icons close"
-           ng-show="grid.leadsMarketing.properties.showPersonal"
-           ng-click="grid.leadsMarketing.properties.showPersonal = null">
-           close
-        </i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>MODE</b></span></md-menu-item>
         <div class="filter-box small">
-          <md-radio-group ng-model="grid.leadsMarketing.properties.showPersonal">
-            <md-radio-button aria-label="team" ng-value="null">Team Leads</md-radio-button>
-            <md-radio-button aria-label="personal" ng-value="true">Personal Leads</md-radio-button>
+          <md-radio-group ng-model="grid.leadsMarketing.properties.showTeam">
+            <md-radio-button aria-label="team" ng-value="true">Team Leads</md-radio-button>
+            <md-radio-button aria-label="personal" ng-value="null">Personal Leads</md-radio-button>
           </md-radio-group>
         </div>
       </md-menu-content>
@@ -39,16 +34,16 @@
         <div class="label">VIEWS</div>
         <div class="count" layout="row" layout-align="center center">
           <i class="material-icons">visibility</i>
-          <span ng-show="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_views_count || 0 }}</span>
-          <span ng-hide="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_team_views_count || 0 }}</span>
+          <span ng-hide="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_views_count || 0 }}</span>
+          <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_views_count || 0 }}</span>
         </div>
       </div>
       <div layout="column" layout-align="space-around" flex="20">
         <div class="label">LEADS</div>
         <div class="count" layout="row" layout-align="center center">
           <i class="material-icons">assignment</i>
-          <span ng-show="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_leads_count || 0 }}</span>
-          <span ng-hide="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_team_leads_count || 0 }}</span>
+          <span ng-hide="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_leads_count || 0 }}</span>
+          <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_leads_count || 0 }}</span>
         </div>
       </div>
     </div>
