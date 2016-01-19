@@ -30,6 +30,6 @@ if @invite.valid?
     .field(:state, :text)
     .field(:zip, :text)
     .field(:password, :password)
-    .field(:tos, :checkbox, value: true)
+    .field(:tos, :checkbox, value: false)
     .field(:tos_version, :hidden, value: tos_version)
 end

@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
                  :address, :city, :state, :country, :zip, :phone, :valid_phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
-                 :communications, :watched_intro, :tos_version,
+                 :communications, :watched_intro,
+                 :tos_version, :tos_accepted_at,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
                  :notifications_read_at, :ewallet_username, :mailchimp_id,
                  :last_login_streak_at, :terminated,

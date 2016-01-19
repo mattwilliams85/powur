@@ -76,11 +76,19 @@
             </div>
           </md-input-container>
         </div>
+        <div layout="row" layout-sm="column">
+          <md-input-container>
+            <md-checkbox ng-model="join.acceptAction.field('tos').value">
+              accept the application and agreement
+            </md-checkbox>
+            <a href="{{ join.termsPath }}" target="_blank">Download</a>
+            <div ng-messages="join.acceptAction.$error" ng-show="join.acceptAction.$error" class="input-message">
+              <div ng-message="message">{{ join.acceptAction.$error.message }}</div>
+            </div>
+          </md-input-container>
+        </div>
         <div layout="column" layout-align="center center">
           <md-button ng-click="join.acceptSubmit()" ng-disabled="join.acceptAction.submitting" class="md-raised">enter <b>the powur grid</b></md-button>
-        </div>
-        <div class="terms" layout="column" layout-align="center center">
-          <div>By clicking on this button, you also accept the <a href="{{ join.termsPath }}" target="_blank">terms & conditions</a></div>
         </div>
       </div>
     </form>

@@ -32,6 +32,7 @@ en:
     existing_promoter: "This email is already registered to a user of Powur"
     credentials: Invalid email or password
     invalid_code: Invalid invite code
+    latest_agreement: Please read and agree to the latest terms and conditions in the Application and Agreement
     email_not_found: This email was not found in our system
     quote_not_found: "A quote was not found for the email '%{email}'"
     quote_exists: "A quote already exists with the email '%{email}'"
