@@ -66,7 +66,8 @@
         <div layout="row" layout-align="center center" ng-click="$mdOpenMenu($event)">
           <i ng-hide="grid.summaryFilters['grid']" class="material-icons">group</i>
           <i ng-show="grid.summaryFilters['grid']" class="material-icons">person</i>
-          <span>Summary</span>
+          <span ng-hide="grid.summaryFilters['grid']">Team</span>
+          <span>{{grid.summaryFilters['grid'].key}}</span>
         </div>
         <i class="material-icons close"
            ng-show="grid.summaryFilters['grid']"
