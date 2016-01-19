@@ -1,28 +1,69 @@
 <md-dialog aria-label="Invite" class="solar pw-grid pw-dialog">
   <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
   <md-dialog-content layout="column">
-    <div ng-hide="dialog.editMode" layout="column">
+    <div layout="column">
       <div class="side-bg"></div>
-      <div class="name">{{ dialog.lead.properties.first_name }} <b>{{ dialog.lead.properties.last_name }}</b></div>
-      <div class="detail">Lead ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
-      <div layout="row" class="overview">
-        <div layout="column" flex="30">
-          <div class="header">AVERAGE BILL</div>
-          <div class="number">${{ dialog.lead.properties.average_bill || 0 }}<sup>00</sup></div>
+      <div class="editable">
+        <form ng-submit="dialog.updateInvite()" name="updateInviteForm" novalidate autocomplete="off">
+          <div class="name" ng-show='!dialog.editMode'>{{ dialog.lead.properties.first_name }} <b>{{ dialog.lead.properties.last_name }}</b></div>
+          <div class='name edit' ng-show='dialog.editMode' layout='row'>
+            <md-input-container flex='30'>
+              <input type="text" ng-model="dialog.update.field('first_name').value">
+            </md-input-container>
+            <md-input-container flex='30'>
+              <input type="text" ng-model="dialog.update.field('last_name').value">
+            </md-input-container>
+          </div>
+
+          <div class="detail">Lead ID: {{dialog.lead.properties.id }} <span ng-show="dialog.lead.properties.data_status === 'ineligible_location'" class="highlight">Unqualified - Out of Service Area</span></div>
+          <div layout="row" class="overview">
+            <div layout="column" flex="30">
+              <div class="header">AVERAGE BILL</div>
+              <div class="number" ng-show='!dialog.editMode'>${{ dialog.lead.properties.average_bill || 0 }}<sup>00</sup></div>
+              <md-input-container class="edit number" ng-show='dialog.editMode'>
+                <span>$</span><input type="text" ng-model='dialog.update.field("average_bill").value'><sup>00</sup>
+              </md-input-container>
+            </div>
+            <div layout="column" flex="35">
+              <div class="header" >ADDRESS</div>
+              <div ng-show='!dialog.editMode'>{{ dialog.lead.properties.address }}</div>
+              <div ng-show='!dialog.editMode'>{{ dialog.lead.properties.city }}<span ng-if="dialog.lead.properties.city && dialog.lead.properties.state">,</span> {{ dialog.lead.properties.state }}</div>
+              <md-input-container class="edit address" ng-show='dialog.editMode'>
+                <input type="text" ng-model='dialog.update.field("address").value'>
+              </md-input-container>
+              <div layout='row'>
+                <md-input-container class="edit city" ng-show='dialog.editMode' flex='80'>
+                  <input type="text" ng-model='dialog.update.field("city").value'>
+                </md-input-container>
+                <md-input-container class="edit state" ng-show='dialog.editMode' flex='20'>
+                  <input type="text" ng-model='dialog.update.field("state").value'>
+                </md-input-container>
+              </div>
+              <md-input-container class="edit zip" ng-show='dialog.editMode'>
+                <input type="text" ng-model='dialog.update.field("zip").value'>
+              </md-input-container>
+            </div>
+            <div layout="column" flex="35">
+              <div class="header">CONTACT INFO</div>
+              <div ng-show='!dialog.editMode'>{{ dialog.lead.properties.phone | formatPhoneNumber }}</div>
+              <md-input-container class="edit phone" ng-show='dialog.editMode'>
+                <input type="text" ng-model='dialog.update.field("phone").value' ui-mask="(999) 999-9999"  ui-mask-placeholder ui-mask-placeholder-char="_">
+              </md-input-container>
+              <a href="mailto:{{ dialog.lead.properties.email }}" ng-show='!dialog.editMode' class="email"><div>{{ dialog.lead.properties.email }}</div></a>
+              <md-input-container class="edit email" ng-show='dialog.editMode'>
+                <input type="text" ng-model='dialog.update.field("email").value'>
+              </md-input-container>
+            </div>
+
         </div>
-        <div layout="column" flex="35">
-          <div class="header">ADDRESS</div>
-          <div>{{ dialog.lead.properties.address }}</div>
-          <div>{{ dialog.lead.properties.city }}<span ng-if="dialog.lead.properties.city && dialog.lead.properties.state">,</span> {{ dialog.lead.properties.state }}</div>
-        </div>
-        <div layout="column" flex="35">
-          <div class="header">CONTACT INFO</div>
-          <div>{{ dialog.lead.properties.phone | formatPhoneNumber }}</div>
-          <a href="mailto:{{ dialog.lead.properties.email }}" class="email"><div>{{ dialog.lead.properties.email }}</div></a>
-        </div>
+        <md-button ng-show='dialog.editMode' type="submit" class="md-primary md-raised" ng-disabled="dialog.update.submitting">Update</md-button>
+        <md-button ng-show='dialog.editMode' class="md-primary md-raised" ng-click="dialog.cancel()" ng-disabled="dialog.update.submitting">Cancel</md-button>
+
+      </form>
+
       </div>
 
-      <md-button ng-if="dialog.ownedByCurrentUser" class="md-primary md-raised" ng-click="dialog.editMode = true">Edit</md-button>
+      <md-button ng-show='!dialog.editMode' ng-if="dialog.ownedByCurrentUser" class="md-primary md-raised" ng-click="dialog.editMode = !dialog.editMode">Edit</md-button>
 
       <br>
       <md-divider></md-divider>
@@ -51,118 +92,6 @@
       <md-button ng-if="dialog.ownedByCurrentUser" class="md-warn md-raised" ng-click="dialog.remove()" ng-disabled="dialog.delete.submitting">Delete</md-button>
     </div>
 
-    <div aria-label="Invite" ng-show="dialog.editMode">
-      <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
-      <form ng-submit="dialog.updateInvite()" name="updateInviteForm" novalidate autocomplete="off">
-        <div-content layout="column">
-          <div class="side-bg"></div>
 
-          <md-tabs md-stretch-tabs md-no-pagination>
-            <md-tab ng-click="dialog.editTab = null">Contact Info</md-tab>
-            <md-tab ng-click="dialog.editTab = 'household'">Solar Info</md-tab>
-          </md-tabs>
-
-          <br>
-
-          <section layout="column" ng-hide="dialog.editTab" class="fixed-lg">
-            <br hide-gt-sm>
-            <md-content layout="row">
-              <md-input-container flex="50">
-                <label>FIRST NAME</label>
-                <input ng-model="dialog.update.field('first_name').value" autocomplete="off">
-                <div ng-messages="dialog.update.field('first_name').$error" ng-show="dialog.update.field('first_name').$error" class="messages">
-                  <div ng-message="message">{{ dialog.update.field('first_name').$error.message }}</div>
-                </div>
-              </md-input-container>
-              <md-input-container flex="50">
-                <label>LAST NAME</label>
-                <input ng-model="dialog.update.field('last_name').value" autocomplete="off">
-                <div ng-messages="dialog.update.field('last_name').$error" ng-show="dialog.update.field('last_name').$error" class="messages">
-                  <div ng-message="message">{{ dialog.update.field('last_name').$error.message }}</div>
-                </div>
-              </md-input-container>
-            </md-content>
-
-            <md-content layout="column">
-              <div ng-messages="dialog.update.$error" ng-show="dialog.update.$error" class="messages">
-                <div ng-message="message">{{ dialog.update.$error.message }}</div>
-              </div>
-              <md-input-container>
-                <label>PHONE NUMBER</label>
-                <input ng-model="dialog.update.field('phone').value" type="tel">
-                <div ng-messages="dialog.update.field('phone').$error" ng-show="dialog.update.field('phone').$error" class="messages">
-                  <div ng-message="message">{{ dialog.update.field('phone').$error.message }}</div>
-                </div>
-              </md-input-container>
-              <md-input-container>
-                <label>EMAIL</label>
-                <input ng-model="dialog.update.field('email').value" type="text" autocomplete="off" autocapitalize="off">
-                <div ng-messages="dialog.update.field('email').$error" ng-show="dialog.update.field('email').$error" class="messages">
-                  <div ng-message="message">{{ dialog.update.field('email').$error.message }}</div>
-                </div>
-              </md-input-container>
-            </md-content>
-            <div class="actions">
-              <md-button type="submit" class="md-primary md-raised" ng-disabled="dialog.update.submitting">Update</md-button>
-              <md-button class="md-primary md-raised" ng-click="dialog.cancel()" ng-disabled="dialog.update.submitting">Cancel</md-button>
-            </div>
-          </section>
-
-
-          <section layout="column" ng-show="dialog.editTab" class="fixed-lg">
-            <md-content layout="column">
-              <md-input-container>
-                <label>STREET ADDRESS</label>
-                <input ng-model="dialog.update.field('address').value">
-                <div ng-messages="dialog.update.field('address').$error" ng-show="dialog.update.field('address').$error" class="messages no-padding">
-                  <div ng-message="message">{{ dialog.update.field('address').$error.message }}</div>
-                </div>
-              </md-input-container>
-            </md-content>
-            <md-content layout="row">
-              <md-input-container flex="40">
-                <label>CITY</label>
-                <input ng-model="dialog.update.field('city').value">
-                <div ng-messages="dialog.update.field('city').$error" ng-show="dialog.update.field('city').$error" class="messages no-padding">
-                  <div ng-message="message">{{ dialog.update.field('city').$error.message }}</div>
-                </div>
-              </md-input-container>
-              <md-input-container flex="30">
-                <label>STATE</label>
-                <input ng-model="dialog.update.field('state').value">
-                <div ng-messages="dialog.update.field('state').$error" ng-show="dialog.update.field('state').$error" class="messages no-padding">
-                  <div ng-message="message">{{ dialog.update.field('state').$error.message }}</div>
-                </div>
-              </md-input-container>
-              <md-input-container flex="30">
-                <label>ZIP</label>
-                <input ng-model="dialog.update.field('zip').value">
-                <div ng-messages="dialog.update.field('zip').$error" ng-show="dialog.update.field('zip').$error" class="messages no-padding">
-                  <div ng-message="message">{{ dialog.update.field('zip').$error.message }}</div>
-                </div>
-              </md-input-container>
-            </md-content>
-            <md-content layout="column">
-              <md-input-container>
-                <label>AVERAGE BILL</label>
-                <input pw-string-to-number ng-model="dialog.update.field('average_bill').value" ng-change="dialog.processNumberInput(dialog.update.field('average_bill'))">
-                <div ng-messages="dialog.update.field('average_bill').$error" ng-show="dialog.update.field('average_bill').$error" class="messages no-padding">
-                  <div ng-message="message">{{ dialog.update.field('average_bill').$error.message }}</div>
-                </div>
-              </md-input-container>
-              <md-input-container>
-                <label>NOTES</label>
-                <input ng-model="dialog.update.field('notes').value">
-              </md-input-container>
-            </md-content>
-            <div class="actions">
-              <md-button type="submit" class="md-primary md-raised" ng-disabled="dialog.update.submitting">Update</md-button>
-              <md-button class="md-primary md-raised" ng-click="dialog.cancel()" ng-disabled="dialog.update.submitting">Cancel</md-button>
-            </div>
-          </section>
-
-        </div-content>
-      </form>
-    </div>
   </md-dialog-content>
 </md-dialog>

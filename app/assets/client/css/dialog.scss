@@ -109,6 +109,33 @@
       height: 3px;
     }
   }
+
+  // Inline Editing In Invite Modal
+  .editable {
+    .name {
+      input {
+        height: 32px;
+      }
+    }
+    button {
+      width: 100%;
+    }
+    md-input-container {
+      margin: 0px 0px;
+      &.number {
+        span {
+          float: left;
+        }
+        input {
+          height: 1.9rem;
+          font-size: 1.5rem;
+          color: #20c2f1;
+          width: 70%;
+        }
+      }
+    }
+
+  }
 }
 
 @media screen and (min-width: 600px) {

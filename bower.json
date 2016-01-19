@@ -40,7 +40,8 @@
     "q": "~1.4.x",
     "lodash": "~3.10.x",
     "moment": "~2.10.x",
-    "ngstorage": "~0.3.x"
+    "ngstorage": "~0.3.x",
+    "angular-ui-mask": "~1.6.7"
   },
   "resolutions": {
     "angular": "~1.4.x",
