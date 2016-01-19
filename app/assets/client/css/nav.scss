@@ -59,6 +59,7 @@
     }
 
     li:hover, li.active {
+      
       -webkit-filter: brightness(0) invert(1);
       filter: brightness(0) invert(1);
       cursor: pointer;
@@ -319,16 +320,16 @@
       padding: 0 10px;
       height: 7vh;
       cursor: pointer;
-
+      color: #2C6B8A;
       &.active, &:hover {
+        @include ieFade(color, white);
         -webkit-filter: brightness(0) invert(1);
         filter: brightness(0) invert(1);
         transition: filter .3s;
-        -webkit-transition: -webkit-filter .3s;
+       -webkit-transition: -webkit-filter .3s;
       }
 
       span {
-        color: #2C6B8A;
         margin-left: 10px;
         font-size: 10pt;
         text-transform: uppercase;

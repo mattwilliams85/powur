@@ -17,6 +17,14 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 );
 }
 
+
+@mixin ieFade($what: color, $to: white, $time: .3s){
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+    #{$what}: white;
+    transition: #{$what} $time;
+  }
+}
+
 // Greater than medium screen
 $gt-md: 'screen and (min-width: 1281px)';
 

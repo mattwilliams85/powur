@@ -323,14 +323,17 @@ and (max-device-width : 960px) {
       padding: 0 10px;
       height: 7vh;
       cursor: pointer;
-
+      color: #2C6B8A;
+      
       &.active, &:hover {
         -webkit-filter: brightness(0) invert(1);
         filter: brightness(0) invert(1);
+        transition: filter .3s;
+       -webkit-transition: -webkit-filter .3s;
+        @include ieFade(color, white);
       }
 
       span {
-        color: #2C6B8A;
         margin-left: 10px;
         font-size: 10pt;
         text-transform: uppercase;
