@@ -30,28 +30,13 @@ describe Invite do
           password_confirmation: 'password'
         }
       end
-      let(:agreement) { double(version: 'mahalo') }
 
-      context 'active tos exist' do
-        before do
-          allow(ApplicationAgreement).to receive(:current).and_return(agreement)
-        end
-
-        it 'should validate latest tos' do
-          expect(user.errors.messages).to eq(
-            tos: ['Please read and agree to the latest terms and conditions in the Application and Agreement']
-          )
-        end
+      before do
+        allow(ApplicationAgreement).to receive(:current).and_return(nil)
       end
 
-      context 'no currently active tos' do
-        before do
-          allow(ApplicationAgreement).to receive(:current).and_return(nil)
-        end
-
-        it 'should let create a user' do
-          expect(user.errors.messages).to be_empty
-        end
+      it 'should let create a user' do
+        expect(user.errors.messages).to be_empty
       end
     end
   end

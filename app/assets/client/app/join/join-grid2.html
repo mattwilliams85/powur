@@ -82,8 +82,8 @@
               accept the application and agreement
             </md-checkbox>
             <a href="{{ join.termsPath }}" target="_blank">Download</a>
-            <div ng-messages="join.acceptAction.$error" ng-show="join.acceptAction.$error" class="input-message">
-              <div ng-message="message">{{ join.acceptAction.$error.message }}</div>
+            <div ng-messages="join.acceptAction.field('tos').$error" ng-show="join.acceptAction.field('tos').$error" class="input-message">
+              <div ng-message="message">{{ join.acceptAction.field('tos').$error.message }}</div>
             </div>
           </md-input-container>
         </div>

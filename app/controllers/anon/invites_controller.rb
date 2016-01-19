@@ -12,7 +12,7 @@ module Anon
 
       input = invite_input
 
-      error!(:latest_agreement) unless input[:tos] == true
+      error!(:latest_agreement, :tos) unless input[:tos].to_s == 'true'
       if tos && tos.version == input[:tos_version]
         input.merge!(tos: tos.version, tos_accepted_at: Time.zone.now.to_s(:db))
       end

@@ -42,7 +42,7 @@ describe '/invite' do
     end
 
     context 'when successfully creates user' do
-      let(:mailchimp_response) {{ 'id': 'abc123' }}
+      let(:mailchimp_response) { { 'id': 'abc123' } }
 
       before do
         expect(mailchimp_members_api).to receive(:create).with(
@@ -69,6 +69,23 @@ describe '/invite' do
         invite.reload
         expect(invite.user_id).to eq(user_id)
         expect(invite.user.mailchimp_id).to eq(mailchimp_response['id'])
+      end
+    end
+
+    context 'when terms not accepted' do
+      let(:agreement) { double(version: 'mahalo') }
+      before do
+        allow(ApplicationAgreement).to receive(:current).and_return(agreement)
+      end
+
+      it 'should validate latest tos' do
+        VCR.use_cassette('invite_promoter_association') do
+          patch(anon_invite_path(id: invite.id, format: :json),
+                user_params.merge(tos: false))
+        end
+
+        expect_200
+        expect_input_error(:tos)
       end
     end
   end
