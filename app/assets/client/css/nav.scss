@@ -1,5 +1,5 @@
 .nav {
-  z-index: 59;
+  z-index: 58;
 
   .bg {
     width: 70px;
@@ -90,7 +90,7 @@
 
   .menu {
     font-size: 26pt;
-    line-height: 16pt;
+    line-height: 15pt;
     float: left;
     cursor: pointer;
   }
@@ -98,8 +98,8 @@
   .title {
     float: left;
     text-transform: uppercase;
-    font-size: 16pt;
-    padding: 0 15px;
+    font-size: 15pt;
+    padding: 0 8px;
     line-height: 15pt;
   }
 
@@ -122,29 +122,25 @@
   -webkit-font-smoothing: subpixel-antialiased;
   z-index: 98;
   display: block;
-  background: #2ba7d9; /* Old browsers */
+  background: #B1CFDC; /* Old browsers */
   max-width: 250px !important;
   min-width: 250px !important;
   overflow: visible;
   height: 100vh !important;
   position: fixed;
   font-family: 'Roboto';
-  background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #2ba7d9 0%,#509f9a 100%); /* W3C */
+  background: -moz-linear-gradient(top, #B1CFDC 30%, #ADD2CB 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#B1CFDC), color-stop(100%,#ADD2CB)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #B1CFDC 30%,#ADD2CB 100%); /* W3C */
   background-size: cover;
 
   md-toolbar {
     padding-left: 15px;
   }
-
-  .hide-for-desktop {
-    display: none;
-  }
-
+ 
   .link-wrap {
     .header { 
       text-transform: uppercase;
@@ -166,6 +162,7 @@
       height: 35px;
       padding: 0 25px;
       transition: .2s;
+      position: relative;
 
       .sprite {
         transition: .2s;
@@ -253,9 +250,15 @@
 }
 
 @media screen and (max-width : 600px) {
-  .top-menu {
+  .nav.top-menu {
+    .bg {
+      padding: 15px 5px;
+    }
     .float-right {
       display: none;
+    }
+    .title {
+      padding: 0 4px;
     }
   }
   .nav.goals.desktop {
@@ -263,6 +266,44 @@
   }
   .nav.goals.mobile {
     display: block;
+  }
+  .mobile-side-nav {
+    max-width: 170px !important;
+    min-width: 170px !important;
+    .banner {
+      height: 50px;
+      background-position: 0 25%;
+      .logo {
+        width: 110px;
+      }
+      .motto {
+        display: none;
+      }
+    }
+
+    .link-wrap {
+      .header {
+        padding-top: 15px;
+        margin: 0 0 4px 10px;
+      }
+      .link-item {
+        height: 26px;
+        padding: 0 10px;
+        .material-icons {
+          font-size: 12pt;
+        }
+        span{
+          font-size: 8pt;
+        }
+        .sub-menu {
+          right: -170px;
+          width: 170px;
+          .link-item span {
+            font-size: 7pt;
+          }
+        }
+      }
+    }
   }
 }
 

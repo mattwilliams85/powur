@@ -214,12 +214,12 @@ and (max-device-width : 960px) {
   height: 100vh !important;
   position: fixed;
   font-family: 'Roboto';
-  background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #2ba7d9 0%,#509f9a 100%); /* W3C */
+  background: -moz-linear-gradient(top, #B1CFDC 30%, #ADD2CB 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#B1CFDC), color-stop(100%,#ADD2CB)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #B1CFDC 30%,#ADD2CB 100%); /* W3C */
   background-size: cover;
 
   md-toolbar {
@@ -251,6 +251,7 @@ and (max-device-width : 960px) {
       height: 35px;
       padding: 0 25px;
       transition: .2s;
+      position: relative;
 
       .sprite {
         transition: .2s;
@@ -348,29 +349,47 @@ body {
     }
 
     .mobile-side-nav {
-      max-width: 70vw !important;
-      min-width: 70vw !important;
+      max-width: 500px !important;
+      min-width: 500px !important;
 
       .hide-for-desktop {
         display: block;
       }
 
       .banner {
-        height: 17vh;
-        min-height: 23%;
+        height: 150px;
       }
       .logo {
         height: 103px;
-        width: 355px;
-        margin: 0px 0 15px -90px;
+        width: 335px;
+        margin: 0;
       }
       .motto {
-        font-size: 22pt;
+        display: none;
       }
-      .link-item span {
-          margin-left: 35px;
-          font-size: 32pt;
-          font-weight: 300;
+      .link-wrap {
+        .header {
+          font-size: 26pt;
+          margin: 0 0 4px 35px;
+          padding-top: 40px;
+        }
+        .header-divider {
+          height: 4px;
+        }
+        .link-item {
+          height: 80px;
+          padding: 0 35px;
+          .material-icons {
+            font-size: 40pt;
+          }
+          span, .sub-menu span {
+            font-size: 20pt;
+          }
+          .sub-menu {
+            right: -450px;
+            width: 450px;
+          }
+        }
       }
     }
 

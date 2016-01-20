@@ -25,7 +25,7 @@
     <div class="motto">Disrupt & <b>Decentralize</b></div>
   </div>
   <div layout-align="center center" class="link-wrap">
-    <div class="header">Main</div>
+    <div class="header">Powur</div>
     <hr class="header-divider">
     <a href="/dashboard" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/dashboard')}">
@@ -77,7 +77,7 @@
       </div>
     </a>
 
-    <a class="hide-for-desktop">
+    <a hide-gt-xs>
       <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()">
         <i class="sprite material-icons" flex="15">exit_to_app</i><span>Logout</span>
       </div>
@@ -96,7 +96,7 @@
                               nav.isCurrent('/admin/product_receipts') ||
                               nav.isCurrent('/admin/pay_periods')}">
       <i class="sprite material-icons" flex="15">public</i><span flex="70">Comp Plan</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu" ng-show="nav.menu.active === 'products'" style="top:{{nav.menu.top}}px">
+      <div class="sub-menu" ng-show="nav.menu.active === 'products'" style="{{nav.menu.position}}:0">
         <a href="/admin/products" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/products')}">
             <span>Products</span>
@@ -128,7 +128,7 @@
                               nav.isCurrent('/admin/social-media') ||
                               nav.isCurrent('/admin/powur-move')}">
       <i class="sprite material-icons" flex="15">mms</i><span flex="70">Content</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu"  ng-show="nav.menu.active === 'powur'" style="top:{{nav.menu.top}}px">
+      <div class="sub-menu"  ng-show="nav.menu.active === 'powur'" style="{{nav.menu.position}}:0">
         <a href="/admin/application-agreements" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/application-agreements')}">
             <span>Application Agreements</span>
@@ -172,7 +172,7 @@
                               nav.isCurrent('/admin/invites/pending') ||
                               nav.isCurrent('/admin/invites/system-settings')}">
       <i class="sprite material-icons" flex="15">settings</i><span flex="70">System</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu" ng-show="nav.menu.active === 'people'" style="top:{{nav.menu.top}}px">
+      <div class="sub-menu" ng-show="nav.menu.active === 'people'" style="{{nav.menu.position}}:0">
         <a ng-href="/admin/users" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/users')}">
             <span>Users</span>

@@ -29,12 +29,13 @@ module powur {
       this.menu.active = active;
       if (!$(e.target).hasClass('menu-item')) return;
       var offset = e.target.offsetTop;
-      var height = ($(e.target).find('.sub-menu').children().length * 42) - 59;
+      var linkHeight = $(e.target).find('.link-item').height();
+      var height = ($(e.target).find('.sub-menu').children().length * linkHeight);
 
       if (height + offset < window.innerHeight) {
-        this.menu.top = offset
+        this.menu.position = 'top';
       } else {
-        this.menu.top = offset - height;
+        this.menu.position = 'bottom';
       }
     };
 

@@ -96,12 +96,13 @@
       $rootScope.menu.active = active;
       if (!$(e.target).hasClass('menu-item')) return;
       var offset = e.target.offsetTop;
-      var height = ($(e.target).find('.sub-menu').children().length * 42) - 59;
+      var linkHeight = $(e.target).find('.link-item').height();
+      var height = ($(e.target).find('.sub-menu').children().length * linkHeight);
 
       if (height + offset < window.innerHeight) {
-        $rootScope.menu.top = offset
+        $rootScope.menu.position = 'top:0';
       } else {
-        $rootScope.menu.top = offset - height;
+        $rootScope.menu.position = 'bottom:-1px';
       }
     };
 

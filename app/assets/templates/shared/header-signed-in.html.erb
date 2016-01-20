@@ -26,7 +26,7 @@
     <div class="motto">Disrupt & <b>Decentralize</b></div>
   </div>
   <div layout-align="center center" class="link-wrap">
-    <div class="header">Main</div>
+    <div class="header">Powur</div>
     <hr class="header-divider">
     <a href="/dashboard" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/dashboard')}">
@@ -97,7 +97,7 @@
                               isMenuLinkActive('/admin/product_receipts') ||
                               isMenuLinkActive('/admin/pay_periods')}">
       <i class="sprite material-icons" flex="15">public</i><span flex="70">Comp Plan</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu" ng-show="menu.active === 'products'" style="top:{{menu.top}}px">
+      <div class="sub-menu" ng-show="menu.active === 'products'" style="{{menu.position}}">
         <a href="/admin/products" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/admin/products')}">
             <span>Products</span>
@@ -129,7 +129,7 @@
                               isMenuLinkActive('/admin/social-media') ||
                               isMenuLinkActive('/admin/powur-move')}">
       <i class="sprite material-icons" flex="15">mms</i><span flex="70">Content</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu"  ng-show="menu.active === 'powur'" style="top:{{menu.top}}px">
+      <div class="sub-menu"  ng-show="menu.active === 'powur'" style="{{menu.position}}">
         <a href="/admin/application-agreements" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/admin/application-agreements')}">
             <span>Application Agreements</span>
@@ -173,7 +173,7 @@
                               isMenuLinkActive('/admin/invites/pending') ||
                               isMenuLinkActive('/admin/invites/system-settings')}">
       <i class="sprite material-icons" flex="15">settings</i><span flex="70">System</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu" ng-show="menu.active === 'people'" style="top:{{menu.top}}px">
+      <div class="sub-menu" ng-show="menu.active === 'people'" style="{{menu.position}}">
         <a ng-href="/admin/users" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/admin/users')}">
             <span>Users</span>
