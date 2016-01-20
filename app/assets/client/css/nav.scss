@@ -65,87 +65,6 @@
       cursor: pointer;
     }
   }
-  .sprite-library {
-    width: 35px;
-    height: 43px;
-    background-image: image-url("img/nav/icons/library.png");
-  }
-
-  .sprite-upgrade {
-    background: image-url('img/nav/icons/upgrade.png');
-    background-size: contain;
-    width: 35px;
-    height: 35px;
-    margin-left: -3px;
-  }
-
-  .sprite-certs {
-    background: image-url('img/nav/icons/powur-u.png');
-    background-size: contain;
-    width: 35px;
-    height: 35px;
-    margin-left: 1px;
-  }
-
-  .sprite-earnings {
-    width: 42px;
-    height: 40px;
-    background-image: image-url("img/nav/icons/earnings.png");
-  }
-
-  .sprite-events {
-    width: 33px;
-    height: 33px;
-    background-position: -102px -5px;
-  }
-
-  .sprite-goal {
-    width: 42px;
-    height: 40px;
-    background-position: -145px -5px;
-  }
-
-  .sprite-grid {
-    width: 42px;
-    height: 40px;
-    background-position: -197px -5px;
-  }
-
-  .sprite-logout {
-    width: 33px;
-    height: 26px;
-    background-image: image-url("img/nav/icons/logout.png");
-  }
-
-  .sprite-social {
-    width: 33px;
-    height: 29px;
-    background-position: -292px -5px;
-  }
-
-  .sprite-stats {
-    width: 27px;
-    height: 31px;
-    background-image: image-url("img/nav/icons/profile.png");
-  }
-
-  .sprite-strategy {
-    width: 21px;
-    height: 37px;
-    background-position: -372px -5px;
-  }
-
-  .sprite-dashboard {
-    width: 35px;
-    height: 35px;
-    background-image: image-url("img/nav/icons/dashboard.png");
-  }
-
-  .sprite-invite {
-    width: 32px;
-    height: 38px;
-    background-image: image-url("img/nav/icons/invite.png");
-  }
 }
 
 .nav.top-menu {
@@ -244,7 +163,7 @@
     }
     .link-item {
       cursor: pointer;
-      height: 40px;
+      height: 35px;
       padding: 0 25px;
       transition: .2s;
 
@@ -252,6 +171,7 @@
         transition: .2s;
         -webkit-transition: .2s;
         color: #2C6B8A;;
+        font-size: 17pt;
         width: auto;
         margin: 0 !important;
       }

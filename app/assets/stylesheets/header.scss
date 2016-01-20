@@ -248,14 +248,15 @@ and (max-device-width : 960px) {
     }
     .link-item {
       cursor: pointer;
-      height: 40px;
+      height: 35px;
       padding: 0 25px;
       transition: .2s;
 
       .sprite {
         transition: .2s;
         -webkit-transition: .2s;
-        color: #2C6B8A;;
+        color: #2C6B8A;
+        font-size: 17pt;
         width: auto;
         margin: 0 !important;
       }
