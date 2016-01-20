@@ -6,11 +6,11 @@
 
     $scope.templateData = {
       index: {
-        title: 'System Settings',
+        title: 'Settings',
         tablePath: 'admin/system-settings/templates/table.html'
       },
       edit: {
-        title: 'Update System Setting',
+        title: 'Update Setting',
         formPath: 'admin/system-settings/templates/form.html'
       }
     };
@@ -53,7 +53,7 @@
 
   AdminSystemSettingsCtrl.prototype.fetch = function($scope, $rootScope, $routeParams, $http) {
     if ($scope.mode === 'index') {
-      $rootScope.breadcrumbs.push({title: 'System Settings'});
+      $rootScope.breadcrumbs.push({title: 'Settings'});
       $scope.index = {};
       $http({
         method: 'GET',
@@ -68,7 +68,7 @@
       }).success(function(data) {
         $scope.systemSetting = data.properties;
         $scope.actions = data.actions;
-        $rootScope.breadcrumbs.push({title: 'System Settings', href:'/admin/system-settings'});
+        $rootScope.breadcrumbs.push({title: 'Settings', href:'/admin/system-settings'});
         $rootScope.breadcrumbs.push({title: 'Update'});
       });
     }

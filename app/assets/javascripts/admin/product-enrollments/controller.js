@@ -6,7 +6,7 @@
 
     $scope.templateData = {
       index: {
-        title: 'Product Enrollments',
+        title: 'Course Enrollments',
         tablePath: 'admin/product-enrollments/templates/table.html'
       }
     };
@@ -43,7 +43,7 @@
 
   AdminProductEnrollmentsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
-      $rootScope.breadcrumbs.push({title: 'Product Enrollments'});
+      $rootScope.breadcrumbs.push({title: 'Course Enrollments'});
       $scope.index = {};
       $scope.pagination(0);
     }

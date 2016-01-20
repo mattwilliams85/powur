@@ -6,7 +6,7 @@
 
     $scope.templateData = {
       index: {
-        title: 'Notifications',
+        title: 'SMS',
         links: [
           { href: '/admin/notifications/new', text: 'Add' },
           { href: '/admin/twilio-stats', text: 'Twilio Stats' }
@@ -14,11 +14,11 @@
         tablePath: 'admin/notifications/templates/table.html'
       },
       new: {
-        title: 'Add Notification',
+        title: 'Add SMS',
         formPath: 'admin/notifications/templates/form.html'
       },
       edit: {
-        title: 'Update Notification',
+        title: 'Update SMS',
         formPath: 'admin/notifications/templates/form.html'
       }
     };
@@ -69,7 +69,7 @@
         }).success(function(data) {
           $scope.isSubmitDisabled = false;
           $location.path('/admin/notifications/' + data.properties.id + '/edit');
-          $scope.showModal('Notification successfully created');
+          $scope.showModal('SMS successfully created');
         }).error(formErrorCallback);
       }
     };
@@ -114,10 +114,10 @@
           data: { recipients: recipients.join() }
         }).success(function() {
           $location.path('/admin/notifications');
-          $scope.showModal('Notification is being delivered...');
+          $scope.showModal('SMS is being delivered...');
         }).error(function() {
           $scope.isSubmitDisabled = false;
-          $scope.showModal("Oops, error couldn't send notification");
+          $scope.showModal("Oops, error couldn't send SMS");
         });
       }
     };
@@ -187,13 +187,13 @@
 
   AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams) {
     if ($scope.mode === 'index') {
-      $rootScope.breadcrumbs.push({title: 'Notifications'});
+      $rootScope.breadcrumbs.push({title: 'SMS'});
       $scope.index = {};
       $scope.pagination(0);
       $scope.getTwilioStats();
     } else if ($scope.mode === 'new') {
-      $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
-      $rootScope.breadcrumbs.push({title: 'New notification'});
+      $rootScope.breadcrumbs.push({title: 'SMS', href:'/admin/notifications'});
+      $rootScope.breadcrumbs.push({title: 'New SMS'});
       $scope.notification = {};
       $scope.getAvailableRecipients();
     } else if ($scope.mode === 'edit') {
@@ -201,8 +201,8 @@
         $scope.notification = item.properties;
         $scope.formAction = getAction(item.actions, 'update');
         $scope.getAvailableRecipients();
-        $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
-        $rootScope.breadcrumbs.push({title: 'Update notification'});
+        $rootScope.breadcrumbs.push({title: 'SMS', href:'/admin/notifications'});
+        $rootScope.breadcrumbs.push({title: 'Update SMS'});
       });
     }
   };

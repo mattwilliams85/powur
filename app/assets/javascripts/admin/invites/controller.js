@@ -53,7 +53,7 @@
   };
 
   controller.prototype.fetch = function($scope, $rootScope) {
-    $rootScope.breadcrumbs.push({title: 'Pending Invites'});
+    $rootScope.breadcrumbs.push({title: 'Grid Invites'});
     $scope.index = {};
     $scope.pagination(0, $scope.listPath = '/a/invites?pending=true');
   };

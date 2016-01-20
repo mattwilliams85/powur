@@ -90,36 +90,7 @@
         <i class="sprite material-icons"  flex="15">poll</i><span>Overview</span>
       </div>
     </a>
-    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="nav.menuPosition($event, 'products')" ng-mouseleave="nav.menu.active = ''" ng-show="nav.home.userData.is_admin" 
-         ng-class="{'active': nav.isCurrent('/admin/products') ||
-                              nav.isCurrent('/admin/product_enrollments') ||
-                              nav.isCurrent('/admin/product_receipts') ||
-                              nav.isCurrent('/admin/pay_periods')}">
-      <i class="sprite material-icons" flex="15">public</i><span flex="70">Comp Plan</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu" ng-show="nav.menu.active === 'products'" style="{{nav.menu.position}}:0">
-        <a href="/admin/products" target="_self">
-          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/products')}">
-            <span>Products</span>
-          </div>
-        </a>
-        <a href="/admin/product_enrollments" target="_self">
-          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/product_enrollments')}">
-            <span>Course Enrollments</span>
-          </div>
-        </a>
-        <a href="/admin/product_receipts" target="_self">
-          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/product_receipts')}">
-            <span>Product Receipts</span>
-          </div>
-        </a>
-        <a href="/admin/pay-periods" target="_self">
-          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/pay-periods')}">
-            <span>Pay Periods</span>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="nav.menuPosition($event, 'powur')" ng-mouseleave="nav.menu.active = ''" ng-show="nav.home.userData.is_admin" 
+    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="nav.menuPosition($event, 'powur')" ng-mouseleave="nav.menu.active = ''" ng-show="nav.home.userData.is_admin"
          ng-class="{'active': nav.isCurrent('/admin/application-agreements') ||
                               nav.isCurrent('/admin/latest-news') ||
                               nav.isCurrent('/admin/resources') ||
@@ -152,7 +123,7 @@
         </a>
         <a href="/admin/social-media" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/social-media')}">
-            <span>Social Media Sharing</span>
+            <span>Social Sharing</span>
           </div>
         </a>
         <a href="/admin/powur-move" target="_self">
@@ -167,20 +138,16 @@
         </a>
       </div>
     </div>
-    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="nav.menuPosition($event, 'people')" ng-mouseleave="nav.menu.active = ''" ng-show="nav.home.userData.is_admin" 
-         ng-class="{'active': nav.isCurrent('/admin/users') || 
+    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="nav.menuPosition($event, 'people')" ng-mouseleave="nav.menu.active = ''" ng-show="nav.home.userData.is_admin"
+         ng-class="{'active': nav.isCurrent('/admin/users') ||
                               nav.isCurrent('/admin/invites/pending') ||
                               nav.isCurrent('/admin/invites/system-settings')}">
       <i class="sprite material-icons" flex="15">settings</i><span flex="70">System</span><i class="material-icons sprite">chevron_right</i>
-      <div class="sub-menu" ng-show="nav.menu.active === 'people'" style="{{nav.menu.position}}:0">
-        <a ng-href="/admin/users" target="_self">
-          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/users')}">
-            <span>Users</span>
-          </div>
-        </a>
+
+      <div class="sub-menu" ng-show="nav.menu.active === 'people'" style="top:{{nav.menu.top}}:0">
         <a href="/admin/invites/pending" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/invites/pending')}">
-            <span>Pending Invites</span>
+            <span>Grid Invites</span>
           </div>
         </a>
         <a href="/admin/leads" target="_self">
@@ -190,11 +157,44 @@
         </a>
         <a href="/admin/system-settings" target="_self">
           <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/system-settings')}">
-            <span>System Settings</span>
+            <span>Settings</span>
+          </div>
+        </a>
+        <a ng-href="/admin/users" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/users')}">
+            <span>Users</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="nav.menuPosition($event, 'products')" ng-mouseleave="nav.menu.active = ''" ng-show="nav.home.userData.is_admin"
+         ng-class="{'active': nav.isCurrent('/admin/products') ||
+                              nav.isCurrent('/admin/product_enrollments') ||
+                              nav.isCurrent('/admin/product_receipts') ||
+                              nav.isCurrent('/admin/pay_periods')}">
+      <i class="sprite material-icons" flex="15">public</i><span flex="70">Comp Plan</span><i class="material-icons sprite">chevron_right</i>
+      <div class="sub-menu" ng-show="nav.menu.active === 'products'" style="top:{{nav.menu.top}}px">
+        <a href="/admin/products" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/products')}">
+            <span>Products</span>
+          </div>
+        </a>
+        <a href="/admin/product_enrollments" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/product_enrollments')}">
+            <span>Course Enrollments</span>
+          </div>
+        </a>
+        <a href="/admin/product_receipts" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/product_receipts')}">
+            <span>Product Receipts</span>
+          </div>
+        </a>
+        <a href="/admin/pay-periods" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/admin/pay-periods')}">
+            <span>Pay Periods</span>
           </div>
         </a>
       </div>
     </div>
   </div>
 </md-sidenav>
-
