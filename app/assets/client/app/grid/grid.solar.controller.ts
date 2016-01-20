@@ -414,6 +414,32 @@ module powur {
       this.reloadPage()
     }
 
+    marketingLeadsFilter() {
+      if (this.leadsMarketing.properties.showTeam) {
+        delete this.activeFilters['grid'];
+      } else {
+        this.activeFilters['grid'] = {
+          group: 'grid',
+          key: 'personal_leads',
+          value: 'user-leads'
+        };
+      }
+      this.filter('call_consented', 'call_consented', 'true');
+    }
+
+    summaryLeadsFilter(key: string, value: string) {
+      if (!this.summaryFilters['grid']) {
+        delete this.activeFilters['grid'];
+      } else {
+        this.activeFilters['grid'] = {
+          group: 'grid',
+          key: 'personal_leads',
+          value: 'user-leads'
+        };
+      }
+      this.filter('status', key, value);
+    }
+
     filterSummary(group: string, key: any, value: any) {
       var filterOpts = {},
           entityType = 'user-leads_summary';

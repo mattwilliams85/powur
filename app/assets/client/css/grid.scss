@@ -279,11 +279,15 @@
       font-size: 12pt;
       letter-spacing: .05em;
     }
-    
+
   }
 
   .label {
     font-size: 6pt;
+
+    a {
+      cursor: pointer;
+    }
   }
 
   .left {
@@ -934,5 +938,3 @@
     }
   }
 }
-
-
