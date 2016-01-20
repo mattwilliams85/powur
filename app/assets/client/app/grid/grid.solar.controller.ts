@@ -35,9 +35,8 @@ module powur {
     }
 
     updateLead(lead) {
-      if (this.leads.entities[0].properties.id === lead.properties.id) {
-        this.leads.entities[0] = lead;
-      }
+      this.lead.properties = lead.properties;
+      this.lead.actions = lead.actions;
     }
 
     verifyEligibility() {
@@ -59,16 +58,17 @@ module powur {
 
     update() {
       this.updateAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.lead = new SirenModel(response.data);
-        this.updateLead(this.lead);
+        var lead = new SirenModel(response.data);
+        this.updateLead(lead);
       });
     }
 
     submitToSC() {
       this.submitAction.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var lead = new SirenModel(response.data);
+        this.updateLead(lead);
         this.$mdDialog.cancel();
       }, (response: any) => {
-        this.updateLead(this.lead);
         if (response.data.error) {
           this.updateAction.field('notes').$error = { message: response.data.error.message };
         }
