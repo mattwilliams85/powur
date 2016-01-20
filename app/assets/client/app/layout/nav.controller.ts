@@ -6,6 +6,7 @@ module powur {
     static $inject: Array<string> = ['$scope', '$mdSidenav', '$sce'];
 
     activeMenu: boolean = false;
+    menu: any = {};
 
     get home(): any {
       return this.$scope.home;
@@ -23,6 +24,19 @@ module powur {
     isCurrent(state: string): boolean {
       return !!this.state.current.name.match(`${state}`);
     }
+
+    menuPosition(e, active) {
+      this.menu.active = active;
+      if (!$(e.target).hasClass('menu-item')) return;
+      var offset = e.target.offsetTop;
+      var height = ($(e.target).find('.sub-menu').children().length * 42) - 59;
+
+      if (height + offset < window.innerHeight) {
+        this.menu.top = offset
+      } else {
+        this.menu.top = offset - height;
+      }
+    };
 
     isOpen() { return this.$mdSidenav('left').isOpen(); };
 

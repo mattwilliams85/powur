@@ -1,5 +1,7 @@
 <!-- Dashboard Header -->
 <!-- <nav powur-foundation > -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
 <div class="nav top-menu">
   <div class="bg">
@@ -24,64 +26,169 @@
     <div class="motto">Disrupt & <b>Decentralize</b></div>
   </div>
   <div layout-align="center center" class="link-wrap">
+    <div class="header">Main</div>
+    <hr class="header-divider"></hr>
     <a href="/dashboard" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/dashboard')}">
-        <i class="sprite sprite-dashboard"></i><span>Dashboard</span>
+        <i class="sprite material-icons" flex="15">dashboard</i><span>Dashboard</span>
       </div>
     </a>
-    <md-divider></md-divider>
+    <!-- <hr></hr> -->
     <a href="/next/invite/grid" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
-        <i class="sprite sprite-invite"></i><span>Invite</span>
+        <i class="sprite material-icons" flex="15">mail</i><span>Invite</span>
       </div>
     </a>
-    <md-divider></md-divider>
+    <!-- <hr></hr> -->
     <a href="/next/grid/solar" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.solar') }">
-        <i class="sprite sprite-grid-solar"></i><span>Solar Grid</span>
+        <i class="sprite material-icons" flex="15">view_list</i><span>Solar Grid</span>
       </div>
     </a>
-    <md-divider></md-divider>
+    <!-- <hr></hr> -->
     <a href="/earnings" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/earnings')}">
-        <i class="sprite sprite-earnings"></i><span>Earnings</span>
+        <i class="sprite material-icons" flex="15">account_balance</i><span>Earnings</span>
       </div>
     </a>
-    <md-divider></md-divider>
+    <!-- <hr></hr> -->
     <a href="/university" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/university')}">
-        <i class="sprite sprite-certs"></i><span>Powur U</span>
+        <i class="sprite material-icons" flex="15">school</i><span>Powur U</span>
       </div>
     </a>
-    <md-divider></md-divider>
+    <!-- <hr></hr> -->
     <a href="/library" target="_self">
     <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/library')}">
-     <i class="sprite sprite-library"></i><span>Library</span>
+     <i class="sprite material-icons" flex="15">local_library</i></i><span>Library</span>
     </div>
     </a>
-    <md-divider></md-divider>
-    <a href="/upgrade" target="_self">
-      <div layout="row" layout-align="start center" class="link-item" ng-hide="currentUser['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
-        <i class="sprite sprite-upgrade"></i><span>Upgrade</span>
-      </div>
-    </a>
-    <a href="/admin" target="_self">
-      <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
-        <i class="sprite sprite-admin"></i><span>Admin</span>
-      </div>
-    </a>
-    <md-divider></md-divider>
+    <!-- <hr></hr> -->
+    <!-- <hr></hr> -->
+    <div class="header">Settings</div>
+    <hr class="header-divider"></hr>
     <a href="/profile" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': isMenuLinkActive('/profile')}">
-        <i class="sprite sprite-stats"></i><span>Profile</span>
+        <i class="sprite material-icons" flex="15">tune</i><span>Profile</span>
       </div>
     </a>
-    <md-divider class="hide-for-desktop"></md-divider>
+    <a href="/upgrade" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-hide="currentUser['partner?']" ng-class="{'active': isMenuLinkActive('/upgrade')}">
+        <i class="sprite material-icons" flex="15">publish</i><span>Upgrade</span>
+      </div>
+    </a>
+    <hr class="hide-for-desktop"></hr>
     <a class="hide-for-desktop">
       <div layout="row" layout-align="start center" class="link-item" ng-click="signOut()">
-        <i class="sprite sprite-logout"></i><span>Logout</span>
+        <i class="sprite sprite-logout" flex="15"></i><span>Logout</span>
       </div>
     </a>
+    <div class="header" ng-show="currentUser.is_admin">Admin</div>
+    <hr class="header-divider" ng-show="currentUser.is_admin"></hr>
+    <a href="/admin" target="_self">
+      <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin')}">
+        <i class="sprite material-icons"  flex="15">poll</i><span>Overview</span>
+      </div>
+    </a>
+    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="menuPosition($event, 'people')" ng-mouseleave="menu.active = ''" ng-show="currentUser.is_admin" 
+         ng-class="{'active': isMenuLinkActive('/admin/users') || 
+                              isMenuLinkActive('/admin/invites/pending')}">
+      <i class="sprite material-icons" flex="15">people</i><span flex="70">People</span><i class="material-icons sprite">chevron_right</i>
+      <div class="sub-menu" ng-show="menu.active === 'people'" style="top:{{menu.top}}px">
+        <a ng-href="/admin/users" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/users')}">
+            <span>Users</span>
+          </div>
+        </a>
+        <a href="/admin/invites/pending" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/invites/pending')}">
+            <span>Pending Invites</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="menuPosition($event, 'products')" ng-mouseleave="menu.active = ''" ng-show="currentUser.is_admin" 
+         ng-class="{'active': isMenuLinkActive('/admin/products') ||
+                              isMenuLinkActive('/admin/product_enrollments') ||
+                              isMenuLinkActive('/admin/product_receipts')}">
+      <i class="sprite material-icons" flex="15">receipt</i><span flex="70">Products</span><i class="material-icons sprite">chevron_right</i>
+      <div class="sub-menu" ng-show="menu.active === 'products'" style="top:{{menu.top}}px">
+        <a href="/admin/products" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/products')}">
+            <span>Products</span>
+          </div>
+        </a>
+        <a href="/admin/product_enrollments" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/product_enrollments')}">
+            <span>Product Enrollments</span>
+          </div>
+        </a>
+        <a href="/admin/product_receipts" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/product_receipts')}">
+            <span>Product Receipts</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div layout="row" layout-align="start center" class="link-item menu-item" ng-mouseover="menuPosition($event, 'powur')" ng-mouseleave="menu.active = ''" ng-show="currentUser.is_admin" 
+         ng-class="{'active': isMenuLinkActive('/admin/application-agreements') ||
+                              isMenuLinkActive('/admin/latest-news') ||
+                              isMenuLinkActive('/admin/leads') ||
+                              isMenuLinkActive('/admin/resources') ||
+                              isMenuLinkActive('/admin/resource-topics') ||
+                              isMenuLinkActive('/admin/notifications') ||
+                              isMenuLinkActive('/admin/pay-periods') ||
+                              isMenuLinkActive('/admin/social-media') ||
+                              isMenuLinkActive('/admin/system-settings')}">
+      <i class="sprite material-icons" flex="15">settings</i><span flex="70">Powur</span><i class="material-icons sprite">chevron_right</i>
+      <div class="sub-menu"  ng-show="menu.active === 'powur'" style="top:{{menu.top}}px">
+        <a href="/admin/application-agreements" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/application-agreements')}">
+            <span>Application Agreements</span>
+          </div>
+        </a>
+        <a href="/admin/latest-news" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/latest-news')}">
+            <span>Latest News</span>
+          </div>
+        </a>
+        <a href="/admin/leads" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/leads')}">
+            <span>Leads</span>
+          </div>
+        </a>
+        <a href="/admin/resources" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/resources')}">
+            <span>Library</span>
+          </div>
+        </a>
+        <a href="/admin/resource-topics" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/resource-topics')}">
+            <span>Library Topics</span>
+          </div>
+        </a>
+        <a href="/admin/notifications" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/notifications')}">
+            <span>Notifications</span>
+          </div>
+        </a>
+        <a href="/admin/pay-periods" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/pay-periods')}">
+            <span>Pay Periods</span>
+          </div>
+        </a>
+        <a href="/admin/social-media" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/social-media')}">
+            <span>Social Media Sharing</span>
+          </div>
+        </a>
+        <a href="/admin/system-settings" target="_self">
+          <div layout="row" layout-align="start center" class="link-item" ng-show="currentUser.is_admin" ng-class="{'active': isMenuLinkActive('/admin/system-settings')}">
+            <span>System Settings</span>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 </md-sidenav>
 
