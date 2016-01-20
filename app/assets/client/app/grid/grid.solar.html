@@ -76,14 +76,14 @@
         <md-menu-item>
           <md-button ng-click="grid.filterSummary('grid', 'personal', false)" aria-label="grid" ng-value="null">
             <div layout="row">
-              <p flex>Team Summary</p>
+              <p flex>Team</p>
             </div>
           </md-button>
         </md-menu-item>
         <md-menu-item>
           <md-button ng-click="grid.filterSummary('grid', 'personal', true)" aria-label="grid" ng-value="null">
             <div layout="row">
-              <p flex>Personal Summary</p>
+              <p flex>Personal</p>
             </div>
           </md-button>
         </md-menu-item>
@@ -188,8 +188,8 @@
           <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
             <i class="material-icons">assignment</i>
             <span ng-hide="grid.activeFilters['call_consented']">Marketing</span>
-            <span ng-show="grid.activeFilters['call_consented']['value'] == 'true'">Get Solar</span>
-            <span ng-show="grid.activeFilters['call_consented']['value'] == 'false'">Submitted</span>
+            <span ng-show="grid.activeFilters['call_consented']['value'] == 'false'">SolarGrid</span>
+            <span ng-show="grid.activeFilters['call_consented']['value'] == 'true'">GetSolar</span>
           </div>
           <i class="material-icons close"
              ng-show="grid.activeFilters['call_consented']"
@@ -198,15 +198,18 @@
           </i>
         </div>
         <md-menu-content class="filter-menu" width="4">
-          <md-menu-item class="header"><span>SELECT <b>MARKETING MODE</b></span></md-menu-item>
+          <md-menu-item class="header"><span>SELECT <b>SOURCE</b></span></md-menu-item>
           <div class="filter-box small">
             <md-radio-group ng-model="grid.leads.properties.filters.call_consented">
-              <md-radio-button ng-click="grid.filter('call_consented', 'call_consented', 'true')"
-                               aria-label="Get Solar"
-                               ng-value="'true'">Get Solar</md-radio-button>
+              <md-radio-button ng-click="grid.removeFilter('call_consented')"
+                               aria-label="All"
+                               ng-value="null">All</md-radio-button>
               <md-radio-button ng-click="grid.filter('call_consented', 'call_consented', 'false')"
-                               aria-label="Submitted"
-                               ng-value="'false'">Submitted</md-radio-button>
+                               aria-label="SolarGrid"
+                               ng-value="'false'">SolarGrid</md-radio-button>
+              <md-radio-button ng-click="grid.filter('call_consented', 'call_consented', 'true')"
+                               aria-label="GetSolar"
+                               ng-value="'true'">GetSolar</md-radio-button>
             </md-radio-group>
           </div>
         </md-menu-content>
