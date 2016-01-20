@@ -26,46 +26,45 @@
   </div>
   <div layout-align="center center" class="link-wrap">
     <div class="header">Main</div>
-    <hr class="header-divider"></hr>
+    <hr class="header-divider">
     <a href="/dashboard" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/dashboard')}">
         <i class="sprite material-icons" flex="15">dashboard</i><span>Dashboard</span>
       </div>
     </a>
-    <!-- <hr></hr> -->
+
     <a href="/next/invite/grid" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
         <i class="sprite material-icons" flex="15">mail</i><span>Invite</span>
       </div>
     </a>
-    <!-- <hr></hr> -->
+
     <a href="/next/grid/solar" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.solar') }">
         <i class="sprite material-icons" flex="15">view_list</i><span>Solar Grid</span>
       </div>
     </a>
-    <!-- <hr></hr> -->
+
     <a href="/earnings" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/earnings')}">
         <i class="sprite material-icons" flex="15">account_balance</i><span>Earnings</span>
       </div>
     </a>
-    <!-- <hr></hr> -->
+
     <a href="/university" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/university')}">
         <i class="sprite material-icons" flex="15">school</i><span>Powur U</span>
       </div>
     </a>
-    <!-- <hr></hr> -->
+
     <a href="/library" target="_self">
     <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/library')}">
      <i class="sprite material-icons" flex="15">local_library</i></i><span>Library</span>
     </div>
     </a>
-    <!-- <hr></hr> -->
-    <!-- <hr></hr> -->
+
     <div class="header">Settings</div>
-    <hr class="header-divider"></hr>
+    <hr class="header-divider">
     <a href="/profile" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{'active': nav.isCurrent('/profile')}">
         <i class="sprite material-icons" flex="15">tune</i><span>Profile</span>
@@ -76,14 +75,13 @@
         <i class="sprite material-icons" flex="15">publish</i><span>Upgrade</span>
       </div>
     </a>
-    <hr class="hide-for-desktop"></hr>
     <a class="hide-for-desktop">
-      <div layout="row" layout-align="start center" class="link-item" ng-click="nav.logout()">
-        <i class="sprite sprite-logout" flex="15"></i><span>Logout</span>
+      <div layout="row" layout-align="start center" class="link-item" ng-click="signOut()">
+        <i class="sprite material-icons" flex="15">exit_to_app</i><span>Logout</span>
       </div>
     </a>
     <div class="header" ng-show="nav.home.userData.is_admin">Admin</div>
-    <hr class="header-divider" ng-show="nav.home.userData.is_admin"></hr>
+    <hr class="header-divider" ng-show="nav.home.userData.is_admin">
     <a href="/admin" target="_self">
       <div layout="row" layout-align="start center" class="link-item" ng-show="nav.home.userData.is_admin" ng-class="{'active': nav.isCurrent('/admin')}">
         <i class="sprite material-icons"  flex="15">poll</i><span>Overview</span>

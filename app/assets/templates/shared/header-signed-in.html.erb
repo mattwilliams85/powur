@@ -20,7 +20,7 @@
   </div>
 </div>
 <!-- MOBILE SIDE NAV -->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
+<md-sidenav md-is-locked-open="isRouteAdmin" class="md-sidenav-left md-whiteframe-z2 mobile-side-nav nav" md-component-id="mobile-left">
   <div class="banner" layout="column" layout-align="center start">
     <div class="logo"></div>
     <div class="motto">Disrupt & <b>Decentralize</b></div>
@@ -77,10 +77,9 @@
         <i class="sprite material-icons" flex="15">publish</i><span>Upgrade</span>
       </div>
     </a>
-    <hr class="hide-for-desktop"></hr>
     <a class="hide-for-desktop">
       <div layout="row" layout-align="start center" class="link-item" ng-click="signOut()">
-        <i class="sprite sprite-logout" flex="15"></i><span>Logout</span>
+        <i class="sprite material-icons" flex="15">exit_to_app</i><span>Logout</span>
       </div>
     </a>
     <div class="header" ng-show="currentUser.is_admin">Admin</div>

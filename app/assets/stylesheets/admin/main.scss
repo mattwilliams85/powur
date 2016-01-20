@@ -94,6 +94,22 @@
   }
 }
 
+body {
+  padding: 40px 0 0 260px;
+}
+
+.md-locked-open {
+  position: fixed !important;
+}
+
+.hide-for-desktop {
+  display: block !important;
+}
+
+.top-menu {
+  display: none;
+}
+
 .capitalize {
   text-transform: capitalize;
 }

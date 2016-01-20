@@ -98,6 +98,10 @@
     };
 
 
+    $rootScope.isRouteAdmin = function() {
+      if (/\/admin$/.test($location.path())) return true;
+    };
+
     $rootScope.menuPosition = function(e, active) {
       $rootScope.menu.active = active;
       if (!$(e.target).hasClass('menu-item')) return;
