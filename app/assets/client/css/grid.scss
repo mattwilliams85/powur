@@ -158,13 +158,32 @@
       z-index: 3;
       &.active {
         display: block;
+        
+        //https://connect.microsoft.com/IE/feedback/details/1052487
+        //http://blog.karenmenezes.com/2014/dec/26/ie-bug-keyframe-animations/
+        //because of the above bug, the 600px media query was breaking the ie animation
+        //this is a fallback so the highlighed nodes still show.
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+          width:  14px; 
+          height: 14px;
+          
+          &.dialog{
+            width:  16px; 
+            height: 16px;
+          }
+        }
+    
       }
-      &.stage-0 { animation: pop-in .3s 0s forwards; }
+
+      &.stage-0 { animation: pop-in .3s  0s forwards; }
       &.stage-1 { animation: pop-in .3s .1s forwards; }
       &.stage-2 { animation: pop-in .3s .2s forwards; }
       &.stage-3 { animation: pop-in .3s .3s forwards; }
       &.stage-4 { animation: pop-in .3s .4s forwards; }
+      
     }
+    
+    
 
     .bar {
       width: 80%;
