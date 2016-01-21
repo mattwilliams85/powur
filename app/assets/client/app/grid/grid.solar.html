@@ -502,7 +502,7 @@
                class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="start center">
+               layout-align="center center">
             <div class="uppercase text-sm move">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
@@ -521,44 +521,46 @@
                flex="50"
                flex-gt-md="25"
                layout="column"
-               layout-align="center start">
-            <div layout="row" layout-align="space-between" class="progress-bar">
-              <div class="bar"></div>
-              <div class="bar overlay" style="width:{{ lead.properties.stage * 20 }}%">
-                <div class="animated stage-{{ lead.properties.stage }}"></div>
-              </div>
-              <div layout="column" layout-align="center center" flex="20">
-                <div class="node-wrap">
-                  <div class="node"></div>
-                  <div class="highlight stage-0" ng-class="{ 'active': lead.properties.stage  >= 0 }"></div>
+               layout-align="center center">
+               <div class= "progress-bar-container">
+                <div layout="row" layout-align="space-between" class="progress-bar">
+                  <div class="bar"></div>
+                  <div class="bar overlay" style="width:{{ lead.properties.stage * 20 }}%">
+                    <div class="animated stage-{{ lead.properties.stage }}"></div>
+                  </div>
+                  <div layout="column" layout-align="center center" flex="20">
+                    <div class="node-wrap">
+                      <div class="node"></div>
+                      <div class="highlight stage-0" ng-class="{ 'active': lead.properties.stage  >= 0 }"></div>
+                    </div>
+                  </div>
+                  <div layout="column" layout-align="center center" flex="20">
+                    <div class="node-wrap">
+                      <div class="node"></div>
+                      <div class="highlight stage-1" ng-class="{ 'active': lead.properties.stage  >= 1 }"></div>
+                    </div>
+                  </div>
+                  <div layout="column" layout-align="center center" flex="20">
+                    <div class="node-wrap">
+                      <div class="node"></div>
+                      <div class="highlight stage-2" ng-class="{ 'active': lead.properties.stage  >= 2 }"></div>
+                    </div>
+                  </div>
+                  <div layout="column" layout-align="center center" flex="20">
+                    <div class="node-wrap">
+                      <div class="node"></div>
+                      <div class="highlight stage-3" ng-class="{ 'active': lead.properties.stage  >= 3 }"></div>
+                    </div>
+                  </div>
+                  <div layout="column" layout-align="center center" flex="20">
+                    <div class="node-wrap">
+                      <div class="node"></div>
+                      <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
+                    </div>
+                  </div>
                 </div>
+                <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
               </div>
-              <div layout="column" layout-align="center center" flex="20">
-                <div class="node-wrap">
-                  <div class="node"></div>
-                  <div class="highlight stage-1" ng-class="{ 'active': lead.properties.stage  >= 1 }"></div>
-                </div>
-              </div>
-              <div layout="column" layout-align="center center" flex="20">
-                <div class="node-wrap">
-                  <div class="node"></div>
-                  <div class="highlight stage-2" ng-class="{ 'active': lead.properties.stage  >= 2 }"></div>
-                </div>
-              </div>
-              <div layout="column" layout-align="center center" flex="20">
-                <div class="node-wrap">
-                  <div class="node"></div>
-                  <div class="highlight stage-3" ng-class="{ 'active': lead.properties.stage  >= 3 }"></div>
-                </div>
-              </div>
-              <div layout="column" layout-align="center center" flex="20">
-                <div class="node-wrap">
-                  <div class="node"></div>
-                  <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
-                </div>
-              </div>
-            </div>
-            <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
           <div class="left tile"
