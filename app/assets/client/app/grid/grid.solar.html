@@ -38,12 +38,15 @@
           <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_views_count || 0 }}</span>
         </div>
       </div>
-      <div layout="column" layout-align="space-around" flex="20">
-        <div class="label"><a ng-click="grid.marketingLeadsFilter()">LEADS</a></div>
+      <div ng-mouseenter="getSolarLeadsHovering=true" 
+         ng-mouseleave="getSolarLeadsHovering=false" 
+         ng-click="grid.marketingLeadsFilter()"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+        <div class="label" ng-class="{'hovered':getSolarLeadsHovering}">LEADS</div>
         <div class="count" layout="row" layout-align="center center">
-          <i class="material-icons">assignment</i>
-          <span ng-hide="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_leads_count || 0 }}</span>
-          <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_leads_count || 0 }}</span>
+         <i class="material-icons">assignment</i>
+           <span ng-hide="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_leads_count || 0 }}</span>
+           <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_leads_count || 0 }}</span>
         </div>
       </div>
     </div>
@@ -113,36 +116,51 @@
   </div>
 
   <div class="insight" layout="row" layout-align="center center" ng-hide="hideInsight">
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label"><a ng-click="grid.summaryLeadsFilter('submitted_status', 'submitted')">LEADS</a></div>
+    <div ng-mouseenter="leadsHovering=true" 
+         ng-mouseleave="leadsHovering=false" 
+         ng-click="grid.summaryLeadsFilter('submitted_status', 'submitted')" 
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':leadsHovering}" >LEADS</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">assignment</i>
         {{ grid.insight.leads }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label"><a ng-click="grid.summaryLeadsFilter('sales_status', 'proposal')">QUALIFIED</a></div>
+    <div ng-mouseenter="qualHovering=true" 
+         ng-mouseleave="qualHovering=false" 
+         ng-click="grid.summaryLeadsFilter('sales_status', 'proposal')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':qualHovering}" >QUALIFIED</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">assignment_turned_in</i>
         {{ grid.insight.proposals }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label"><a ng-click="grid.summaryLeadsFilter('sales_status', 'closed_won')">CLOSED WON</a></div>
+    <div ng-mouseenter="wonHovering=true" 
+         ng-mouseleave="wonHovering=false" 
+         ng-click="grid.summaryLeadsFilter('sales_status', 'closed_won')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':wonHovering}">CLOSED WON</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">thumb_up</i>
         {{ grid.insight.closed }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label"><a ng-click="grid.summaryLeadsFilter('sales_status', 'contract')">CONTRACTS</a></div>
+    <div ng-mouseenter="contractHovering=true" 
+         ng-mouseleave="contractHovering=false" 
+         ng-click="grid.summaryLeadsFilter('sales_status', 'contract')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':contractHovering}"><a >CONTRACTS</a></div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">import_contacts</i>
         {{ grid.insight.contracts }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label"><a ng-click="grid.summaryLeadsFilter('sales_status', 'installed')">INSTALLS</a></div>
+    <div ng-mouseenter="installedHovering=true" 
+         ng-mouseleave="installedHovering=false" 
+         ng-click="grid.summaryLeadsFilter('sales_status', 'installed')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label"ng-class="{'hovered':installedHovering}" >INSTALLS</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">home</i>
         {{ grid.insight.installs }}

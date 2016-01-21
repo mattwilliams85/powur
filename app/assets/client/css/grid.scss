@@ -324,6 +324,13 @@
         font-size: 26pt;
       }
     }
+    .clickable-metric{
+      cursor: pointer;
+      
+      .hovered{    
+        font-weight: bold;
+      }
+    }
   }
 
   .grid {
