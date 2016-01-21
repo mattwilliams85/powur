@@ -405,36 +405,86 @@
 
   <div class="grid" ng-hide="hideGrid" layout="column" layout-align="center center">
     <div class="summary" layout="column">
-      <div class="grid-row new" layout="row">
-        <div flex="50" flex-gt-md="25"
-             layout="row"
-             layout-align="start center"
-             ng-click="grid.addLead($event)">
-          <md-button class="md-fab md-primary" layout-align="center center" layout="row">
-            <i class="material-icons">add</i>
-          </md-button>
-          <div class="detail">
-            <div class="uppercase text-xl">CREATE A <b>LEAD</b></div>
-          </div>
+
+      <div class="grid-row upper" layout="row">
+         <div class="create" ng-click="grid.addLead($event)" flex-gt-xs="25">
+           <md-button class="md-fab md-primary">
+             <i class="material-icons">add</i>
+           </md-button>
+           <div class="detail">
+             <div class="uppercase text-xl">CREATE A <b>LEAD</b></div>
+           </div>
+         </div>
+
+          <ul class="pagination" ng-hide="grid.pageCount < 2">
+            <li
+              class="jump left"
+              ng-class="{ 'disabled': grid.currentPage === 1 }"
+              ng-click="grid.changePage(1)"
+              ng-disabled="grid.reloading">
+              <i class="material-icons">chevron_left</i>
+              <i class="material-icons">chevron_left</i>
+            </li>
+            <li
+              class="chevron"
+              ng-class="{ 'disabled': grid.currentPage === 1 }"
+              ng-click="grid.changePage(grid.currentPage - 1)"
+              ng-disabled="grid.reloading">
+              <i class="material-icons">chevron_left</i>
+            </li>
+            <li
+              ng-repeat="i in grid.pageList track by $index"
+              md-ink-ripple="#20c2f1"
+              ng-class="{ 'active': i === grid.currentPage }"
+              ng-click="grid.changePage(i)"
+              ng-hide="!i"
+              ng-disabled="grid.reloading">
+              {{ i }}
+            </li>
+            <li
+              class="chevron"
+              ng-class="{ 'disabled': grid.currentPage === grid.pageCount }"
+              ng-click="grid.changePage(grid.currentPage + 1)">
+              <i class="material-icons"
+              ng-disabled="grid.reloading">chevron_right</i>
+            </li>
+            <li
+              class="jump right"
+              ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
+                                      grid.pageCount < 10 }"
+              ng-click="grid.changePage(grid.pageCount)"
+              ng-disabled="grid.reloading">
+              <i class="material-icons">chevron_right</i>
+              <i class="material-icons">chevron_right</i>
+            </li>
+          </ul>
+
+      </div>
+
+
+
+
+      <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
+        <div class="headers" class="header-row" layout="row" layout-align="center center">
+          <span class="label left" flex="50" flex-gt-sm="25" layout="row">
+            <span>CONTACT INFO</span>
+          </span>
+          <span class="label left" flex="50" flex-gt-sm="25" layout="row">
+            <span>STATUS</span>
+          </span>
+          <span class="label left" hide show-gt-sm flex="25" layout="row">
+            <span>LEAD OWNER</span>
+          </span>
+          <span class="label left" hide show-gt-sm flex="25">
+            <span>POWUR MOVE</span>
+          </span>
         </div>
       </div>
 
-      <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
-        <span class="label left" flex="50" flex-gt-sm="25" layout="row">
-          CONTACT INFO
-        </span>
-        <span class="label left" flex="50" flex-gt-sm="25" layout="row">
-          STATUS
-        </span>
-        <span class="label left" hide show-gt-sm flex="25" layout="row">
-          LEAD OWNER
-        </span>
-        <span class="label left" hide show-gt-sm flex="25">POWUR MOVE</span>
-      </div>
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
-          <div class="left" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
+          <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
             <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
                <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             </div>
@@ -449,7 +499,7 @@
           </div>
           <!-- COLUMN #status -->
           <div ng-if="!lead.properties.submitted_at"
-               class="uppercase right"
+               class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
                layout-align="start center">
@@ -458,7 +508,7 @@
             </div>
           </div>
           <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at"
-               class="uppercase right"
+               class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
                layout-align="start center">
@@ -467,7 +517,7 @@
             </div>
           </div>
           <div ng-if="lead.properties.data_status === 'submitted' && lead.properties.stage < 5"
-               class="uppercase right"
+               class="uppercase right tile"
                flex="50"
                flex-gt-md="25"
                layout="column"
@@ -511,7 +561,7 @@
             <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
-          <div class="left"
+          <div class="left tile"
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
@@ -526,7 +576,7 @@
             </div>
           </div>
           <!-- COLUMN #move -->
-          <div class="left"
+          <div class="left tile four"
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
@@ -534,51 +584,56 @@
             <span class="text-sm move">{{ lead.properties.action_copy }}</span>
           </div>
         </div>
-        <md-divider hide show-gt-sm></md-divider>
+        <!-- <md-divider hide show-gt-sm></md-divider> -->
       </div>
     </div>
     <div ng-show="!grid.leads.entities.length && !grid.reloading" layout-padding><i>No Results Found</i></div>
 
-    <ul class="pagination" ng-hide="grid.pageCount < 2">
-      <li
-        class="jump"
-        ng-class="{ 'disabled': grid.currentPage === 1 }"
-        ng-click="grid.changePage(1)"
-        ng-disabled="grid.reloading">
-        FIRST
-      </li>
-      <li
-        class="chevron"
-        ng-class="{ 'disabled': grid.currentPage === 1 }"
-        ng-click="grid.changePage(grid.currentPage - 1)"
-        ng-disabled="grid.reloading">
-        <i class="material-icons">chevron_left</i>
-      </li>
-      <li
-        ng-repeat="i in grid.pageList track by $index"
-        md-ink-ripple="#20c2f1"
-        ng-class="{ 'active': i === grid.currentPage }"
-        ng-click="grid.changePage(i)"
-        ng-hide="!i"
-        ng-disabled="grid.reloading">
-        {{ i }}
-      </li>
-      <li
-        class="chevron"
-        ng-class="{ 'disabled': grid.currentPage === grid.pageCount }"
-        ng-click="grid.changePage(grid.currentPage + 1)">
-        <i class="material-icons"
-        ng-disabled="grid.reloading">chevron_right</i>
-      </li>
-      <li
-        class="jump"
-        ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
-                                grid.pageCount < 10 }"
-        ng-click="grid.changePage(grid.pageCount)"
-        ng-disabled="grid.reloading">
-        LAST
-      </li>
-    </ul>
+    <div class="grid-row page-controls" layout="row" layout-align='center center'>
+      <ul class="pagination" ng-hide="grid.pageCount < 2">
+        <li
+          class="jump left"
+          ng-class="{ 'disabled': grid.currentPage === 1 }"
+          ng-click="grid.changePage(1)"
+          ng-disabled="grid.reloading">
+          <i class="material-icons">chevron_left</i>
+          <i class="material-icons">chevron_left</i>
+        </li>
+        <li
+          class="chevron"
+          ng-class="{ 'disabled': grid.currentPage === 1 }"
+          ng-click="grid.changePage(grid.currentPage - 1)"
+          ng-disabled="grid.reloading">
+          <i class="material-icons">chevron_left</i>
+        </li>
+        <li
+          ng-repeat="i in grid.pageList track by $index"
+          md-ink-ripple="#20c2f1"
+          ng-class="{ 'active': i === grid.currentPage }"
+          ng-click="grid.changePage(i)"
+          ng-hide="!i"
+          ng-disabled="grid.reloading">
+          {{ i }}
+        </li>
+        <li
+          class="chevron"
+          ng-class="{ 'disabled': grid.currentPage === grid.pageCount }"
+          ng-click="grid.changePage(grid.currentPage + 1)">
+          <i class="material-icons"
+          ng-disabled="grid.reloading">chevron_right</i>
+        </li>
+        <li
+          class="jump right"
+          ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
+                                  grid.pageCount < 10 }"
+          ng-click="grid.changePage(grid.pageCount)"
+          ng-disabled="grid.reloading">
+          <i class="material-icons">chevron_right</i>
+          <i class="material-icons">chevron_right</i>
+        </li>
+      </ul>
+    </div>
+
 
   </div>
 </div>
