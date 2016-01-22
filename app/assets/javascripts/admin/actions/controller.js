@@ -26,17 +26,25 @@
       $location.path('/admin/powur-move');
     };
 
-    $scope.update = function() {
+    $scope.save = function() {
       if ($scope.updateAction) {
         $scope.isSubmitDisabled = true;
+        if ($scope.updateAction.stage === 'pre') {
+          $scope.updateAction.sales_status = '';
+          $scope.updateAction.opportunity_stage = '';
+          $scope.updateAction.lead_status = ''
+        } else {
+          $scope.updateAction.data_status = '';
+        }
+
         CommonService.execute($scope.formAction, $scope.updateAction).then(function success(data) {
           $scope.isSubmitDisabled = false;
           if (data.error) {
-            $scope.showModal('There was an error while updating this Powur Move.' + '<br>' + data.error.message);
+            $scope.showModal('There was an error while saving this Powur Move.' + '<br>' + data.error.message);
             return;
           }
           $location.path('/admin/powur-move');
-          $scope.showModal('You\'ve successfully updated this Powur Move.');
+          $scope.showModal('You\'ve successfully saved this Powur Move.');
         });
       }
     };
@@ -49,21 +57,6 @@
           $location.path('/admin/powur-move');
         }, function() {
           $scope.showModal('There was an error deleting this Powur Move.');
-        });
-      }
-    };
-
-    $scope.create = function() {
-      if ($scope.updateAction) {
-        $scope.isSubmitDisabled = true;
-        CommonService.execute($scope.formAction, $scope.updateAction).then(function success(data) {
-          if (data.error) {
-            $scope.isSubmitDisabled = false;
-            $scope.showModal('There was an error while saving this Powur Move:' + '<br>' + data.error.message);
-            return;
-          }
-          $location.path('admin/powur-move')
-          $scope.showModal('You\'ve successfully added a Powur Move.');
         });
       }
     };
@@ -94,19 +87,19 @@
   AdminActionsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
       $rootScope.breadcrumbs.push({title: 'Powur-Move Actions'});
+
       CommonService.execute({
         href: '/a/lead_actions.json'
       }).then(function(data) {
         $scope.leadActions = data;
         $scope.formAction = getAction(data.actions, 'update');
       });
-
     } else if ($scope.mode === 'new') {
       $rootScope.breadcrumbs.push({title: 'Powur-Move Actions', href: '/admin/powur-move'});
       $rootScope.breadcrumbs.push({title: 'New Powur-Move Action'});
 
       CommonService.execute({
-        href: '/a/lead_actions.json'
+        href: '/a/lead_actions'
       }).then(function(data) {
         $scope.formAction = getAction(data.actions, 'create');
         $scope.updateAction = { stage: 'pre' };
@@ -114,6 +107,7 @@
     } else if ($scope.mode === 'edit') {
       $rootScope.breadcrumbs.push({title: 'Powur-Move Actions', href: '/admin/powur-move'});
       $rootScope.breadcrumbs.push({title: 'Edit Actions'});
+
       CommonService.execute({
         href: '/a/lead_actions/'  + $routeParams.actionId + '.json'
       }).then(function(data) {
@@ -121,7 +115,6 @@
         $scope.leadActions = data;
         $scope.updateAction = data.properties;
       });
-
     }
   };
 

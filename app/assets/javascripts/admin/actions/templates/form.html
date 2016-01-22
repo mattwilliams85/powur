@@ -13,14 +13,10 @@
         </label>
 
         <!-- Radio Input -->
-        <label ng-if="field.type === 'radio'" for="{{field.name}}" class="capitalize" ng-repeat="option in field.options track by $index"> 
-          <input ng-model="updateAction[field.name]" 
-                 ng-if="field.type === 'radio'" 
-                 value="{{option}}" type="radio" 
-                 ng-click="updateAction.data_status = ''; 
-                           updateAction.sales_status = '';
-                           updateAction.opportunity_stage = '';
-                           updateAction.lead_status = '' "> {{option}}-submitted
+        <label ng-if="field.type === 'radio'" for="{{field.name}}_{{option}}" class="capitalize" ng-repeat="option in field.options track by $index">
+          <input ng-model="updateAction[field.name]"
+                 ng-if="field.type === 'radio'"
+                 value="{{option}}" type="radio" id="{{field.name}}_{{option}}"> {{option}}-submitted
         </label>
         <!-- Character Counter -->
         <p ng-if="field.type === 'text'" class="remaining-characters">{{226 - updateAction[field.name].length}} characters remaining</p>
@@ -32,7 +28,7 @@
             <option ng-repeat="option in field.options track by $index" value="{{option}}">{{option | cleanLabel}}</option>
           </select>
         </label>
-        <label ng-if="field.name === 'sales_status'" ng-show="updateAction.stage === 'post'"  for="{{field.name}}" class="capitalize">{{field.name | cleanLabel}} 
+        <label ng-if="field.name === 'sales_status'" ng-show="updateAction.stage === 'post'"  for="{{field.name}}" class="capitalize">{{field.name | cleanLabel}}
           <br>
           <select ng-model="updateAction[field.name]" ng-if="updateAction.stage === 'post'">
             <option ng-repeat="option in field.options" value="{{option}}">{{option | cleanLabel}}</option>
@@ -45,7 +41,7 @@
             <option ng-repeat="option in field.options track by $index" value="{{option}}" ng-if="option">{{option | cleanLabel}}</option>
           </select>
         </label>
-        <label ng-if="field.name === 'lead_status'" ng-show="updateAction.stage === 'post'"  for="{{field.name}}" class="capitalize">{{field.name | cleanLabel}} 
+        <label ng-if="field.name === 'lead_status'" ng-show="updateAction.stage === 'post'"  for="{{field.name}}" class="capitalize">{{field.name | cleanLabel}}
           <br>
           <select ng-model="updateAction[field.name]" ng-if="updateAction.stage === 'post'">
             <option value=""> </option>
@@ -60,10 +56,12 @@
     <div class="row">
       <div class="large-12 columns">
         <a ng-click="cancel()" class="button secondary">Cancel</a>
-        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Powur Move" />
-        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Action" />
+        <input class="button"
+               ng-disabled="isSubmitDisabled"
+               type="submit"
+               ng-click="save()"
+               ng-value="mode === 'new' ? 'Add Powur Move' : 'Update Action'" />
       </div>
     </div>
   </fieldset>
 </form>
-
