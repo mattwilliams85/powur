@@ -64,6 +64,9 @@
     &.small {
       padding: 10px 15px;
     }
+    &.items-3 {
+      min-height: 110px;
+    }
   }
 }
 
@@ -320,7 +323,7 @@
       letter-spacing: .05em;
     }
   }
-  
+
   .label {
     font-size: 6pt;
 

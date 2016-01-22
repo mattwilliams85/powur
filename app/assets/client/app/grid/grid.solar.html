@@ -38,8 +38,8 @@
           <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_views_count || 0 }}</span>
         </div>
       </div>
-      <div ng-mouseenter="getSolarLeadsHovering=true" 
-         ng-mouseleave="getSolarLeadsHovering=false" 
+      <div ng-mouseenter="getSolarLeadsHovering=true"
+         ng-mouseleave="getSolarLeadsHovering=false"
          ng-click="grid.marketingLeadsFilter()"
          class="clickable-metric" layout="column" layout-align="space-around" flex="20">
         <div class="label" ng-class="{'hovered':getSolarLeadsHovering}">LEADS</div>
@@ -116,9 +116,9 @@
   </div>
 
   <div class="insight" layout="row" layout-align="center center" ng-hide="hideInsight">
-    <div ng-mouseenter="leadsHovering=true" 
-         ng-mouseleave="leadsHovering=false" 
-         ng-click="grid.summaryLeadsFilter('submitted_status', 'submitted')" 
+    <div ng-mouseenter="leadsHovering=true"
+         ng-mouseleave="leadsHovering=false"
+         ng-click="grid.summaryLeadsFilter('submitted_status', 'submitted')"
          class="clickable-metric" layout="column" layout-align="space-around" flex="20">
       <div class="label" ng-class="{'hovered':leadsHovering}" >LEADS</div>
       <div class="count" layout="row" layout-align="center center">
@@ -126,8 +126,8 @@
         {{ grid.insight.leads }}
       </div>
     </div>
-    <div ng-mouseenter="qualHovering=true" 
-         ng-mouseleave="qualHovering=false" 
+    <div ng-mouseenter="qualHovering=true"
+         ng-mouseleave="qualHovering=false"
          ng-click="grid.summaryLeadsFilter('sales_status', 'proposal')"
          class="clickable-metric" layout="column" layout-align="space-around" flex="20">
       <div class="label" ng-class="{'hovered':qualHovering}" >QUALIFIED</div>
@@ -136,8 +136,8 @@
         {{ grid.insight.proposals }}
       </div>
     </div>
-    <div ng-mouseenter="wonHovering=true" 
-         ng-mouseleave="wonHovering=false" 
+    <div ng-mouseenter="wonHovering=true"
+         ng-mouseleave="wonHovering=false"
          ng-click="grid.summaryLeadsFilter('sales_status', 'closed_won')"
          class="clickable-metric" layout="column" layout-align="space-around" flex="20">
       <div class="label" ng-class="{'hovered':wonHovering}">CLOSED WON</div>
@@ -146,8 +146,8 @@
         {{ grid.insight.closed }}
       </div>
     </div>
-    <div ng-mouseenter="contractHovering=true" 
-         ng-mouseleave="contractHovering=false" 
+    <div ng-mouseenter="contractHovering=true"
+         ng-mouseleave="contractHovering=false"
          ng-click="grid.summaryLeadsFilter('sales_status', 'contract')"
          class="clickable-metric" layout="column" layout-align="space-around" flex="20">
       <div class="label" ng-class="{'hovered':contractHovering}"><a >CONTRACTS</a></div>
@@ -156,8 +156,8 @@
         {{ grid.insight.contracts }}
       </div>
     </div>
-    <div ng-mouseenter="installedHovering=true" 
-         ng-mouseleave="installedHovering=false" 
+    <div ng-mouseenter="installedHovering=true"
+         ng-mouseleave="installedHovering=false"
          ng-click="grid.summaryLeadsFilter('sales_status', 'installed')"
          class="clickable-metric" layout="column" layout-align="space-around" flex="20">
       <div class="label"ng-class="{'hovered':installedHovering}" >INSTALLS</div>
@@ -217,7 +217,7 @@
         </div>
         <md-menu-content class="filter-menu" width="4">
           <md-menu-item class="header"><span>SELECT <b>SOURCE</b></span></md-menu-item>
-          <div class="filter-box small">
+          <div class="filter-box small items-3">
             <md-radio-group ng-model="grid.leads.properties.filters.call_consented">
               <md-radio-button ng-click="grid.removeFilter('call_consented')"
                                aria-label="All"
