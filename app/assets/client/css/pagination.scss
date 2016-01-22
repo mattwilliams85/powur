@@ -40,6 +40,12 @@
       border-radius: 2px !important;
     }
 
+    &:hover {
+      background-color: $pow-color-blue;
+      color: #fff;
+      opacity: .5;
+    }
+
     &.active {
       background-color: $pow-color-blue;
       color: #fff;
