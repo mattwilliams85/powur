@@ -97,7 +97,6 @@
 }
 
 .pw-grid {
-  // padding: 20px 0 50px 0;
   text-align: center;
   color: #666;
 
@@ -107,23 +106,23 @@
 
   .grid-row {
     .tile {
-      // padding: 0 1rem;
-
       &:nth-child(1) {
         border-right: 2px solid #fff;
       }
     }
 
-
-
+    .detail {
+      white-space: nowrap;
+    }
   }
-  .progress-bar-container {
-          width: 75%;
-    }
 
-    .progress-detail{
-      margin: 0 0 0 6%;
-    }
+  .progress-bar-container {
+    width: 75%;
+  }
+
+  .progress-detail{
+    margin: 0 0 0 6%;
+  }
 
   .progress-bar {
     position: relative;
@@ -161,21 +160,21 @@
       z-index: 3;
       &.active {
         display: block;
-        
+
         //https://connect.microsoft.com/IE/feedback/details/1052487
         //http://blog.karenmenezes.com/2014/dec/26/ie-bug-keyframe-animations/
         //because of the above bug, the 600px media query was breaking the ie animation
         //this is a fallback so the highlighed nodes still show.
         @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-          width:  14px; 
+          width:  14px;
           height: 14px;
-          
+
           &.dialog{
-            width:  16px; 
+            width:  16px;
             height: 16px;
           }
         }
-    
+
       }
 
       &.stage-0 { animation: pop-in .3s  0s forwards; }
@@ -183,10 +182,10 @@
       &.stage-2 { animation: pop-in .3s .2s forwards; }
       &.stage-3 { animation: pop-in .3s .3s forwards; }
       &.stage-4 { animation: pop-in .3s .4s forwards; }
-      
+
     }
-    
-    
+
+
 
     .bar {
       width: 80%;
@@ -243,6 +242,7 @@
 
     .toggle-wrapper {
       cursor: pointer;
+      white-space: nowrap;
 
       .toggle {
         font-size: 16pt;
@@ -747,20 +747,23 @@
         }
       }
       .grid-row {
-        // height: 75px;
         max-width: 700px;
         padding: 0 5vw;
         margin: 0 auto;
+        height: 90px;
+
         &.upper {
           flex-direction: row;
           align-items: flex-end;
           margin-bottom: 1rem;
+
           .md-fab {
             width: 56px;
             height: 56px;
             margin-right: 5px;
           }
         }
+
         .create {
           flex-direction: row;
           display: flex;
@@ -811,7 +814,7 @@
 
       }
     }
-    
+
     .progress-bar-container {
           width: 95%;
     }
@@ -943,8 +946,7 @@
       }
       .grid-row {
         border: 0;
-        height: 100px;
-        // padding: 0 15px;
+        height: 90px;
         max-width: 1200px;
         margin: 0 auto;
 

@@ -40,12 +40,6 @@
       border-radius: 2px !important;
     }
 
-    &:hover {
-      background-color: $pow-color-blue;
-      color: #fff;
-      opacity: .5;
-    }
-
     &.active {
       background-color: $pow-color-blue;
       color: #fff;
@@ -54,6 +48,14 @@
     &.disabled {
       color: #ccc;
       pointer-events: none;
+    }
+
+    &.num {
+      &:hover {
+        background-color: $pow-color-blue;
+        color: #fff;
+        opacity: .5;
+      }
     }
 
     &.chevron, &.jump {
