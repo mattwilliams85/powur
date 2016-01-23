@@ -4,6 +4,27 @@
   max-width: inherit;
   max-height: inherit;
 
+  .circle {
+    height: 110px;
+    width: 110px;
+    float: left;
+    background-color: #01B598;
+    border-radius: 50%;
+    color: #fff;
+    margin-right: 10px;
+    text-transform: uppercase;
+    overflow: hidden;
+    &.ineligible {
+      background: #E73E40;
+    }
+    &.lost, &.not_sent, &.incomplete {
+      background: #aaa;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
   md-dialog-content {
     padding: 20px 20px 20px 40px;
     text-align: left;
@@ -136,6 +157,81 @@
     }
 
   }
+
+  .show {
+    .sub {
+      padding: 0rem 0.5rem;
+      .overview {
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 1rem;
+      }
+    }
+    .modal-row {
+      padding: 0.5rem 0rem;
+    }
+    .circle {
+
+    }
+    .text-sm { font-size: 8pt; }
+
+    .advancement {
+      margin-bottom: 1rem;
+    }
+
+    .heading { padding: 0.5rem 0rem; }
+
+    .outer {
+      margin: 0.3rem 0rem;
+      height: 0.4rem;
+      border-radius: 0.2rem;
+      width: 100%;
+      background-color: #dddddd;
+      .inner {
+        height: 0.4rem;
+        border-radius: 0.2rem;
+        width: 80%;
+        @include linearGradient(#F5E23D , #f6b537);
+      }
+    }
+    .ratio {
+      height: 1rem;
+      line-height: 1rem;
+      text-align: center;
+    }
+
+    .personal {
+      .inner {
+        @include linearGradient(#75CEBA , #6ecee4);
+      }
+    }
+    .team, .personal {
+      height: 1.5rem;
+    }
+
+    .filters {
+      color: #42bff5;
+    }
+
+    .metrics {
+      min-height: 8rem;
+      text-align: center;
+    }
+
+    .leadership {
+      justify-content: space-around;
+      align-items: center;
+      .circle {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .below {
+      display: none;
+    }
+
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -146,6 +242,11 @@
     md-dialog-content {
       padding: 30px 30px 20px 50px;
       min-height: 225px;
+    }
+    .show {
+      .below {
+        display: block;
+      }
     }
 
     .fixed-lg {

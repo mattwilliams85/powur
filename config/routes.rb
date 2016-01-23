@@ -69,9 +69,12 @@ Rails.application.routes.draw do
       get '/:id/proposals_index', to: 'kpi_metrics#proposals_index'
       get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
       get '/:id/proposals_show_team', to: 'kpi_metrics#proposals_show_team'
-
       get '/:id/genealogy_index', to: 'kpi_metrics#genealogy_index'
       get '/:id/genealogy_show_team', to: 'kpi_metrics#genealogy_show_team'
+
+      member do
+        get :show_lead_owner
+      end
     end
 
     resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
@@ -128,7 +131,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: [ :index, :show ] do
+    resources :users, only: [ :index, :show, :user_team_counts ] do
       collection do
         get '' => 'users#search', constraints: params?(:search)
         get :leaderboard

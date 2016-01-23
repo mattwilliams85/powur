@@ -50,6 +50,7 @@
 //= require grid/show-invite-popup.solar
 //= require grid/show-lead-popup.solar
 //= require grid/update-invite-popup.solar
+//= require grid/show-lead-owner.solar
 
 //= require landing/step1
 //= require landing/step2

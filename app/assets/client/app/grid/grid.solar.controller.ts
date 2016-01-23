@@ -166,6 +166,81 @@ module powur {
     get customer(): any { return this.lead.properties.customer }
   }
 
+
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+  class ShowUserController extends AuthController {
+    static ControllerId = 'ShowUserController';
+    static $inject = ['lead', 'parentCtrl', '$scope', '$mdDialog', '$timeout'];
+
+    parentCtrl: any;
+    lead: any;
+    metrics: any;
+    user: any;
+    status: any;
+    ownerData: any;
+    kpi: any;
+    sponsor: any;
+    team_leader: any;
+
+    constructor(
+      lead: any,
+      parentCtrl: any,
+      public $scope: any,
+      public $mdDialog: ng.material.IDialogService,
+      public $timeout: ng.ITimeoutService) {
+      super();
+      this.parentCtrl = parentCtrl;
+      this.lead = lead;
+      this.session.getEntity(SirenModel, 'user', {id: lead.properties.owner.id}, true).then((data: any) => {
+        if (data) {
+          this.user = data;
+
+          this.session.getEntity(SirenModel, 'user', {id: this.user.properties.upline[0]}, true).then((data: any) => { // GET FUCKING SPONSOR
+            if (data) {
+              this.team_leader = data;
+            }
+          });
+
+          if (this.user.properties.sponsor_id) {
+            this.session.getEntity(SirenModel, 'user', {id: this.user.properties.sponsor_id}, true).then((data: any) => { // GET FUCKING LEADER
+              if (data) {
+                this.sponsor = data;
+              }
+            });
+          }
+        }
+      });
+      this.session.getEntity(SirenModel, 'show-user-leads_summary', {id: lead.properties.owner.id}, true).then((data: any) => { // send personal, time period,
+        if (data) {
+          this.metrics = data;
+        }
+      });
+      this.session.getEntity(SirenModel, 'show_lead_owner', {id: lead.properties.owner.id}, true).then((data: any) => { // send personal, time period,
+        if (data) {
+          this.kpi = data;
+        }
+      });
+
+    }
+
+
+    get defaultAvatar(): string {
+      return this.parentCtrl.home.assets.defaultProfileImg;
+    }
+    cancel() {
+      this.$mdDialog.cancel();
+    }
+
+  }
+
   class GridSolarController extends AuthController {
     static ControllerId = 'GridSolarController';
     static $inject = ['leadsMarketing', 'leadsSummary', 'leads', '$scope', '$mdDialog', '$timeout'];
@@ -284,6 +359,22 @@ module powur {
           if (data) this.leads.entities = new SirenModel(data).entities;
         });
       }
+    }
+
+    showOwner(e: MouseEvent, lead) {
+      //
+          this.$mdDialog.show({
+            controller: 'ShowUserController as dialog',
+            templateUrl: 'app/grid/show-lead-owner.solar.html',
+            parent: angular.element('body'),
+            targetEvent: e,
+            fullscreen: true,
+            clickOutsideToClose: true,
+            locals: {
+              parentCtrl: this,
+              lead: lead
+            }
+          });
     }
 
     inviteUpdate(e: MouseEvent, lead) {
@@ -467,6 +558,7 @@ module powur {
   angular
     .module('powur.grid')
     .controller(NewLeadDialogController.ControllerId, NewLeadDialogController)
+    .controller(ShowUserController.ControllerId, ShowUserController)
     .controller(GridSolarController.ControllerId, GridSolarController)
     .controller(UpdateLeadDialogController.ControllerId, UpdateLeadDialogController);
 }

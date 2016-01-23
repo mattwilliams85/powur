@@ -42,6 +42,7 @@ link_list = [
 ]
 
 entity_list << entity(%w(goals), 'user-goals', user_goals_path(current_user))
+entity_list << entity(%w(user), 'show_lead_owner', show_lead_owner_kpi_metrics_path(user_id: '{id}'))
 entity_list << entity(%w(goals), 'user-kpis', kpi_metrics_path)
 entity_list << entity(%w(list invites),
                       'user-invites',
@@ -55,6 +56,8 @@ leads_routes_options = {
   submitted_status: '{submitted_status}',
   sales_status:     '{sales_status}',
   call_consented:   '{call_consented}' }
+
+entity_list << entity(%w(user), 'user', user_path(id: '{id}'))
 entity_list << entity(%w(list leads),
                       'user-leads',
                       user_leads_path(current_user, leads_routes_options))
@@ -71,6 +74,9 @@ entity_list << entity(%w(user), 'user-profile', profile_path)
 entity_list << entity(%w(summary leads),
                       'user-leads_summary',
                       summary_user_leads_path(current_user, days: '{days}', personal: '{personal}'))
+entity_list << entity(%w(summary show leads),
+                      'show-user-leads_summary',
+                      summary_user_leads_path(user_id: '{id}', days: '{days}', personal: '{personal}'))
 entity_list << entity(%w(marketing leads),
                       'user-leads_marketing',
                       marketing_user_leads_path(current_user))

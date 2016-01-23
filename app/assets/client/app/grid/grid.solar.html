@@ -480,13 +480,12 @@
       </div>
 
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
-        <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
+        <div class="grid-row" layout="row">
           <!-- COLUMN #contact -->
-          <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
-            <div>
-              <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
-                <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
-              </div>
+
+          <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.showLead($event, lead)">
+            <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
+               <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             </div>
             <div class="detail">
               <div class="uppercase text-lg">
@@ -502,7 +501,8 @@
                class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="center center">
+               layout-align="start center"
+               ng-click="grid.showLead($event, lead)">
             <div class="uppercase text-sm move">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
@@ -511,7 +511,8 @@
                class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="start center">
+               layout-align="start center"
+               ng-click="grid.showLead($event, lead)">
             <div class="uppercase text-sm move">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
@@ -521,43 +522,41 @@
                flex="50"
                flex-gt-md="25"
                layout="column"
-               layout-align="center center">
-               <div class= "progress-bar-container">
-                <div layout="row" layout-align="space-between" class="progress-bar">
-                  <div class="bar"></div>
-                  <div class="bar overlay" ng-style="{'width': lead.properties.stage * 20 +'%'}">
-                    <div class="animated stage-{{ lead.properties.stage }}"></div>
-                  </div>
-                  <div layout="column" layout-align="center center" flex="20">
-                    <div class="node-wrap">
-                      <div class="node"></div>
-                      <div class="highlight stage-0" ng-class="{ 'active': lead.properties.stage  >= 0 }"></div>
-                    </div>
-                  </div>
-                  <div layout="column" layout-align="center center" flex="20">
-                    <div class="node-wrap">
-                      <div class="node"></div>
-                      <div class="highlight stage-1" ng-class="{ 'active': lead.properties.stage  >= 1 }"></div>
-                    </div>
-                  </div>
-                  <div layout="column" layout-align="center center" flex="20">
-                    <div class="node-wrap">
-                      <div class="node"></div>
-                      <div class="highlight stage-2" ng-class="{ 'active': lead.properties.stage  >= 2 }"></div>
-                    </div>
-                  </div>
-                  <div layout="column" layout-align="center center" flex="20">
-                    <div class="node-wrap">
-                      <div class="node"></div>
-                      <div class="highlight stage-3" ng-class="{ 'active': lead.properties.stage  >= 3 }"></div>
-                    </div>
-                  </div>
-                  <div layout="column" layout-align="center center" flex="20">
-                    <div class="node-wrap">
-                      <div class="node"></div>
-                      <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
-                    </div>
-                  </div>
+               layout-align="center start"
+               ng-click="grid.showOwner($event, lead)">
+            <div layout="row" layout-align="space-between" class="progress-bar">
+              <div class="bar"></div>
+              <div class="bar overlay" style="width:{{ lead.properties.stage * 20 }}%">
+                <div class="animated stage-{{ lead.properties.stage }}"></div>
+              </div>
+              <div layout="column" layout-align="center center" flex="20">
+                <div class="node-wrap">
+                  <div class="node"></div>
+                  <div class="highlight stage-0" ng-class="{ 'active': lead.properties.stage  >= 0 }"></div>
+                </div>
+              </div>
+              <div layout="column" layout-align="center center" flex="20">
+                <div class="node-wrap">
+                  <div class="node"></div>
+                  <div class="highlight stage-1" ng-class="{ 'active': lead.properties.stage  >= 1 }"></div>
+                </div>
+              </div>
+              <div layout="column" layout-align="center center" flex="20">
+                <div class="node-wrap">
+                  <div class="node"></div>
+                  <div class="highlight stage-2" ng-class="{ 'active': lead.properties.stage  >= 2 }"></div>
+                </div>
+              </div>
+              <div layout="column" layout-align="center center" flex="20">
+                <div class="node-wrap">
+                  <div class="node"></div>
+                  <div class="highlight stage-3" ng-class="{ 'active': lead.properties.stage  >= 3 }"></div>
+                </div>
+              </div>
+              <div layout="column" layout-align="center center" flex="20">
+                <div class="node-wrap">
+                  <div class="node"></div>
+                  <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
                 </div>
                 <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
               </div>
@@ -567,7 +566,8 @@
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
-               layout-align="start center">
+               layout-align="start center"
+               ng-click="grid.showOwner($event, lead)">
             <div class="circle" layout-align="center center" layout="row">
               <img ng-src="{{ lead.properties.owner.avatar.thumb || grid.defaultAvatar }}">
             </div>
@@ -582,7 +582,8 @@
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
-               layout-align="start center">
+               layout-align="start center"
+               ng-click="grid.showLead($event, lead)">
             <span class="text-sm move">{{ lead.properties.action_copy }}</span>
           </div>
         </div>
