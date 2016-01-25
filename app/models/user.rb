@@ -104,6 +104,14 @@ class User < ActiveRecord::Base
     @parent ||= parent_id && User.find(parent_id)
   end
 
+  def team_leader?
+    id != upline.first
+  end
+
+  def team_leader
+    User.find(upline.first)
+  end
+
   def ancestor?(user_id)
     upline.include?(user_id)
   end

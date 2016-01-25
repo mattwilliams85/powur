@@ -4,9 +4,14 @@
   max-width: inherit;
   max-height: inherit;
 
+  .photo {
+    margin-right: 0.6rem;
+  }
+
   .circle {
-    height: 110px;
-    width: 110px;
+    margin: 0px !important;
+    height: 80px;
+    width: 80px;
     float: left;
     background-color: #01B598;
     border-radius: 50%;
@@ -159,16 +164,18 @@
   }
 
   .show {
+    .name {
+      text-align: center;
+    }
     .sub {
       padding: 0rem 0.5rem;
-      .overview {
+      .owner {
         justify-content: space-around;
         align-items: center;
-        padding-bottom: 1rem;
       }
     }
     .modal-row {
-      padding: 0.5rem 0rem;
+      padding: 0.4rem 0rem;
     }
     .circle {
 
@@ -247,6 +254,10 @@
       .below {
         display: block;
       }
+    }
+
+    .owner {
+      padding-bottom: 1rem;
     }
 
     .fixed-lg {

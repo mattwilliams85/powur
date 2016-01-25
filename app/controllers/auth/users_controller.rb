@@ -4,7 +4,7 @@ module Auth
     before_action :fetch_user,
                   only: [ :show, :downline, :upline,
                           :full_downline, :move, :eligible_parents,
-                          :sponsors, :grid_summary ]
+                          :sponsors, :grid_summary, :detail ]
 
     page max_limit: 500
     sort newest:       { created_at: :desc },

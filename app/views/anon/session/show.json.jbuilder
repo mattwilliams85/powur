@@ -58,6 +58,7 @@ leads_routes_options = {
   call_consented:   '{call_consented}' }
 
 entity_list << entity(%w(user), 'user', user_path(id: '{id}'))
+entity_list << entity(%w(user), 'user-detail', detail_user_path(id: '{id}'))
 entity_list << entity(%w(list leads),
                       'user-leads',
                       user_leads_path(current_user, leads_routes_options))

@@ -138,13 +138,8 @@ Rails.application.routes.draw do
       end
 
       member do
-        get :downline
-        get :full_downline
-        get :upline
+        get :downline, :full_downline, :upline, :eligible_parents, :sponsors, :grid_summary, :detail
         post :move
-        get :eligible_parents
-        get :sponsors
-        get :grid_summary
       end
 
       resources :leads, only: [ :index ] do

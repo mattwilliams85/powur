@@ -189,6 +189,7 @@ module powur {
     kpi: any;
     sponsor: any;
     team_leader: any;
+    below_content: boolean;
 
     constructor(
       lead: any,
@@ -199,23 +200,11 @@ module powur {
       super();
       this.parentCtrl = parentCtrl;
       this.lead = lead;
-      this.session.getEntity(SirenModel, 'user', {id: lead.properties.owner.id}, true).then((data: any) => {
+      this.below_content = false;
+      this.session.getEntity(SirenModel, 'user-detail', {id: lead.properties.owner.id}, true).then((data: any) => {
         if (data) {
           this.user = data;
-
-          this.session.getEntity(SirenModel, 'user', {id: this.user.properties.upline[0]}, true).then((data: any) => { // GET FUCKING SPONSOR
-            if (data) {
-              this.team_leader = data;
-            }
-          });
-
-          if (this.user.properties.sponsor_id) {
-            this.session.getEntity(SirenModel, 'user', {id: this.user.properties.sponsor_id}, true).then((data: any) => { // GET FUCKING LEADER
-              if (data) {
-                this.sponsor = data;
-              }
-            });
-          }
+          if (data.properties.sponsor !== undefined ) {this.below_content = true};
         }
       });
       this.session.getEntity(SirenModel, 'show-user-leads_summary', {id: lead.properties.owner.id}, true).then((data: any) => { // send personal, time period,
