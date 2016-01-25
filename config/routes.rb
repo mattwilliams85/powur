@@ -57,8 +57,6 @@ Rails.application.routes.draw do
       post :validate
     end
 
-    resources :customers, only: [ :show, :update ]
-
     resources :users, as: :anon_users, only: [ :show ]
     resources :leads, as: :anon_leads, only: [ :show, :create, :update ]
   end
