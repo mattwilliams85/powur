@@ -482,7 +482,6 @@
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row">
           <!-- COLUMN #contact -->
-
           <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.showLead($event, lead)">
             <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
                <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
@@ -558,8 +557,9 @@
                   <div class="node"></div>
                   <div class="highlight stage-4" ng-class="{ 'active': lead.properties.stage  >= 4 }"></div>
                 </div>
-                <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
               </div>
+            </div>
+            <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
           <div class="left tile"
@@ -586,7 +586,6 @@
                ng-click="grid.showLead($event, lead)">
             <span class="text-sm move">{{ lead.properties.action_copy }}</span>
           </div>
-        </div>
         <!-- <md-divider hide show-gt-sm></md-divider> -->
       </div>
     </div>
