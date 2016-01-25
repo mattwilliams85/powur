@@ -26,9 +26,6 @@ class LeadRequirement < RankRequirement
     query = query.exclude_users(exclude_users) if exclude_users
     query = query.include_users(include_users) if include_users
     query.pluck(:id)
-  rescue => e
-    binding.pry
-    fail e
   end
 
   def max_leg?
