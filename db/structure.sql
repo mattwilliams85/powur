@@ -448,43 +448,6 @@ ALTER SEQUENCE lead_actions_id_seq OWNED BY lead_actions.id;
 
 
 --
--- Name: lead_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE lead_totals (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    pay_period_id character varying NOT NULL,
-    status integer NOT NULL,
-    personal integer NOT NULL,
-    team integer NOT NULL,
-    personal_lifetime integer NOT NULL,
-    team_lifetime integer NOT NULL,
-    smaller_legs integer DEFAULT 0 NOT NULL,
-    team_counts integer[]
-);
-
-
---
--- Name: lead_totals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE lead_totals_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lead_totals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE lead_totals_id_seq OWNED BY lead_totals.id;
-
-
---
 -- Name: lead_updates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1485,6 +1448,19 @@ CREATE TABLE user_ranks (
 
 
 --
+-- Name: user_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_totals (
+    id integer NOT NULL,
+    lifetime_leads jsonb DEFAULT '{}'::jsonb,
+    monthly_leads jsonb DEFAULT '{}'::jsonb,
+    team_leads jsonb DEFAULT '{}'::jsonb,
+    monthly_team_leads jsonb DEFAULT '{}'::jsonb
+);
+
+
+--
 -- Name: user_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1613,13 +1589,6 @@ ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distribution
 --
 
 ALTER TABLE ONLY lead_actions ALTER COLUMN id SET DEFAULT nextval('lead_actions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY lead_totals ALTER COLUMN id SET DEFAULT nextval('lead_totals_id_seq'::regclass);
 
 
 --
@@ -1916,14 +1885,6 @@ ALTER TABLE ONLY lead_actions
 
 
 --
--- Name: lead_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY lead_totals
-    ADD CONSTRAINT lead_totals_pkey PRIMARY KEY (id);
-
-
---
 -- Name: lead_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2164,6 +2125,14 @@ ALTER TABLE ONLY user_ranks
 
 
 --
+-- Name: user_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_totals
+    ADD CONSTRAINT user_totals_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2225,13 +2194,6 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 --
 
 CREATE INDEX index_customers_on_code ON customers USING btree (code);
-
-
---
--- Name: index_lead_totals_on_user_id_and_pay_period_id_and_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_lead_totals_on_user_id_and_pay_period_id_and_status ON lead_totals USING btree (user_id, pay_period_id, status);
 
 
 --
@@ -2621,6 +2583,14 @@ ALTER TABLE ONLY user_user_groups
 
 ALTER TABLE ONLY user_user_groups
     ADD CONSTRAINT fk_rails_87318f7421 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: fk_rails_8b27a4f517; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_totals
+    ADD CONSTRAINT fk_rails_8b27a4f517 FOREIGN KEY (id) REFERENCES users(id);
 
 
 --

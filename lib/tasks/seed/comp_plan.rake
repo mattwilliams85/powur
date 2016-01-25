@@ -54,7 +54,7 @@ namespace :powur do
 
     task user_ranks: :environment do
       puts 'Calculating Lead Totals...'
-      LeadTotals.calculate_all!
+      UserTotals.calculate_all!
       puts 'Populating User Ranks...'
       Rank.rank_users
     end

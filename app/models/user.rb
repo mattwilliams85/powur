@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :user_activities, dependent: :destroy
   has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
-  has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
+  has_one :user_totals, class_name: 'UserTotals', foreign_key: :id
   has_many :user_ranks, dependent: :destroy
   has_many :ranks, through: :user_ranks, dependent: :destroy
   has_many :sent_invites, class_name:  'Invite',
@@ -118,6 +118,10 @@ class User < ActiveRecord::Base
 
   def parent_ids
     upline[0..-2]
+  end
+
+  def ancestor?(user_id)
+    parent_ids.include?(user_id)
   end
 
   def moveable_by?(user)

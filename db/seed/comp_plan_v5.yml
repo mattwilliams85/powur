@@ -49,7 +49,6 @@ ranks:
       - lead_status: :converted
         product_id: 1
         quantity: 15
-        leg_count: 3
         time_span: :lifetime
         type: LeadRequirement
       - lead_status: :converted

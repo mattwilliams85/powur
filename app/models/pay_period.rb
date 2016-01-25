@@ -1,5 +1,4 @@
 class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
-  has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
   belongs_to :distribution
 

@@ -14,46 +14,7 @@ class LeadTotals < ActiveRecord::Base
     joins("INNER JOIN (#{query.to_sql}) iu
           ON lead_totals.user_id = iu.user_id")
   }
-  scope :leg_counts, lambda { |pay_period_id:, status:|
-    select('user_id, unnest(team_counts) leg_count')
-      .send(status)
-      .where(pay_period: pay_period_id)
-  }
-  scope :having_leg_counts,
-        lambda { |pay_period_id:, status:, count:, quantity:|
-          query = leg_counts(pay_period_id: pay_period_id, status: status)
-          join_sql = "INNER JOIN (#{query.to_sql}) lc"
-          select('lead_totals.user_id')
-            .joins("#{join_sql} ON lc.user_id = lead_totals.user_id")
-            .send(status)
-            .where(pay_period_id: pay_period_id)
-            .where('lc.leg_count >= ?', count)
-            .group(:user_id)
-            .having('count(lc.leg_count) >= ?', quantity)
-        }
-  scope :with_having_leg_counts,
-        lambda { |pay_period_id:, status:, count:, quantity:|
-          query = having_leg_counts(pay_period_id: pay_period_id,
-                                    status:        status,
-                                    count:         count,
-                                    quantity:      quantity)
-          join_sql = "INNER JOIN (#{query.to_sql}) hlc"
-          joins("#{join_sql} ON hlc.user_id = lead_totals.user_id")
-
-        }
-
-  # scope :with_leg_counts, lambda {
-  #   join_sql = "INNER JOIN (#{leg_counts.to_sql}) lc"
-  #   joins("#{join_sql} ON lc.user_id = lead_totals.user_id")
-  # }
-  # scope :has_leg_counts, lambda { |quantity, count|
-  #   select()
-  #     .from('(select user_id, unnest(team_counts) leg_count from lead_totals) leg_counts')
-  #     .where('leg_count >= ?', quantity)
-  #     .group('user_id')
-  #     .having('count(leg_count) >= ?', count)
-
-  # }
+  scope :current, -> { where(pay_period_id: MonthlyPayPeriod.current_id) }
 
   def personal_count
     self.personal ||= lead_query.where(user_id: user_id).count
@@ -181,6 +142,19 @@ class LeadTotals < ActiveRecord::Base
     def run_csvs(pp_ids = nil)
       pp_ids ||= MonthlyPayPeriod.relevant_ids
       pp_ids.each { |pp_id| to_csv(pp_id) }
+    end
+
+    def user_latest(user_id, status)
+      current
+        .where(user_id: user_id)
+        .where(status: LeadTotals.statuses[status])
+        .first
+    end
+
+    def top_three_legs_for_user(user_id, status)
+      totals = user_latest(user_id, status)
+
+      totals ? [ 0, 0, 0 ] : totals.team_counts.sort.last(3)
     end
   end
 end

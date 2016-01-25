@@ -1,0 +1,16 @@
+june:
+  id: <%= ActiveRecord::FixtureSet.identify(:advocate) %>
+  lifetime_leads:
+    submitted: 15
+  monthly_leads: 
+    "2015-04":
+      submitted: 15
+  team_leads:
+    submitted:
+      - 10
+      - 0
+  monthly_team_leads:
+    "2015-04":
+      submitted:
+        - 5
+        - 0

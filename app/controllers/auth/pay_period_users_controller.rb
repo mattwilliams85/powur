@@ -13,9 +13,6 @@ module Auth
 
     def show
       @user = User.find(params[:id].to_i)
-      if @pay_period.monthly?
-        @lead_totals = @pay_period.lead_totals.where(user_id: @user.id)
-      end
       @bonus_total = payments.where(user_id: @user.id).sum(:amount)
       @bonus_payments = payments
         .where(user_id: @user.id)
