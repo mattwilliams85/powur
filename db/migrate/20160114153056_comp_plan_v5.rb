@@ -28,6 +28,6 @@ class CompPlanV5 < ActiveRecord::Migration
     puts 'Calculating user totals...'
     UserTotals.calculate_all
     puts 'Ranking users...'
-    # Rank.rank_users(MonthlyPayPeriod.current_id)
+    Rank.rank_users(MonthlyPayPeriod.current_id)
   end
 end
