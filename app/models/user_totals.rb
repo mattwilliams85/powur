@@ -15,7 +15,7 @@ class UserTotals < ActiveRecord::Base
   end
 
   def legs_lead_count(status, month = nil)
-    team_lead_counts(status, month).inject(:+)
+    team_lead_counts(status, month).inject(:+) || 0
   end
 
   def team_lead_count(status, month = nil)
