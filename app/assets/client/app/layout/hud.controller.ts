@@ -35,7 +35,8 @@ module powur {
     }
 
     get showLeggedView(): boolean {
-      return angular.isArray(this.goalTeamRequirement.properties.progress);
+      return this.goalTeamRequirement &&
+             angular.isArray(this.goalTeamRequirement.properties.progress);
     }
 
     get goalPersonalRequirement(): ISirenModel {
