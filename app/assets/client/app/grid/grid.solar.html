@@ -478,7 +478,6 @@
           </span>
         </div>
       </div>
-
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
@@ -509,7 +508,7 @@
                class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="start center">
+               layout-align="center center">
             <div class="uppercase text-sm move">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
