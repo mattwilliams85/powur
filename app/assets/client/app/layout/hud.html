@@ -16,7 +16,8 @@
     <div ng-repeat="req in hud.goalRequirements">
       <span ng-if="req.properties.team">Grid</span>
       <span ng-if="!req.properties.team">Personal</span>
-      <span class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
+      <span ng-show="hud.showLeggedView && req.properties.team" class="number">{{ req.properties.progress.join() }}<sup>/{{ req.properties.quantity }}</sup></span>
+      <span ng-hide="hud.showLeggedView && req.properties.team" class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
       <div class="icon"></div>
     </div>
   </div>
@@ -36,7 +37,7 @@
           <span class="label">Next Rank</span>
         </div>
 
-        <div ng-if="hud.rank < 5 && hud.rank != 1" ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center" class="text-center">
+        <div ng-if="!hud.showLeggedView && hud.rank != 1" ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center" class="text-center">
           <div layout="row" ng-if="hud.rank > 0" layout-align="center center" class="new-icon" ng-class="{'grid-lead': req.properties.team, 'personal-lead': !req.properties.team}">
             <span class="number">{{ req.properties.progress }}<span class="sub">/{{ req.properties.quantity }}</span></span>
           </div>
@@ -58,23 +59,23 @@
           <span class="label">{{ hud.goalRequirements[0].properties.title }}</span>
         </div>
 
-        <div ng-if="hud.rank >= 5" layout="column" layout-align="center center" class="text-center">
+        <div ng-if="hud.showLeggedView" layout="column" layout-align="center center" class="text-center">
           <div layout="row" layout-align="center center" class="new-icon personal-lead">
             <span class="number">{{ hud.goalPersonalRequirement.properties.progress }}<span class="sub">/{{ hud.goalPersonalRequirement.properties.quantity }}</span></span>
           </div>
           <span class="label">{{ hud.goalPersonalRequirement.properties.title }}</span>
         </div>
 
-        <div ng-if="hud.rank >= 5" ng-repeat="i in hud.nSizeArray(3) track by $index" layout="column" layout-align="center center" class="text-center">
+        <div ng-if="hud.showLeggedView" ng-repeat="i in hud.nSizeArray(3) track by $index" layout="column" layout-align="center center" class="text-center">
           <div layout="row" layout-align="center center" class="new-icon personal-lead">
-            <span class="number">{{ hud.goalTeamRequirement.properties.progress/3 | number : 0 }}<span class="sub">/{{ hud.goalTeamRequirement.properties.quantity/3 | number : 0 }}</span></span>
+            <span class="number">{{ hud.goalTeamRequirement.properties.progress[$index] || 0 }}<span class="sub">/{{ hud.goalTeamRequirement.properties.quantity }}</span></span>
           </div>
           <span class="label">Leg {{ $index + 1 }}</span>
         </div>
-
       </div>
     </div>
   </div>
+
   <div flex="50">
     <div class="triangle" layout="column" layout-align="end center">
       <span>KPI</span>

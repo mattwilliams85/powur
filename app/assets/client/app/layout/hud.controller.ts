@@ -34,6 +34,10 @@ module powur {
       return this.home.requirements.entities;
     }
 
+    get showLeggedView(): boolean {
+      return angular.isArray(this.goalTeamRequirement.properties.progress);
+    }
+
     get goalPersonalRequirement(): ISirenModel {
       return _.find(this.goalRequirements, function(i) {
         return i.properties.team == false;
