@@ -480,7 +480,7 @@
       </div>
 
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
-        <div class="grid-row" layout="row">
+        <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
           <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.showLead($event, lead)">
             <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
@@ -500,8 +500,7 @@
                class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="center center"
-               ng-click="grid.showLead($event, lead)">
+               layout-align="center center">
             <div class="uppercase text-sm move">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
@@ -510,8 +509,7 @@
                class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="start center"
-               ng-click="grid.showLead($event, lead)">
+               layout-align="start center">
             <div class="uppercase text-sm move">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
@@ -521,8 +519,7 @@
                flex="50"
                flex-gt-md="25"
                layout="column"
-               layout-align="center start"
-               ng-click="grid.showOwner($event, lead)">
+               layout-align="center start">
             <div layout="row" layout-align="space-between" class="progress-bar">
               <div class="bar"></div>
               <div class="bar overlay" ng-style="{'width': lead.properties.stage * 20 +'%'}">
@@ -566,8 +563,7 @@
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
-               layout-align="start center"
-               ng-click="grid.showOwner($event, lead)">
+               layout-align="start center">
             <div class="circle" layout-align="center center" layout="row">
               <img ng-src="{{ lead.properties.owner.avatar.thumb || grid.defaultAvatar }}">
             </div>
@@ -582,8 +578,7 @@
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
-               layout-align="start center"
-               ng-click="grid.showLead($event, lead)">
+               layout-align="start center">
             <span class="text-sm move">{{ lead.properties.action_copy }}</span>
           </div>
         <!-- <md-divider hide show-gt-sm></md-divider> -->
