@@ -1,5 +1,5 @@
 .nav {
-  z-index: 59;
+  z-index: 58;
 
   .bg {
     width: 70px;
@@ -59,98 +59,11 @@
     }
 
     li:hover, li.active {
+      
       -webkit-filter: brightness(0) invert(1);
       filter: brightness(0) invert(1);
       cursor: pointer;
     }
-  }
-
-  .sprite {
-    background-image: image-url("img/nav/icons/nav-sprite.png");
-    background-repeat: no-repeat;
-    display: inline-block;
-  }
-
-  .sprite-library {
-    width: 35px;
-    height: 43px;
-    background-image: image-url("img/nav/icons/library.png");
-  }
-
-  .sprite-upgrade {
-    background: image-url('img/nav/icons/upgrade.png');
-    background-size: contain;
-    width: 35px;
-    height: 35px;
-    margin-left: -3px;
-  }
-
-  .sprite-certs {
-    background: image-url('img/nav/icons/powur-u.png');
-    background-size: contain;
-    width: 35px;
-    height: 35px;
-    margin-left: 1px;
-  }
-
-  .sprite-earnings {
-    width: 42px;
-    height: 40px;
-    background-image: image-url("img/nav/icons/earnings.png");
-  }
-
-  .sprite-events {
-    width: 33px;
-    height: 33px;
-    background-position: -102px -5px;
-  }
-
-  .sprite-goal {
-    width: 42px;
-    height: 40px;
-    background-position: -145px -5px;
-  }
-
-  .sprite-grid {
-    width: 42px;
-    height: 40px;
-    background-position: -197px -5px;
-  }
-
-  .sprite-logout {
-    width: 33px;
-    height: 26px;
-    background-image: image-url("img/nav/icons/logout.png");
-  }
-
-  .sprite-social {
-    width: 33px;
-    height: 29px;
-    background-position: -292px -5px;
-  }
-
-  .sprite-stats {
-    width: 27px;
-    height: 31px;
-    background-image: image-url("img/nav/icons/profile.png");
-  }
-
-  .sprite-strategy {
-    width: 21px;
-    height: 37px;
-    background-position: -372px -5px;
-  }
-
-  .sprite-dashboard {
-    width: 35px;
-    height: 35px;
-    background-image: image-url("img/nav/icons/dashboard.png");
-  }
-
-  .sprite-invite {
-    width: 32px;
-    height: 38px;
-    background-image: image-url("img/nav/icons/invite.png");
   }
 }
 
@@ -177,7 +90,7 @@
 
   .menu {
     font-size: 26pt;
-    line-height: 16pt;
+    line-height: 15pt;
     float: left;
     cursor: pointer;
   }
@@ -185,8 +98,8 @@
   .title {
     float: left;
     text-transform: uppercase;
-    font-size: 16pt;
-    padding: 0 15px;
+    font-size: 15pt;
+    padding: 0 8px;
     line-height: 15pt;
   }
 
@@ -206,159 +119,128 @@
 }
 
 .mobile-side-nav {
+  -webkit-font-smoothing: subpixel-antialiased;
+  z-index: 98;
   display: block;
-  background: #2ba7d9; /* Old browsers */
-  max-width: 400px;
-  min-width: 400px;
+  background: #B1CFDC; /* Old browsers */
+  max-width: 250px !important;
+  min-width: 250px !important;
+  overflow: visible;
   height: 100vh !important;
   position: fixed;
-  background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #2ba7d9 0%,#509f9a 100%); /* W3C */
+  font-family: 'Roboto';
+  background: -moz-linear-gradient(top, #B1CFDC 30%, #ADD2CB 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#B1CFDC), color-stop(100%,#ADD2CB)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #B1CFDC 30%,#ADD2CB 100%); /* W3C */
   background-size: cover;
-
-  &.md-closed {
-    display: block !important;
-  }
 
   md-toolbar {
     padding-left: 15px;
   }
-
-  .sprite {
-    background-size: contain;
-
-    &.sprite-dashboard {
-      background: image-url('img/nav/icons/dashboard.png');
-      width: 39px;
-      height: 30px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-invite {
-      background: image-url('img/nav/icons/invite.png');
-      width: 40px;
-      height: 33px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-grid-solar {
-      background: image-url('img/nav/icons/grid-solar.png');
-      width: 41px;
-      height: 32px;
-      margin-left: -2px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-earnings {
-      background: image-url('img/nav/icons/earnings.png');
-      width: 40px;
-      height: 29px;
-      margin: 0 0px 0 -1px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-library {
-      background: image-url('img/nav/icons/library.png');
-      width: 39px;
-      height: 32px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-certs {
-      background: image-url('img/nav/icons/powur-u.png');
-      width: 29px;
-      height: 29px;
-      margin-right: 9px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-upgrade {
-      background: image-url('img/nav/icons/upgrade.png');
-      width: 40px;
-      height: 29px;
-      margin-right: -2px;
-      margin-left: 0px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-stats {
-      background: image-url('img/nav/icons/profile.png');
-      width: 40px;
-      height: 26px;
-      margin-left: 2px;
-      margin-right: -2px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-logout {
-      background: image-url('img/nav/icons/logout.png');
-      width: 40px;
-      height: 23px;
-      margin-left: 2px;
-      margin-right: -2px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-admin {
-      background: image-url('img/nav/icons/admin.png');
-      width: 41px;
-      height: 27px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-  }
-
+ 
   .link-wrap {
-    padding: 10px 10% 0 10%;
-
+    .header { 
+      text-transform: uppercase;
+      color: #2C6B8A;
+      padding-top: 24px;
+      font-size: 9pt;
+      margin: 0 0 4px 25px;
+      font-weight: 500;
+    }
+    .header-divider {
+      border: 0;
+      height: 1px;
+      margin: 0;
+      background: -webkit-gradient(linear, 0 0, 150% 0, from(#3AA4C0), to(#3AA4C0), color-stop(3%, #2C6B8A));
+      opacity: 0.65;
+    }
     .link-item {
-      padding: 0 10px;
-      height: 7vh;
       cursor: pointer;
+      height: 35px;
+      padding: 0 25px;
+      transition: .2s;
+      position: relative;
 
-      &.active, &:hover {
-        -webkit-filter: brightness(0) invert(1);
-        filter: brightness(0) invert(1);
-        transition: filter .3s;
-        -webkit-transition: -webkit-filter .3s;
+      .sprite {
+        transition: .2s;
+        -webkit-transition: .2s;
+        color: #2C6B8A;;
+        font-size: 17pt;
+        width: auto;
+        margin: 0 !important;
       }
 
       span {
         color: #2C6B8A;
-        margin-left: 10px;
         font-size: 10pt;
-        text-transform: uppercase;
+        margin-left: 5px;
+        text-transform: capitalize;
+      }
+
+      span, .material-icons {
+        pointer-events: none;
+      }
+
+      &:hover {
+        background: #164F71;
+      }
+
+      &:hover, &.active {
+        & > span, & > .sprite {
+          color: #fff;
+        }
+      }
+
+      .sub-menu {
+        position: absolute;
+        right: -220px;
+        width: 220px;
+        .link-item {
+          background: #164F71;
+          span {
+            color: #eee;
+            text-transform: uppercase;
+            font-size: 9pt;
+          }
+
+          &:hover, &.active {
+            background: #103B54 !important;
+            span {
+              color: #fff;
+            }
+          }
+        }
+
       }
     }
   }
 
   .banner {
     width: 100%;
-    height: 28%;
+    height: 100px;
+    min-height: 0;
     text-transform: uppercase;
     color: #fff;
     background-image: image-url('img/nav/banner.png');
-    padding: 0 18%;
-    min-height: 120px;
+    padding-left: 50px;
     background-size: cover;
-    &.md-closed {
-      display: block !important;
-    }
+    background-position: 0 15%;
 
     .logo {
       background: image-url('img/shared/powur-logo-white.png');
-      height: 53px;
-      width: 183px;
-      margin: 0 0 5px -46px;
+      height: 42px;
+      width: 120px;
       background-size: contain;
       cursor: pointer;
+      background-repeat: no-repeat;
+      margin: 6px 0 0 -30px;
     }
+
     .motto {
-      font-size: 11pt;
+      font-size: 9pt;
     }
   }
 
@@ -367,90 +249,16 @@
   }
 }
 
-@media screen and (max-width : 700px) {
-  .mobile-side-nav {
-    max-width: 70vw !important;
-    min-width: 70vw !important;
-
-    .sprite {
-      background-size: contain;
-
-      &.sprite-dashboard {
-        width: 29px;
-        height: 20px;
-      }
-      &.sprite-invite {
-        width: 30px;
-        height: 23px;
-      }
-      &.sprite-grid-solar {
-        width: 31px;
-        height: 24px;
-        margin-left: -2px;
-      }
-      &.sprite-earnings {
-        width: 30px;
-        height: 19px;
-        margin: 0 0px 0 -1px;
-      }
-      &.sprite-library {
-        width: 29px;
-        height: 22px;
-      }
-      &.sprite-certs {
-        width: 19px;
-        height: 19px;
-        margin-right: 9px;
-      }
-      &.sprite-upgrade {
-        width: 30px;
-        height: 19px;
-        margin-right: 8px;
-        margin-left: 0px;
-      }
-      &.sprite-stats {
-        width: 30px;
-        height: 16px;
-        margin-left: 2px;
-        margin-right: -2px;
-      }
-      &.sprite-logout {
-        width: 30px;
-        height: 13px;
-        margin-left: 2px;
-        margin-right: -2px;
-      }
-      &.sprite-admin {
-        background: image-url('img/nav/icons/admin.png');
-        width: 19px;
-        height: 19px;
-        margin-right: 11px;
-        background-size: contain;
-      }
-    }
-
-    .banner {
-      height: 20vh;
-
-      .logo {
-        background: image-url('img/shared/powur-logo-white.png');
-        height: 30px;
-        width: 104px;
-        margin: 0 0 5px -26px;
-        background-size: contain;
-        cursor: pointer;
-      }
-      .motto {
-        font-size: 8pt;
-      }
-    }
-  }
-}
-
 @media screen and (max-width : 600px) {
-  .top-menu {
+  .nav.top-menu {
+    .bg {
+      padding: 15px 5px;
+    }
     .float-right {
       display: none;
+    }
+    .title {
+      padding: 0 4px;
     }
   }
   .nav.goals.desktop {
@@ -458,6 +266,44 @@
   }
   .nav.goals.mobile {
     display: block;
+  }
+  .mobile-side-nav {
+    max-width: 170px !important;
+    min-width: 170px !important;
+    .banner {
+      height: 50px;
+      background-position: 0 25%;
+      .logo {
+        width: 110px;
+      }
+      .motto {
+        display: none;
+      }
+    }
+
+    .link-wrap {
+      .header {
+        padding-top: 15px;
+        margin: 0 0 4px 10px;
+      }
+      .link-item {
+        height: 26px;
+        padding: 0 10px;
+        .material-icons {
+          font-size: 12pt;
+        }
+        span{
+          font-size: 8pt;
+        }
+        .sub-menu {
+          right: -170px;
+          width: 170px;
+          .link-item span {
+            font-size: 7pt;
+          }
+        }
+      }
+    }
   }
 }
 

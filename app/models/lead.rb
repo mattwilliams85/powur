@@ -32,6 +32,7 @@ class Lead < ActiveRecord::Base
       where('sales_status = ?', Lead.sales_statuses[status])
     end
   }
+  scope :call_consented, -> (value) { where(call_consented: value) }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
   scope :team_leads, lambda { |user_id:, query: Lead.unscoped|
@@ -225,36 +226,10 @@ class Lead < ActiveRecord::Base
                    data_status:  Lead.data_statuses[:submitted])
   end
 
-  class SolarCityApiError < StandardError
-    attr_reader :error
-
-    def initialize(error)
-      @error = error
-    end
-  end
-
   def submit_to_provider
     form = SolarCityForm.new(self)
     form.post
-    if form.error? && !form.dupe?
-      msg =
-          if form.error.is_a?(Exception)
-            form.error
-          else
-            "Lead post error?: #{form.error.inspect}"
-          end
-      fail msg
-    end
-
-    submitted(form.provider_uid, DateTime.parse(form.response.headers[:date]))
-  rescue RestClient::RequestFailed => e
-    raise SolarCityApiError.new(e), "Request failed to solar city: #{e.message}"
-  rescue => e
-    params = {
-      response: form.response.inspect,
-      error:    form.error.inspect }
-    Airbrake.notify(e, parameters: params)
-    raise e
+    submitted(form.provider_uid, form.response_date)
   end
 
   def simulate_submit

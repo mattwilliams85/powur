@@ -152,6 +152,19 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminResourceTopicsCtrl'
     }).
+    // Action Messages
+    when('/admin/powur-move', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminActionsCtrl'
+    }).
+    when('/admin/powur-move/:actionId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminActionsCtrl'
+    }).
+    when('/admin/powur-move/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminActionsCtrl'
+    }).
     // Social Media Sharing
     when('/admin/social-media', {
       templateUrl: 'shared/admin/rest/index.html',

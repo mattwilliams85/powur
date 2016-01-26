@@ -32,6 +32,7 @@ en:
     existing_promoter: "This email is already registered to a user of Powur"
     credentials: Invalid email or password
     invalid_code: Invalid invite code
+    latest_agreement: Please read and agree to the latest terms and conditions in the Application and Agreement
     email_not_found: This email was not found in our system
     quote_not_found: "A quote was not found for the email '%{email}'"
     quote_exists: "A quote already exists with the email '%{email}'"
@@ -69,6 +70,10 @@ en:
     update_sponsor_self: User cannot be own sponsor
     update_sponsor_no_sponsor: "This user can't have a sponsor"
     update_sponsor_in_downline: "User can't have someone from their downline as a sponsor"
+    undeletable_user_has_children: This User has people under them, and cannot be deleted.
+    undeletable_user_is_sponsoring: This User is a sponsor, and cannot be deleted.
+    undeletable_user_has_bonus_payments: This User has bonus payments, and cannot be deleted.
+    undeletable_user_has_product_receipts: This User has product receipts, and cannot be deleted.
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

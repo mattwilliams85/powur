@@ -19,6 +19,9 @@ module Auth
     filter :sales_status,
            options:  Lead.sales_statuses.keys,
            required: false
+    filter :call_consented,
+           options:  [true, false],
+           required: false
 
     def index
       @leads = apply_list_query_options(@leads)
@@ -79,8 +82,8 @@ module Auth
       @lead.email_customer if @lead.can_email?
 
       show
-    rescue Lead::SolarCityApiError => e
-      Airbrake.notify(e)
+    rescue IntegrationError => e
+      Airbrake.notify(e, error: e.error.inspect, lead_id: @lead.id)
       error!(:solarcity_api)
     end
 
@@ -105,8 +108,7 @@ module Auth
         proposals: metrics.send(data_scope, :converted, days),
         closed:    metrics.send(data_scope, :closed_won, days),
         contracts: metrics.send(data_scope, :contracted, days),
-        installs:  metrics.send(data_scope, :installed, days)
-      }
+        installs:  metrics.send(data_scope, :installed, days) }
     end
 
     def switch_owner

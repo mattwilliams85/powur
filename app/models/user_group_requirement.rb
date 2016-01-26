@@ -7,8 +7,8 @@ class UserGroupRequirement < ActiveRecord::Base
     purchase:           1,
     personal_sales:     2,
     grid_sales:        3,
-    personal_proposals: 4,
-    grid_proposals:    5 }
+    personal_qualified: 4,
+    grid_qualified:    5 }
 
   validates_presence_of :user_group_id, :product_id, :event_type, :quantity
 

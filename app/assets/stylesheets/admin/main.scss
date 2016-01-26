@@ -26,9 +26,6 @@
 }
 
 .pow-admin-show {
-  .capitalize {
-    text-transform: capitalize;
-  }
   .index-table {
     width: 100%;
 
@@ -84,5 +81,42 @@
     width: 3rem;
     margin: 0;
     height: 1.5rem;
+  }
+}
+
+.pow-admin-edit, .pow-admin-new {
+  select {
+    text-transform: capitalize;
+    max-width: 300px;
+  }
+  input[type='number'] {
+    max-width: 300px;
+  }
+}
+
+body {
+  padding: 40px 0 0 260px;
+}
+
+.md-locked-open {
+  position: fixed !important;
+}
+
+.hide-for-desktop {
+  display: block !important;
+}
+
+.top-menu {
+  display: none;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+
+.details-row {
+  .heading {
+    font-size: 1.3rem;
   }
 }

@@ -9,21 +9,16 @@
       <div class="chip" layout="row" layout-align="center center">
         <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
           <i class="material-icons">people</i>
-          <span ng-hide="grid.leadsMarketing.properties.showPersonal">Team</span>
-          <span ng-show="grid.leadsMarketing.properties.showPersonal">Personal</span>
+          <span ng-show="grid.leadsMarketing.properties.showTeam">Team</span>
+          <span ng-hide="grid.leadsMarketing.properties.showTeam">Personal</span>
         </div>
-        <i class="material-icons close"
-           ng-show="grid.leadsMarketing.properties.showPersonal"
-           ng-click="grid.leadsMarketing.properties.showPersonal = null">
-           close
-        </i>
       </div>
       <md-menu-content class="filter-menu" width="4">
         <md-menu-item class="header"><span>SELECT <b>MODE</b></span></md-menu-item>
         <div class="filter-box small">
-          <md-radio-group ng-model="grid.leadsMarketing.properties.showPersonal">
-            <md-radio-button aria-label="team" ng-value="null">Team Leads</md-radio-button>
-            <md-radio-button aria-label="personal" ng-value="true">Personal Leads</md-radio-button>
+          <md-radio-group ng-model="grid.leadsMarketing.properties.showTeam">
+            <md-radio-button aria-label="team" ng-value="true">Team Leads</md-radio-button>
+            <md-radio-button aria-label="personal" ng-value="null">Personal Leads</md-radio-button>
           </md-radio-group>
         </div>
       </md-menu-content>
@@ -39,16 +34,19 @@
         <div class="label">VIEWS</div>
         <div class="count" layout="row" layout-align="center center">
           <i class="material-icons">visibility</i>
-          <span ng-show="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_views_count || 0 }}</span>
-          <span ng-hide="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_team_views_count || 0 }}</span>
+          <span ng-hide="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_views_count || 0 }}</span>
+          <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_views_count || 0 }}</span>
         </div>
       </div>
-      <div layout="column" layout-align="space-around" flex="20">
-        <div class="label">LEADS</div>
+      <div ng-mouseenter="getSolarLeadsHovering=true"
+         ng-mouseleave="getSolarLeadsHovering=false"
+         ng-click="grid.marketingLeadsFilter()"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+        <div class="label" ng-class="{'hovered':getSolarLeadsHovering}">LEADS</div>
         <div class="count" layout="row" layout-align="center center">
-          <i class="material-icons">assignment</i>
-          <span ng-show="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_leads_count || 0 }}</span>
-          <span ng-hide="grid.leadsMarketing.properties.showPersonal">{{ grid.leadsMarketing.properties.solar_landing_team_leads_count || 0 }}</span>
+         <i class="material-icons">assignment</i>
+           <span ng-hide="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_leads_count || 0 }}</span>
+           <span ng-show="grid.leadsMarketing.properties.showTeam">{{ grid.leadsMarketing.properties.solar_landing_team_leads_count || 0 }}</span>
         </div>
       </div>
     </div>
@@ -66,7 +64,8 @@
         <div layout="row" layout-align="center center" ng-click="$mdOpenMenu($event)">
           <i ng-hide="grid.summaryFilters['grid']" class="material-icons">group</i>
           <i ng-show="grid.summaryFilters['grid']" class="material-icons">person</i>
-          <span>Summary</span>
+          <span ng-hide="grid.summaryFilters['grid']">Team</span>
+          <span>{{grid.summaryFilters['grid'].key}}</span>
         </div>
         <i class="material-icons close"
            ng-show="grid.summaryFilters['grid']"
@@ -80,14 +79,14 @@
         <md-menu-item>
           <md-button ng-click="grid.filterSummary('grid', 'personal', false)" aria-label="grid" ng-value="null">
             <div layout="row">
-              <p flex>Team Summary</p>
+              <p flex>Team</p>
             </div>
           </md-button>
         </md-menu-item>
         <md-menu-item>
           <md-button ng-click="grid.filterSummary('grid', 'personal', true)" aria-label="grid" ng-value="null">
             <div layout="row">
-              <p flex>Personal Summary</p>
+              <p flex>Personal</p>
             </div>
           </md-button>
         </md-menu-item>
@@ -117,36 +116,51 @@
   </div>
 
   <div class="insight" layout="row" layout-align="center center" ng-hide="hideInsight">
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label">LEADS</div>
+    <div ng-mouseenter="leadsHovering=true"
+         ng-mouseleave="leadsHovering=false"
+         ng-click="grid.summaryLeadsFilter('submitted_status', 'submitted')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':leadsHovering}" >LEADS</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">assignment</i>
         {{ grid.insight.leads }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label">QUALIFIED</div>
+    <div ng-mouseenter="qualHovering=true"
+         ng-mouseleave="qualHovering=false"
+         ng-click="grid.summaryLeadsFilter('sales_status', 'proposal')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':qualHovering}" >QUALIFIED</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">assignment_turned_in</i>
         {{ grid.insight.proposals }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label">CLOSED WON</div>
+    <div ng-mouseenter="wonHovering=true"
+         ng-mouseleave="wonHovering=false"
+         ng-click="grid.summaryLeadsFilter('sales_status', 'closed_won')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':wonHovering}">CLOSED WON</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">thumb_up</i>
         {{ grid.insight.closed }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label">CONTRACTS</div>
+    <div ng-mouseenter="contractHovering=true"
+         ng-mouseleave="contractHovering=false"
+         ng-click="grid.summaryLeadsFilter('sales_status', 'contract')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label" ng-class="{'hovered':contractHovering}"><a >CONTRACTS</a></div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">import_contacts</i>
         {{ grid.insight.contracts }}
       </div>
     </div>
-    <div layout="column" layout-align="space-around" flex="20">
-      <div class="label">INSTALLS</div>
+    <div ng-mouseenter="installedHovering=true"
+         ng-mouseleave="installedHovering=false"
+         ng-click="grid.summaryLeadsFilter('sales_status', 'installed')"
+         class="clickable-metric" layout="column" layout-align="space-around" flex="20">
+      <div class="label"ng-class="{'hovered':installedHovering}" >INSTALLS</div>
       <div class="count" layout="row" layout-align="center center">
         <i class="material-icons">home</i>
         {{ grid.insight.installs }}
@@ -185,6 +199,39 @@
                  autofocus>
         </form>
       </div>
+
+
+      <md-menu md-position-mode="target-right target" md-offset="0 10">
+        <div class="chip" layout="row" layout-align="center center">
+          <div ng-click="$mdOpenMenu($event)" layout="row" layout-align="center center">
+            <i class="material-icons">assignment</i>
+            <span ng-hide="grid.activeFilters['call_consented']">All Sources</span>
+            <span ng-show="grid.activeFilters['call_consented']['value'] == 'false'">SolarGrid</span>
+            <span ng-show="grid.activeFilters['call_consented']['value'] == 'true'">GetSolar</span>
+          </div>
+          <i class="material-icons close"
+             ng-show="grid.activeFilters['call_consented']"
+             ng-click="grid.removeFilter('call_consented')">
+             close
+          </i>
+        </div>
+        <md-menu-content class="filter-menu" width="4">
+          <md-menu-item class="header"><span>SELECT <b>SOURCE</b></span></md-menu-item>
+          <div class="filter-box small items-3">
+            <md-radio-group ng-model="grid.leads.properties.filters.call_consented">
+              <md-radio-button ng-click="grid.removeFilter('call_consented')"
+                               aria-label="All"
+                               ng-value="null">All</md-radio-button>
+              <md-radio-button ng-click="grid.filter('call_consented', 'call_consented', 'false')"
+                               aria-label="SolarGrid"
+                               ng-value="'false'">SolarGrid</md-radio-button>
+              <md-radio-button ng-click="grid.filter('call_consented', 'call_consented', 'true')"
+                               aria-label="GetSolar"
+                               ng-value="'true'">GetSolar</md-radio-button>
+            </md-radio-group>
+          </div>
+        </md-menu-content>
+      </md-menu>
 
 
       <md-menu md-position-mode="target-right target" md-offset="0 10">
@@ -247,7 +294,7 @@
                      class="flex-wrap">
                     <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
                                      ng-value="'pending'"
-                                     aria-label="not_submitted" 
+                                     aria-label="not_submitted"
                                      class="short">
                                      All
                     </md-radio-button>
@@ -287,7 +334,7 @@
                      class="flex-wrap">
                     <md-radio-button ng-click="grid.filter('status', 'submitted_status', 'submitted')"
                                      ng-value="'pending'"
-                                     aria-label="not_submitted" 
+                                     aria-label="not_submitted"
                                      class="short">
                                      All
                     </md-radio-button>
@@ -318,15 +365,15 @@
           </i>
         </div>
         <md-menu-content class="filter-menu" width="4">
-                <md-menu-item class="header"><span>SELECT <b>SORT</b></span></md-menu-item>
-                <md-menu-item ng-repeat="sort in grid.leads.properties.sorting.sorts">
-                  <md-button ng-click="grid.sortLeads(sort)" aria-label="sort">
-                    <div layout="row">
-                      <p flex>Sort by <span class="capitalize">{{sort | humanizeString}}</span></p>
-                    </div>
-                  </md-button>
-                </md-menu-item>
-              </md-menu-content>
+          <md-menu-item class="header"><span>SELECT <b>SORT</b></span></md-menu-item>
+          <md-menu-item ng-repeat="sort in grid.leads.properties.sorting.sorts">
+            <md-button ng-click="grid.sortLeads(sort)" aria-label="sort">
+              <div layout="row">
+                <p flex>Sort by <span class="capitalize">{{sort | humanizeString}}</span></p>
+              </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
       </md-menu>
 
       <md-menu md-position-mode="target-right target" md-offset="0 10">
@@ -358,36 +405,83 @@
 
   <div class="grid" ng-hide="hideGrid" layout="column" layout-align="center center">
     <div class="summary" layout="column">
-      <div class="grid-row new" layout="row">
-        <div flex="50" flex-gt-md="25"
-             layout="row"
-             layout-align="start center"
-             ng-click="grid.addLead($event)">
-          <md-button class="md-fab md-primary" layout-align="center center" layout="row">
-            <i class="material-icons">add</i>
-          </md-button>
+      <div class="grid-row upper" layout="row">
+        <div class="create" ng-click="grid.addLead($event)" flex-gt-xs="25">
+          <div>
+            <md-button class="md-fab md-primary">
+              <i class="material-icons">add</i>
+            </md-button>
+          </div>
           <div class="detail">
             <div class="uppercase text-xl">CREATE A <b>LEAD</b></div>
           </div>
         </div>
+
+        <ul class="pagination" ng-hide="grid.pageCount < 2" ng-if="grid.leads.entities.length">
+          <li
+            class="jump left"
+            ng-class="{ 'disabled': grid.currentPage === 1 }"
+            ng-click="grid.changePage(1)"
+            ng-disabled="grid.reloading">
+            <i class="material-icons">chevron_left</i>
+            <i class="material-icons">chevron_left</i>
+          </li>
+          <li
+            class="chevron"
+            ng-class="{ 'disabled': grid.currentPage === 1 }"
+            ng-click="grid.changePage(grid.currentPage - 1)"
+            ng-disabled="grid.reloading">
+            <i class="material-icons">chevron_left</i>
+          </li>
+          <li
+            ng-repeat="i in grid.pageList track by $index"
+            md-ink-ripple="#20c2f1"
+            class="num"
+            ng-class="{ 'active': i === grid.currentPage }"
+            ng-click="grid.changePage(i)"
+            ng-hide="!i"
+            ng-disabled="grid.reloading">
+            {{ i }}
+          </li>
+          <li
+            class="chevron"
+            ng-class="{ 'disabled': grid.currentPage === grid.pageCount }"
+            ng-click="grid.changePage(grid.currentPage + 1)">
+            <i class="material-icons"
+            ng-disabled="grid.reloading">chevron_right</i>
+          </li>
+          <li
+            class="jump right"
+            ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
+                                    grid.pageCount < 10 }"
+            ng-click="grid.changePage(grid.pageCount)"
+            ng-disabled="grid.reloading">
+            <i class="material-icons">chevron_right</i>
+            <i class="material-icons">chevron_right</i>
+          </li>
+        </ul>
       </div>
 
       <div ng-if="grid.leads.entities.length" class="header-row" layout="row" layout-align="center center">
-        <span class="label left" flex="50" flex-gt-sm="25" layout="row">
-          CONTACT INFO
-        </span>
-        <span class="label left" flex="50" flex-gt-sm="25" layout="row">
-          STATUS
-        </span>
-        <span class="label left" hide show-gt-sm flex="25" layout="row">
-          LEAD OWNER
-        </span>
-        <span class="label left" hide show-gt-sm flex="25">POWUR MOVE</span>
+        <div class="headers" class="header-row" layout="row" layout-align="center center">
+          <span class="label left" flex="50" flex-gt-sm="25" layout="row">
+            <span>CONTACT INFO</span>
+          </span>
+          <span class="label left" flex="50" flex-gt-sm="25" layout="row">
+            <span>STATUS</span>
+          </span>
+          <span class="label left" hide show-gt-sm flex="25" layout="row">
+            <span>LEAD OWNER</span>
+          </span>
+          <span class="label left" hide show-gt-sm flex="25">
+            <span>POWUR MOVE</span>
+          </span>
+        </div>
       </div>
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
-          <div class="left" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
+          <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
             <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
                <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             </div>
@@ -402,32 +496,32 @@
           </div>
           <!-- COLUMN #status -->
           <div ng-if="!lead.properties.submitted_at"
-               class="uppercase right"
+               class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="start center">
+               layout-align="center center">
             <div class="uppercase text-sm move">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
             </div>
           </div>
           <div ng-if="lead.properties.stage > 4 && lead.properties.submitted_at"
-               class="uppercase right"
+               class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="start center">
+               layout-align="center center">
             <div class="uppercase text-sm move">
               Lead {{ grid.stage[lead.properties.stage] | humanizeString }}
             </div>
           </div>
           <div ng-if="lead.properties.data_status === 'submitted' && lead.properties.stage < 5"
-               class="uppercase right"
+               class="uppercase right tile"
                flex="50"
                flex-gt-md="25"
                layout="column"
                layout-align="center start">
             <div layout="row" layout-align="space-between" class="progress-bar">
               <div class="bar"></div>
-              <div class="bar overlay" style="width:{{ lead.properties.stage * 20 }}%">
+              <div class="bar overlay" ng-style="{'width': lead.properties.stage * 20 +'%'}">
                 <div class="animated stage-{{ lead.properties.stage }}"></div>
               </div>
               <div layout="column" layout-align="center center" flex="20">
@@ -464,7 +558,7 @@
             <div class="uppercase text-sm progress-detail">{{ grid.stage[lead.properties.stage] }}</div>
           </div>
           <!-- COLUMN #owner -->
-          <div class="left"
+          <div class="left tile"
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
@@ -479,59 +573,63 @@
             </div>
           </div>
           <!-- COLUMN #move -->
-          <div class="left"
+          <div class="left tile four"
                flex="50" flex-gt-md="25"
                hide show-gt-sm
                layout="row"
                layout-align="start center">
             <span class="text-sm move">{{ lead.properties.action_copy }}</span>
           </div>
-        </div>
-        <md-divider hide show-gt-sm></md-divider>
+        <!-- <md-divider hide show-gt-sm></md-divider> -->
       </div>
     </div>
     <div ng-show="!grid.leads.entities.length && !grid.reloading" layout-padding><i>No Results Found</i></div>
 
-    <ul class="pagination" ng-hide="grid.pageCount < 2">
-      <li
-        class="jump"
-        ng-class="{ 'disabled': grid.currentPage === 1 }"
-        ng-click="grid.changePage(1)"
-        ng-disabled="grid.reloading">
-        FIRST
-      </li>
-      <li
-        class="chevron"
-        ng-class="{ 'disabled': grid.currentPage === 1 }"
-        ng-click="grid.changePage(grid.currentPage - 1)"
-        ng-disabled="grid.reloading">
-        <i class="material-icons">chevron_left</i>
-      </li>
-      <li
-        ng-repeat="i in grid.pageList track by $index"
-        md-ink-ripple="#20c2f1"
-        ng-class="{ 'active': i === grid.currentPage }"
-        ng-click="grid.changePage(i)"
-        ng-hide="!i"
-        ng-disabled="grid.reloading">
-        {{ i }}
-      </li>
-      <li
-        class="chevron"
-        ng-class="{ 'disabled': grid.currentPage === grid.pageCount }"
-        ng-click="grid.changePage(grid.currentPage + 1)">
-        <i class="material-icons"
-        ng-disabled="grid.reloading">chevron_right</i>
-      </li>
-      <li
-        class="jump"
-        ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
-                                grid.pageCount < 10 }"
-        ng-click="grid.changePage(grid.pageCount)"
-        ng-disabled="grid.reloading">
-        LAST
-      </li>
-    </ul>
+    <div ng-if="grid.leads.entities.length" class="grid-row page-controls" layout="row" layout-align='center center'>
+      <ul class="pagination" ng-hide="grid.pageCount < 2">
+        <li
+          class="jump left"
+          ng-class="{ 'disabled': grid.currentPage === 1 }"
+          ng-click="grid.changePage(1)"
+          ng-disabled="grid.reloading">
+          <i class="material-icons">chevron_left</i>
+          <i class="material-icons">chevron_left</i>
+        </li>
+        <li
+          class="chevron"
+          ng-class="{ 'disabled': grid.currentPage === 1 }"
+          ng-click="grid.changePage(grid.currentPage - 1)"
+          ng-disabled="grid.reloading">
+          <i class="material-icons">chevron_left</i>
+        </li>
+        <li
+          ng-repeat="i in grid.pageList track by $index"
+          md-ink-ripple="#20c2f1"
+          class="num"
+          ng-class="{ 'active': i === grid.currentPage }"
+          ng-click="grid.changePage(i)"
+          ng-hide="!i"
+          ng-disabled="grid.reloading">
+          {{ i }}
+        </li>
+        <li
+          class="chevron"
+          ng-class="{ 'disabled': grid.currentPage === grid.pageCount }"
+          ng-click="grid.changePage(grid.currentPage + 1)">
+          <i class="material-icons"
+          ng-disabled="grid.reloading">chevron_right</i>
+        </li>
+        <li
+          class="jump right"
+          ng-class="{ 'disabled': grid.currentPage === grid.pageCount ||
+                                  grid.pageCount < 10 }"
+          ng-click="grid.changePage(grid.pageCount)"
+          ng-disabled="grid.reloading">
+          <i class="material-icons">chevron_right</i>
+          <i class="material-icons">chevron_right</i>
+        </li>
+      </ul>
+    </div>
 
   </div>
 </div>

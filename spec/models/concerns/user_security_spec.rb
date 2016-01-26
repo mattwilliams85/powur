@@ -45,38 +45,4 @@ describe UserSecurity do
       end
     end
   end
-
-  describe '#sign_in_expired?' do
-    let(:user) { User.new }
-    subject { user.sign_in_expired?(session_expires_at) }
-
-    context 'when remember me timestamp is set' do
-      let(:session_expires_at) { Time.current - 2.hours }
-      before do
-        allow(user).to receive(:remember_created_at).and_return(Time.now.utc)
-      end
-
-      it { is_expected.to be false }
-    end
-
-    context 'when remember me timestamp is not set' do
-      context 'when session expired 5 minutes ago' do
-        let(:session_expires_at) { Time.current - 5.minutes }
-        before do
-          allow(user).to receive(:remember_created_at).and_return(nil)
-        end
-
-        it { is_expected.to be true }
-      end
-
-      context 'when sessions expires in 5 minutes' do
-        let(:session_expires_at) { Time.current + 5.minutes }
-        before do
-          allow(user).to receive(:remember_created_at).and_return(nil)
-        end
-
-        it { is_expected.to be false }
-      end
-    end
-  end
 end

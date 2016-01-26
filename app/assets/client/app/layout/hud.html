@@ -1,6 +1,6 @@
 <div class="hud goals mobile">
   <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
-    <div ng-show="req.properties.event_type == 'purchase'" layout="row" layout-align="space-around center" layout-fill class="bar">
+    <div ng-show="req.properties.purchase" layout="row" layout-align="space-around center" layout-fill class="bar">
       <div class="purchase" flex>
         <div class="title">UPGRADE</div>
         <a ng-href="/upgrade"><div class="product">{{ req.properties.product }}</div></a>
@@ -10,13 +10,14 @@
   <div layout="row" layout-align="space-around center" layout-fill class="bar">
     <div layout-align="center center">
       <span>Rank</span>
-      <span class="number">{{ hud.rank }}<sup>/{{ hud.rankTotal }}</sup></span>
+      <span class="rank-title">{{ hud.rankTitle }}</span>
       <div class="medal icon"></div>
     </div>
     <div ng-repeat="req in hud.goalRequirements">
-      <span ng-if="req.properties.event_type === 'grid_proposals'">Grid</span>
-      <span ng-if="req.properties.event_type === 'personal_proposals'">Personal</span>
-      <span class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
+      <span ng-if="req.properties.team">Grid</span>
+      <span ng-if="!req.properties.team">Personal</span>
+      <span ng-show="hud.showLeggedView && req.properties.team" class="number">{{ req.properties.progress.join() }}<sup>/{{ req.properties.quantity }}</sup></span>
+      <span ng-hide="hud.showLeggedView && req.properties.team" class="number">{{ req.properties.progress }}<sup>/{{ req.properties.quantity }}</sup></span>
       <div class="icon"></div>
     </div>
   </div>
@@ -28,30 +29,53 @@
       <span>GOAL</span>
     </div>
     <div layout="row" layout-align="center center" layout-fill class="bar">
-      <div class="inner-bar" layout="row" layout-align="space-around center" >
+      <div class="inner-bar" layout="row" layout-align="space-around center">
         <div ng-if="hud.rank > 0" layout="column" layout-align="center center">
-          <div layout-align="center center">
-            <div class="medal icon"></div>
-            <span class="number">{{ hud.rank }}<span class="sub">/{{ hud.rankTotal }}</span></span>
+          <div layout="row" layout-align="center center" class="medal new-icon">
+            <span class="rank-title">{{ hud.rankTitle }} ({{ hud.rank }})</span>
           </div>
-          <span class="label">Rank</span>
+          <span class="label">Next Rank</span>
         </div>
-        <div ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center">
-          <div ng-if="hud.rank > 0" layout-align="center center">
-            <div ng-if="req.properties.event_type === 'grid_proposals'" class="icon grid-lead"></div>
-            <div ng-if="req.properties.event_type === 'personal_proposals'" class="icon personal-lead"></div>
+
+        <div ng-if="!hud.showLeggedView && hud.rank != 1" ng-repeat="req in hud.goalRequirements" layout="column" layout-align="center center" class="text-center">
+          <div layout="row" ng-if="hud.rank > 0" layout-align="center center" class="new-icon" ng-class="{'grid-lead': req.properties.team, 'personal-lead': !req.properties.team}">
             <span class="number">{{ req.properties.progress }}<span class="sub">/{{ req.properties.quantity }}</span></span>
           </div>
-          <div class="purchase" flex ng-show="req.properties.event_type == 'purchase'">
+          <div class="purchase" flex ng-show="req.properties.purchase">
             <div class="title">UPGRADE</div>
             <a ng-href="/upgrade"><div class="product">{{ req.properties.product }}</div></a>
           </div>
-          <span ng-if="req.properties.event_type === 'personal_proposals'" class="label">Personal Leads</span>
-          <span ng-if="req.properties.event_type === 'grid_proposals'" class="label">Grid Leads</span>
+          <span ng-hide="req.properties.purchase" class="label">{{ req.properties.title }}</span>
+        </div>
+
+        <div ng-if="hud.rank == 1" layout="column" layout-align="center center" layout-fill>
+          <div layout="row" layout-align="space-around center">
+            <div ng-repeat="i in hud.nSizeArray(hud.goalRequirements[0].properties.quantity) track by $index" layout="column" layout-align="center center">
+              <div layout="row" layout-align="center center" class="new-icon personal-lead">
+                <i class="material-icons">{{ $index < hud.goalRequirements[0].properties.progress ? 'check_circle' : 'lens' }}</i>
+              </div>
+            </div>
+          </div>
+          <span class="label">{{ hud.goalRequirements[0].properties.title }}</span>
+        </div>
+
+        <div ng-if="hud.showLeggedView" layout="column" layout-align="center center" class="text-center">
+          <div layout="row" layout-align="center center" class="new-icon personal-lead">
+            <span class="number">{{ hud.goalPersonalRequirement.properties.progress }}<span class="sub">/{{ hud.goalPersonalRequirement.properties.quantity }}</span></span>
+          </div>
+          <span class="label">{{ hud.goalPersonalRequirement.properties.title }}</span>
+        </div>
+
+        <div ng-if="hud.showLeggedView" ng-repeat="i in hud.nSizeArray(3) track by $index" layout="column" layout-align="center center" class="text-center">
+          <div layout="row" layout-align="center center" class="new-icon personal-lead">
+            <span class="number">{{ hud.goalTeamRequirement.properties.progress[$index] || 0 }}<span class="sub">/{{ hud.goalTeamRequirement.properties.quantity }}</span></span>
+          </div>
+          <span class="label">Leg {{ $index + 1 }}</span>
         </div>
       </div>
     </div>
   </div>
+
   <div flex="50">
     <div class="triangle" layout="column" layout-align="end center">
       <span>KPI</span>
@@ -59,22 +83,19 @@
     <div layout="row" layout-align="center center" layout-fill class="bar">
       <div class="inner-bar" layout="row" layout-align="space-around center" >
         <div layout="column" layout-align="center center">
-          <div layout="row" layout-align="center center">
-            <div class="grid icon"></div>
+          <div layout="row" layout-align="center center" class="grid new-icon">
             <span class="number">{{ hud.userData.metrics.team_count | wholeNumber }}</span>
           </div>
           <span class="label">Grid Size</span>
         </div>
         <div layout="column" layout-align="center center">
-          <div layout="row" layout-align="center center">
-            <i class="earnings icon"></i>
+          <div layout="row" layout-align="center center" class="earnings new-icon">
             <span class="number">{{ hud.userData.metrics.earnings | wholeNumber }}<sup>{{ hud.userData.metrics.earnings | decimalPart }}</sup></span>
           </div>
           <span class="label">Earnings</span>
         </div>
         <div layout="column" layout-align="center center">
-          <div layout="row" layout-align="center center" class="offset">
-            <div class="co2 icon"></div>
+          <div layout="row" layout-align="center center" class="offset co2 new-icon">
             <span class="number">{{ hud.userData.metrics.co2_saved | wholeNumber }}<small class="md-caption"> lb/ft<sup>2</sup></small></span>
           </div>
           <span class="label">CO<sub>2</sub> Saved</span>

@@ -1,12 +1,11 @@
 ranks:
   - id: 0
     title: Advocate
-    welcome_message: Welcome to Powur.
   - id: 1
     title: Partner
     welcome_message:
     requirements:
-      - event_type: :purchase
+      - event_type: 1
         product_id: 3
         time_span: :lifetime
         type: PurchaseRequirement
@@ -14,7 +13,7 @@ ranks:
     title: Qualified Partner
     welcome_message:
     requirements:
-      - event_type: :personal_proposals
+      - event_type: 4
         product_id: 1
         quantity: 3
         time_span: :lifetime
@@ -22,12 +21,12 @@ ranks:
   - id: 3
     title: L1 Partner
     requirements:
-      - event_type: :personal_proposals
+      - event_type: 4
         product_id: 1
         quantity: 5
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_proposals
+      - event_type: 5
         product_id: 1
         quantity: 9
         time_span: :monthly
@@ -36,12 +35,12 @@ ranks:
   - id: 4
     title: L2 Partner
     requirements:
-      - event_type: :personal_proposals
+      - event_type: 4
         product_id: 1
         quantity: 7
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_proposals
+      - event_type: 5
         product_id: 1
         quantity: 25
         time_span: :monthly
@@ -50,12 +49,12 @@ ranks:
   - id: 5
     title: L3 Partner
     requirements:
-      - event_type: :personal_proposals
+      - event_type: 4
         product_id: 1
         quantity: 10
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_proposals
+      - event_type: 5
         product_id: 1
         quantity: 75
         time_span: :monthly
@@ -64,12 +63,12 @@ ranks:
   - id: 6
     title: Game Changer
     requirements:
-      - event_type: :personal_sales
+      - event_type: 2
         product_id: 1
         quantity: 5
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_sales
+      - event_type: 3
         product_id: 1
         quantity: 75
         time_span: :monthly
@@ -78,12 +77,12 @@ ranks:
   - id: 7
     title: L1 Game Changer
     requirements:
-      - event_type: :personal_sales
+      - event_type: 2
         product_id: 1
         quantity: 7
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_sales
+      - event_type: 3
         product_id: 1
         quantity: 200
         time_span: :monthly
@@ -92,12 +91,12 @@ ranks:
   - id: 8
     title: L2 Game Changer
     requirements:
-      - event_type: :personal_sales
+      - event_type: 2
         product_id: 1
         quantity: 10
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_sales
+      - event_type: 3
         product_id: 1
         quantity: 500
         time_span: :monthly
@@ -106,12 +105,12 @@ ranks:
   - id: 9
     title: L3 Game Changer
     requirements:
-      - event_type: :personal_sales
+      - event_type: 2
         product_id: 1
         quantity: 12
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_sales
+      - event_type: 3
         product_id: 1
         quantity: 1000
         time_span: :monthly
@@ -120,15 +119,14 @@ ranks:
   - id: 10
     title: Hero
     requirements:
-      - event_type: :personal_sales
+      - event_type: 2
         product_id: 1
         quantity: 15
         time_span: :lifetime
         type: LeadRequirement
-      - event_type: :grid_sales
+      - event_type: 3
         product_id: 1
         quantity: 2000
         time_span: :monthly
         max_leg: 50
         type: LeadRequirement
-groups:

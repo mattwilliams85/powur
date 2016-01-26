@@ -69,7 +69,11 @@ module powur {
   angular.module('powur').run(RunConfigs);
 
   var $http: ng.IHttpService = angular.injector(['ng']).get<ng.IHttpService>('$http');
-  var config: ng.IRequestShortcutConfig = { headers: { 'X-Requested-With': 'XMLHttpRequest' } };
+  
+  // disable cache for http on old browsers and ie
+  var config: ng.IRequestShortcutConfig = { headers: { 'X-Requested-With': 'XMLHttpRequest', 
+                                                       'If-Modified-Since': '0',
+                                                       'Expires': '0' } };
 
   $http.get('/', config).then((response: ng.IHttpPromiseCallbackArg<any>) => {
     angular.element(document).ready(() => {

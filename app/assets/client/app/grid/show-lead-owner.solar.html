@@ -1,0 +1,171 @@
+<md-dialog aria-label="Invite" class="solar pw-grid pw-dialog">
+  <div layout="row" layout-align="end start"><a href="#" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
+  <md-dialog-content layout="column">
+    <div class="show">
+      <div class="side-bg"></div>
+      <div class="sub">
+        <div layout="row" class="owner">
+          <div class="photo" flex="35" layout="row" layout-align="start center">
+            <div class="circle">
+              <img ng-src="{{ lead.properties.owner.avatar.thumb || dialog.defaultAvatar }}" alt="" />
+            </div>
+          </div>
+          <div class="name" flex="65">
+            {{ dialog.user.properties.first_name }}
+            <b>{{ dialog.user.properties.last_name }}</b>
+          </div>
+        </div>
+        <div layout="row" class="modal-row">
+          <div layout="column" flex="40">
+            <div class="uppercase text-sm">Rank</div>
+            <div class="rank">{{ dialog.user.properties.lifetime_rank_title }} </div>
+          </div>
+          <div layout="column" flex="20">
+            <div class="uppercase text-sm">zip</div>
+            <div class="zip">{{ dialog.user.properties.zip }} </div>
+            <div ng-if="!dialog.user.properties.zip">No Zip Available </div>
+          </div>
+          <div layout="column" flex="40">
+            <div class="uppercase text-sm">Contact info</div>
+            <div class="phone">{{ dialog.user.properties.phone }} </div>
+            <a href="mailto:{{ dialog.lead.properties.email }}" class="email"><div>{{ dialog.user.properties.email }}</div></a>
+          </div>
+        </div>
+
+      </div>
+
+      <md-divider></md-divider>
+      <div class="sub">
+        <div class="modal-row">
+          <div class="heading uppercase">Rank <b>Goal</b></div>
+          <div class='uppercase text-sm'>Personal Proposal</div>
+          <div class="personal" layout="row">
+            <div class="advancement" flex="80">
+              <div class="outer">
+                <div class="inner"></div>
+              </div>
+            </div>
+            <div class="ratio" flex="20">
+              <span><span>50</span>/105</span>
+            </div>
+          </div>
+          <div class='uppercase text-sm'>Grid Proposal</div>
+          <div class="team" layout="row">
+            <div class="advancement" flex="80">
+              <div class="outer">
+                <div class="inner"></div>
+              </div>
+            </div>
+            <div class="ratio" flex="20">
+              50/105
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <md-divider></md-divider>
+
+      <div class="sub">
+        <div class="modal-row">
+          <div class="uppercase">Performance <b>metrics</b></div>
+          <div class="filters uppercase text-sm">
+            In last 7 days
+          </div>
+
+          <div class="metrics">
+            <div class="modal-row counts" layout="row">
+              <div class="lead" flex="25">
+                <div><i class="material-icons">assignment</i></div>
+                <div><b>{{ dialog.metrics.properties.leads }}</b></div>
+                <div><span class='uppercase text-sm'>Leads</span></div>
+              </div>
+              <div class="closed" flex="25">
+                <div><i class="material-icons">thumb_up</i></div>
+                <div><b>{{ dialog.metrics.properties.closed }}</b></div>
+                <div><span class='uppercase text-sm'>Closed Won</span></div>
+              </div>
+              <div class="contracts" flex="25">
+                <div><i class="material-icons">import_contacts</i></div>
+                <div><b>{{ dialog.metrics.properties.contracts }}</b></div>
+                <div><span class='uppercase text-sm'>Contracts</span></div>
+              </div>
+              <div class="installs" flex="25">
+                <div><i class="material-icons">home</i></div>
+                <div><b>{{ dialog.metrics.properties.installs }}</b></div>
+                <div><span class='uppercase text-sm'>Installs</span></div>
+              </div>
+            </div>
+            <div class="modal-row counts" layout="row">
+              <div class="size" flex="25">
+                <div><i class="material-icons">grid_on</i></div>
+                <div><b>{{ dialog.kpi.properties.team}}</b></div>
+                <div><span class='uppercase text-sm'>Grid size</span></div>
+              </div>
+              <div class="partners" flex="25">
+                <div><i class="material-icons">people</i></div>
+                <div><b>{{ dialog.kpi.properties.partners }}</b></div>
+                <div><span class='uppercase text-sm'>partners</span></div>
+              </div>
+              <div class="earnings" flex="25">
+                <div><i class="material-icons">attach_money</i></div>
+                <div><b>{{ dialog.kpi.properties.earnings }}</b></div>
+                <div><span class='uppercase text-sm'>earnings</span></div>
+              </div>
+              <div class="impact" flex="25">
+                <div><i class="material-icons">home</i></div>
+                <div><b>{{dialog.kpi.properties.co2 }}</b> <span class='uppercase text-sm'>(Lbs)</span></div>
+                <div><span class='uppercase text-sm'>impact</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="below" ng-if="dialog.below_content">
+        <md-divider></md-divider>
+
+        <div class="sub">
+          <div class='heading uppercase'>Leadership <b>Team</b></div>
+          <div class="leadership modal-row" layout="row">
+            <div class="sponsor" layout="row" flex="50">
+              <div class="photo" layout="row" layout-align="center center">
+                <div class="circle" >
+                  <img ng-src="{{ dialog.user.properties.sponsor.avatar.thumb || dialog.defaultAvatar }}" alt="" />
+                </div>
+              </div>
+              <div>
+                <div class="uppercase text-sm">sponsor</div>
+                <span class='text-sm'>{{ dialog.user.properties.sponsor.first_name }}
+                <b>{{ dialog.user.properties.sponsor.last_name }}</b></span>
+
+                <div class="uppercase">
+                  <span class="text-sm">
+                  level {{ dialog.user.properties.sponsor.level }}/rank {{ dialog.user.properties.sponsor.lifetime_rank }}
+                </span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="leader" layout="row" flex="50">
+              <div class="photo" layout="row" layout-align="center center">
+                <div class="circle">
+                  <img ng-src="{{ dialog.user.properties.team_leader.avatar.thumb || dialog.defaultAvatar }}" alt="" />
+                </div>
+              </div>
+              <div>
+                <div class="uppercase text-sm">team leader</div>
+                <span class="text-sm">{{ dialog.user.properties.team_leader.first_name }}
+                <b>{{ dialog.user.properties.team_leader.last_name }}</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </md-dialog-content>
+</md-dialog>

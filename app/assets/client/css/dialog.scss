@@ -4,6 +4,32 @@
   max-width: inherit;
   max-height: inherit;
 
+  .photo {
+    margin-right: 0.6rem;
+  }
+
+  .circle {
+    margin: 0px !important;
+    height: 80px;
+    width: 80px;
+    float: left;
+    background-color: #01B598;
+    border-radius: 50%;
+    color: #fff;
+    margin-right: 10px;
+    text-transform: uppercase;
+    overflow: hidden;
+    &.ineligible {
+      background: #E73E40;
+    }
+    &.lost, &.not_sent, &.incomplete {
+      background: #aaa;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
   md-dialog-content {
     padding: 20px 20px 20px 40px;
     text-align: left;
@@ -109,6 +135,110 @@
       height: 3px;
     }
   }
+
+  // Inline Editing In Invite Modal
+  .editable {
+    .name {
+      input {
+        height: 32px;
+      }
+    }
+    button {
+      width: 100%;
+    }
+    md-input-container {
+      margin: 0px 0px;
+      &.number {
+        span {
+          float: left;
+        }
+        input {
+          height: 1.9rem;
+          font-size: 1.5rem;
+          color: #20c2f1;
+          width: 70%;
+        }
+      }
+    }
+
+  }
+
+  .show {
+    .name {
+      text-align: center;
+    }
+    .sub {
+      padding: 0rem 0.5rem;
+      .owner {
+        justify-content: space-around;
+        align-items: center;
+      }
+    }
+    .modal-row {
+      padding: 0.4rem 0rem;
+    }
+    .circle {
+
+    }
+    .text-sm { font-size: 8pt; }
+
+    .advancement {
+      margin-bottom: 1rem;
+    }
+
+    .heading { padding: 0.5rem 0rem; }
+
+    .outer {
+      margin: 0.3rem 0rem;
+      height: 0.4rem;
+      border-radius: 0.2rem;
+      width: 100%;
+      background-color: #dddddd;
+      .inner {
+        height: 0.4rem;
+        border-radius: 0.2rem;
+        width: 80%;
+        @include linearGradient(#F5E23D , #f6b537);
+      }
+    }
+    .ratio {
+      height: 1rem;
+      line-height: 1rem;
+      text-align: center;
+    }
+
+    .personal {
+      .inner {
+        @include linearGradient(#75CEBA , #6ecee4);
+      }
+    }
+    .team, .personal {
+      height: 1.5rem;
+    }
+
+    .filters {
+      color: #42bff5;
+    }
+
+    .metrics {
+      min-height: 8rem;
+      text-align: center;
+    }
+
+    .leadership {
+      justify-content: space-around;
+      align-items: center;
+      .circle {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .below {
+      display: none;
+    }
+
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -119,6 +249,15 @@
     md-dialog-content {
       padding: 30px 30px 20px 50px;
       min-height: 225px;
+    }
+    .show {
+      .below {
+        display: block;
+      }
+    }
+
+    .owner {
+      padding-bottom: 1rem;
     }
 
     .fixed-lg {

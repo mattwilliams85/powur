@@ -60,6 +60,9 @@ action_list << action(:unterminate,
 action_list << action(:sign_in,
                       :post,
                       sign_in_admin_user_path(@user))
+action_list << action(:delete_user,
+                      :delete,
+                      delete_user_admin_user_path(@user))
 
 actions(*action_list)
 

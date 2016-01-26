@@ -7,7 +7,7 @@
 
     $scope.templateData = {
       index: {
-        title: 'Social Media Sharing',
+        title: 'Social Sharing',
         links: [
           {href: '/admin/social-media/new', text: 'New Post'}
         ],
@@ -113,12 +113,12 @@
   AdminSocialMediaCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
       // Breadcrumbs: Social Media Sharing
-      $rootScope.breadcrumbs.push({title: 'Social Media Sharing'});
+      $rootScope.breadcrumbs.push({title: 'Social Sharing'});
       $scope.index = {};
       $scope.pagination(0);
     } else if ($scope.mode === 'new') {
       // Breadcrumbs: Social Media Sharing / New Social Media Post
-      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/social-media'});
+      $rootScope.breadcrumbs.push({title: 'Social Sharing', href: '/admin/social-media'});
       $rootScope.breadcrumbs.push({title: 'New Social Media Post'});
 
       CommonService.execute({
@@ -130,7 +130,7 @@
 
     } else if ($scope.mode === 'edit') {
       // Breadcrumbs: Social Media Sharing / Edit Social Media Post
-      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/social-media'});
+      $rootScope.breadcrumbs.push({title: 'Social Sharing', href: '/admin/social-media'});
       $rootScope.breadcrumbs.push({title: 'Edit Social Media Post'});
 
       CommonService.execute({

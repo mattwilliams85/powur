@@ -60,13 +60,6 @@ module UserSecurity
     save(validate: false)
   end
 
-  # Returns false if user's last sign in was more than an hour ago
-  # and remember me option was not used
-  def sign_in_expired?(session_expires_at)
-    !remember_created_at &&
-      (session_expires_at.nil? || session_expires_at < Time.current)
-  end
-
   def update_login_streak!(timestamp)
     unless last_login_streak_at
       update_attributes(

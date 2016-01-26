@@ -18,14 +18,6 @@
     color: #fff;
   }
 
-  // .header-nav-link {
-  //   @include pow-sprites-sprite(header-menu-icon);
-  //   height: pow-sprites-sprite-height(header-menu-icon);
-  //   width: pow-sprites-sprite-width(header-menu-icon);
-  //   float: left;
-  //   margin-top: 8px;
-  // }
-
   .menu-icon {
     font-size: 2em;
   }
@@ -180,10 +172,14 @@ and (max-device-width : 960px) {
         background: image-url('header-menu-icon.png');
         height: 25px;
         width: 25px;
+        user-select: none;
         float: left;
         background-size: contain;
         background-repeat: no-repeat;
         cursor: pointer;
+        &:focus {
+          outline: none;
+        }
     }
     .title {
         float: left;
@@ -212,17 +208,18 @@ and (max-device-width : 960px) {
   z-index: 98;
   display: block;
   background: #2ba7d9; /* Old browsers */
-  max-width: 400px !important;
-  min-width: 400px !important;
+  max-width: 250px !important;
+  min-width: 250px !important;
+  overflow: visible;
   height: 100vh !important;
   position: fixed;
   font-family: 'Roboto';
-  background: -moz-linear-gradient(top, #2ba7d9 0%, #509f9a 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #2ba7d9 0%,#509f9a 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #2ba7d9 0%,#509f9a 100%); /* W3C */
+  background: -moz-linear-gradient(top, #B1CFDC 30%, #ADD2CB 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#B1CFDC), color-stop(100%,#ADD2CB)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #B1CFDC 30%,#ADD2CB 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #B1CFDC 30%,#ADD2CB 100%); /* W3C */
   background-size: cover;
 
   md-toolbar {
@@ -233,131 +230,106 @@ and (max-device-width : 960px) {
     display: none;
   }
 
-  .sprite {
-    &.sprite-dashboard {
-      background-image: image-url("img/nav/icons/dashboard.png");
-      width: 39px;
-      height: 30px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-invite {
-      background-image: image-url("img/nav/icons/invite.png");
-      width: 40px;
-      height: 33px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-grid-solar {
-      background: image-url('img/nav/icons/grid-solar.png');
-      width: 42px;
-      height: 33px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      margin-left: -2px;
-    }
-    &.sprite-earnings {
-      background-image: image-url("img/nav/icons/earnings.png");
-      width: 40px;
-      height: 29px;
-      margin: 0 0px 0 -1px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-library {
-      background-image: image-url("img/nav/icons/library.png");
-      width: 39px;
-      height: 32px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-certs {
-      background: image-url('img/nav/icons/powur-u.png');
-      width: 29px;
-      height: 29px;
-      margin-right: 9px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-upgrade {
-      background: image-url('img/nav/icons/upgrade.png');
-      width: 40px;
-      height: 29px;
-      margin-right: -2px;
-      margin-left: 0px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-stats {
-      background-image: image-url("img/nav/icons/profile.png");
-      width: 40px;
-      height: 26px;
-      margin-left: 2px;
-      margin-right: -2px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-logout {
-      background-image: image-url("img/nav/icons/logout.png");
-      width: 40px;
-      height: 23px;
-      margin-left: 2px;
-      margin-right: -2px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &.sprite-admin {
-      background: image-url('img/nav/icons/admin.png');
-      width: 19px;
-      height: 19px;
-      margin-right: 11px;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-  }
-
   .link-wrap {
-    padding: 10px 10% 0 10%;
-
+    .header { 
+      text-transform: uppercase;
+      color: #2C6B8A;
+      padding-top: 24px;
+      font-size: 9pt;
+      margin: 0 0 4px 25px;
+      font-weight: 500;
+    }
+    .header-divider {
+      border: 0;
+      height: 1px;
+      margin: 0;
+      background: -webkit-gradient(linear, 0 0, 150% 0, from(#3AA4C0), to(#3AA4C0), color-stop(3%, #2C6B8A));
+      opacity: 0.65;
+    }
     .link-item {
-      padding: 0 10px;
-      height: 7vh;
       cursor: pointer;
+      height: 35px;
+      padding: 0 25px;
+      transition: .2s;
+      position: relative;
 
-      &.active, &:hover {
-        -webkit-filter: brightness(0) invert(1);
-        filter: brightness(0) invert(1);
+      .sprite {
+        transition: .2s;
+        -webkit-transition: .2s;
+        color: #2C6B8A;
+        font-size: 17pt;
+        width: auto;
+        margin: 0 !important;
       }
 
       span {
         color: #2C6B8A;
-        margin-left: 10px;
         font-size: 10pt;
-        text-transform: uppercase;
+        margin-left: 5px;
+        text-transform: capitalize;
+      }
+
+      span, .material-icons {
+        pointer-events: none;
+      }
+
+      &:hover {
+        background: #164F71;
+      }
+
+      &:hover, &.active {
+        & > span, & > .sprite {
+          color: #fff;
+        }
+      }
+
+      .sub-menu {
+        position: absolute;
+        right: -220px;
+        width: 220px;
+        .link-item {
+          background: #164F71;
+          span {
+            color: #eee;
+            text-transform: uppercase;
+            font-size: 9pt;
+          }
+
+          &:hover, &.active {
+            background: #103B54 !important;
+            span {
+              color: #fff;
+            }
+          }
+        }
+
       }
     }
   }
 
   .banner {
     width: 100%;
-    min-height: 28%;
-    height: 23vh;
+    height: 100px;
+    min-height: 0;
     text-transform: uppercase;
     color: #fff;
     background-image: image-url('img/nav/banner.png');
-    padding: 0 20%;
+    padding-left: 50px;
     background-size: cover;
+    background-position: 0 15%;
 
     .logo {
       background: image-url('img/shared/powur-logo-white.png');
-      height: 53px;
-      width: 183px;
-      margin: 0 0 5px -46px;
+      height: 42px;
+      width: 120px;
       background-size: contain;
       cursor: pointer;
+      background-repeat: no-repeat;
+      margin: 6px 0 0 -30px;
     }
+
     .motto {
-      font-size: 11pt;
+      font-size: 9pt;
     }
   }
 
@@ -377,110 +349,46 @@ body {
     }
 
     .mobile-side-nav {
-      max-width: 70vw !important;
-      min-width: 70vw !important;
+      max-width: 500px !important;
+      min-width: 500px !important;
 
       .hide-for-desktop {
         display: block;
       }
 
       .banner {
-        height: 17vh;
-        min-height: 23%;
+        height: 150px;
       }
       .logo {
         height: 103px;
-        width: 355px;
-        margin: 0px 0 15px -90px;
+        width: 335px;
+        margin: 0;
       }
       .motto {
-        font-size: 22pt;
+        display: none;
       }
-      .link-item span {
-          margin-left: 35px;
-          font-size: 32pt;
-          font-weight: 300;
-      }
-      .sprite {
-        &.sprite-dashboard {
-          background-image: image-url("img/nav/icons/dashboard.png");
-          width: 69px;
-          height: 60px;
-          background-size: contain;
-          background-repeat: no-repeat;
+      .link-wrap {
+        .header {
+          font-size: 26pt;
+          margin: 0 0 4px 35px;
+          padding-top: 40px;
         }
-        &.sprite-invite {
-          background-image: image-url("img/nav/icons/invite.png");
-          width: 70px;
-          height: 63px;
-          background-size: contain;
-          background-repeat: no-repeat;
+        .header-divider {
+          height: 4px;
         }
-        &.sprite-grid-solar {
-          background: image-url('img/nav/icons/grid-solar.png');
-          width: 72px;
-          height: 63px;
-          background-size: contain;
-          background-repeat: no-repeat;
-          margin-left: -2px;
-        }
-        &.sprite-earnings {
-          background-image: image-url("img/nav/icons/earnings.png");
-          width: 70px;
-          height: 59px;
-          margin: 0 0px 0 -1px;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        &.sprite-library {
-          background-image: image-url("img/nav/icons/library.png");
-          width: 69px;
-          height: 62px;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        &.sprite-certs {
-          background: image-url('img/nav/icons/powur-u.png');
-          width: 59px;
-          height: 59px;
-          margin-right: 9px;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        &.sprite-upgrade {
-          background: image-url('img/nav/icons/upgrade.png');
-          width: 70px;
-          height: 59px;
-          margin-right: -2px;
-          margin-left: 0px;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        &.sprite-stats {
-          background-image: image-url("img/nav/icons/profile.png");
-          width: 70px;
-          height: 56px;
-          margin-left: 2px;
-          margin-right: -2px;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        &.sprite-logout {
-          background-image: image-url("img/nav/icons/logout.png");
-          width: 70px;
-          height: 53px;
-          margin-left: 2px;
-          margin-right: -2px;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        &.sprite-admin {
-          background: image-url('img/nav/icons/admin.png');
-          width: 49px;
-          height: 49px;
-          margin-right: 11px;
-          background-size: contain;
-          background-repeat: no-repeat;
+        .link-item {
+          height: 80px;
+          padding: 0 35px;
+          .material-icons {
+            font-size: 40pt;
+          }
+          span, .sub-menu span {
+            font-size: 20pt;
+          }
+          .sub-menu {
+            right: -450px;
+            width: 450px;
+          }
         }
       }
     }

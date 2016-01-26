@@ -64,6 +64,9 @@
     &.small {
       padding: 10px 15px;
     }
+    &.items-3 {
+      min-height: 110px;
+    }
   }
 }
 
@@ -80,6 +83,9 @@
   max-width: 100%;
   font-size: 10pt;
   text-transform: capitalize;
+  position: relative;
+  top: 40px;
+
   &.search {
     padding: 0 6px;
   }
@@ -94,23 +100,44 @@
 }
 
 .pw-grid {
-  // padding: 20px 0 50px 0;
   text-align: center;
   color: #666;
+  padding-bottom: 50px;
 
   .md-menu {
     cursor: pointer;
+  }
+
+  .grid-row {
+    .tile {
+      &:nth-child(1) {
+        border-right: 2px solid #fff;
+      }
+    }
+
+    .detail {
+      white-space: nowrap;
+    }
+  }
+
+  .progress-bar-container {
+    width: 75%;
+  }
+
+  .progress-detail{
+    margin: 0 0 0 6%;
   }
 
   .progress-bar {
     position: relative;
     width: 100%;
     max-width: 320px;
-    margin: 10px 0 10px -7px;
+    margin: 10px 0 10px 0px;
 
     .node-wrap {
       position: relative;
     }
+
 
     .node {
       height: 14px;
@@ -137,13 +164,32 @@
       z-index: 3;
       &.active {
         display: block;
+
+        //https://connect.microsoft.com/IE/feedback/details/1052487
+        //http://blog.karenmenezes.com/2014/dec/26/ie-bug-keyframe-animations/
+        //because of the above bug, the 600px media query was breaking the ie animation
+        //this is a fallback so the highlighed nodes still show.
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+          width:  14px;
+          height: 14px;
+
+          &.dialog{
+            width:  16px;
+            height: 16px;
+          }
+        }
+
       }
-      &.stage-0 { animation: pop-in .3s 0s forwards; }
+
+      &.stage-0 { animation: pop-in .3s  0s forwards; }
       &.stage-1 { animation: pop-in .3s .1s forwards; }
       &.stage-2 { animation: pop-in .3s .2s forwards; }
       &.stage-3 { animation: pop-in .3s .3s forwards; }
       &.stage-4 { animation: pop-in .3s .4s forwards; }
+
     }
+
+
 
     .bar {
       width: 80%;
@@ -190,7 +236,7 @@
     text-align: left;
     background: #5A5A5A;
     padding: 0 5px 0 20px;
-    margin: 0 0 5px 0;
+    margin: 0 0 45px 0;
     color: #fff;
     font-size: 10pt;
     line-height: 15pt;
@@ -200,6 +246,7 @@
 
     .toggle-wrapper {
       cursor: pointer;
+      white-space: nowrap;
 
       .toggle {
         font-size: 16pt;
@@ -223,19 +270,15 @@
     }
 
     input {
-      position: absolute;
-      z-index: 2;
+      height: 16px;
+      font-size: 9pt;
+      width: 200px;
       -webkit-appearance: none;
       border-radius: 0;
-      right: 0;
-      top: 36px;
-      height: 33px;
-      width: 100%;
-      background: #444;
-      color: #ccc;
+      background: #e0e0e0;
+      color: #666;
       border: 0;
       padding: 4px 5px;
-      font-size: 11pt;
       transition: all .3s;
       &.collapsed {
         width: 0;
@@ -268,7 +311,7 @@
 
     input {
       color: transparent;
-      background-color: initial;
+      background: #efefef;
       position: initial;
       z-index: inherit;
       width: 100%;
@@ -279,11 +322,14 @@
       font-size: 12pt;
       letter-spacing: .05em;
     }
-    
   }
 
   .label {
     font-size: 6pt;
+
+    a {
+      cursor: pointer;
+    }
   }
 
   .left {
@@ -294,6 +340,11 @@
     text-align: right;
     padding-left: 25px;
   }
+  .label {
+    font-size: 6pt;
+    text-align: center;
+  }
+
 
   .insight {
     max-width: 1100px;
@@ -320,13 +371,33 @@
         font-size: 26pt;
       }
     }
+    .clickable-metric{
+      cursor: pointer;
+
+      .hovered{
+        font-weight: bold;
+      }
+    }
   }
 
   .grid {
-    padding-bottom: 50px;
+    padding-bottom: 70px;
   }
 
   .summary {
+    .md-fab {
+      color: #fff;
+      z-index: 1;
+      height: 40px;
+      width: 40px;
+      margin: 10px 0 10px 0;
+
+      span {
+        font-size: 20pt;
+        font-weight: 400;
+        line-height: 35pt;
+      }
+    }
     width: 100%;
 
     .header {
@@ -336,14 +407,42 @@
       text-align: center;
     }
 
+    .upper {
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
     .header-row {
-      max-width: 700px;
-      padding: 10px 5vw;
+      // max-width: 700px;
+      padding: 10px 10px;
+      height: 23px;
       margin: auto;
       width: 100%;
+      background-color: #5a5a5a;
+      color: #E0E0E0;
+      min-width: 100%;
+      margin: 0;
+      .headers {
+        width: 100%;
+        max-width: 1200px;
+      }
+      .label {
+        justify-content: center;
+        span {
+          font-size: 10pt;
+          // color: #5a5a5a;
+          font-weight: 700;
+          text-align: center;
+          justify-content: center;
+        }
+      }
 
       span:nth-child(2) {
-        padding-left: 20px;
+        // padding-left: 20px;
       }
 
       .label {
@@ -388,24 +487,30 @@
     }
 
     .grid-row {
-      height: 60px;
+      min-height: 60px;
       width: 100%;
       cursor: pointer;
-      padding: 0 5vw;
       max-width: 600px;
-      margin: auto;
+      // margin: 0.5rem 0rem;
 
       .text-sm, .text-lg {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 100px;
+        max-width: 140px;
         text-align: left;
       }
 
-      .material-icons {
-        color: #fff;
+      .create {
         display: block;
+        i {
+          display: block;
+        }
+
+      }
+
+      .material-icons {
+        // color: #fff;
         font-size: 16pt;
 
         &.ineligible {
@@ -417,8 +522,8 @@
       }
 
       .circle {
-        min-height: 40px;
-        min-width: 40px;
+        min-height: 50px;
+        min-width: 50px;
         float: left;
         background-color: #01B598;
         border-radius: 50%;
@@ -451,14 +556,14 @@
         margin: 0 auto;
       }
 
-      &.new {
+      &.upper {
+        // padding-bottom: 10px;
         background-color: #fff;
         color: $pow-color-blue;
         cursor: default;
-        // margin-top: 10px;
 
         .material-icons {
-          color: #fff;
+          // color: #fff;
           margin-bottom: 0;
           margin-right: 0;
         }
@@ -467,21 +572,9 @@
           cursor: pointer;
         }
 
-        .md-fab {
-          color: #fff;
-          z-index: 1;
-          height: 40px;
-          width: 40px;
-          margin-left: 0px;
 
-          span {
-            font-size: 20pt;
-            font-weight: 400;
-            line-height: 35pt;
-          }
-        }
         .text-xl {
-          margin-left: 5px;
+          // margin-left: 5px;
         }
       }
     }
@@ -528,12 +621,18 @@
   }
 }
 
+
 @media screen and (min-width: 600px) {
   .pw-grid {
     font-size: 14pt;
 
     .grid {
-      padding-bottom: 100px;
+      // padding-bottom: 100px;
+      .tile {
+        min-width: 210px;
+        padding: 0rem 1rem;
+
+      }
     }
 
     .right {
@@ -550,11 +649,13 @@
     .accordion {
       min-height: 56px;
       padding: 5px 10px 5px 30px;
+      margin: 0 0 5px 0;
       font-size: 12pt;
       line-height: 12pt;
       cursor: pointer;
 
       .chip {
+        position: inherit;
         height: 30px;
         padding: 0 12px;
         margin-left: 7px;
@@ -567,15 +668,10 @@
         span {
           font-size: 10pt;
         }
-      }
-
-      input {
-        position: initial;
-        height: 25px;
-        width: 200px;
-        z-index: inherit;
-        background: #e0e0e0;
-        color: #666;
+        input {
+          height: 25px;
+          font-size: 11pt;
+        }
       }
 
       .icon {
@@ -624,8 +720,33 @@
         }
       }
       .grid-row {
-        height: 75px;
         max-width: 700px;
+        padding: 0 5vw;
+        margin: 0 auto;
+        height: 90px;
+
+        &.upper {
+          flex-direction: row;
+          align-items: flex-end;
+          margin-bottom: 1rem;
+
+          .md-fab {
+
+            width: 56px;
+            height: 56px;
+            margin-right: 5px;
+
+          }
+        }
+
+        .create {
+          flex-direction: row;
+          display: flex;
+          padding-left: 13px;
+          padding-bottom: 0;
+          align-items: center;
+
+        }
         .count {
           font-size: 18pt;
         }
@@ -641,15 +762,7 @@
             width: 28px;
           }
         }
-        &.new {
-          .md-fab {
-            height: 50px;
-            width: 50px;
-          }
-        }
-        .text-sm, .text-lg {
-          max-width: 150px;
-        }
+
       }
 
       .circle {
@@ -676,9 +789,18 @@
 
       }
     }
+
+    .progress-bar-container {
+          width: 95%;
+    }
+
+    .progress-detail{
+      margin: 0 0 0 6%;
+    }
     .progress-bar {
+      width: 100%;
       max-width: none;
-      margin: 10px 0 10px -18px;
+      margin: 10px 0 10px 0px;
 
       .bar {
         top: 7px;
@@ -708,11 +830,13 @@
   }
 }
 
+
+
 @media screen and (min-width: 960px) {
+  .md-fab {
+    margin-right: 15px !important;
+  }
   .pw-grid {
-    .label {
-      font-size: 10pt;
-    }
     .insight {
       margin: 10px auto;
       height: 130px;
@@ -743,6 +867,14 @@
       }
     }
 
+    .tile {
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        border-right: 2px solid #fff;
+      }
+    }
+
     .summary {
       .text-sm {
         line-height: 11pt;
@@ -752,11 +884,10 @@
         line-height: 14pt;
       }
 
+      .headers {
+        padding: 0vw 5vw;
+      }
       .header-row {
-        padding: 20px 15px 10px 15px;
-        max-width: 1100px;
-        width: 100%;
-        margin: 0 auto;
         .sort {
           .material-icons {
             margin-top: 1px;
@@ -766,23 +897,22 @@
       .grid-row-wrap {
         background: #fff;
       }
+
       .grid-row {
         border: 0;
-        height: 100px;
-        padding: 0 15px;
-        max-width: 1100px;
+        height: 90px;
+        max-width: 1200px;
         margin: 0 auto;
 
-        &.new {
-          .md-fab {
-            height: 56px;
-            width: 56px;
-          }
+        .progress-bar-container {
+          width: 90%;
         }
-
         .progress-bar {
-          width: 80%;
-          margin: 10px 0 10px -5%;
+          width: 100%;
+          margin: 10px 0 10px 0%;
+        }
+        .progress-detail{
+          margin: 0 0 0 6%;
         }
 
         .bump-right {
@@ -898,10 +1028,16 @@
         font-size: 14pt;
       }
     }
+    .progress-bar-container {
+          width: 95%;
+    }
 
+    .progress-detail{
+      margin: 0 0 0 6%;
+    }
     .progress-bar {
-      margin-top: 20px;
-      width: 95%;
+      margin: 20px 0 10px 0%;
+      width: 100%;
       span {
         font-size: 8pt;
       }
@@ -934,5 +1070,3 @@
     }
   }
 }
-
-

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails', groups:  [ :development, :test ],
                     require: 'dotenv/rails-now'
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.5'
 gem 'pg'
 
 gem 'uglifier'

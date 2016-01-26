@@ -3,7 +3,7 @@ class LeadTotals < ActiveRecord::Base
   belongs_to :product
   belongs_to :pay_period
 
-  enum status: [ :converted, :contracted ]
+  enum status: [ :converted, :contracted, :installed ]
 
   scope :exclude_users, lambda { |query|
     joins("LEFT JOIN (#{query.to_sql}) eu
@@ -14,6 +14,7 @@ class LeadTotals < ActiveRecord::Base
     joins("INNER JOIN (#{query.to_sql}) iu
           ON lead_totals.user_id = iu.user_id")
   }
+  scope :current, -> { where(pay_period_id: MonthlyPayPeriod.current_id) }
 
   def personal_count
     self.personal ||= lead_query.where(user_id: user_id).count
@@ -31,6 +32,11 @@ class LeadTotals < ActiveRecord::Base
     self.team_lifetime ||= begin
       Lead.team_count(user_id: user_id, query: lifetime_lead_query)
     end
+  end
+
+  def qualified_team_legs(quantity)
+    return 0 unless team_counts?
+    team_counts.select { |i| i >= quantity }.size
   end
 
   private
@@ -136,6 +142,19 @@ class LeadTotals < ActiveRecord::Base
     def run_csvs(pp_ids = nil)
       pp_ids ||= MonthlyPayPeriod.relevant_ids
       pp_ids.each { |pp_id| to_csv(pp_id) }
+    end
+
+    def user_latest(user_id, status)
+      current
+        .where(user_id: user_id)
+        .where(status: LeadTotals.statuses[status])
+        .first
+    end
+
+    def top_three_legs_for_user(user_id, status)
+      totals = user_latest(user_id, status)
+
+      totals ? [ 0, 0, 0 ] : totals.team_counts.sort.last(3)
     end
   end
 end

@@ -1,10 +1,11 @@
 ;(function() {
   'use strict';
 
-  function init($rootScope, $location, $document, $http, $timeout, UserProfile) {
+  function init($rootScope, $location, $document, $http, $timeout, $mdSidenav, UserProfile) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
-
+    $rootScope.menu = {};
+    $rootScope.legacyImagePaths = legacyImagePaths;
     /*
      * Fill in User object with data if user is signed in but object is empty
     */
@@ -91,10 +92,38 @@
       $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
     };
 
+    $rootScope.isMenuLinkActive = function(path) {
+      if (path === $location.path()) return true;
+      return false;
+    };
+
+
+    $rootScope.isRouteAdmin = function() {
+      if (/\/admin$/.test($location.path())) return true;
+    };
+
+    $rootScope.menuPosition = function(e, active) {
+      $rootScope.menu.active = active;
+      if (!$(e.target).hasClass('menu-item')) return;
+      var offset = e.target.offsetTop;
+      var linkHeight = $(e.target).find('.link-item').height();
+      var height = ($(e.target).find('.sub-menu').children().length * linkHeight);
+
+      if (height + offset < window.innerHeight) {
+        $rootScope.menu.position = 'top:0';
+      } else {
+        $rootScope.menu.position = 'bottom:-1px';
+      }
+    };
+
     $rootScope.signOut = function() {
       $http.delete('/login.json').success(function() {
         window.location = '/';
       });
+    };
+
+    $rootScope.openMenu = function() {
+      $mdSidenav('mobile-left').toggle();
     };
   }
 
@@ -104,6 +133,7 @@
     '$document',
     '$http',
     '$timeout',
+    '$mdSidenav',
     'UserProfile'];
 
   angular.module('powurApp', [
@@ -112,6 +142,8 @@
     'angularS3FileUpload',
     'blocks.filters',
     'app.admin.widgets',
-    'templates'
+    'templates',
+    'ngAnimate',
+    'ngMaterial'
   ]).run(init);
 })();

@@ -49,6 +49,7 @@
         <a ng-if="!user.properties.terminated" ng-click="confirm('Are you sure you want to terminate this user?', 'terminateUser', 'terminate')" class="button alert right">Terminate this user</a>
         <a ng-if="user.properties.terminated" ng-click="confirm('Are you sure you want to activate this user?', 'terminateUser', 'unterminate')" class="button alert right">Activate this user</a>
         <a ng-if="!user.properties.terminated" ng-click="confirm('You will be signed in as this user. Are you sure?', 'logInAsUser')" class="button">Log In as {{ user.properties.first_name }}</a>
+        <a ng-click="confirm('Are you sure you want to delete this user? This action cannot be undone.', 'deleteUser')" class="button alert right delete">Delete User</a>
       </div>
     </div>
   </div>

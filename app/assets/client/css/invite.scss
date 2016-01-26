@@ -835,26 +835,6 @@
       }
     }
 
-    input {
-      position: absolute;
-      z-index: 2;
-      -webkit-appearance: none;
-      border-radius: 0;
-      right: 0;
-      top: 42px;
-      height: 33px;
-      width: 100%;
-      background: #444;
-      border: 0;
-      padding: 4px 5px;
-      font-size: 11pt;
-      color: #ccc;
-      transition: all .3s;
-      &.collapsed {
-        width: 0;
-        padding: 0;
-      }
-    }
     .material-icons {
       margin: 0 5px;
       cursor: pointer;

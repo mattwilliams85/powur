@@ -70,15 +70,6 @@ class Invite < ActiveRecord::Base
 
     user = User.new(params)
 
-    latest_agreement = ApplicationAgreement.current
-    if latest_agreement && latest_agreement.version != params[:tos]
-      user.errors.add(
-        :tos,
-        'Please read and agree to the latest terms and conditions in ' \
-        'the Application and Agreement')
-      return user
-    end
-
     if user.save!
       Invite.where(id: id).update_all(user_id: user.id)
       Invite.where.not(id: id).where(email: email, user_id: nil).delete_all

@@ -5,16 +5,21 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Powur Administration</title>
   <base href="/">
+  <link rel="icon" type="image/png" href="<%=asset_path('powur-ico.png') %>">
+  <link href="<%=asset_path('powur-ico.png') %>" rel="apple-touch-icon">
   <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
   <link href="//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round" rel="stylesheet">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc7/angular-material.min.css" rel="stylesheet">
+  <%= render('layouts/fonts') %>
   <%= stylesheet_link_tag "admin", media: "all" %>
   <%= csrf_meta_tags %>
   <%= javascript_include_tag "modernizr/modernizr" %>
 </head>
 <body>
   <!-- Admin Header -->
-  <ng-include src="'shared/admin/header.html'"></ng-include>
+  <ng-include src="'shared/header-signed-in.html'"></ng-include>
   <!-- Bread Crumbs -->
   <ng-include src="'shared/admin/breadcrumbs.html'"></ng-include>
   <!-- Page Content -->

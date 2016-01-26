@@ -11,6 +11,7 @@ module powur {
     'ngMaterial',
     // 3rd party modules
     'ui.router',
+    'ui.mask',
     'templates',
     // cross-app/util modules
     'powur.services'

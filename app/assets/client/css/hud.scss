@@ -21,14 +21,26 @@
     }
 
     .number {
-        font-size: 10pt;
+        font-size: 8pt;
 
         letter-spacing: .05em;
         font-weight: 600;
     }
+
+    .rank-title {
+      font-weight: bold;
+    }
+
+    .material-icons {
+      color: #fff;
+      font-size: 15pt;
+      margin-right: 12pt;
+    }
+
     sup {
         font-size: 7pt;
     }
+
     .icon {
         background: image-url('img/hud/icons/personal-lead.png');
         background-size: contain;
@@ -62,6 +74,7 @@
                 color: #FF9929;
                 font-weight: 400;
                 font-size: 14pt;
+                line-height: 12pt;
             }
         }
     }
@@ -139,6 +152,15 @@
             font-weight: 300;
             vertical-align: bottom;
             letter-spacing: 0;
+            display: inline-block;
+        }
+        .rank-title {
+          font-size: 9pt;
+          font-weight: normal;
+          vertical-align: bottom;
+          letter-spacing: 0;
+          width: 60pt;
+          display: inline-block;
         }
         .md-caption {
             font-size: 8pt;
@@ -189,6 +211,38 @@
                 height: 11px;
                 width: 13px;
             }
+        }
+
+        .new-icon {
+          background-repeat: no-repeat;
+          background-position: left center;
+          padding-left: 20px;
+          height: 30pt;
+
+          &.medal {
+            background-image: image-url('img/hud/icons/medal.png');
+            background-size: 9px 14px;
+          }
+          &.personal-lead {
+            background-image: image-url('img/hud/icons/personal-lead.png');
+            background-size: 10px 12px;
+          }
+          &.grid-lead {
+            background-image: image-url('img/hud/icons/grid-lead.png');
+            background-size: 13px;
+          }
+          &.grid {
+            background-image: image-url('img/hud/icons/grid.png');
+            background-size: 12px 11px;
+          }
+          &.earnings {
+            background-image: image-url('img/hud/icons/earnings.png');
+            background-size: 13px 8px;
+          }
+          &.co2 {
+            background-image: image-url('img/hud/icons/co2.png');
+            background-size: 13px 11px;
+          }
         }
 
         .flex-50 {

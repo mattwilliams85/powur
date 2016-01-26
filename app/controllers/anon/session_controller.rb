@@ -23,7 +23,7 @@ module Anon
     end
 
     def destroy
-      reset_session
+      logout_user
       redirect_to root_url
     end
   end

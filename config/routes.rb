@@ -57,8 +57,6 @@ Rails.application.routes.draw do
       post :validate
     end
 
-    resources :customers, only: [ :show, :update ]
-
     resources :users, as: :anon_users, only: [ :show ]
     resources :leads, as: :anon_leads, only: [ :show, :create, :update ]
   end
@@ -69,14 +67,18 @@ Rails.application.routes.draw do
       get '/:id/proposals_index', to: 'kpi_metrics#proposals_index'
       get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
       get '/:id/proposals_show_team', to: 'kpi_metrics#proposals_show_team'
-
       get '/:id/genealogy_index', to: 'kpi_metrics#genealogy_index'
       get '/:id/genealogy_show_team', to: 'kpi_metrics#genealogy_show_team'
+
+      member do
+        get :show_lead_owner
+      end
     end
 
     resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
       member do
-        post :resend, :submit, :invite, :switch_owner
+        post :resend, :submit, :invite
+        patch :switch_owner
       end
       collection do
         get :team
@@ -127,20 +129,15 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: [ :index, :show ] do
+    resources :users, only: [ :index, :show, :user_team_counts ] do
       collection do
         get '' => 'users#search', constraints: params?(:search)
         get :leaderboard
       end
 
       member do
-        get :downline
-        get :full_downline
-        get :upline
+        get :downline, :full_downline, :upline, :eligible_parents, :sponsors, :grid_summary, :detail
         post :move
-        get :eligible_parents
-        get :sponsors
-        get :grid_summary
       end
 
       resources :leads, only: [ :index ] do
@@ -204,6 +201,9 @@ Rails.application.routes.draw do
         patch :publish, :unpublish
       end
     end
+
+    # Lead Actions
+    resources :lead_actions, only: [ :index, :destroy, :create, :update, :show ]
 
     # Bonuses
     resources :bonuses, only: [ :index, :destroy, :update, :show ] do
@@ -273,6 +273,7 @@ Rails.application.routes.draw do
         get :downline, :upline, :eligible_parents, :sponsors
         post :move, :sign_in
         patch :update_sponsor, :terminate, :unterminate
+        delete :delete_user
       end
 
       # Users / Bonus Payments

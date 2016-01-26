@@ -8,6 +8,7 @@
 //= require angular/angular.min
 //= require ngstorage/ngStorage.min
 //= require angular-ui-router/release/angular-ui-router.min
+//= require angular-ui-mask/dist/mask.min
 //= require angular-aria/angular-aria.min
 //= require angular-animate/angular-animate.min
 //= require angular-material/angular-material.min
@@ -49,6 +50,7 @@
 //= require grid/show-invite-popup.solar
 //= require grid/show-lead-popup.solar
 //= require grid/update-invite-popup.solar
+//= require grid/show-lead-owner.solar
 
 //= require landing/step1
 //= require landing/step2

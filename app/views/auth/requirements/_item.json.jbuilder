@@ -2,15 +2,22 @@ klass :requirement
 
 entity_rel(local_assigns[:rel]) if local_assigns[:rel]
 
+team = requirement.team?
+purchase = requirement.is_a?(PurchaseRequirement)
+
 json.properties do
-  json.call(requirement, :id, :event_type, :product_id)
-  json.team requirement.team?
+  json.call(requirement, :id, :product_id, :title)
+
+  json.team team
+  json.call(requirement, :max_leg, :leg_count) if team
+
+  json.purchase purchase
+  json.call(requirement, :lead_status) unless purchase
+
   json.product requirement.product.name
-  unless requirement.purchase?
-    json.quantity requirement.quantity
-    json.time_span requirement.time_span && requirement.time_span.titleize
-    json.max_leg(requirement.max_leg) if requirement.grid_sales?
-  end
+  json.quantity requirement.quantity
+  json.time_span requirement.time_span && requirement.time_span.titleize
+
   if @user
     progress = requirement.progress_for(@user.id, MonthlyPayPeriod.current_id)
     json.progress progress

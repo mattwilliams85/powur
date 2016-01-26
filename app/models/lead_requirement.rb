@@ -1,13 +1,22 @@
 class LeadRequirement < RankRequirement
-  def progress_for(user_id, pay_period_id = nil)
-    pay_period_id ||= MonthlyPayPeriod.current_id
-    totals = lead_totals_query(pay_period_id)
-      .where(user_id: user_id).first
-    totals ? totals.send(lead_totals_quantity_column) : 0
+  enum lead_status: { converted: 1, installed: 2 }
+
+  def requirement_for_label
+    team? ? 'Team' : 'Your'
+  end
+
+  def title
+    "#{requirement_for_label} Leads"
+  end
+
+  def progress_for(user_id, month = nil)
+    month ||= MonthlyPayPeriod.current_id
+    totals = UserTotals.where(id: user_id).first
+    totals && totals.progress_for_requirement(self, month)
   end
 
   def user_qualified?(user_id, pay_period_id)
-    qualified_lead_totals(pay_period_id).where(user_id: user_id).exists?
+    qualified_lead_totals(pay_period_id).where(id: user_id).exists?
   end
 
   def qualified_user_ids(pay_period_id: nil,
@@ -16,14 +25,14 @@ class LeadRequirement < RankRequirement
     query = qualified_lead_totals(pay_period_id)
     query = query.exclude_users(exclude_users) if exclude_users
     query = query.include_users(include_users) if include_users
-    query.pluck(:user_id)
+    query.pluck(:id)
   end
 
   def max_leg?
     !max_leg.nil? && max_leg > 0
   end
 
-  def smaller_legs_amount_needed
+  def smaller_legs_need
     ((1 - (max_leg / 100.0)) * quantity).ceil
   end
 
@@ -31,36 +40,32 @@ class LeadRequirement < RankRequirement
     amount >= smaller_legs_amount_needed
   end
 
-  def lead_totals_quantity_column
-    name = personal? ? 'personal' : 'team'
-    name += '_lifetime' unless monthly?
-    name
+  def leg_count?
+    super && leg_count > 1
   end
 
   private
 
-  def personal?
-    personal_sales? || personal_proposals?
-  end
-
-  def proposals?
-    personal_proposals? || grid_proposals?
-  end
-
-  def lead_status
-    proposals? ? :converted : :contracted
-  end
-
-  def lead_totals_query(pay_period_id)
-    LeadTotals.send(lead_status).where(pay_period_id: pay_period_id)
-  end
-
-  def qualified_lead_totals(pay_period_id)
-    query = lead_totals_query(pay_period_id)
-      .where("\"#{lead_totals_quantity_column}\" >= ?", quantity)
-    if max_leg?
-      query = query.where('smaller_legs >= ?', smaller_legs_amount_needed)
+  def query_scope
+    if team?
+      if leg_count?
+        :lead_leg_count_met
+      else
+        monthly? ? :monthly_team_count_met : :lifetime_team_count_met
+      end
+    else
+      :quantity_met
     end
-    query
+  end
+
+  def query_args(month)
+    args = { status: lead_status, quantity: quantity }
+    args[:month] = month if monthly?
+    args[:leg_count] = leg_count if leg_count?
+    args
+  end
+
+  def qualified_lead_totals(month)
+    UserTotals.send(query_scope, query_args(month))
   end
 end

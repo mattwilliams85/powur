@@ -1,5 +1,6 @@
 module Auth
   class KpiMetricsController < AuthController
+    before_action :fetch_user, only: [ :show_lead_owner]
     page max_limit: 8
 
     def show
@@ -8,6 +9,13 @@ module Auth
       @team_count = User.with_ancestor(@user.id).count
       @co2_count = co2_calc.round
       @earnings_total = @user.bonus_payments.where(status: [2,4]).sum(:amount)
+    end
+
+    def show_lead_owner
+      @team_count = User.with_ancestor(@user.id).count
+      @co2_count = co2_calc.round
+      @earnings_total = @user.bonus_payments.where(status: [2,4]).sum(:amount)
+      @partners = User.with_ancestor(@user.id).with_purchases.count
     end
 
     def proposals_show

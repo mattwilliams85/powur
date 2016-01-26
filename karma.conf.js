@@ -24,13 +24,14 @@ config.set({
        'vendor/assets/bower_components/ngstorage/ngStorage.js',
        'vendor/assets/bower_components/angular-material/angular-material.js',
        'vendor/assets/bower_components/angular-ui-router/release/angular-ui-router.js',
+       'vendor/assets/bower_components/angular-ui-mask/dist/mask.js',
 
        'vendor/assets/bower_components/angular-mocks/angular-mocks.js',
        'app/assets/client/test/templates.ts',
-       
+
        'app/assets/client/app/services/powur.services.ts',
        'app/assets/client/app/core/powur.core.ts',
-       
+
        'app/assets/client/app/core/decimal-part.filter.ts',
        'app/assets/client/app/core/remove-extra-characters.filter.ts',
        'app/assets/client/app/core/truncate-name.filter.ts',
@@ -42,7 +43,7 @@ config.set({
       //  'app/assets/client/test/core/truncate-name.filter.ts',
       //  'app/assets/client/test/core/whole-number.filter.ts',
     ],
-    
+
     // list of files to exclude
     exclude: [
     ],
@@ -110,7 +111,7 @@ config.set({
     // Concurrency level
     // how many browser should be started simultanous
     concurrency: Infinity,
-    
+
     plugins: [
         "karma-jasmine",
 

@@ -32,9 +32,10 @@
     };
 
     $scope.setNewOwner = function(newOwnerId, leadId) {
-      return $http({
-        method: 'POST',
-        url: '/u/leads/' + leadId + '/switch_owner/',
+      var action = getAction($scope.actions, 'switch_owner');
+      $http({
+        method: action.method,
+        url: action.href,
         params: {
           lead_id: leadId,
           new_owner_id: newOwnerId
@@ -55,7 +56,7 @@
       }
     };
 
-    // TODO: Have one 'pagination' function instead of defining it in every controller
+    // TODO:Have 1 'pagination' fn instead of defining it in every controller
     $scope.pagination = function(direction, path) {
       if (typeof direction === 'undefined') direction = 0;
       var sort;
@@ -104,6 +105,16 @@
       });
     };
 
+    $scope.showDetails = function(item) {
+      if ($scope.detailView &&
+          $scope.detailView.id === item.properties.id) return clearTable();
+      $scope.detailView = item.properties;
+    };
+
+    function clearTable() {
+      $scope.detailView = null;
+    }
+
     $scope.index = {};
 
     $rootScope.breadcrumbs.push({title: $scope.templateData.index.title});
@@ -113,8 +124,8 @@
 
   controller.prototype.init = function($scope, $location) {
     // Setting mode based on the url
-    $scope.mode = 'index';
     if (/\/change-leads$/.test($location.path())) return $scope.mode = 'change-leads';
+    if (/\/leads$/.test($location.path())) return $scope.mode = 'index';
   };
 
   controller.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
@@ -124,8 +135,10 @@
       $scope.pagination(0, $scope.listPath = '/a/users');
       getLead($routeParams.leadId, function(item) {
         $scope.lead = item;
+        $scope.actions = item.actions;
       });
     }
+
     function getLead(leadId, cb) {
       CommonService.execute({
         href: '/u/leads/' + leadId
@@ -144,6 +157,18 @@
       templateUrl: 'admin/leads/templates/change-leads.html',
       controller: 'AdminLeadsCtrl'
     });
+  }
+
+  /*
+  * Utility Functions
+  */
+
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
   }
 
 })();

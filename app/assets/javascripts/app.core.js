@@ -4,6 +4,7 @@
 
   var references = [
     'ui.router',
+    'ui.mask',
     'ngResource',
     'blocks.siren'
   ];

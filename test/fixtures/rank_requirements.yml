@@ -1,5 +1,4 @@
 purchase:
-  event_type: 1
   rank_id: 1
   product: cert
   quantity: 1

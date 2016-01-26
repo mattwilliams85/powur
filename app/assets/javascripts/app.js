@@ -4,6 +4,7 @@
   function init($rootScope, $location, $document, $http, $filter, $window, $timeout, $mdSidenav) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
+    $rootScope.menu = {};
 
     //Temp fix for sizzle selector bug
     Object.getPrototypeOf(document.createComment('')).getAttribute = function() {}
@@ -89,6 +90,20 @@
     $rootScope.isMenuLinkActive = function(path) {
       if (path === $location.path()) return true;
       return false;
+    };
+
+    $rootScope.menuPosition = function(e, active) {
+      $rootScope.menu.active = active;
+      if (!$(e.target).hasClass('menu-item')) return;
+      var offset = e.target.offsetTop;
+      var linkHeight = $(e.target).find('.link-item').height();
+      var height = ($(e.target).find('.sub-menu').children().length * linkHeight);
+
+      if (height + offset < window.innerHeight) {
+        $rootScope.menu.position = 'top:0';
+      } else {
+        $rootScope.menu.position = 'bottom:-1px';
+      }
     };
 
     $rootScope.stateName = function() {

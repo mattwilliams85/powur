@@ -98,6 +98,10 @@ class Product < ActiveRecord::Base
       purchased_at:   Time.zone.now)
   end
 
+  def deletable?
+    !(product_receipts.any? || product_enrollments.any? || quote_fields.any?)
+  end
+
   class << self
     def default_id
       SystemSettings.default_product_id

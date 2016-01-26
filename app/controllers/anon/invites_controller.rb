@@ -12,9 +12,10 @@ module Anon
 
       input = invite_input
 
-      # for ToS, we store the version number the user last agreed to
-      # so we change the 'true' value to the version of the ToS when they signed up:
-      input[:tos] = input[:tos_version] if input[:tos] == true
+      error!(:latest_agreement, :tos) unless input[:tos].to_s == 'true'
+      if tos && tos.version == input[:tos_version]
+        input.merge!(tos: tos.version, tos_accepted_at: Time.zone.now.to_s(:db))
+      end
 
       user = @invite.accept(input)
 
@@ -48,6 +49,10 @@ module Anon
       user.mailchimp_subscribe
     rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
+    end
+
+    def tos
+      @tos ||= ApplicationAgreement.current
     end
   end
 end

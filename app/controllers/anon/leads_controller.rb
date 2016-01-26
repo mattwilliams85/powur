@@ -18,11 +18,7 @@ module Anon
           user:       @user,
           data:       lead_data_input))
 
-      if @lead.ready_to_submit?
-        submit_to_sc
-      else
-        error!(:cannot_submit_lead)
-      end
+      submit_to_sc
 
       show
     end
@@ -33,11 +29,7 @@ module Anon
 
       @lead.update_attributes!(lead_input.merge(data: lead_data_input))
 
-      if @lead.ready_to_submit?
-        submit_to_sc
-      else
-        error!(:cannot_submit_lead)
-      end
+      submit_to_sc
 
       show
     end
@@ -68,6 +60,9 @@ module Anon
     end
 
     def submit_to_sc
+      error!(:invalid_zip, :zip) unless Lead.valid_zip?(lead_input['zip'])
+      error!(:unqualified_zip, :zip) if @lead.ineligible_location?
+      error!(:cannot_submit_lead) unless @lead.ready_to_submit?
       @lead.submit!
       @lead.email_customer if @lead.can_email?
       @lead.accepted!
@@ -75,8 +70,8 @@ module Anon
         .where(email: @lead.email)
         .where.not(invite_status: Lead.invite_statuses[:accepted])
         .delete_all
-    rescue Lead::SolarCityApiError => e
-      Airbrake.notify(e)
+    rescue IntegrationError => e
+      Airbrake.notify(e, error: e.error.inspect, lead_id: @lead.id)
       error!(:solarcity_api)
     end
   end

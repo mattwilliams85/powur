@@ -11,13 +11,13 @@ class User < ActiveRecord::Base
   has_many :leads
   has_many :customers
   has_many :bonus_payments
-  has_many :overrides, class_name: 'UserOverride'
-  has_many :user_activities
+  has_many :overrides, class_name: 'UserOverride', dependent: :destroy
+  has_many :user_activities, dependent: :destroy
   has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
-  has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
+  has_one :user_totals, class_name: 'UserTotals', foreign_key: :id
   has_many :user_ranks, dependent: :destroy
-  has_many :ranks, through: :user_ranks
+  has_many :ranks, through: :user_ranks, dependent: :destroy
   has_many :sent_invites, class_name:  'Invite',
                           foreign_key: :sponsor_id,
                           dependent:   :destroy
@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
                  :address, :city, :state, :country, :zip, :phone, :valid_phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
-                 :communications, :watched_intro, :tos_version,
+                 :communications, :watched_intro,
+                 :tos_version, :tos_accepted_at,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
                  :notifications_read_at, :ewallet_username, :mailchimp_id,
                  :last_login_streak_at, :terminated,
@@ -103,12 +104,24 @@ class User < ActiveRecord::Base
     @parent ||= parent_id && User.find(parent_id)
   end
 
+  def team_leader?
+    id != upline.first
+  end
+
+  def team_leader
+    User.find(upline.first)
+  end
+
   def ancestor?(user_id)
     upline.include?(user_id)
   end
 
   def parent_ids
     upline[0..-2]
+  end
+
+  def ancestor?(user_id)
+    parent_ids.include?(user_id)
   end
 
   def moveable_by?(user)
@@ -319,6 +332,14 @@ class User < ActiveRecord::Base
     User.rank_up
   end
 
+  def deletable?
+    return false, :undeletable_user_has_children if !User.with_ancestor(id).count.zero?
+    return false, :undeletable_user_is_sponsoring if !User.where(sponsor_id: id).count.zero?
+    return false, :undeletable_user_has_bonus_payments if !BonusPayment.where(user_id: id).count.zero?
+    return false, :undeletable_user_has_product_receipts if !ProductReceipt.where(user_id: id).count.zero?
+    return true, 'User can be deleted'
+  end
+
   private
 
   def set_url_slug
@@ -339,6 +360,14 @@ class User < ActiveRecord::Base
   end
 
   class << self
+
+    def list_deletable
+      list = [];
+      User.all.each { |user| list << user if user.deletable?}
+      return list
+    end
+
+
     def update_organic_ranks
       join = UserRank.highest_lifetime_ranks.to_sql
       sql = "

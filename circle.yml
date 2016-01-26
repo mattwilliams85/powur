@@ -30,5 +30,5 @@ test:
   override:
     - bundle exec rspec spec:
         parallel: true
-    - rake test
+    - bundle exec rake test
     - gulp test
