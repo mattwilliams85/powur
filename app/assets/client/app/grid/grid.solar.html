@@ -500,7 +500,7 @@
                class="uppercase right tile"
                flex="50" flex-gt-md="25"
                layout="row"
-               layout-align="start center"
+               layout-align="center center"
                ng-click="grid.showLead($event, lead)">
             <div class="uppercase text-sm move">
               Invitation {{ grid.leadStatus(lead) | humanizeString }}
@@ -525,7 +525,7 @@
                ng-click="grid.showOwner($event, lead)">
             <div layout="row" layout-align="space-between" class="progress-bar">
               <div class="bar"></div>
-              <div class="bar overlay" style="width:{{ lead.properties.stage * 20 }}%">
+              <div class="bar overlay" ng-style="{'width': lead.properties.stage * 20 +'%'}">
                 <div class="animated stage-{{ lead.properties.stage }}"></div>
               </div>
               <div layout="column" layout-align="center center" flex="20">
