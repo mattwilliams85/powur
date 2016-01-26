@@ -482,7 +482,7 @@
       <div class="grid-row-wrap" ng-repeat="lead in grid.leads.entities">
         <div class="grid-row" layout="row" ng-click="grid.showLead($event, lead)">
           <!-- COLUMN #contact -->
-          <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center" ng-click="grid.showLead($event, lead)">
+          <div class="left tile" flex="50" flex-gt-md="25"  layout="row" layout-align="start center">
             <div class="circle {{ grid.leadStatus(lead) }}" layout-align="center center" layout="row">
                <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             </div>
