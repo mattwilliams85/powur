@@ -33,13 +33,13 @@
       </div>
     </a>
 
-    <a ng-href="/next/invite/grid" target="_self">
+    <a ng-href="/next/invite/grid" ng-click="nav.openMenu()">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('home.invite') }">
         <i class="sprite material-icons" flex="15">mail</i><span>Invite</span>
       </div>
     </a>
 
-    <a ng-href="/next/grid/solar" target="_self">
+    <a ng-href="/next/grid/solar" ng-click="nav.openMenu()">
       <div layout="row" layout-align="start center" class="link-item" ng-class="{ active: nav.isCurrent('grid.solar') }">
         <i class="sprite material-icons" flex="15">view_list</i><span>Solar Grid</span>
       </div>
