@@ -83,6 +83,9 @@
   max-width: 100%;
   font-size: 10pt;
   text-transform: capitalize;
+  position: relative;
+  top: 40px;
+
   &.search {
     padding: 0 6px;
   }
@@ -99,6 +102,7 @@
 .pw-grid {
   text-align: center;
   color: #666;
+  padding-bottom: 50px;
 
   .md-menu {
     cursor: pointer;
@@ -232,7 +236,7 @@
     text-align: left;
     background: #5A5A5A;
     padding: 0 5px 0 20px;
-    margin: 0 0 5px 0;
+    margin: 0 0 45px 0;
     color: #fff;
     font-size: 10pt;
     line-height: 15pt;
@@ -266,19 +270,15 @@
     }
 
     input {
-      position: static;
-      z-index: 2;
+      height: 16px;
+      font-size: 9pt;
+      width: 200px;
       -webkit-appearance: none;
       border-radius: 0;
-      right: 0;
-      top: 36px;
-      height: 33px;
-      width: 100%;
-      background: #444;
-      color: #ccc;
+      background: #e0e0e0;
+      color: #666;
       border: 0;
       padding: 4px 5px;
-      font-size: 11pt;
       transition: all .3s;
       &.collapsed {
         width: 0;
@@ -649,11 +649,13 @@
     .accordion {
       min-height: 56px;
       padding: 5px 10px 5px 30px;
+      margin: 0 0 5px 0;
       font-size: 12pt;
       line-height: 12pt;
       cursor: pointer;
 
       .chip {
+        position: inherit;
         height: 30px;
         padding: 0 12px;
         margin-left: 7px;
@@ -666,15 +668,10 @@
         span {
           font-size: 10pt;
         }
-      }
-
-      input {
-        position: initial;
-        height: 25px;
-        width: 200px;
-        z-index: inherit;
-        background: #e0e0e0;
-        color: #666;
+        input {
+          height: 25px;
+          font-size: 11pt;
+        }
       }
 
       .icon {
