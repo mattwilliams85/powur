@@ -41,7 +41,9 @@ module AddSearch
     end
 
     def _add_multi_table_search(relations)
-      search_scopes = relations.map { |r| method("#{r}_search") }
+      search_scopes = []
+      search_scopes << method('search') if relations.delete(:self)
+      relations.each { |r| search_scopes << method("#{r}_search") }
 
       scope "#{relations.join('_')}_search".to_sym, lambda { |term|
         includes(*relations).references(*relations)

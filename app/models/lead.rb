@@ -18,7 +18,7 @@ class Lead < ActiveRecord::Base
   enum invite_status: [
     :not_sent, :sent, :initiated, :accepted ]
 
-  add_search :user, [ :user ]
+  add_search :user, [ :user, :self ]
 
   scope :not_submitted, -> { where('submitted_at IS NULL') }
   scope :submitted_status, -> (status) { send(status) }
