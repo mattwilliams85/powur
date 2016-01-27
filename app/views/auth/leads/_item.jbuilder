@@ -16,6 +16,7 @@ json.properties do
   json.average_bill lead.data['average_bill']
   json.stage lead.lead_stage
   json.product lead.product.name
+  json.last_update lead.lead_updates.last if lead.lead_updates.last
   json.owner do
     json.call(lead.user, :id, :first_name, :last_name, :phone, :email)
     json.avatar do

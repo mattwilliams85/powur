@@ -933,6 +933,7 @@
 // GRID POP-UP CSS
 .pw-dialog.pw-grid {
   max-width: 650px;
+  padding-bottom: 0;
 
   .name {
     font-size: 14pt;
@@ -1006,6 +1007,8 @@
     .detail b {
       text-transform: uppercase;
       font-size: 7pt;
+      color: #20C2F1;
+      font-weight: 400;
     }
   }
 
