@@ -78,10 +78,36 @@
       <div class="column info">
         <div>LEAD <b>INTEL</b></div>
         <div class="detail">
-          The lead was last updated on
+          The lead was <b>last updated</b> on
           {{ (dialog.lead.properties.updated_at | date:'M/d/yyyy') || 'No Updates Available' }}
           @ {{ dialog.lead.properties.updated_at | date:'mediumTime'}}
         </div>
+        <div class="detail" ng-if="dialog.lead.properties.submitted_at">
+          The lead was <b>submitted</b> on
+          {{ (dialog.lead.properties.submitted_at | date:'M/d/yyyy') }}
+          @ {{ dialog.lead.properties.submitted_at | date:'mediumTime'}}
+        </div>
+        <div class="detail" ng-if="dialog.lead.properties.converted_at">
+          The lead was <b>converted</b> on
+          {{ (dialog.lead.properties.converted_at | date:'M/d/yyyy') }}
+          @ {{ dialog.lead.properties.converted_at | date:'mediumTime'}}
+        </div>
+        <div class="detail" ng-if="dialog.lead.properties.closed_won_at">
+          The lead was <b>closed won</b> on
+          {{ (dialog.lead.properties.closed_won_at | date:'M/d/yyyy') }}
+          @ {{ dialog.lead.properties.closed_won_at | date:'mediumTime'}}
+        </div>
+        <div class="detail" ng-if="dialog.lead.properties.contracted_at">
+          The lead was <b>contracted</b> on
+          {{ (dialog.lead.properties.contracted_at | date:'M/d/yyyy') }}
+          @ {{ dialog.lead.properties.contracted_at | date:'mediumTime'}}
+        </div>
+        <div class="detail" ng-if="dialog.lead.properties.installed_at">
+          The lead was <b>installed</b> on
+          {{ (dialog.lead.properties.installed_at | date:'M/d/yyyy') }}
+          @ {{ dialog.lead.properties.installed_at | date:'mediumTime'}}
+        </div>
+
       </div>
       <md-divider ng-if="dialog.lead.properties.action_copy"></md-divider>
       <div class="column info" ng-if="dialog.lead.properties.action_copy">

@@ -997,6 +997,10 @@
       top: 0;
       left: -15px;
     }
+    .detail b {
+      text-transform: uppercase;
+      font-size: 7pt;
+    }
   }
 
   @keyframes grow {
@@ -1028,6 +1032,13 @@
         font-size: 14pt;
       }
     }
+
+    .info {
+      .detail b {
+        font-size: 11pt;
+      }
+    }
+
     .progress-bar-container {
           width: 95%;
     }
@@ -1035,6 +1046,7 @@
     .progress-detail{
       margin: 0 0 0 6%;
     }
+
     .progress-bar {
       margin: 20px 0 10px 0%;
       width: 100%;
