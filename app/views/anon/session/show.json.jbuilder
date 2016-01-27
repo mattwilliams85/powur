@@ -64,13 +64,13 @@ entity_list << entity(%w(list leads),
                       user_leads_path(current_user, leads_routes_options))
 entity_list << entity(%w(search leads),
                       'user-leads_search',
-                      user_leads_path(current_user, leads_routes_options.merge(search: '{search}')))
+                      user_leads_path(current_user, leads_routes_options.merge(user_search: '{search}')))
 entity_list << entity(%w(list leads),
                       'user-team_leads',
                       team_leads_path(leads_routes_options))
 entity_list << entity(%w(search leads),
                       'user-team_leads_search',
-                      team_leads_path(leads_routes_options.merge(search: '{search}')))
+                      team_leads_path(leads_routes_options.merge(user_search: '{search}')))
 entity_list << entity(%w(user), 'user-profile', profile_path)
 entity_list << entity(%w(summary leads),
                       'user-leads_summary',
