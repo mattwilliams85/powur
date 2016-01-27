@@ -486,12 +486,12 @@
                <i class="material-icons {{ grid.leadStatus(lead) }}">{{ grid.iconStatus(lead) }}</i>
             </div>
             <div class="detail">
-              <div class="uppercase text-lg">
+              <div class="text-lg">
                 {{ lead.properties.first_name }}
                 <b>{{ lead.properties.last_name }}</b>
               </div>
-              <div class="uppercase text-sm"> {{ lead.properties.email }}</div>
-              <div class="uppercase text-sm"> {{ lead.properties.phone | formatPhoneNumber }}</div>
+              <div class="text-sm"> {{ lead.properties.email }}</div>
+              <div class="text-sm"> {{ lead.properties.phone | formatPhoneNumber }}</div>
             </div>
           </div>
           <!-- COLUMN #status -->
@@ -567,8 +567,8 @@
               <img ng-src="{{ lead.properties.owner.avatar.thumb || grid.defaultAvatar }}">
             </div>
             <div class="detail">
-              <div class="uppercase text-lg">{{ lead.properties.owner.first_name }} <b>{{ lead.properties.owner.last_name }}</b></div>
-              <div class="uppercase text-sm">{{ lead.properties.owner.email }}</div>
+              <div class="text-lg">{{ lead.properties.owner.first_name }} <b>{{ lead.properties.owner.last_name }}</b></div>
+              <div class="text-sm">{{ lead.properties.owner.email }}</div>
               <div class="text-sm">{{ lead.properties.owner.phone | formatPhoneNumber }}</div>
             </div>
           </div>

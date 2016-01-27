@@ -493,12 +493,14 @@
       max-width: 600px;
       // margin: 0.5rem 0rem;
 
-      .text-sm, .text-lg {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 140px;
+      .detail {
+        max-width: 100px;
         text-align: left;
+        .text-sm, .text-lg {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
 
       .create {
@@ -725,6 +727,10 @@
         margin: 0 auto;
         height: 90px;
 
+        .detail {
+          max-width: 170px;
+        }
+
         &.upper {
           flex-direction: row;
           align-items: flex-end;
@@ -780,7 +786,7 @@
       }
 
       .text-sm {
-        font-size: 8pt;
+        font-size: 9pt;
         &.move {
           font-size: 10pt;
           max-width: none;
@@ -880,7 +886,7 @@
         line-height: 11pt;
       }
       .text-lg {
-        font-size: 10pt;
+        font-size: 11pt;
         line-height: 14pt;
       }
 
